@@ -1,4 +1,4 @@
-###Introduction 
+### Introduction 
 
 Our team will create a program to run simple Logo (SLogo).  This program is meant to increase understanding of code by simulating movement, mathematical operations, and other actions using an appealing GUI with a turtle object.  The primary design goals of this project are to create a flexible interpreter to parse information that the user inputs in the UI and use that to perform actions to visualize or display on the UI.  User inputs will be handled to change the scene or alter the state of the turtle, update a scene with updated turtle positions, and throw necessary exceptions when the user inputs malformatted commands into the textbox. 
 
@@ -6,7 +6,7 @@ The most flexible part of the project will be the interpreter because it has to 
 
 At a high level, the controller will send user text input from the front end driver to the back end driver, and the controller will also be responsible for sending the resulting commands from the interpreter’s backend driver to the frontend (view) driver. There will be 4 APIs--one that handles the external front end public methods, one that handles the internal front end public methods, one that handles the external back end methods, and one that handles the internal back end public methods. This controller will send input based on how the user interacts with the program and will be managed by the front end. 
 
-###Design Overview
+### Design Overview
 
 ![Flow](pic1.png)
 
@@ -28,7 +28,7 @@ In the back end, ComputeActions is the external API implementation, and the Cont
 
 Parser is the internal back end API implementation.  It is triggered by BackEndDriver using getCommands() and processCommands(String[] commands).  Parser uses the Commands class to operate on information given and then returns a new TurtleInfo object to the BackEndDriver.  
 
-###User Interface 
+### User Interface 
 
 The user will interact with our program through a textbox. The textbox will be a class in our design. There will also be a button called ‘Enter’. The button will have an EventHandler so that whenever the button is pressed by the user, the text inside the textbox will be obtained and other actions will be triggered. If data input is not valid, an error message will pop up to alert the user. For future extension, more buttons can be created when the user cannot interact through a command. This is easy as we only need to add the new button to the scene. Specifically, the design will look like:
 
@@ -38,8 +38,8 @@ The user will interact with our program through a textbox. The textbox will be a
 
 
 
-###API Details 
-####Front-end
+### API Details 
+#### Front-end
 * There will be two APIs for the front-end/model--one external that controls the flow of information from the front-end to the controller, and one internal that controls the flow of information within the front end (ie, to and from the driver class). 
 
 * The external front end API will have the following methods: setRawInput(), getRawInput() and getCommand(). The getRawInput() method will be used by the controller to get the String of the input commands that the user enters into the textbox, which will be passed through the controller to the back end interpreter. Then, the controller will receive the command from the back end interpreter, and the Model driver will call getCommand() to get that command from the controller. This could be extended to include other information that the user would have to pass on to the interpreter by including new information into the driver.
@@ -48,7 +48,7 @@ The user will interact with our program through a textbox. The textbox will be a
 
 * The front end will be responsible for throwing any exceptions occurring in the back end interpreter. An exception class will be created and called from the external API since it involves a communication between the backend and frontend to show a pop up and require the user to take appropriate action. 
 
-####Back-end
+#### Back-end
 * Classes: (also described in the API document)
     * Driver: communicates between the parts of the backend and is where most of the internal api calls are made, calls the parser first to parse the inputText, then works with the returned list by using reflection to determine which method to call in the Command class. This is done by working from the last command in the list (the innermost function) and the first values in the list taking as many parameters as needed. This will also have to get rid of finished functions and replace initial values with returned values and get rid of extra spaces of values that have been used (shifting other values up). This will also have to convert the value strings into integers/doubles that can be manipulated. This loops through the double list and catches any errors/exception handling. Finally it generates the new TurtleInfo after the commands have been executed.
     * Parser: parses the String inputText from the frontend 
@@ -88,7 +88,7 @@ Since this returns the TurtleInfo object it is very easy to extend this when mor
         * SetHeading(double degrees) <br/>//returns a TurtleInfo object with all 0.0s except the absR as the degrees parameter
 
 
-###API Example Code 
+### API Example Code 
 * Hide the turtle<br/>
 The textbox receives the command, and uses its getText() method to pass the information on to the controller, which receives it via its getRawInputView() method. The controller then passes this command on to the interpreter, which accesses it via its getRawInputModel() command. Then, the interpreter outputs the command as an array of all things updated, which the controller accesses through the getCommand() method. The interpreter also stores this command via storeCommand() in its internal API. The front end driver successfully receives this information via the getCommand() method apart of the external Model API. Once it is received, all pieces of the command are separated and each possible characteristic of the turtle is updated with its command. Of course, all other aspects of the turtle will remain the same since they will be passed 0 or “false” to not change. The setTurtleVisibility() method will be called, which will be a part of the Model Internal API, to not display the actual imageview of the turtle. 
 * Turn the turtle 45 degrees and move forward 15 units<br/>
@@ -106,20 +106,20 @@ This means move the turtle up by 50 pixels. Within Parser, this instruction will
 * Handle instruction “fd sum 45 45”<br/>
 After BackEndDriver passes this instruction to the Parser, the Parser will go through the String backwards, first starting at the two 45s and the sum, using reflection to map sum to the sum method, and then add the two 45s.  Then, the Parser parsing method will store the 90 and then essentially compute actions for “fd 90” as described above.
 
-###Design Considerations 
+### Design Considerations 
 This section describes any issues which need to be addressed or resolved before attempting to devise a complete design solution. Include any design decisions that the group discussed at length (include pros and cons from all sides of the discussion) as well as any ambiguities, assumptions, or dependencies regarding the program that impact the overall design.
 
 One issue that we discussed extensively is that where we should put the EventHandler method for buttons. When the “enter” button is pressed, there should be an EventHandler to actually change the turtle. This requires change of scene. If the EventHandler is put inside Button Class, it would be hard to change the scene because the stage is in the Front end driver class. So we decide to put the EventHandler method inside Front end driver class. It makes much sense but it also has the disadvantage of making the Front end driver class longer. 
 
 Another design consideration we had was determining whether information should be duplicated in the frontend and backend. The turtle location and parameters are held closely to the frontend for visualization, so having them in the backend seemed redundant. Also then there would need to be more information in the external APIs to transfer this information and then the getters and setters would also have to be encapsulated. We decided that this seemed unnecessary and that we could just keep the absolute values and parameters in the frontend where graphical display actually happens and generate all of the differences/changes in the backend through reading the instructions
 
-###Team Responsibilities 
+### Team Responsibilities 
 * Archana - Backend, PRIMARY coding instructions, SECONDARY helping with parsing the text from the front end
 * Kelly - Backend, PRIMARY parsing text from the front end, SECONDARY helping code instructions
 * Owen - Frontend, PRIMARY setting up the stage, images, observers and eventhandlers for all state changes, SECONDARY helping with the controller and movement logic 
 * YiQin - Frontend, PRIMARY setting up the movement logic (mostly math) using the displacement values passed from the backend, SECONDARY helping with the controller and the display logic
 
-###PLAN
+### PLAN
 We plan to have the basic structure of the frontend and backend fleshed out by next Wednesday/Thursday the 18th/19th. For the frontend, this constitutes the display of the turtle, textbox and other buttons/interactions, and being able to interpret what the backend sends to the front end through external apis. For the backend, this constitutes being able to parse all of the instructions that are passed from the front end to the backend through external apis. Then being able to interpret said instruction and pass the updated info to the frontend.
 
 Then for the next days until the basic implementation is due, we will connect the frontend and backend, creating the Driver and Controller classes and also debug where needed. We will also work on refactoring our code to get rid of redundancies, clarify variable and method names, and make our code more efficient.  Also increasing polymorphism would be nice and adding more abstraction, making the next sprint easier.  We will also take some time to reflect and speculate what the next sprint could consist of.  Then we will face the next sprint confidently and plan accordingly. We will probably keep similar subgroups for backend and frontend, but that could also change, so we will see!
