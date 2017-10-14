@@ -1,4 +1,4 @@
-###Frontend 
+### Frontend 
 * External 
     * The graphical interface will be a part of the Front End driver class, while the interpreter will be a part of the BackEnd driver class. They will be linked through the controller, which has access to the front end external API and backend external API. The controller will be able to communicate the necessary information between the back end and front end. 
     * Things that will be available are the raw input the user puts into the textbox and the command arguments that the interpreter will be able to parse. Errors involving incorrect/malformatted input strings will be thrown by the interpreter and displayed by the Front End error message class. In summary, the driver classes between the backend and frontend communicate through the controller
@@ -22,7 +22,7 @@ All of these methods will need to be public is noted
 
 
 
-###Backend
+### Backend
 * Driver Class
     * When language is clicked on the frontend (external api), use the correct resource language file to create the map of words in that language to instructions in english
     * Driver instantiated w constructor that takes in String language as an input.
