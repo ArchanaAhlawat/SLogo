@@ -3,15 +3,15 @@ package frontend;
 import javafx.scene.image.ImageView;
 
 public class Turtle {
-	public static final double ORIGIN_X = 0;
-	public static final double ORIGIN_Y = 0;
+	public static final double[] ORIGIN = new double[] {0,0};
 	
 	private ImageView myTurtle;
+	private double[] turtleCoords;
 	
 	public Turtle(ImageView image) {
 		myTurtle = image;
-		myTurtle.setX(ORIGIN_X);
-		myTurtle.setY(ORIGIN_Y);
+		setTurtleLoc(ORIGIN);
+		turtleCoords = new double[] {myTurtle.getX(),myTurtle.getY()};
 	}
 	
 	//Turtle queries------------------
@@ -27,9 +27,25 @@ public class Turtle {
 		return myTurtle.getY();
 	}
 	
+	protected int showing() {
+		return myTurtle.isVisible() ? 1 : 0;
+	}
+	
 	//---------------------------------
 	
 	//Turtle commands------------------------------
+	
+	protected double forward(double distance) {
+		double[] nPoint = VectorCalc.nPoint(turtleCoords, distance, myTurtle.getRotate(),true);
+		setTurtleLoc(nPoint);
+		return distance;
+	}
+	
+	protected double back(double distance) {
+		double[] nPoint = VectorCalc.nPoint(turtleCoords, distance, myTurtle.getRotate(),false);
+		setTurtleLoc(nPoint);
+		return distance;
+	}
 	
 	protected double setHeading(double degrees) {
 		double curHeading = myTurtle.getRotate();
@@ -37,12 +53,9 @@ public class Turtle {
 		return degrees - curHeading;
 	}
 	
-	protected double setXY(double x,double y) {
-		double curX = myTurtle.getX();
-		double curY = myTurtle.getY();
-		myTurtle.setX(x);
-		myTurtle.setY(y);
-		return Math.sqrt((x - curX)*(x - curX) + (y - curY)*(y - curY));
+	protected double setXY(double[] newCoords) {
+		setTurtleLoc(newCoords);
+		return VectorCalc.distance(newCoords,turtleCoords);
 	}
 	
 	protected double left(double degrees) {
@@ -66,12 +79,18 @@ public class Turtle {
 	}
 	
 	protected double home() {
-		double curX = myTurtle.getX();
-		double curY = myTurtle.getY();
-		myTurtle.setX(ORIGIN_X);
-		myTurtle.setY(ORIGIN_Y);
-		return Math.sqrt(curX*curX + curY * curY);
+		setTurtleLoc(ORIGIN);
+		return Math.sqrt(turtleCoords[0]*turtleCoords[0] + turtleCoords[1] * turtleCoords[1]);
 	}
 	
 	//---------------------------------------------------
+	
+	// Useful turtle tools-----------------------------------------
+	
+	private void setTurtleLoc(double[] newCoords) {
+		myTurtle.setX(newCoords[0]);
+		myTurtle.setY(newCoords[1]);
+		turtleCoords[0] = newCoords[0];
+		turtleCoords[1] = newCoords[1];
+	}
 }
