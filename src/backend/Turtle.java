@@ -2,25 +2,25 @@ package backend;
 
 public class Turtle implements Commands {
 
-	private double x, y, r;
-	// x=0, y=0 is in center
-	// x increases to the right, y increases down
-	// r = 0 is pointed north (up)
-	// r is in degrees 0 to 360 going clockwise
+	private double xcor, ycor, theta;
+	// xcor=0, ycor=0 is in center
+	// xcor increases to the right, ycor increases down
+	// theta = 0 is pointed north (up)
+	// theta is in degrees 0 to 360 going clockwise
 	private boolean penDown, turtleVis;
 	
 	private static final double zero = 0.0;
 	
 
 	public Turtle() {
-		x = y = r = zero;
+		xcor = ycor = theta = zero;
 		penDown = turtleVis = true;
 	}
 	
 	public Turtle(double x, double y, double r, boolean penDown, boolean turtleVis) {
-		this.x = x;
-		this.y = y;
-		this.r = r;
+		this.xcor = x;
+		this.ycor = y;
+		this.theta = r;
 		this.penDown = penDown;
 		this.turtleVis = turtleVis;
 	}
@@ -45,44 +45,44 @@ public class Turtle implements Commands {
 
 	@Override
 	public Turtle forward(double pixels) {
-		return new Turtle(this.x + pixels*Math.sin(this.r/360),
-				this.y - pixels*Math.cos(this.r/360),
-				this.r,
+		return new Turtle(this.xcor + pixels*Math.sin(this.theta/360),
+				this.ycor - pixels*Math.cos(this.theta/360),
+				this.theta,
 				this.penDown,
 				this.turtleVis);
 	}
 
 	@Override
 	public Turtle back(double pixels) {
-		return new Turtle(this.x - pixels*Math.sin(this.r/360),
-				this.y + pixels*Math.cos(this.r/360),
-				this.r,
+		return new Turtle(this.xcor - pixels*Math.sin(this.theta/360),
+				this.ycor + pixels*Math.cos(this.theta/360),
+				this.theta,
 				this.penDown,
 				this.turtleVis);
 	}
 
 	@Override
 	public Turtle left(double degrees) {
-		return new Turtle(this.x,
-				this.y,
-				this.r - degrees,
+		return new Turtle(this.xcor,
+				this.ycor,
+				this.theta - degrees,
 				this.penDown,
 				this.turtleVis);
 	}
 
 	@Override
 	public Turtle right(double degrees) {
-		return new Turtle(this.x,
-				this.y,
-				this.r + degrees,
+		return new Turtle(this.xcor,
+				this.ycor,
+				this.theta + degrees,
 				this.penDown,
 				this.turtleVis);
 	}
 
 	@Override
 	public Turtle setHeading(double degrees) {
-		return new Turtle(this.x,
-				this.y,
+		return new Turtle(this.xcor,
+				this.ycor,
 				degrees,
 				this.penDown,
 				this.turtleVis);
@@ -92,43 +92,43 @@ public class Turtle implements Commands {
 	public Turtle setXY(double[] xy) {
 		return new Turtle(xy[0],
 				xy[1],
-				this.r,
+				this.theta,
 				this.penDown,
 				this.turtleVis);
 	}
 
 	@Override
 	public Turtle penDown() {
-		return new Turtle(this.x,
-				this.y,
-				this.r,
+		return new Turtle(this.xcor,
+				this.ycor,
+				this.theta,
 				true,
 				this.turtleVis);
 	}
 
 	@Override
 	public Turtle penUp() {
-		return new Turtle(this.x,
-				this.y,
-				this.r,
+		return new Turtle(this.xcor,
+				this.ycor,
+				this.theta,
 				false,
 				this.turtleVis);
 	}
 
 	@Override
 	public Turtle showTurtle() {
-		return new Turtle(this.x,
-				this.y,
-				this.r,
+		return new Turtle(this.xcor,
+				this.ycor,
+				this.theta,
 				this.penDown,
 				true);
 	}
 
 	@Override
 	public Turtle hideTurtle() {
-		return new Turtle(this.x,
-				this.y,
-				this.r,
+		return new Turtle(this.xcor,
+				this.ycor,
+				this.theta,
 				this.penDown,
 				false);
 	}
@@ -137,7 +137,7 @@ public class Turtle implements Commands {
 	public Turtle home() {
 		return new Turtle(zero,
 				zero,
-				this.r,
+				this.theta,
 				this.penDown,
 				true);
 	}
