@@ -2,28 +2,28 @@ package backend;
 
 public interface Commands {
 	
-	public Turtle forward(double pixels);
+	public double forward(double pixels);
 
-	public Turtle back(double pixels);
+	public double back(double pixels);
 
-	public Turtle left(double degrees);
+	public double left(double degrees);
 
-	public Turtle right(double degrees);
+	public double right(double degrees);
 
-	public Turtle setHeading(double degrees);
+	public double setHeading(double degrees);
 
-	public Turtle setXY(double[] xy);
+	public double setXY(double[] xy);
 
-	public Turtle penDown();
+	public int penDown();
 
-	public Turtle penUp();
+	public int penUp();
 
-	public Turtle showTurtle();
+	public int showTurtle();
 
-	public Turtle hideTurtle();
+	public int hideTurtle();
 
-	public Turtle home();
+	public double home();
 
-	public Turtle clearScreen();
+	public double clearScreen();
 
 }
