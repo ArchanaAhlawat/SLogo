@@ -26,7 +26,7 @@ public class DisplayTurtle {
 		myTurtle.setY(turtle.getY());
 		myTurtle.setRotattion(turtle.getRotation());
 		myTurtle.setVisible(turtle.isVisible());
->>>>>>> 42fc5097dc606a5927f2c54eaa4543505ab9bd73
+
 	}
 
 }
