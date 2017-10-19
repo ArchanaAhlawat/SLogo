@@ -26,6 +26,11 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class FrontEndDriver extends Application {
+	
+	private static final double GRID_X1 = 100;	//this should be the left-most line coordinate of the turtle grid
+	private static final double GRID_X2 = 200;	//this should be the right-most line coordinate of the turtle grid
+	private static final double GRID_Y1 = 120;	//this should be the top-most line coordinate of the turtle grid
+	private static final double GRID_Y2 = 220;	//this should be the bottom-most line coordinate of the turtle grid
     
 	private static final int POPUPWINDOWSIZE = 300;
 	private Stage window;
@@ -38,6 +43,9 @@ public class FrontEndDriver extends Application {
 	private static final int button_width = 200;
 	private static final int button_height = 40;
 	private static final String DEFAULT_RESOURCE_PACKAGE = "resources.languages/buttons";
+	
+	public static final double ORIGIN_X = (GRID_X1 + GRID_X2)/2;
+	public static final double ORIGIN_Y = (GRID_Y1 + GRID_Y2)/2;
 	
 	private static final Paint background = Color.WHITE;
 
