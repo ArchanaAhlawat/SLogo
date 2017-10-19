@@ -37,8 +37,8 @@ public class FrontEndDriver extends Application {
 	private static final int height = 800;
 	private static final int button_width = 200;
 	private static final int button_height = 40;
-	private static final String DEFAULT_RESOURCE_PACKAGE = "resources.languages/";
-	private static final String defaultLanguage = "English";
+	private static final String DEFAULT_RESOURCE_PACKAGE = "resources.languages/buttons";
+	
 	private static final Paint background = Color.WHITE;
 
 
@@ -48,7 +48,7 @@ public class FrontEndDriver extends Application {
 	
 	@Override
 	public void start(Stage primaryStage)throws Exception {
-		myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + defaultLanguage);
+		myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE);
 		window = primaryStage;
 		HBox layout = new HBox(VBOX_SPACING);
 		root = new Group();
@@ -75,15 +75,21 @@ public class FrontEndDriver extends Application {
 		layout.getChildren().addAll(b1,b2,b3,b4,b5);
 	}
 	
+	
 	private Button turtleImageButton() {
-		Button b=makeButton(myResources.getString("SetShape"));
+		
+		Button b=makeButton(myResources.getString("SetImage"));
+		
 		b.setOnAction(e ->{
 			FileChooser fileChooser = new FileChooser();
-			fileChooser.setTitle(myResources.getString("SetShape"));
+			fileChooser.setTitle(myResources.getString("SetImage"));
 			File k=fileChooser.showOpenDialog(window);
 		});
+		
 		return b;
+		
 	}
+	
 	
 	private Button backgroundButton() {
 		Button b=makeButton(myResources.getString("SetBackground"));
