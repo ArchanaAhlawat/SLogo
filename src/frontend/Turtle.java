@@ -2,6 +2,11 @@ package frontend;
 
 import javafx.scene.image.ImageView;
 
+/**
+ * This class is the original backend class I wrote for turtle--can be ignored for now! The real front end turtle class is called "DisplayTurtle"
+ * @author Owen Smith
+ *
+ */
 public class Turtle {
 	public static final double[] ORIGIN = new double[] {0,0};
 	
