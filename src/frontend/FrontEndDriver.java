@@ -40,6 +40,13 @@ import javafx.stage.Stage;
 
 public class FrontEndDriver extends Application {
 	
+<<<<<<< HEAD
+=======
+	private static final double GRID_X1 = 100;	//this should be the left-most line coordinate of the turtle grid
+	private static final double GRID_X2 = 200;	//this should be the right-most line coordinate of the turtle grid
+	private static final double GRID_Y1 = 120;	//this should be the top-most line coordinate of the turtle grid
+	private static final double GRID_Y2 = 220;	//this should be the bottom-most line coordinate of the turtle grid
+>>>>>>> 42fc5097dc606a5927f2c54eaa4543505ab9bd73
     
 	private ImageView turtleImage;
 	private Stage window;
@@ -55,6 +62,9 @@ public class FrontEndDriver extends Application {
 	private static final int LAYOUTCONSTANT = 50;
 	private static final int POPUPWINDOWSIZE = 300;
 	private static final int TURTLESIZE = 50;
+	
+	public static final double ORIGIN_X = (GRID_X1 + GRID_X2)/2;
+	public static final double ORIGIN_Y = (GRID_Y1 + GRID_Y2)/2;
 	
 	private static final Paint background = Color.WHITE;
 
