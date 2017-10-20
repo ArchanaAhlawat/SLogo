@@ -130,14 +130,12 @@ public class FrontEndDriver extends Application {
 	private void addTurtleArea() {
 	
 		turtleArea= new BorderPane();
-		turtleImage.setTranslateX(ORIGIN_X);
-		turtleImage.setTranslateY(ORIGIN_Y);
+		turtleArea.setCenter(turtleImage);
 		turtleArea.setPrefWidth(GRID_X2-GRID_X1);
 		turtleArea.setPrefHeight(GRID_Y2-GRID_Y1);
 		turtleArea.setTranslateX(GRID_X1);
 		turtleArea.setTranslateY(GRID_Y1);
 		turtleArea.setStyle("-fx-background-color: honeydew");
-		turtleArea.getChildren().add(turtleImage);
 		
 		
 		
@@ -156,9 +154,6 @@ public class FrontEndDriver extends Application {
         turtleImage= new ImageView(image);
 		turtleImage.setFitHeight(TURTLESIZE);
 		turtleImage.setFitWidth(TURTLESIZE);
-		
-	
-		root.getChildren().add(turtleImage);
 	}
 	
      
