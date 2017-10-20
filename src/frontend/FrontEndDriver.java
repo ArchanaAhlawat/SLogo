@@ -170,12 +170,19 @@ public class FrontEndDriver extends Application {
 		b.setPrefSize(SUBMIT_BUTTON_WIDTH, SUBMIT_BUTTON_HEIGHT);
 		
 		b.setOnAction(e ->{
+			if (command.getText().equals(null)) {
+				System.out.println("error");
+				
+			}
+			else {
 			String currentCommand=command.getText()+"\n";
 			String past=allHistory.getText();
 			allHistory=new Text(past+currentCommand);
 			allHistory.setTranslateX(LABEL_X);
 			allHistory.wrappingWidthProperty().bind(history.widthProperty());
 			history.setContent(allHistory);
+			command.clear();
+			}
 		
 		
 		});
