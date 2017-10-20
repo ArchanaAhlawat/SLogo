@@ -25,6 +25,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -42,6 +43,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -72,6 +74,9 @@ public class FrontEndDriver extends Application {
 	private Stage window;
 	private Group root;
 	private ResourceBundle myResources;
+	private TextField command;
+	private Text allHistory=new Text("");
+	private Pane history;
 	
 	private static final int VBOX_SPACING = 7;
 	private static final int width = 1000;
@@ -141,13 +146,12 @@ public class FrontEndDriver extends Application {
 	
 	private void addCommandLine() {
 		
-		TextField command = new TextField ();
+		command = new TextField ();
 		command.setPromptText(myResources.getString("Prompt"));
 		command.setPrefHeight(COMMANDHEIGHT);
 		command.setPrefWidth(COMMANDWIDTH);
 		
-		Button b = new Button(myResources.getString("Submit"));
-		b.setPrefSize(SUBMIT_BUTTON_WIDTH, SUBMIT_BUTTON_HEIGHT);
+		Button b=addSubmitButton();
 		
 		HBox hb = new HBox();
 		hb.getChildren().addAll(command,b);
@@ -158,8 +162,47 @@ public class FrontEndDriver extends Application {
 		
 	}
 	
+	private Button addSubmitButton() {
+		Button b = new Button(myResources.getString("Submit"));
+		b.setPrefSize(SUBMIT_BUTTON_WIDTH, SUBMIT_BUTTON_HEIGHT);
+		
+		b.setOnAction(e ->{
+			String currentCommand=command.getText()+"\n";
+			String past=allHistory.getText();
+			allHistory=new Text(past+currentCommand);
+			allHistory.setTranslateY(50);
+			allHistory.setTranslateX(5);
+			allHistory.wrappingWidthProperty().bind(history.widthProperty());
+			history.getChildren().add(allHistory);
+			
+			
+			
+			
+			
+			
+			
+			
+	
+		
+		});
+		
+		return b;
+		
+	}
+	
 	private void addHistory() {
-		Pane history=addPane(HISTORY_X, HISTORY_Y,HISTORY_WIDTH,(GRID_Y2-GRID_Y1));
+		/*
+		ScrollPane bp = new ScrollPane();
+		bp.setTranslateX(HISTORY_WIDTH);
+		bp.setTranslateY(GRID_Y2-GRID_Y1);
+		bp.setPrefWidth(width);
+		bp.setPrefHeight(height);
+		bp.setBorder(new Border(new BorderStroke(Color.BLACK, 
+	            BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+		
+		root.getChildren().add(bp);
+		*/
+		history=addPane(HISTORY_X, HISTORY_Y,HISTORY_WIDTH,(GRID_Y2-GRID_Y1));
 		Label history_label=addLabel("History",LABEL_X,LABEL_Y);
 		history.getChildren().add(history_label);
 	
@@ -184,17 +227,13 @@ public class FrontEndDriver extends Application {
 	}
 	
 	
-	
-
-	
-	
-	
 	private void addTurtleArea() {
 	    turtleArea=addPane(GRID_X1,GRID_Y1,(GRID_X2-GRID_X1),(GRID_Y2-GRID_Y1));
 	    turtleArea.getChildren().add(turtleImage);
 		turtleImage.setX(ORIGIN_X);
 		turtleImage.setY(ORIGIN_Y);
 		turtleArea.setStyle("-fx-background-color: honeydew");
+		
 	}
 	
 	private Pane addPane(double X, double Y,double width,double height) {
@@ -274,8 +313,8 @@ public class FrontEndDriver extends Application {
 	                BufferedImage bufferedImage = ImageIO.read(file);
 	                Image image = SwingFXUtils.toFXImage(bufferedImage, null);
 	                turtleImage.setImage(image);
-	            } catch (IOException ex) {
-	                Logger.getLogger(FrontEndDriver.class.getName()).log(Level.SEVERE, null, ex);
+	            } catch (Exception ex) {
+	                
 	            }
 
 			
@@ -297,8 +336,11 @@ public class FrontEndDriver extends Application {
 	    colorPicker.setOnAction(new EventHandler<ActionEvent>() {
 	    	  @Override
 	        public void handle(ActionEvent t) {
-	                //turtleArea.setFill(colorPicker.getValue());
-	    		       Paint fill = colorPicker.getValue();
+	               
+	    		       Paint fill = colorPicker.getValue();  
+	               BackgroundFill backgroundFill = new BackgroundFill(fill, CornerRadii.EMPTY, Insets.EMPTY);
+	               Background background = new Background(backgroundFill);
+	               turtleArea.setBackground(background);
 
 	            	   
 	            	    
