@@ -48,8 +48,13 @@ import javafx.stage.Stage;
 public class FrontEndDriver extends Application {
 	
 
+	private static final int BUTTONS_Y = 30;
+	private static final int LABEL_Y = 0;
+	private static final int LABEL_X = 5;
 	private static final int HISTORY_WIDTH = 300;
-	private static final int HISTORY_Y = 70;
+	private static final int RETURN_HEIGHT = 70;
+	private static final int RETURN_Y = 530;
+	private static final int HISTORY_Y = 100;
 	private static final int HISTORY_X = 600;
 	private static final int HBOX_SPACING = 20;
 	private static final int SUBMIT_BUTTON_WIDTH = 80;
@@ -57,10 +62,9 @@ public class FrontEndDriver extends Application {
 	private static final int COMMANDWIDTH = 350;
 	private static final int COMMANDHEIGHT = 40;
 	private static final int TURTLEAREA_TEXTFILED_SPACE = 50;
-	private static final Color DEFAULTBACKGROUND = Color.ALICEBLUE;
 	private static final double GRID_X1 = 50;	//this should be the left-most line coordinate of the turtle grid
 	private static final double GRID_X2 = 500;	//this should be the right-most line coordinate of the turtle grid
-	private static final double GRID_Y1 = 70;	//this should be the top-most line coordinate of the turtle grid
+	private static final double GRID_Y1 = 100;	//this should be the top-most line coordinate of the turtle grid
 	private static final double GRID_Y2 = 500;	//this should be the bottom-most line coordinate of the turtle grid
 
     private Pane turtleArea;
@@ -86,25 +90,52 @@ public class FrontEndDriver extends Application {
 		myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE);
 		window = primaryStage;
 		HBox layout = new HBox(VBOX_SPACING);
+		HBox layout2=new HBox(VBOX_SPACING);
+		addLabelsForButtons(layout2);
+		
+		
 		root = new Group();
 		
 		
 		Scene startScene= new Scene(root, width, height);
 		//call turtle
 		
-		root.getChildren().add(layout);
+		root.getChildren().addAll(layout,layout2);
 		addAllButtons(layout);
 		
 		addTurtleImage();
 		addTurtleArea();
 		addCommandLine();
 		addHistory();
+		addReturn();
 		
 		
 	
 		window.setTitle("SLogo");
 		window.setScene(startScene);
 		window.show();
+		
+	}
+	
+	private void addLabelsForButtons(HBox hb) {
+		hb.setTranslateY(5);
+		Label l1=addLabelForButton("ImageLabel");	
+		Label l2=addLabelForButton("BackgroundLabel");
+		Label l3=addLabelForButton("PenLabel");
+		Label l4=addLabelForButton("LanguageLabel");
+
+		
+		
+		hb.getChildren().addAll(l1,l2,l3,l4);
+		
+		
+	}
+	
+	private Label addLabelForButton(String name) {
+		Label l=new Label(myResources.getString(name));
+		l.setPrefWidth(button_width);
+		return l;
+		
 		
 	}
 	
@@ -129,18 +160,32 @@ public class FrontEndDriver extends Application {
 	
 	private void addHistory() {
 		Pane history=addPane(HISTORY_X, HISTORY_Y,HISTORY_WIDTH,(GRID_Y2-GRID_Y1));
-
-		Label history_label=new Label("History:");
-	
-		history_label.setTranslateX(HISTORY_X);
-		history_label.setTranslateY(HISTORY_Y);
+		Label history_label=addLabel("History",LABEL_X,LABEL_Y);
 		history.getChildren().add(history_label);
+	
 		
+	}
+	
+	private Label addLabel(String labelName,double X, double Y) {
+		Label lb=new Label(myResources.getString(labelName));
+		lb.setTranslateX(X);
+		lb.setTranslateY(Y);
 		
-		root.getChildren().add(history_label);
+		return lb;
+	}
+	
+	
+	private void addReturn() {
+		Pane returnValue=addPane(HISTORY_X, RETURN_Y,HISTORY_WIDTH,RETURN_HEIGHT);
+		Label return_label=addLabel("Return",LABEL_X,LABEL_Y);
+		returnValue.getChildren().add(return_label);
 		
 		
 	}
+	
+	
+	
+
 	
 	
 	
@@ -180,6 +225,8 @@ public class FrontEndDriver extends Application {
      
 
 	public void addAllButtons(HBox layout) {
+		
+		layout.setTranslateY(BUTTONS_Y);
 		Button b1=turtleImageButton();
 		
 		final ColorPicker b2 = backgroundButton();
@@ -243,6 +290,7 @@ public class FrontEndDriver extends Application {
 	
 	private ColorPicker backgroundButton() {
 		final ColorPicker colorPicker = new ColorPicker();
+		
 		colorPicker.setPrefWidth(button_width);
 		colorPicker.setPrefHeight(button_height);	
 	    colorPicker.setValue(Color.WHITE);
@@ -266,6 +314,7 @@ public class FrontEndDriver extends Application {
 		colorPicker.setPrefWidth(button_width);
 		colorPicker.setPrefHeight(button_height);	
 	    colorPicker.setValue(Color.WHITE);
+	    
 	   
 	    colorPicker.setOnAction(new EventHandler<ActionEvent>() {
 	    	
@@ -329,44 +378,6 @@ public class FrontEndDriver extends Application {
 	public static void main(String[] args) {
 		launch(args);
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 
