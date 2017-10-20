@@ -12,10 +12,10 @@ public class DisplayTurtle {
 	}
 	
 	protected void updateTurtle(Turtle turtle) {
-		myTurtle.setX(turtle.getX());
-		myTurtle.setY(turtle.getY());
-		myTurtle.setRotattion(turtle.getRotation());
-		myTurtle.setVisible(turtle.isVisible());
+//		myTurtle.setX(turtle.getX());
+//		myTurtle.setY(turtle.getY());
+//		myTurtle.setRotattion(turtle.getRotation());
+//		myTurtle.setVisible(turtle.isVisible());
 	}
 
 }

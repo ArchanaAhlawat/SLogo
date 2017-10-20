@@ -5,6 +5,7 @@ import java.util.List;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
+import javafx.scene.shape.PathElement;
 
 
 public class TurtlePath {
@@ -29,6 +30,11 @@ public class TurtlePath {
 				double endY = end.get(i).get(Y_INDEX);
 				path.getElements().add(new MoveTo(startX,startY));
 				path.getElements().add(new LineTo(endX,endY));
+			}
+		}
+		else if(currPathSize == 0){
+			for(PathElement e : path.getElements()) {
+				path.getElements().remove(e);
 			}
 		}
 	}
