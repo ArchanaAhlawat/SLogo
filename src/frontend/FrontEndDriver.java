@@ -36,6 +36,7 @@ import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
@@ -156,7 +157,9 @@ public class FrontEndDriver extends Application {
 		turtleImage.setFitWidth(TURTLESIZE);
 	}
 	
-     
+    private void addColorChooserLabel(ColorPicker b) {
+    	VBox vbox = new VBox();
+    }
 
 	public void addAllButtons(HBox layout) {
 		Button b1=turtleImageButton();
