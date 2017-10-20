@@ -69,6 +69,7 @@ public class FrontEndDriver extends Application {
 
     private Pane turtleArea;
 	private ImageView turtleImage;
+	private DisplayTurtle displayTurtle;
 	private Stage window;
 	private Group root;
 	private ResourceBundle myResources;
@@ -79,6 +80,7 @@ public class FrontEndDriver extends Application {
 	private static final int button_width = 200;
 	private static final int button_height = 40;
 	private static final String DEFAULT_RESOURCE_PACKAGE = "resources.languages/buttons";
+	private static final String DEFAULT_TURTLE_DIRECTORY = "src/resources/turtle.png";
 	private static final int TURTLESIZE = 50;
 	
 	public static final double ORIGIN_X = (GRID_X2 - GRID_X1 - TURTLESIZE)/2;
@@ -192,8 +194,6 @@ public class FrontEndDriver extends Application {
 	private void addTurtleArea() {
 	    turtleArea=addPane(GRID_X1,GRID_Y1,(GRID_X2-GRID_X1),(GRID_Y2-GRID_Y1));
 	    turtleArea.getChildren().add(turtleImage);
-		turtleImage.setX(ORIGIN_X);
-		turtleImage.setY(ORIGIN_Y);
 		turtleArea.setStyle("-fx-background-color: honeydew");
 	}
 	
@@ -214,17 +214,18 @@ public class FrontEndDriver extends Application {
 
 
 
-	public void addTurtleImage() {
-		File file = new File("src/resources/turtle.png");
+	private void addTurtleImage() {
+		File file = new File(DEFAULT_TURTLE_DIRECTORY);
         Image image = new Image(file.toURI().toString());
         turtleImage= new ImageView(image);
 		turtleImage.setFitHeight(TURTLESIZE);
 		turtleImage.setFitWidth(TURTLESIZE);
+		displayTurtle = new DisplayTurtle(turtleImage,ORIGIN_X,ORIGIN_Y);
 	}
 	
      
 
-	public void addAllButtons(HBox layout) {
+	private void addAllButtons(HBox layout) {
 		
 		layout.setTranslateY(BUTTONS_Y);
 		Button b1=turtleImageButton();
@@ -275,8 +276,7 @@ public class FrontEndDriver extends Application {
 	                BufferedImage bufferedImage = ImageIO.read(file);
 	                Image image = SwingFXUtils.toFXImage(bufferedImage, null);
 	                turtleImage.setImage(image);
-	            } catch (IOException ex) {
-	                Logger.getLogger(FrontEndDriver.class.getName()).log(Level.SEVERE, null, ex);
+	            } catch (Exception ex) {
 	            }
 
 			

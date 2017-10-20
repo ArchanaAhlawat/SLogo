@@ -25,10 +25,6 @@ public class DisplayTurtle {
 		myTurtle.setY(originY);
 	}
 	
-	protected ImageView getTurtleImage() {
-		return myTurtle;
-	}
-	
 	protected void updateTurtle(List<Double> turtleUpdates) {
 		myTurtle.setX(turtleUpdates.get(getUpdateIndex(XCOR)));
 		myTurtle.setY(turtleUpdates.get(getUpdateIndex(YCOR)));
