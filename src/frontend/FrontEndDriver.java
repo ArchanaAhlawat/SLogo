@@ -28,6 +28,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Border;
@@ -76,8 +77,8 @@ public class FrontEndDriver extends Application {
 	private static final String DEFAULT_RESOURCE_PACKAGE = "resources.languages/buttons";
 	private static final int TURTLESIZE = 50;
 	
-	public static final double ORIGIN_X = (GRID_X1 + GRID_X2)/2;
-	public static final double ORIGIN_Y = (GRID_Y1 + GRID_Y2)/2;
+	public static final double ORIGIN_X = (GRID_X2 - GRID_X1 - TURTLESIZE)/2;
+	public static final double ORIGIN_Y = (GRID_Y2 - GRID_Y1 - TURTLESIZE)/2;
 	
 	
 	@Override
@@ -145,13 +146,10 @@ public class FrontEndDriver extends Application {
 	
 	private void addTurtleArea() {
 	    turtleArea=addPane(GRID_X1,GRID_Y1,(GRID_X2-GRID_X1),(GRID_Y2-GRID_Y1));
-		//turtleImage.setTranslateX(ORIGIN_X);
-		//turtleImage.setTranslateY(ORIGIN_Y);
-		turtleImage.relocate(ORIGIN_X, ORIGIN_Y);
+	    turtleArea.getChildren().add(turtleImage);
+		turtleImage.setX(ORIGIN_X);
+		turtleImage.setY(ORIGIN_Y);
 		turtleArea.setStyle("-fx-background-color: honeydew");
-		turtleArea.getChildren().add(turtleImage);
-		
-		
 	}
 	
 	private Pane addPane(double X, double Y,double width,double height) {
@@ -177,9 +175,6 @@ public class FrontEndDriver extends Application {
         turtleImage= new ImageView(image);
 		turtleImage.setFitHeight(TURTLESIZE);
 		turtleImage.setFitWidth(TURTLESIZE);
-		
-	
-		root.getChildren().add(turtleImage);
 	}
 	
      
