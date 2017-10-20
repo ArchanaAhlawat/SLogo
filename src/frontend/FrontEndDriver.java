@@ -76,8 +76,9 @@ public class FrontEndDriver extends Application {
 	private Group root;
 	private ResourceBundle myResources;
 	private TextField command;
-	private Text allHistory=new Text("");
-	private Pane history;
+	private Text allHistory=new Text("History:\n");
+	private ScrollPane history;
+	private Label history_label;
 	
 	private static final int VBOX_SPACING = 7;
 	private static final int width = 1000;
@@ -172,19 +173,10 @@ public class FrontEndDriver extends Application {
 			String currentCommand=command.getText()+"\n";
 			String past=allHistory.getText();
 			allHistory=new Text(past+currentCommand);
-			allHistory.setTranslateY(50);
-			allHistory.setTranslateX(5);
+			allHistory.setTranslateX(LABEL_X);
 			allHistory.wrappingWidthProperty().bind(history.widthProperty());
-			history.getChildren().add(allHistory);
-			
-			
-			
-			
-			
-			
-			
-			
-	
+			history.setContent(allHistory);
+		
 		
 		});
 		
@@ -193,20 +185,21 @@ public class FrontEndDriver extends Application {
 	}
 	
 	private void addHistory() {
-		/*
-		ScrollPane bp = new ScrollPane();
-		bp.setTranslateX(HISTORY_WIDTH);
-		bp.setTranslateY(GRID_Y2-GRID_Y1);
-		bp.setPrefWidth(width);
-		bp.setPrefHeight(height);
-		bp.setBorder(new Border(new BorderStroke(Color.BLACK, 
+	
+		history = new ScrollPane();
+		history.setTranslateX(HISTORY_X);
+		history.setTranslateY(HISTORY_Y);
+		history.setPrefWidth(HISTORY_WIDTH);
+		history.setPrefHeight(GRID_Y2-GRID_Y1);
+		history.setBorder(new Border(new BorderStroke(Color.BLACK, 
 	            BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+		allHistory.wrappingWidthProperty().bind(history.widthProperty());
+		root.getChildren().add(history);
 		
-		root.getChildren().add(bp);
-		*/
-		history=addPane(HISTORY_X, HISTORY_Y,HISTORY_WIDTH,(GRID_Y2-GRID_Y1));
-		Label history_label=addLabel("History",LABEL_X,LABEL_Y);
-		history.getChildren().add(history_label);
+		//history=addPane(HISTORY_X, HISTORY_Y,HISTORY_WIDTH,(GRID_Y2-GRID_Y1));
+		//history_label=addLabel("History",LABEL_X,LABEL_Y);
+		allHistory.setTranslateX(LABEL_X);
+		history.setContent(allHistory);
 	
 		
 	}
