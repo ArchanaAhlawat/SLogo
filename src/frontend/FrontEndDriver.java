@@ -218,6 +218,7 @@ public class FrontEndDriver extends Application {
 	            //Set extension filter
 	            FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter("JPG files (*.jpg)", "*.JPG");
 	            FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.PNG");
+	            fileChooser.setInitialDirectory(new File(System.getProperty("user.dir")));
 	            fileChooser.getExtensionFilters().addAll(extFilterJPG, extFilterPNG);
 	             
 	            //Show open file dialog
