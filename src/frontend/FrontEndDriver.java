@@ -134,12 +134,15 @@ public class FrontEndDriver extends Application {
 		history_label.setTranslateX(HISTORY_X);
 		history_label.setTranslateY(HISTORY_Y);
 		history.getChildren().add(history_label);
-		
-		
+			
 		root.getChildren().add(history_label);
 		
 		
 	}
+	
+	
+	
+
 	
 	
 	
