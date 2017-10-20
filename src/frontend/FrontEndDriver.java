@@ -24,6 +24,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Hyperlink;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -36,7 +37,7 @@ import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
@@ -46,6 +47,9 @@ import javafx.stage.Stage;
 public class FrontEndDriver extends Application {
 	
 
+	private static final int HISTORY_WIDTH = 300;
+	private static final int HISTORY_Y = 70;
+	private static final int HISTORY_X = 600;
 	private static final int HBOX_SPACING = 20;
 	private static final int SUBMIT_BUTTON_WIDTH = 80;
 	private static final int SUBMIT_BUTTON_HEIGHT = 40;
@@ -58,7 +62,7 @@ public class FrontEndDriver extends Application {
 	private static final double GRID_Y1 = 70;	//this should be the top-most line coordinate of the turtle grid
 	private static final double GRID_Y2 = 500;	//this should be the bottom-most line coordinate of the turtle grid
 
-    private BorderPane turtleArea;
+    private Pane turtleArea;
 	private ImageView turtleImage;
 	private Stage window;
 	private Group root;
@@ -70,8 +74,6 @@ public class FrontEndDriver extends Application {
 	private static final int button_width = 200;
 	private static final int button_height = 40;
 	private static final String DEFAULT_RESOURCE_PACKAGE = "resources.languages/buttons";
-	private static final int LAYOUTCONSTANT = 50;
-	private static final int POPUPWINDOWSIZE = 300;
 	private static final int TURTLESIZE = 50;
 	
 	public static final double ORIGIN_X = (GRID_X1 + GRID_X2)/2;
@@ -95,6 +97,7 @@ public class FrontEndDriver extends Application {
 		addTurtleImage();
 		addTurtleArea();
 		addCommandLine();
+		addHistory();
 		
 		
 	
@@ -124,27 +127,46 @@ public class FrontEndDriver extends Application {
 	}
 	
 	private void addHistory() {
-		Rectangle history= new Rectangle();
+		Pane history=addPane(HISTORY_X, HISTORY_Y,HISTORY_WIDTH,(GRID_Y2-GRID_Y1));
+
+		Label history_label=new Label("History:");
+	
+		history_label.setTranslateX(HISTORY_X);
+		history_label.setTranslateY(HISTORY_Y);
+		history.getChildren().add(history_label);
+		
+		
+		root.getChildren().add(history_label);
+		
+		
 	}
+	
 	
 	
 	private void addTurtleArea() {
-	
-		turtleArea= new BorderPane();
-		turtleArea.setCenter(turtleImage);
-		turtleArea.setPrefWidth(GRID_X2-GRID_X1);
-		turtleArea.setPrefHeight(GRID_Y2-GRID_Y1);
-		turtleArea.setTranslateX(GRID_X1);
-		turtleArea.setTranslateY(GRID_Y1);
+	    turtleArea=addPane(GRID_X1,GRID_Y1,(GRID_X2-GRID_X1),(GRID_Y2-GRID_Y1));
+		//turtleImage.setTranslateX(ORIGIN_X);
+		//turtleImage.setTranslateY(ORIGIN_Y);
+		turtleImage.relocate(ORIGIN_X, ORIGIN_Y);
 		turtleArea.setStyle("-fx-background-color: honeydew");
+		turtleArea.getChildren().add(turtleImage);
 		
-		
-		
-		root.getChildren().add(turtleArea);
-	
 		
 	}
 	
+	private Pane addPane(double X, double Y,double width,double height) {
+		Pane bp=new Pane();
+		bp.setTranslateX(X);
+		bp.setTranslateY(Y);
+		bp.setPrefWidth(width);
+		bp.setPrefHeight(height);
+		bp.setBorder(new Border(new BorderStroke(Color.BLACK, 
+	            BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+		
+		root.getChildren().add(bp);
+		return bp;
+		
+	}
 	
 
 
@@ -155,11 +177,12 @@ public class FrontEndDriver extends Application {
         turtleImage= new ImageView(image);
 		turtleImage.setFitHeight(TURTLESIZE);
 		turtleImage.setFitWidth(TURTLESIZE);
+		
+	
+		root.getChildren().add(turtleImage);
 	}
 	
-    private void addColorChooserLabel(ColorPicker b) {
-    	VBox vbox = new VBox();
-    }
+     
 
 	public void addAllButtons(HBox layout) {
 		Button b1=turtleImageButton();
