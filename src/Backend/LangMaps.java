@@ -29,6 +29,7 @@ public class LangMaps {
 	 * @return Map<String, String> for selected language
 	 */
 	public Map<String, String> getMaps(String language) {
+		System.out.println("hi");
 		return allMaps.get(language);
 	}
 	
@@ -37,7 +38,7 @@ public class LangMaps {
 			Map<String, String> localeMap = new HashMap<String, String>();
 			ResourceBundle localeToAdd = ResourceBundle.getBundle("languages", loc);
 			for (String key : localeToAdd.keySet()) {
-				localeMap.put(key, localeToAdd.getString(key));
+				localeMap.put(localeToAdd.getString(key), key);
 			}
 			allMaps.put(loc.getLanguage(), localeMap);
 		}
