@@ -1,9 +1,9 @@
-package backend.commands;
+package backend.commands.turtleQueries;
 
 import java.lang.reflect.Method;
 
-import backend.Command;
 import backend.Turtle;
+import backend.commands.Command;
 
 public class TurtleQueries implements Command {
 

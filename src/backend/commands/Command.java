@@ -1,4 +1,6 @@
-package backend;
+package backend.commands;
+
+import backend.Turtle;
 
 public interface Command {
 

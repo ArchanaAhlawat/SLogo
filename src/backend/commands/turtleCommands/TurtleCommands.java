@@ -1,12 +1,12 @@
-package backend.commands;
+package backend.commands.turtleCommands;
 
 import java.lang.reflect.Method;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-import backend.Command;
 import backend.Turtle;
+import backend.commands.Command;
 
 /**
  * @author kelly
@@ -58,6 +58,7 @@ public class TurtleCommands implements Command {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 		return 0.0;
 	}
 	
@@ -120,6 +121,11 @@ public class TurtleCommands implements Command {
 	 */
 	public void turtleUpdate(double[] absoluteOrientation, boolean[] visibleEffects, Turtle currentTurtle) {
 		//currentTurtle.update(double[] absoluteOrientation, boolean[] visibleEffects);
+	}
+	
+	
+	public static void main (String[] args) throws Exception {
+		
 	}
 
 }
