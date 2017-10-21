@@ -14,8 +14,8 @@ import backend.Turtle;
  */
 public class TurtleCommands implements Command {
 	
-	private static final double NO_CHANGE = 0.0;
-	private static final double CHANGE = 1.0;
+	private static final double ZERO = 0.0;
+	private static final double ONE = 1.0;
 	private Turtle myTurtle;
 	//https://stackoverflow.com/questions/507602/how-can-i-initialise-a-static-map
 	private static final Map<String, Integer> numParams;
@@ -38,7 +38,6 @@ public class TurtleCommands implements Command {
 	
 	@Override
 	public double execute(String methodName, Turtle currentTurtle) {
-		// TODO Auto-generated method stub
 		//use map to go from string method to num parameters for method
 		//get parameters from parser
 		//reflection from string method to actual method with parameters
@@ -50,8 +49,10 @@ public class TurtleCommands implements Command {
 		
 		try {
 			Method method = TurtleCommands.class.getMethod(methodName, String.class);
-			//Parser.getParams();
-			//Object returnValue = method.invoke(null, );
+			//Parser.getParams(); //gets the required number of parameters as an in order array
+			double[] myParams = new double[] {5.0, 10.0};
+			Object returnValue = method.invoke(null, myParams);
+			return (double) returnValue;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -88,19 +89,19 @@ public class TurtleCommands implements Command {
 	}
 
 	private int penDown() {
-		return myTurtle.penChange(CHANGE);
+		return myTurtle.penChange(ONE);
 	}
 
 	private int penUp() {
-		return myTurtle.penChange(NO_CHANGE);
+		return myTurtle.penChange(ZERO);
 	}
 
 	private int showTurtle() {
-		return myTurtle.visChange(CHANGE);
+		return myTurtle.visChange(ONE);
 	}
 
 	private int hideTurtle() {
-		return myTurtle.visChange(NO_CHANGE);
+		return myTurtle.visChange(ZERO);
 	}
 
 	private double home() {
