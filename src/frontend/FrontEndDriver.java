@@ -77,7 +77,6 @@ public class FrontEndDriver extends Application {
 	private static final String DEFAULT_RESOURCE_PACKAGE = "resources.languages/buttons";
 	private static final String DEFAULT_TURTLE_DIRECTORY = "src/resources/turtle.png";
 	private static final int TURTLESIZE = 50;
-	private static final String HISTORY_LABEL = "History:\n";
 
     private Pane turtleArea;
 	private ImageView turtleImage;
@@ -89,6 +88,7 @@ public class FrontEndDriver extends Application {
 	private Text allHistory;
 	private ScrollPane history;
 	private History commandHistory;
+	private ReturnValue returnValue;
 	
 	public static final double ORIGIN_X = (GRID_X2 - GRID_X1 - TURTLESIZE)/2;
 	public static final double ORIGIN_Y = (GRID_Y2 - GRID_Y1 - TURTLESIZE)/2;
@@ -115,11 +115,10 @@ public class FrontEndDriver extends Application {
 		addTurtleImage();
 		addTurtleArea();
 		addCommandLine();
-		commandHistory = new History(HISTORY_LABEL,HISTORY_X,HISTORY_Y,HISTORY_WIDTH,HISTORY_HEIGHT);
-		root.getChildren().add(commandHistory.getScrollPane());
-		addReturn();
+		commandHistory = new History(myResources.getString("History"),HISTORY_X,HISTORY_Y,HISTORY_WIDTH,HISTORY_HEIGHT);
+		returnValue = new ReturnValue(myResources.getString("Return"),HISTORY_X, RETURN_Y,HISTORY_WIDTH,RETURN_HEIGHT);
 		
-		
+		root.getChildren().addAll(commandHistory.getScrollPane(),returnValue.getScrollPane());
 	
 		window.setTitle("SLogo");
 		window.setScene(startScene);
@@ -178,6 +177,7 @@ public class FrontEndDriver extends Application {
 			}
 			else {
 			commandHistory.addHistory(command.getText());
+			returnValue.addReturnValue(command.getText());
 			command.clear();
 			}
 		
@@ -188,26 +188,6 @@ public class FrontEndDriver extends Application {
 		
 	}
 	
-//	private void addHistory() {
-//		allHistory = new Text("History:\n");
-//		history = new ScrollPane();
-//		history.setTranslateX(HISTORY_X);
-//		history.setTranslateY(HISTORY_Y);
-//		history.setPrefWidth(HISTORY_WIDTH);
-//		history.setPrefHeight(GRID_Y2-GRID_Y1);
-//		history.setBorder(new Border(new BorderStroke(Color.BLACK, 
-//	            BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
-//		allHistory.wrappingWidthProperty().bind(history.widthProperty());
-//		root.getChildren().add(history);
-//		
-//		//history=addPane(HISTORY_X, HISTORY_Y,HISTORY_WIDTH,(GRID_Y2-GRID_Y1));
-//		//history_label=addLabel("History",LABEL_X,LABEL_Y);
-//		allHistory.setTranslateX(LABEL_X);
-//		history.setContent(allHistory);
-//	
-//		
-//	}
-	
 	private Label addLabel(String labelName,double X, double Y) {
 		Label lb=new Label(myResources.getString(labelName));
 		lb.setTranslateX(X);
@@ -215,16 +195,6 @@ public class FrontEndDriver extends Application {
 		
 		return lb;
 	}
-	
-	
-	private void addReturn() {
-		Pane returnValue=addPane(HISTORY_X, RETURN_Y,HISTORY_WIDTH,RETURN_HEIGHT);
-		Label return_label=addLabel("Return",LABEL_X,LABEL_Y);
-		returnValue.getChildren().add(return_label);
-		
-		
-	}
-	
 	
 	private void addTurtleArea() {
 	    turtleArea=addPane(GRID_X1,GRID_Y1,(GRID_X2-GRID_X1),(GRID_Y2-GRID_Y1));
@@ -246,9 +216,6 @@ public class FrontEndDriver extends Application {
 		return bp;
 		
 	}
-	
-
-
 
 	private void addTurtleImage() {
 		File file = new File(DEFAULT_TURTLE_DIRECTORY);
@@ -258,8 +225,6 @@ public class FrontEndDriver extends Application {
 		turtleImage.setFitWidth(TURTLESIZE);
 		displayTurtle = new DisplayTurtle(turtleImage,ORIGIN_X,ORIGIN_Y);
 	}
-	
-     
 
 	private void addAllButtons(HBox layout) {
 		
@@ -288,7 +253,6 @@ public class FrontEndDriver extends Application {
         return cb;
 		
 	} 
-	
 	
 	private Button turtleImageButton() {
 		
@@ -323,7 +287,6 @@ public class FrontEndDriver extends Application {
 		return b;
 		
 	}
-	
 	
 	private ColorPicker backgroundButton() {
 		final ColorPicker colorPicker = new ColorPicker();
@@ -370,7 +333,6 @@ public class FrontEndDriver extends Application {
 		return colorPicker;
 	}
 	
-	
 	private ChoiceBox<String> makeChoiceBox() {
 		ChoiceBox<String> cb = new ChoiceBox<String>();
 		cb.setItems(FXCollections.observableArrayList(
@@ -413,12 +375,8 @@ public class FrontEndDriver extends Application {
 		
 	}
 	
-	
-	
 	public static void main(String[] args) {
 		launch(args);
 	}
 	
-	
-
 }

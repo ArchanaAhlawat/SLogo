@@ -12,11 +12,14 @@ import javafx.scene.control.ScrollPane;
 public abstract class Scroll {
 	
 	private static final int LABEL_START = 5;
+	private static final String NEW_LINE = "\n";
 	
 	private ScrollPane scrollPane;
 	private Text allHistory;
+	private String scrollLabel;
 	
 	public Scroll(String label,int x,int y,int width,int height) {
+		scrollLabel = label;
 		scrollPane = new ScrollPane();
 		scrollPane.setTranslateX(x);
 		scrollPane.setTranslateY(y);
@@ -30,15 +33,24 @@ public abstract class Scroll {
 		scrollPane.setContent(allHistory);
 	}
 	
+	protected String formatCommand(String command) {
+		return command + NEW_LINE;
+	}
+	
+	protected void addToScrollPane(String command) {
+		allHistory.setText(command);
+		getScrollPane().setContent(allHistory);
+	}
+	
+	protected String getPastText() {
+		return allHistory.getText();
+	}
+	
+	protected String getScrollLabel() {
+		return scrollLabel;
+	}
+	
 	protected ScrollPane getScrollPane() {
 		return scrollPane;
-	}
-	
-	protected Text getAllHistory() {
-		return allHistory;
-	}
-	
-	protected void setAllHistory(Text text) {
-		this.allHistory = text;
 	}
 }
