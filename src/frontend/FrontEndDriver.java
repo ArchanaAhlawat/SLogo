@@ -68,18 +68,6 @@ public class FrontEndDriver extends Application {
 	private static final double GRID_X2 = 500;	//this should be the right-most line coordinate of the turtle grid
 	private static final double GRID_Y1 = 100;	//this should be the top-most line coordinate of the turtle grid
 	private static final double GRID_Y2 = 500;	//this should be the bottom-most line coordinate of the turtle grid
-
-    private Pane turtleArea;
-	private ImageView turtleImage;
-	private DisplayTurtle displayTurtle;
-	private Stage window;
-	private Group root;
-	private ResourceBundle myResources;
-	private TextField command;
-	private Text allHistory=new Text("History:\n");
-	private ScrollPane history;
-	private Label history_label;
-	
 	private static final int VBOX_SPACING = 7;
 	private static final int width = 1000;
 	private static final int height = 800;
@@ -88,6 +76,17 @@ public class FrontEndDriver extends Application {
 	private static final String DEFAULT_RESOURCE_PACKAGE = "resources.languages/buttons";
 	private static final String DEFAULT_TURTLE_DIRECTORY = "src/resources/turtle.png";
 	private static final int TURTLESIZE = 50;
+
+    private Pane turtleArea;
+	private ImageView turtleImage;
+	private DisplayTurtle displayTurtle;
+	private Stage window;
+	private Group root;
+	private ResourceBundle myResources;
+	private TextField command;
+	private Text allHistory;
+	private ScrollPane history;
+	private Label history_label;
 	
 	public static final double ORIGIN_X = (GRID_X2 - GRID_X1 - TURTLESIZE)/2;
 	public static final double ORIGIN_Y = (GRID_Y2 - GRID_Y1 - TURTLESIZE)/2;
@@ -192,7 +191,7 @@ public class FrontEndDriver extends Application {
 	}
 	
 	private void addHistory() {
-	
+		allHistory = new Text("History:\n");
 		history = new ScrollPane();
 		history.setTranslateX(HISTORY_X);
 		history.setTranslateY(HISTORY_Y);
