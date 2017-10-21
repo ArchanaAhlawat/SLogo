@@ -53,21 +53,22 @@ public class FrontEndDriver extends Application {
 	private static final int BUTTONS_Y = 30;
 	private static final int LABEL_Y = 0;
 	private static final int LABEL_X = 5;
-	private static final int HISTORY_WIDTH = 300;
-	private static final int RETURN_HEIGHT = 70;
-	private static final int RETURN_Y = 530;
-	private static final int HISTORY_Y = 100;
-	private static final int HISTORY_X = 600;
 	private static final int HBOX_SPACING = 20;
 	private static final int SUBMIT_BUTTON_WIDTH = 80;
 	private static final int SUBMIT_BUTTON_HEIGHT = 40;
 	private static final int COMMANDWIDTH = 350;
 	private static final int COMMANDHEIGHT = 40;
 	private static final int TURTLEAREA_TEXTFILED_SPACE = 50;
-	private static final double GRID_X1 = 50;	//this should be the left-most line coordinate of the turtle grid
-	private static final double GRID_X2 = 500;	//this should be the right-most line coordinate of the turtle grid
-	private static final double GRID_Y1 = 100;	//this should be the top-most line coordinate of the turtle grid
-	private static final double GRID_Y2 = 500;	//this should be the bottom-most line coordinate of the turtle grid
+	private static final int GRID_X1 = 50;	//this should be the left-most line coordinate of the turtle grid
+	private static final int GRID_X2 = 500;	//this should be the right-most line coordinate of the turtle grid
+	private static final int GRID_Y1 = 100;	//this should be the top-most line coordinate of the turtle grid
+	private static final int GRID_Y2 = 500;	//this should be the bottom-most line coordinate of the turtle grid
+	private static final int HISTORY_WIDTH = 300;
+	private static final int HISTORY_HEIGHT = GRID_Y2-GRID_Y1;
+	private static final int RETURN_HEIGHT = 70;
+	private static final int RETURN_Y = 530;
+	private static final int HISTORY_Y = 100;
+	private static final int HISTORY_X = 600;
 	private static final int VBOX_SPACING = 7;
 	private static final int width = 1000;
 	private static final int height = 800;
@@ -76,6 +77,7 @@ public class FrontEndDriver extends Application {
 	private static final String DEFAULT_RESOURCE_PACKAGE = "resources.languages/buttons";
 	private static final String DEFAULT_TURTLE_DIRECTORY = "src/resources/turtle.png";
 	private static final int TURTLESIZE = 50;
+	private static final String HISTORY_LABEL = "History:\n";
 
     private Pane turtleArea;
 	private ImageView turtleImage;
@@ -86,7 +88,7 @@ public class FrontEndDriver extends Application {
 	private TextField command;
 	private Text allHistory;
 	private ScrollPane history;
-	private Label history_label;
+	private History commandHistory;
 	
 	public static final double ORIGIN_X = (GRID_X2 - GRID_X1 - TURTLESIZE)/2;
 	public static final double ORIGIN_Y = (GRID_Y2 - GRID_Y1 - TURTLESIZE)/2;
@@ -113,7 +115,8 @@ public class FrontEndDriver extends Application {
 		addTurtleImage();
 		addTurtleArea();
 		addCommandLine();
-		addHistory();
+		commandHistory = new History(HISTORY_LABEL,HISTORY_X,HISTORY_Y,HISTORY_WIDTH,HISTORY_HEIGHT);
+		root.getChildren().add(commandHistory.getScrollPane());
 		addReturn();
 		
 		
@@ -174,12 +177,7 @@ public class FrontEndDriver extends Application {
 				
 			}
 			else {
-			String currentCommand=command.getText()+"\n";
-			String past=allHistory.getText();
-			allHistory=new Text(past+currentCommand);
-			allHistory.setTranslateX(LABEL_X);
-			allHistory.wrappingWidthProperty().bind(history.widthProperty());
-			history.setContent(allHistory);
+			commandHistory.addHistory(command.getText());
 			command.clear();
 			}
 		
@@ -190,25 +188,25 @@ public class FrontEndDriver extends Application {
 		
 	}
 	
-	private void addHistory() {
-		allHistory = new Text("History:\n");
-		history = new ScrollPane();
-		history.setTranslateX(HISTORY_X);
-		history.setTranslateY(HISTORY_Y);
-		history.setPrefWidth(HISTORY_WIDTH);
-		history.setPrefHeight(GRID_Y2-GRID_Y1);
-		history.setBorder(new Border(new BorderStroke(Color.BLACK, 
-	            BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
-		allHistory.wrappingWidthProperty().bind(history.widthProperty());
-		root.getChildren().add(history);
-		
-		//history=addPane(HISTORY_X, HISTORY_Y,HISTORY_WIDTH,(GRID_Y2-GRID_Y1));
-		//history_label=addLabel("History",LABEL_X,LABEL_Y);
-		allHistory.setTranslateX(LABEL_X);
-		history.setContent(allHistory);
-	
-		
-	}
+//	private void addHistory() {
+//		allHistory = new Text("History:\n");
+//		history = new ScrollPane();
+//		history.setTranslateX(HISTORY_X);
+//		history.setTranslateY(HISTORY_Y);
+//		history.setPrefWidth(HISTORY_WIDTH);
+//		history.setPrefHeight(GRID_Y2-GRID_Y1);
+//		history.setBorder(new Border(new BorderStroke(Color.BLACK, 
+//	            BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+//		allHistory.wrappingWidthProperty().bind(history.widthProperty());
+//		root.getChildren().add(history);
+//		
+//		//history=addPane(HISTORY_X, HISTORY_Y,HISTORY_WIDTH,(GRID_Y2-GRID_Y1));
+//		//history_label=addLabel("History",LABEL_X,LABEL_Y);
+//		allHistory.setTranslateX(LABEL_X);
+//		history.setContent(allHistory);
+//	
+//		
+//	}
 	
 	private Label addLabel(String labelName,double X, double Y) {
 		Label lb=new Label(myResources.getString(labelName));
