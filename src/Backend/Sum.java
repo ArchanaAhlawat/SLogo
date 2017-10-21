@@ -2,15 +2,17 @@ package Backend;
 
 import java.util.Stack;
 
-public class Forward implements Instruction {
+public class Sum implements Instruction {
 	private int returnVal;
 	
 	public Stack<Integer> execute(Stack<Integer> Vars) {
-		returnVal = Vars.pop();
-		return Vars; // new Stack
+		returnVal = Vars.pop() + Vars.pop();
+		Vars.push(returnVal);
+		return Vars;
 	}
-	
+
 	public int getReturnValue() {
 		return returnVal;
 	}
+
 }

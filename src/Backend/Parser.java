@@ -11,7 +11,7 @@ public class Parser {
 	// TODO: throw exceptions properly w try/catch
 	public void parseInstruction(String inst) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, InstantiationException, ClassNotFoundException {
 		LangMaps maps = new LangMaps(); // TODO: instantiate in driver later. JUST FOR TESTING
-		Map<String, String> LangMap = maps.getMaps("GERMAN");
+		Map<String, String> langMap = maps.getMaps("ENGLISH");
 		Stack<Integer> instructionStack = new Stack<Integer>();
 		String[] instructionArray = inst.split(" ");
 		for (int i = instructionArray.length - 1; i > -1; i--) {
@@ -19,7 +19,7 @@ public class Parser {
 				instructionStack.push(Integer.parseInt(instructionArray[i]));
 			}
 			else {
-				Class<?> commandClass = Class.forName("Backend." + LangMap.get(instructionArray[i]));
+				Class<?> commandClass = Class.forName("Backend." + langMap.get(instructionArray[i]));
 				Object commandInstance = commandClass.newInstance();
 				Method commandMethod = commandClass.getDeclaredMethod("execute", Stack.class);
 				Stack<Integer> newStack = (Stack<Integer>) commandMethod.invoke(commandInstance, instructionStack);
@@ -36,6 +36,6 @@ public class Parser {
 	
 	public static void main (String[] args) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, InstantiationException, ClassNotFoundException {
 		Parser p = new Parser();
-		p.parseInstruction("vorwärts 50");
+		p.parseInstruction("Forward Sum 50 5");
 	}
 }

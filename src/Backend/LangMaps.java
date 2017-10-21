@@ -12,14 +12,15 @@ public class LangMaps {
 	private List<Locale> supportedLocales;
 	
 	public LangMaps() {
+
 		// instantiate all maps with all languages
-		supportedLocales.add(Locale.CHINESE);
-		supportedLocales.add(Locale.FRENCH);
-		supportedLocales.add(Locale.GERMAN);
-		supportedLocales.add(Locale.ITALIAN);
-		supportedLocales.add(new Locale("PORTUGUESE", "pt"));
-		supportedLocales.add(new Locale("RUSSIAN", "ru"));
-		supportedLocales.add(new Locale("SPANISH", "es"));
+//		supportedLocales.add(Locale.CHINESE);
+//		supportedLocales.add(Locale.FRENCH);
+//		supportedLocales.add(Locale.GERMAN);
+//		supportedLocales.add(Locale.ITALIAN);
+//		supportedLocales.add(new Locale("PORTUGUESE", "pt"));
+//		supportedLocales.add(new Locale("RUSSIAN", "ru"));
+//		supportedLocales.add(new Locale("SPANISH", "es"));
 		createLocaleMaps();
 	}
 	
@@ -34,13 +35,14 @@ public class LangMaps {
 	}
 	
 	private void createLocaleMaps() {
-		for (Locale loc : supportedLocales) {
+		//for (Locale loc : supportedLocales) {
 			Map<String, String> localeMap = new HashMap<String, String>();
-			ResourceBundle localeToAdd = ResourceBundle.getBundle("languages", loc);
+			ResourceBundle localeToAdd = ResourceBundle.getBundle("resources.languajl;ges", Locale.ENGLISH);
 			for (String key : localeToAdd.keySet()) {
 				localeMap.put(localeToAdd.getString(key), key);
 			}
-			allMaps.put(loc.getLanguage(), localeMap);
-		}
+			allMaps.put(Locale.ENGLISH.getLanguage(), localeMap);
+			System.out.println(Locale.ENGLISH.getLanguage() + " OH!");
+		//}
 	}
 }
