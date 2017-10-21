@@ -1,5 +1,7 @@
 package test;
 
+//https://www.javaworld.com/article/2074753/core-java/object-hacking-in-java---power-of-reflection.html
+
 import java.lang.reflect.Field;
 
 public class Emp 
