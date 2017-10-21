@@ -1,17 +1,19 @@
 package backend;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class Turtle implements Commands {
+public class Turtle {
 
 	// xcor=0, ycor=0 is in center
 	// xcor increases to the right, ycor increases down
 	// theta = 0 is pointed north (up)
 	// theta is in degrees 0 to 360 going clockwise
 	private double xcor, ycor, theta;
-	private boolean penDown, turtleVis, trailClear;
-//	private List<double[]> startLine;
-//	private List<double[]> endLine;
+	private double penDown, turtleVis, trailClear;
+	private List<double[]> startLine;
+	private List<double[]> endLine;
+	private List<String[]> colorLine;
 	
 	private static final double zero = 0.0;
 	private static final double half = 0.5;
@@ -19,10 +21,10 @@ public class Turtle implements Commands {
 
 	public Turtle() {
 		xcor = ycor = theta = zero;
-		penDown = turtleVis = true;
+		penDown = turtleVis = 1.0;
 	}
 	
-	public Turtle(double x, double y, double r, boolean penDown, boolean turtleVis) {
+	public Turtle(double x, double y, double r, double penDown, double turtleVis) {
 		this.xcor = x;
 		this.ycor = y;
 		this.theta = r;
@@ -35,7 +37,7 @@ public class Turtle implements Commands {
 	}
 	
 	public void setTrailClear() {
-		trailClear = false;
+		trailClear = 0.0;
 	}
 	
 	//TODO: getters and setters need to be wrapped 
@@ -52,46 +54,28 @@ public class Turtle implements Commands {
 //		return new double[] {xcor,ycor};
 //	}
 
-	public boolean getPenDown() {
-		return penDown;
+	public int getPenDown() {
+		return (int) penDown;
 	}
-	public boolean getTurtleVis() {
-		return turtleVis;
+	public int getTurtleVis() {
+		return (int) turtleVis;
 	}
 
-	@Override
-	public double forward(double pixels) {
+	public void move(double pixels) {
 		this.xcor = this.xcor + pixels*Math.sin(this.theta);
 		this.ycor = this.ycor - pixels*Math.cos(this.theta);
-		return pixels;
 	}
-
-	@Override
-	public double back(double pixels) {
-		this.xcor = this.xcor - pixels*Math.sin(this.theta);
-		this.ycor = this.ycor + pixels*Math.cos(this.theta);
-		return pixels;
-	}
-
-	@Override
-	public double left(double degrees) {
-		this.theta = this.theta - degrees;
-		return degrees;
-	}
-
-	@Override
-	public double right(double degrees) {
+	
+	public void rotate(double degrees) {
 		this.theta = this.theta + degrees;
-		return degrees;
 	}
-
-	@Override
+	
 	public double setHeading(double degrees) {
+		double difference = degrees - this.theta;
 		this.theta = degrees;
-		return degrees;
+		return difference;
 	}
 
-	@Override
 	public double setXY(double[] xy) {
 		double distance = distance(xy[0], xy[1]);
 		this.xcor = xy[0];
@@ -99,41 +83,24 @@ public class Turtle implements Commands {
 		return distance;
 	}
 
-	@Override
-	public int penDown() {
-		this.penDown = true;
-		return 1;
+	public int penChange(double change) {
+		this.penDown = change;
+		return (int) change;
 	}
 
-	@Override
-	public int penUp() {
-		this.penDown = false;
-		return 0;
+	public int visChange(double change) {
+		this.turtleVis = change;
+		return (int) change;
 	}
 
-	@Override
-	public int showTurtle() {
-		this.turtleVis = true;
-		return 1;
-	}
-
-	@Override
-	public int hideTurtle() {
-		this.turtleVis = false;
-		return 0;
-	}
-
-	@Override
 	public double home() {
 		double distance = distance(zero, zero);
-		this.xcor = zero;
-		this.ycor = zero;
+		setXY(new double[] {zero, zero});
 		return distance;
 	}
 
-	@Override
 	public double clearScreen() {
-		trailClear = true;
+		trailClear = 1.0;
 		return this.home();
 	}
 }
