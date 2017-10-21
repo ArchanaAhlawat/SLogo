@@ -50,7 +50,7 @@ public class TurtleCommands implements Command {
 		try {
 			Method method = TurtleCommands.class.getMethod(methodName, String.class);
 			//Parser.getParams(); //gets the required number of parameters as an in order array
-			double[] myParams = new double[] {5.0, 10.0};
+			double[] myParams = new double[] {5.0, 10.0}; //just for right now!!
 			Object returnValue = method.invoke(null, myParams);
 			return (double) returnValue;
 		} catch (Exception e) {
