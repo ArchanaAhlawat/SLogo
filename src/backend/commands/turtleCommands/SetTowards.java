@@ -9,11 +9,14 @@ import backend.commands.Command;
  * @author kelly
  *
  */
-public class Right implements Command {
+public class SetTowards implements Command {
 	
 	@Override
 	public Stack<Double> execute(Stack<Double> vars, Turtle currentTurtle) {
-		currentTurtle.rotate(vars.peek());
+		double currentAngle = currentTurtle.getAbsoluteOrientation("theta");
+		double newAngle = currentTurtle.angle(vars.pop(), vars.pop());
+		currentTurtle.setHeading(newAngle);
+		vars.push(newAngle - currentAngle);
 		return vars;
 	}
 }
