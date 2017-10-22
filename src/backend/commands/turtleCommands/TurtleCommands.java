@@ -1,4 +1,4 @@
-package backend.commands;
+package backend.commands.turtleCommands;
 
 import java.lang.reflect.Method;
 import java.util.Collections;
@@ -9,7 +9,9 @@ import backend.Turtle;
 
 /**
  * @author kelly
- *
+ * turtlecommands class that uses reflection to determine which method to use from the string of the method name
+ * has a static map to know the number of parameters that need to be popped from the stack of values
+ * not used anymore, instead each method is a class
  */
 public class TurtleCommands {//implements Command {
 	

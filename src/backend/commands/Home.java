@@ -3,10 +3,16 @@ package backend.commands;
 import java.util.Stack;
 
 import backend.Turtle;
+import backend.api.Command;
 
 /**
  * @author kelly
- *
+ * has the execute for when a home command is called
+ *     does not need any parameters from the stack
+ *     moves the turtle to home (0,0)
+ *     pushes the distance moved by the turtle to the stack
+ * 	   returns the stack of parameters
+ * 
  */
 public class Home implements Command {
 	

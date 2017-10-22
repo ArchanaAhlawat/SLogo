@@ -7,11 +7,12 @@ import java.util.List;
 
 /**
  * @author kelly
- *
- */
-/**
- * @author kelly
- *
+ * Turtle that keeps track of all of their locations and parameters needed
+ * has a constructor that sets up the original turtle and one to set up a turtle with initial parameters
+ * has active methods to create all changes from turtlecommands
+ * has getter that uses reflection to return each of the parameters needed
+ * has a getter that returns the lines/trails to be drawn
+ * 
  */
 public class Turtle {
 
@@ -31,22 +32,24 @@ public class Turtle {
 		xcor = ycor = theta = ZERO;
 		penDown = ZERO;
 		turtleVis = ONE;
+		lineCor = new ArrayList<Double>();
 	}
 
-	public Turtle(double x, double y, double t, double penDown, double turtleVis) {
-		this.xcor = x;
-		this.ycor = y;
-		this.theta = t;
-		this.penDown = penDown;
-		this.turtleVis = turtleVis;
+	public Turtle(double x, double y, double t, double pD, double tV) {
+		xcor = x;
+		ycor = y;
+		theta = t;
+		penDown = pD;
+		turtleVis = tV;
+		lineCor = new ArrayList<Double>();
 	}
 
 	private double xDisplacement(double x) {
-		return x-this.xcor;
+		return x-xcor;
 	}
 
 	private double yDisplacement(double y) {
-		return y-this.ycor;
+		return y-ycor;
 	}
 
 	private double distance(double x, double y) {
@@ -105,42 +108,42 @@ public class Turtle {
 	 * @param pixels
 	 */
 	public void move(double pixels) {
-		double newx = this.xcor + pixels*Math.sin(this.theta);
-		double newy = this.ycor - pixels*Math.cos(this.theta);
+		double newx = xcor + pixels*Math.sin(theta);
+		double newy = ycor - pixels*Math.cos(theta);
 		setXY(newx, newy);
 	}
 
 	public void rotate(double degrees) {
-		double newtheta = this.theta + degrees;
+		double newtheta = theta + degrees;
 		setHeading(newtheta);
 	}
 
 	public double setHeading(double degrees) {
-		double difference = degrees - this.theta;
-		this.theta = degrees;
+		double difference = degrees - theta;
+		theta = degrees;
 		return difference;
 	}
 
 	public double setXY(double x, double y) {
 		if (penDown == ONE) {
-			lineCor.add(this.xcor);
-			lineCor.add(this.ycor);
+			lineCor.add(xcor);
+			lineCor.add(ycor);
 			lineCor.add(x);
 			lineCor.add(y);
 		}
 		double distance = distance(x, y);
-		this.xcor = x;
-		this.ycor = y;
+		xcor = x;
+		ycor = y;
 		return distance;
 	}
 
 	public double penChange(double change) {
-		this.penDown = change;
+		penDown = change;
 		return change;
 	}
 
 	public double visChange(double change) {
-		this.turtleVis = change;
+		turtleVis = change;
 		return change;
 	}
 

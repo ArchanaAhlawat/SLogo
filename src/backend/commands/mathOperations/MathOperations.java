@@ -6,8 +6,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import backend.Turtle;
-import backend.commands.Command;
-import backend.commands.TurtleCommands;
+import backend.api.Command;
+import backend.commands.turtleCommands.TurtleCommands;
 
 public class MathOperations {//implements Command {
 
