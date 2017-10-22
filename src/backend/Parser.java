@@ -29,7 +29,9 @@ public class Parser {
 				Class<?> commandClass = Class.forName("backend.commands." + langMap.get(instructionArray[i].toLowerCase()));
 				Object commandInstance = commandClass.newInstance();
 				Method commandMethod = commandClass.getDeclaredMethod("execute", Stack.class, Turtle.class);
-				Stack<Double> newStack = (Stack<Double>) commandMethod.invoke(commandInstance, instructionStack, currentTurtle);
+				Stack<Double> copyStack = new Stack<Double>();
+				copyStack.addAll(instructionStack);
+				Stack<Double> newStack = (Stack<Double>) commandMethod.invoke(commandInstance, copyStack, currentTurtle);
 				instructionStack = newStack; // invoke method must return new stack. TODO: maybe bad design to pass stack directly
 				System.out.println(instructionStack.peek());
 				val = instructionStack.peek();
