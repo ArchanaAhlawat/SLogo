@@ -51,41 +51,41 @@ public class FrontEndDriver extends Application {
 	
 
 	private static final int BUTTONS_Y = 30;
-	private static final int LABEL_Y = 0;
-	private static final int LABEL_X = 5;
-	private static final int HISTORY_WIDTH = 300;
-	private static final int RETURN_HEIGHT = 70;
-	private static final int RETURN_Y = 530;
-	private static final int HISTORY_Y = 100;
-	private static final int HISTORY_X = 600;
 	private static final int HBOX_SPACING = 20;
 	private static final int SUBMIT_BUTTON_WIDTH = 80;
 	private static final int SUBMIT_BUTTON_HEIGHT = 40;
 	private static final int COMMANDWIDTH = 350;
 	private static final int COMMANDHEIGHT = 40;
 	private static final int TURTLEAREA_TEXTFILED_SPACE = 50;
-	private static final double GRID_X1 = 50;	//this should be the left-most line coordinate of the turtle grid
-	private static final double GRID_X2 = 500;	//this should be the right-most line coordinate of the turtle grid
-	private static final double GRID_Y1 = 100;	//this should be the top-most line coordinate of the turtle grid
-	private static final double GRID_Y2 = 500;	//this should be the bottom-most line coordinate of the turtle grid
-
-    private Pane turtleArea;
-	private ImageView turtleImage;
-	private Stage window;
-	private Group root;
-	private ResourceBundle myResources;
-	private TextField command;
-	private Text allHistory=new Text("History:\n");
-	private ScrollPane history;
-	private Label history_label;
-	
+	private static final int GRID_X1 = 50;	//this should be the left-most line coordinate of the turtle grid
+	private static final int GRID_X2 = 500;	//this should be the right-most line coordinate of the turtle grid
+	private static final int GRID_Y1 = 100;	//this should be the top-most line coordinate of the turtle grid
+	private static final int GRID_Y2 = 500;	//this should be the bottom-most line coordinate of the turtle grid
+	private static final int HISTORY_WIDTH = 300;
+	private static final int HISTORY_HEIGHT = GRID_Y2-GRID_Y1;
+	private static final int RETURN_HEIGHT = 70;
+	private static final int RETURN_Y = 530;
+	private static final int HISTORY_Y = 100;
+	private static final int HISTORY_X = 600;
 	private static final int VBOX_SPACING = 7;
 	private static final int width = 1000;
 	private static final int height = 800;
 	private static final int button_width = 200;
 	private static final int button_height = 40;
 	private static final String DEFAULT_RESOURCE_PACKAGE = "resources.languages/buttons";
+	private static final String DEFAULT_TURTLE_DIRECTORY = "src/resources/turtle.png";
 	private static final int TURTLESIZE = 50;
+
+    private Pane turtleArea;
+	private ImageView turtleImage;
+	private DisplayTurtle displayTurtle;
+	private TurtlePath turtlePath;
+	private Stage window;
+	private Group root;
+	private ResourceBundle myResources;
+	private TextField command;
+	private History commandHistory;
+	private ReturnValue returnValue;
 	
 	public static final double ORIGIN_X = (GRID_X2 - GRID_X1 - TURTLESIZE)/2;
 	public static final double ORIGIN_Y = (GRID_Y2 - GRID_Y1 - TURTLESIZE)/2;
@@ -109,13 +109,14 @@ public class FrontEndDriver extends Application {
 		root.getChildren().addAll(layout,layout2);
 		addAllButtons(layout);
 		
+		turtlePath = new TurtlePath(ORIGIN_X,ORIGIN_Y);
 		addTurtleImage();
 		addTurtleArea();
 		addCommandLine();
-		addHistory();
-		addReturn();
+		commandHistory = new History(myResources.getString("History"),HISTORY_X,HISTORY_Y,HISTORY_WIDTH,HISTORY_HEIGHT);
+		returnValue = new ReturnValue(myResources.getString("Return"),HISTORY_X, RETURN_Y,HISTORY_WIDTH,RETURN_HEIGHT);
 		
-		
+		root.getChildren().addAll(commandHistory,returnValue);
 	
 		window.setTitle("SLogo");
 		window.setScene(startScene);
@@ -168,39 +169,26 @@ public class FrontEndDriver extends Application {
 		b.setPrefSize(SUBMIT_BUTTON_WIDTH, SUBMIT_BUTTON_HEIGHT);
 		
 		b.setOnAction(e ->{
+
 			
-			String currentCommand=command.getText()+"\n";
-			String past=allHistory.getText();
-			allHistory=new Text(past+currentCommand);
-			allHistory.setTranslateX(LABEL_X);
-			allHistory.wrappingWidthProperty().bind(history.widthProperty());
-			history.setContent(allHistory);
-			command.clear();
+			
 		     
+
+			if (command.getText().equals(null)) {
+				System.out.println("error");
+				
+			}
+			else {
+			commandHistory.addHistory(command.getText());
+			returnValue.addReturnValue(command.getText());
+			command.clear();
+			}
+		
+
 		
 		});
 		
 		return b;
-		
-	}
-	
-	private void addHistory() {
-	
-		history = new ScrollPane();
-		history.setTranslateX(HISTORY_X);
-		history.setTranslateY(HISTORY_Y);
-		history.setPrefWidth(HISTORY_WIDTH);
-		history.setPrefHeight(GRID_Y2-GRID_Y1);
-		history.setBorder(new Border(new BorderStroke(Color.BLACK, 
-	            BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
-		allHistory.wrappingWidthProperty().bind(history.widthProperty());
-		root.getChildren().add(history);
-		
-		//history=addPane(HISTORY_X, HISTORY_Y,HISTORY_WIDTH,(GRID_Y2-GRID_Y1));
-		//history_label=addLabel("History",LABEL_X,LABEL_Y);
-		allHistory.setTranslateX(LABEL_X);
-		history.setContent(allHistory);
-	
 		
 	}
 	
@@ -212,23 +200,15 @@ public class FrontEndDriver extends Application {
 		return lb;
 	}
 	
-	
-	private void addReturn() {
-		Pane returnValue=addPane(HISTORY_X, RETURN_Y,HISTORY_WIDTH,RETURN_HEIGHT);
-		Label return_label=addLabel("Return",LABEL_X,LABEL_Y);
-		returnValue.getChildren().add(return_label);
-		
-		
-	}
-	
-	
 	private void addTurtleArea() {
 	    turtleArea=addPane(GRID_X1,GRID_Y1,(GRID_X2-GRID_X1),(GRID_Y2-GRID_Y1));
 	    turtleArea.getChildren().add(turtleImage);
+
 		turtleImage.setX(ORIGIN_X);
 		turtleImage.setY(ORIGIN_Y);
 		//turtleArea.setStyle("-fx-background-color: honeydew");
 		
+
 	}
 	
 	private Pane addPane(double X, double Y,double width,double height) {
@@ -244,27 +224,23 @@ public class FrontEndDriver extends Application {
 		return bp;
 		
 	}
-	
 
-
-
-	public void addTurtleImage() {
-		File file = new File("src/resources/turtle.png");
+	private void addTurtleImage() {
+		File file = new File(DEFAULT_TURTLE_DIRECTORY);
         Image image = new Image(file.toURI().toString());
         turtleImage= new ImageView(image);
 		turtleImage.setFitHeight(TURTLESIZE);
 		turtleImage.setFitWidth(TURTLESIZE);
+		displayTurtle = new DisplayTurtle(turtleImage,ORIGIN_X,ORIGIN_Y);
 	}
-	
-     
 
-	public void addAllButtons(HBox layout) {
+	private void addAllButtons(HBox layout) {
 		
 		layout.setTranslateY(BUTTONS_Y);
 		Button b1=turtleImageButton();
 		
-		final ColorPicker b2 = backgroundButton();
-		final ColorPicker b3=penColorButton();
+		final ColorChooser b2 = new BackgroundPicker(Color.HONEYDEW,button_width,button_height,turtleArea);
+		final ColorPicker b3= new PenPicker(Color.BLACK,button_width,button_height,turtlePath);
 		ChoiceBox b4=setUpLanguage();
 		Hyperlink b5=helpButton();
 		layout.getChildren().addAll(b1,b2,b3,b4,b5);
@@ -286,7 +262,6 @@ public class FrontEndDriver extends Application {
 		
 	} 
 	
-	
 	private Button turtleImageButton() {
 		
 		Button b=makeButton(myResources.getString("SetImage"));
@@ -299,6 +274,7 @@ public class FrontEndDriver extends Application {
 	            //Set extension filter
 	            FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter("JPG files (*.jpg)", "*.JPG");
 	            FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.PNG");
+	            fileChooser.setInitialDirectory(new File(System.getProperty("user.dir")));
 	            fileChooser.getExtensionFilters().addAll(extFilterJPG, extFilterPNG);
 	             
 	            //Show open file dialog
@@ -309,7 +285,6 @@ public class FrontEndDriver extends Application {
 	                Image image = SwingFXUtils.toFXImage(bufferedImage, null);
 	                turtleImage.setImage(image);
 	            } catch (Exception ex) {
-	                
 	            }
 
 			
@@ -320,53 +295,6 @@ public class FrontEndDriver extends Application {
 		return b;
 		
 	}
-	
-	
-	private ColorPicker backgroundButton() {
-		final ColorPicker colorPicker = new ColorPicker();
-		
-		colorPicker.setPrefWidth(button_width);
-		colorPicker.setPrefHeight(button_height);	
-	    colorPicker.setValue(Color.WHITE);
-	    colorPicker.setOnAction(new EventHandler<ActionEvent>() {
-	    	  @Override
-	        public void handle(ActionEvent t) {
-	               
-	    		       Paint fill = colorPicker.getValue();  
-	               BackgroundFill backgroundFill = new BackgroundFill(fill, CornerRadii.EMPTY, Insets.EMPTY);
-	               Background background = new Background(backgroundFill);
-	               turtleArea.setBackground(background);
-
-	            	   
-	            	    
-	        }
-	    });
-			
-		
-		return colorPicker;
-	}
-	
-	private ColorPicker penColorButton() {
-		final ColorPicker colorPicker = new ColorPicker();
-		colorPicker.setPrefWidth(button_width);
-		colorPicker.setPrefHeight(button_height);	
-	    colorPicker.setValue(Color.WHITE);
-	    
-	   
-	    colorPicker.setOnAction(new EventHandler<ActionEvent>() {
-	    	
-	         @Override
-	        public void handle(ActionEvent t) {
-	                //text.setFill(colorPicker.getValue());
-	            	   
-	            	    
-	        }
-	    });
-			
-		
-		return colorPicker;
-	}
-	
 	
 	private ChoiceBox<String> makeChoiceBox() {
 		ChoiceBox<String> cb = new ChoiceBox<String>();
@@ -410,12 +338,8 @@ public class FrontEndDriver extends Application {
 		
 	}
 	
-	
-	
 	public static void main(String[] args) {
 		launch(args);
 	}
 	
-	
-
 }
