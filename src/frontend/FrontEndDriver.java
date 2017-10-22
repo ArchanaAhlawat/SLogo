@@ -1,8 +1,10 @@
 package frontend;
 
 import java.awt.image.BufferedImage;
+import backend.Driver;
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URI;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -86,6 +88,9 @@ public class FrontEndDriver extends Application {
 	private TextField command;
 	private History commandHistory;
 	private ReturnValue returnValue;
+	private double commandValue;
+	
+	private Driver BEdriver = new Driver();
 	
 	public static final double ORIGIN_X = (GRID_X2 - GRID_X1 - TURTLESIZE)/2;
 	public static final double ORIGIN_Y = (GRID_Y2 - GRID_Y1 - TURTLESIZE)/2;
@@ -179,8 +184,20 @@ public class FrontEndDriver extends Application {
 				
 			}
 			else {
-			commandHistory.addHistory(command.getText());
-			returnValue.addReturnValue(command.getText());
+			String currentCommand=command.getText();
+			
+			try {
+				commandValue=BEdriver.setCommand(currentCommand);
+				
+				
+				
+			} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException
+					| NoSuchMethodException | SecurityException | InstantiationException | ClassNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			commandHistory.addHistory(currentCommand);
+			returnValue.addReturnValue(commandValue);
 			command.clear();
 			}
 		
