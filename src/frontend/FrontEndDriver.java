@@ -51,8 +51,6 @@ public class FrontEndDriver extends Application {
 	
 
 	private static final int BUTTONS_Y = 30;
-	private static final int LABEL_Y = 0;
-	private static final int LABEL_X = 5;
 	private static final int HBOX_SPACING = 20;
 	private static final int SUBMIT_BUTTON_WIDTH = 80;
 	private static final int SUBMIT_BUTTON_HEIGHT = 40;
@@ -81,12 +79,11 @@ public class FrontEndDriver extends Application {
     private Pane turtleArea;
 	private ImageView turtleImage;
 	private DisplayTurtle displayTurtle;
+	private TurtlePath turtlePath;
 	private Stage window;
 	private Group root;
 	private ResourceBundle myResources;
 	private TextField command;
-	private Text allHistory;
-	private ScrollPane history;
 	private History commandHistory;
 	private ReturnValue returnValue;
 	
@@ -112,13 +109,14 @@ public class FrontEndDriver extends Application {
 		root.getChildren().addAll(layout,layout2);
 		addAllButtons(layout);
 		
+		turtlePath = new TurtlePath(ORIGIN_X,ORIGIN_Y);
 		addTurtleImage();
 		addTurtleArea();
 		addCommandLine();
 		commandHistory = new History(myResources.getString("History"),HISTORY_X,HISTORY_Y,HISTORY_WIDTH,HISTORY_HEIGHT);
 		returnValue = new ReturnValue(myResources.getString("Return"),HISTORY_X, RETURN_Y,HISTORY_WIDTH,RETURN_HEIGHT);
 		
-		root.getChildren().addAll(commandHistory.getScrollPane(),returnValue.getScrollPane());
+		root.getChildren().addAll(commandHistory,returnValue);
 	
 		window.setTitle("SLogo");
 		window.setScene(startScene);
@@ -199,8 +197,6 @@ public class FrontEndDriver extends Application {
 	private void addTurtleArea() {
 	    turtleArea=addPane(GRID_X1,GRID_Y1,(GRID_X2-GRID_X1),(GRID_Y2-GRID_Y1));
 	    turtleArea.getChildren().add(turtleImage);
-		turtleArea.setStyle("-fx-background-color: honeydew");
-		
 	}
 	
 	private Pane addPane(double X, double Y,double width,double height) {
@@ -231,8 +227,8 @@ public class FrontEndDriver extends Application {
 		layout.setTranslateY(BUTTONS_Y);
 		Button b1=turtleImageButton();
 		
-		final ColorPicker b2 = backgroundButton();
-		final ColorPicker b3=penColorButton();
+		final ColorChooser b2 = new BackgroundPicker(Color.HONEYDEW,button_width,button_height,turtleArea);
+		final ColorPicker b3= new PenPicker(Color.BLACK,button_width,button_height,turtlePath);
 		ChoiceBox b4=setUpLanguage();
 		Hyperlink b5=helpButton();
 		layout.getChildren().addAll(b1,b2,b3,b4,b5);
@@ -286,51 +282,6 @@ public class FrontEndDriver extends Application {
 		
 		return b;
 		
-	}
-	
-	private ColorPicker backgroundButton() {
-		final ColorPicker colorPicker = new ColorPicker();
-		
-		colorPicker.setPrefWidth(button_width);
-		colorPicker.setPrefHeight(button_height);	
-	    colorPicker.setValue(Color.WHITE);
-	    colorPicker.setOnAction(new EventHandler<ActionEvent>() {
-	    	  @Override
-	        public void handle(ActionEvent t) {
-	               
-	    		       Paint fill = colorPicker.getValue();  
-	               BackgroundFill backgroundFill = new BackgroundFill(fill, CornerRadii.EMPTY, Insets.EMPTY);
-	               Background background = new Background(backgroundFill);
-	               turtleArea.setBackground(background);
-
-	            	   
-	            	    
-	        }
-	    });
-			
-		
-		return colorPicker;
-	}
-	
-	private ColorPicker penColorButton() {
-		final ColorPicker colorPicker = new ColorPicker();
-		colorPicker.setPrefWidth(button_width);
-		colorPicker.setPrefHeight(button_height);	
-	    colorPicker.setValue(Color.WHITE);
-	    
-	   
-	    colorPicker.setOnAction(new EventHandler<ActionEvent>() {
-	    	
-	         @Override
-	        public void handle(ActionEvent t) {
-	                //text.setFill(colorPicker.getValue());
-	            	   
-	            	    
-	        }
-	    });
-			
-		
-		return colorPicker;
 	}
 	
 	private ChoiceBox<String> makeChoiceBox() {
