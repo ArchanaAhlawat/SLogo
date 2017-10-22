@@ -1,9 +1,8 @@
-package backend.commands.turtleCommands;
+package backend.commands;
 
 import java.util.Stack;
 
 import backend.Turtle;
-import backend.commands.Command;
 
 public class Forward implements Command {
 	

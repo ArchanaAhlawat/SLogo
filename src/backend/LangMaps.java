@@ -8,19 +8,10 @@ import java.util.Map;
 
 // should be called in BEDriver --> only once. 
 public class LangMaps {
-	private Map<String, Map<String, String>> allMaps;
+	private Map<String, Map<String, String>> allMaps = new HashMap<String, Map<String, String>>();
 	private List<Locale> supportedLocales;
 	
 	public LangMaps() {
-
-		// instantiate all maps with all languages
-//		supportedLocales.add(Locale.CHINESE);
-//		supportedLocales.add(Locale.FRENCH);
-//		supportedLocales.add(Locale.GERMAN);
-//		supportedLocales.add(Locale.ITALIAN);
-//		supportedLocales.add(new Locale("PORTUGUESE", "pt"));
-//		supportedLocales.add(new Locale("RUSSIAN", "ru"));
-//		supportedLocales.add(new Locale("SPANISH", "es"));
 		createLocaleMaps();
 	}
 	
@@ -30,19 +21,23 @@ public class LangMaps {
 	 * @return Map<String, String> for selected language
 	 */
 	public Map<String, String> getMaps(String language) {
-		System.out.println("hi");
 		return allMaps.get(language);
 	}
 	
 	private void createLocaleMaps() {
 		//for (Locale loc : supportedLocales) {
 			Map<String, String> localeMap = new HashMap<String, String>();
-			ResourceBundle localeToAdd = ResourceBundle.getBundle("resources.languajl;ges", Locale.ENGLISH);
+			ResourceBundle localeToAdd = ResourceBundle.getBundle("resources.languages.languages", Locale.ENGLISH);
 			for (String key : localeToAdd.keySet()) {
-				localeMap.put(localeToAdd.getString(key), key);
+				if (localeToAdd.getString(key).contains("|")) {
+					String[] commandSplit = localeToAdd.getString(key).split("\\|");
+					for (String commandVariant : commandSplit) {
+						localeMap.put(commandVariant.trim(), key);
+					}
+				}
+				else localeMap.put(localeToAdd.getString(key).trim(), key);
 			}
-			allMaps.put(Locale.ENGLISH.getLanguage(), localeMap);
-			System.out.println(Locale.ENGLISH.getLanguage() + " OH!");
+			allMaps.put(Locale.ENGLISH.getCountry(), localeMap);
 		//}
 	}
 }
