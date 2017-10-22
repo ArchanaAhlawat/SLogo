@@ -4,11 +4,17 @@ import java.util.Stack;
 
 import backend.Turtle;
 
-public class Forward implements Command {
+/**
+ * @author kelly
+ *
+ */
+public class Home implements Command {
 	
+	private static final double ZERO = 0.0;
+
 	@Override
 	public Stack<Double> execute(Stack<Double> vars, Turtle currentTurtle) {
-		currentTurtle.move(vars.peek());
-		return vars; // new Stack
+		vars.push(currentTurtle.home());
+		return vars;
 	}
 }

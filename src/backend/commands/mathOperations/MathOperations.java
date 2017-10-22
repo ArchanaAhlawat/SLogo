@@ -7,7 +7,7 @@ import java.util.Map;
 
 import backend.Turtle;
 import backend.commands.Command;
-import backend.commands.turtleCommands.TurtleCommands;
+import backend.commands.TurtleCommands;
 
 public class MathOperations {//implements Command {
 
