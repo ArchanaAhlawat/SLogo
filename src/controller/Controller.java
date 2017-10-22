@@ -13,7 +13,7 @@ public class Controller implements ControllerAPI {
 	}
 
 	@Override
-	public Turtle getTurtle(List<Object> newTurtle) {
+	public Turtle getTurtle() {
 		// TODO Auto-generated method stub
 		//return BackEndDriver.getTurt();
 		return null;

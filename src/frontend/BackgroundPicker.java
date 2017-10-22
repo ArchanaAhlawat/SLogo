@@ -18,7 +18,7 @@ public class BackgroundPicker extends ColorChooser{
 	}
 	
 	protected void EventHandler(Paint fill,Node turtleArea) {
-		System.out.println(turtleArea instanceof Pane);
+		System.out.println(turtleArea.getClass());
 		if(turtleArea instanceof Pane) {
 			System.out.println("Hi");
 			BackgroundFill backgroundFill = new BackgroundFill(fill, CornerRadii.EMPTY, Insets.EMPTY);

@@ -77,7 +77,6 @@ public class FrontEndDriver extends Application {
 	private static final int TURTLESIZE = 50;
 
     private Pane turtleArea;
-	private ImageView turtleImage;
 	private DisplayTurtle displayTurtle;
 	private TurtlePath turtlePath;
 	private Stage window;
@@ -196,7 +195,7 @@ public class FrontEndDriver extends Application {
 	
 	private void addTurtleArea() {
 	    turtleArea=addPane(GRID_X1,GRID_Y1,(GRID_X2-GRID_X1),(GRID_Y2-GRID_Y1));
-	    turtleArea.getChildren().add(turtleImage);
+	    turtleArea.getChildren().add(displayTurtle);
 	}
 	
 	private Pane addPane(double X, double Y,double width,double height) {
@@ -216,10 +215,7 @@ public class FrontEndDriver extends Application {
 	private void addTurtleImage() {
 		File file = new File(DEFAULT_TURTLE_DIRECTORY);
         Image image = new Image(file.toURI().toString());
-        turtleImage= new ImageView(image);
-		turtleImage.setFitHeight(TURTLESIZE);
-		turtleImage.setFitWidth(TURTLESIZE);
-		displayTurtle = new DisplayTurtle(turtleImage,ORIGIN_X,ORIGIN_Y);
+		displayTurtle = new DisplayTurtle(image,ORIGIN_X,ORIGIN_Y,TURTLESIZE);
 	}
 
 	private void addAllButtons(HBox layout) {
@@ -271,7 +267,7 @@ public class FrontEndDriver extends Application {
 	            try {
 	                BufferedImage bufferedImage = ImageIO.read(file);
 	                Image image = SwingFXUtils.toFXImage(bufferedImage, null);
-	                turtleImage.setImage(image);
+	                displayTurtle.setImage(image);
 	            } catch (Exception ex) {
 	            }
 
