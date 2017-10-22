@@ -1,21 +1,20 @@
-package backend.commands.turtleCommands;
+package backend.commands;
 
 import java.util.Stack;
 
 import backend.Turtle;
-import backend.commands.Command;
 
 /**
  * @author kelly
  *
  */
-public class Home implements Command {
+public class PenUp implements Command {
 	
 	private static final double ZERO = 0.0;
 
 	@Override
 	public Stack<Double> execute(Stack<Double> vars, Turtle currentTurtle) {
-		vars.push(currentTurtle.home());
+		vars.push(currentTurtle.penChange(ZERO));
 		return vars;
 	}
 }

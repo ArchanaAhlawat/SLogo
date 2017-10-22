@@ -1,4 +1,4 @@
-package backend.commands.turtleCommands;
+package backend.commands;
 
 import java.lang.reflect.Method;
 import java.util.Collections;
@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import backend.Turtle;
-import backend.commands.Command;
 
 /**
  * @author kelly

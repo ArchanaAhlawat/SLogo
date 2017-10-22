@@ -1,21 +1,20 @@
-package backend.commands.turtleCommands;
+package backend.commands;
 
 import java.util.Stack;
 
 import backend.Turtle;
-import backend.commands.Command;
 
 /**
  * @author kelly
  *
  */
-public class PenUp implements Command {
+public class HideTurtle implements Command {
 	
 	private static final double ZERO = 0.0;
 
 	@Override
 	public Stack<Double> execute(Stack<Double> vars, Turtle currentTurtle) {
-		vars.push(currentTurtle.penChange(ZERO));
+		vars.push(currentTurtle.visChange(ZERO));
 		return vars;
 	}
 }

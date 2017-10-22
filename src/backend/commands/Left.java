@@ -1,19 +1,18 @@
-package backend.commands.turtleCommands;
+package backend.commands;
 
 import java.util.Stack;
 
 import backend.Turtle;
-import backend.commands.Command;
 
 /**
  * @author kelly
  *
  */
-public class Right implements Command {
+public class Left implements Command {
 	
 	@Override
 	public Stack<Double> execute(Stack<Double> vars, Turtle currentTurtle) {
-		currentTurtle.rotate(vars.peek());
+		currentTurtle.rotate(-1*vars.peek());
 		return vars;
 	}
 }
