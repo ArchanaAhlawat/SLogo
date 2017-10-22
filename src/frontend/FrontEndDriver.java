@@ -63,6 +63,8 @@ public class FrontEndDriver extends Application {
 	private static final int GRID_X2 = 500;	//this should be the right-most line coordinate of the turtle grid
 	private static final int GRID_Y1 = 100;	//this should be the top-most line coordinate of the turtle grid
 	private static final int GRID_Y2 = 500;	//this should be the bottom-most line coordinate of the turtle grid
+	private static final int GRID_WIDTH = GRID_X2 - GRID_X1;
+	private static final int GRID_HEIGHT = GRID_Y2 - GRID_Y1;
 	private static final int HISTORY_WIDTH = 300;
 	private static final int HISTORY_HEIGHT = GRID_Y2-GRID_Y1;
 	private static final int RETURN_HEIGHT = 70;
@@ -77,8 +79,9 @@ public class FrontEndDriver extends Application {
 	private static final String DEFAULT_RESOURCE_PACKAGE = "resources.languages/buttons";
 	private static final String DEFAULT_TURTLE_DIRECTORY = "src/resources/turtle.png";
 	private static final int TURTLESIZE = 50;
+	private static final Color DEFAULT_TURTLEAREA_COLOR = Color.HONEYDEW;
 
-    private Pane turtleArea;
+    private Display turtleArea;
 	private DisplayTurtle displayTurtle;
 	private TurtlePath turtlePath;
 	private Stage window;
@@ -115,12 +118,12 @@ public class FrontEndDriver extends Application {
 		
 		turtlePath = new TurtlePath(ORIGIN_X,ORIGIN_Y);
 		addTurtleImage();
-		addTurtleArea();
+		turtleArea= new Display(displayTurtle,GRID_X1,GRID_Y1,GRID_WIDTH,GRID_HEIGHT);
 		addCommandLine();
 		commandHistory = new History(myResources.getString("History"),HISTORY_X,HISTORY_Y,HISTORY_WIDTH,HISTORY_HEIGHT);
 		returnValue = new ReturnValue(myResources.getString("Return"),HISTORY_X, RETURN_Y,HISTORY_WIDTH,RETURN_HEIGHT);
 		
-		root.getChildren().addAll(commandHistory,returnValue);
+		root.getChildren().addAll(turtlePath,turtleArea,commandHistory,returnValue);
 	
 		window.setTitle("SLogo");
 		window.setScene(startScene);
@@ -210,11 +213,6 @@ public class FrontEndDriver extends Application {
 		return lb;
 	}
 	
-	private void addTurtleArea() {
-	    turtleArea=addPane(GRID_X1,GRID_Y1,(GRID_X2-GRID_X1),(GRID_Y2-GRID_Y1));
-	    turtleArea.getChildren().add(displayTurtle);
-	}
-	
 	private Pane addPane(double X, double Y,double width,double height) {
 		Pane bp=new Pane();
 		bp.setTranslateX(X);
@@ -287,8 +285,6 @@ public class FrontEndDriver extends Application {
 	                displayTurtle.setImage(image);
 	            } catch (Exception ex) {
 	            }
-
-			
 			
 		
 		});
@@ -314,7 +310,7 @@ public class FrontEndDriver extends Application {
 		help.setPrefHeight(button_height);
 		help.setPrefWidth(button_width);
 		help.setAlignment(Pos.CENTER);
-		 help.setOnAction(new EventHandler<ActionEvent>() {
+		help.setOnAction(new EventHandler<ActionEvent>() {
 
 			 @Override
 		        public void handle(ActionEvent e) {
