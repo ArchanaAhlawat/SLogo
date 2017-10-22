@@ -9,7 +9,7 @@ public class ReturnValue extends Scroll {
 		// TODO Auto-generated constructor stub
 	}
 	
-	protected void addReturnValue(String value) {
+	protected void addReturnValue(double value) {
 		addToScrollPane(getScrollLabel() + value);
 	}
 

@@ -1,8 +1,10 @@
 package frontend;
 
 import java.awt.image.BufferedImage;
+import backend.Driver;
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URI;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -61,15 +63,20 @@ public class FrontEndDriver extends Application {
 	private static final int GRID_X2 = 500;	//this should be the right-most line coordinate of the turtle grid
 	private static final int GRID_Y1 = 100;	//this should be the top-most line coordinate of the turtle grid
 	private static final int GRID_Y2 = 500;	//this should be the bottom-most line coordinate of the turtle grid
-	private static final int HISTORY_WIDTH = 300;
-	private static final int HISTORY_HEIGHT = GRID_Y2-GRID_Y1;
+	private static final int HISTORY_WIDTH = 350;
+	private static final int HISTORY_HEIGHT = 200;
 	private static final int RETURN_HEIGHT = 70;
-	private static final int RETURN_Y = 530;
+	private static final int RETURN_Y = 440;
 	private static final int HISTORY_Y = 100;
 	private static final int HISTORY_X = 600;
+	private static final int UserV_Y = 320;
+	private static final int UserC_Y = 530;
+	private static final int UserC_HEIGHT = 150;
+	private static final int UserV_HEIGHT = 100;
+	
 	private static final int VBOX_SPACING = 7;
 	private static final int width = 1000;
-	private static final int height = 800;
+	private static final int height = 1000;
 	private static final int button_width = 200;
 	private static final int button_height = 40;
 	private static final String DEFAULT_RESOURCE_PACKAGE = "resources.languages/buttons";
@@ -86,6 +93,11 @@ public class FrontEndDriver extends Application {
 	private TextField command;
 	private History commandHistory;
 	private ReturnValue returnValue;
+	private History userDefinedVariables;
+	private History userDefinedCommands;
+	private double commandValue;
+	
+	private Driver BEdriver = new Driver();
 	
 	public static final double ORIGIN_X = (GRID_X2 - GRID_X1 - TURTLESIZE)/2;
 	public static final double ORIGIN_Y = (GRID_Y2 - GRID_Y1 - TURTLESIZE)/2;
@@ -115,8 +127,9 @@ public class FrontEndDriver extends Application {
 		addCommandLine();
 		commandHistory = new History(myResources.getString("History"),HISTORY_X,HISTORY_Y,HISTORY_WIDTH,HISTORY_HEIGHT);
 		returnValue = new ReturnValue(myResources.getString("Return"),HISTORY_X, RETURN_Y,HISTORY_WIDTH,RETURN_HEIGHT);
-		
-		root.getChildren().addAll(commandHistory,returnValue);
+		userDefinedVariables=new History(myResources.getString("UserV"),HISTORY_X,UserV_Y,HISTORY_WIDTH,UserV_HEIGHT);
+		userDefinedCommands=new History(myResources.getString("UserC"),HISTORY_X,UserC_Y,HISTORY_WIDTH,UserC_HEIGHT);
+		root.getChildren().addAll(commandHistory,returnValue,userDefinedVariables,userDefinedCommands);
 	
 		window.setTitle("SLogo");
 		window.setScene(startScene);
@@ -169,16 +182,34 @@ public class FrontEndDriver extends Application {
 		b.setPrefSize(SUBMIT_BUTTON_WIDTH, SUBMIT_BUTTON_HEIGHT);
 		
 		b.setOnAction(e ->{
+
+			
+			
+		     
+
 			if (command.getText().equals(null)) {
 				System.out.println("error");
 				
 			}
 			else {
-			commandHistory.addHistory(command.getText());
-			returnValue.addReturnValue(command.getText());
+			String currentCommand=command.getText();
+			
+			try {
+				commandValue=BEdriver.setCommand(currentCommand);
+				
+				
+				
+			} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException
+					| NoSuchMethodException | SecurityException | InstantiationException | ClassNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			commandHistory.addHistory(currentCommand);
+			returnValue.addReturnValue(commandValue);
 			command.clear();
 			}
 		
+
 		
 		});
 		
@@ -197,6 +228,12 @@ public class FrontEndDriver extends Application {
 	private void addTurtleArea() {
 	    turtleArea=addPane(GRID_X1,GRID_Y1,(GRID_X2-GRID_X1),(GRID_Y2-GRID_Y1));
 	    turtleArea.getChildren().add(turtleImage);
+
+		turtleImage.setX(ORIGIN_X);
+		turtleImage.setY(ORIGIN_Y);
+		//turtleArea.setStyle("-fx-background-color: honeydew");
+		
+
 	}
 	
 	private Pane addPane(double X, double Y,double width,double height) {
@@ -274,9 +311,7 @@ public class FrontEndDriver extends Application {
 	                turtleImage.setImage(image);
 	            } catch (Exception ex) {
 	            }
-
-			
-			
+		
 		
 		});
 		
