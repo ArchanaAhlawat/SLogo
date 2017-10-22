@@ -1,0 +1,39 @@
+package backend;
+import java.util.Stack;
+
+//instantiate new Stacks object everytime an instruction is passed through
+public class Stacks {
+	Stack<Double> numberStack = new Stack<Double>();
+	Stack<String> variableStack = new Stack<String>();
+	Stack<Double[]> listStack = new Stack<Double[]>();
+	
+	public boolean canBeAdded(String element) { // tests whether non-command (right now: variable or double)
+		return (isNumeric(element) || isVariable(element));
+	}
+	
+	public void push(String element) {
+		if (isNumeric(element)) numberStack.push(Double.parseDouble(element));
+		if (isVariable(element)) variableStack.push(element);
+		if (element.matches("[ ]")) {
+			//TODO: 
+			//create the list in double[] form
+			//push to listStack
+		}
+	}
+	
+	private boolean isNumeric(String possibleInt) {
+		 return possibleInt.matches("-?\\d+(\\.\\d+)?");
+	}
+	
+	private boolean isVariable(String possibleVar) {
+		return possibleVar.matches(":[a-zA-Z_]+");
+	}
+	
+	public Double peekDouble() {
+		return numberStack.peek();
+	}
+	
+	public Double getReturnVal() {
+		return numberStack.pop();
+	}
+}
