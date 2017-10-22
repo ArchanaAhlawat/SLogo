@@ -63,15 +63,20 @@ public class FrontEndDriver extends Application {
 	private static final int GRID_X2 = 500;	//this should be the right-most line coordinate of the turtle grid
 	private static final int GRID_Y1 = 100;	//this should be the top-most line coordinate of the turtle grid
 	private static final int GRID_Y2 = 500;	//this should be the bottom-most line coordinate of the turtle grid
-	private static final int HISTORY_WIDTH = 300;
-	private static final int HISTORY_HEIGHT = GRID_Y2-GRID_Y1;
+	private static final int HISTORY_WIDTH = 350;
+	private static final int HISTORY_HEIGHT = 200;
 	private static final int RETURN_HEIGHT = 70;
-	private static final int RETURN_Y = 530;
+	private static final int RETURN_Y = 440;
 	private static final int HISTORY_Y = 100;
 	private static final int HISTORY_X = 600;
+	private static final int UserV_Y = 320;
+	private static final int UserC_Y = 530;
+	private static final int UserC_HEIGHT = 150;
+	private static final int UserV_HEIGHT = 100;
+	
 	private static final int VBOX_SPACING = 7;
 	private static final int width = 1000;
-	private static final int height = 800;
+	private static final int height = 1000;
 	private static final int button_width = 200;
 	private static final int button_height = 40;
 	private static final String DEFAULT_RESOURCE_PACKAGE = "resources.languages/buttons";
@@ -88,6 +93,8 @@ public class FrontEndDriver extends Application {
 	private TextField command;
 	private History commandHistory;
 	private ReturnValue returnValue;
+	private History userDefinedVariables;
+	private History userDefinedCommands;
 	private double commandValue;
 	
 	private Driver BEdriver = new Driver();
@@ -120,8 +127,9 @@ public class FrontEndDriver extends Application {
 		addCommandLine();
 		commandHistory = new History(myResources.getString("History"),HISTORY_X,HISTORY_Y,HISTORY_WIDTH,HISTORY_HEIGHT);
 		returnValue = new ReturnValue(myResources.getString("Return"),HISTORY_X, RETURN_Y,HISTORY_WIDTH,RETURN_HEIGHT);
-		
-		root.getChildren().addAll(commandHistory,returnValue);
+		userDefinedVariables=new History(myResources.getString("UserV"),HISTORY_X,UserV_Y,HISTORY_WIDTH,UserV_HEIGHT);
+		userDefinedCommands=new History(myResources.getString("UserC"),HISTORY_X,UserC_Y,HISTORY_WIDTH,UserC_HEIGHT);
+		root.getChildren().addAll(commandHistory,returnValue,userDefinedVariables,userDefinedCommands);
 	
 		window.setTitle("SLogo");
 		window.setScene(startScene);
@@ -303,9 +311,7 @@ public class FrontEndDriver extends Application {
 	                turtleImage.setImage(image);
 	            } catch (Exception ex) {
 	            }
-
-			
-			
+		
 		
 		});
 		
