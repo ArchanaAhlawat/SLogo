@@ -183,6 +183,8 @@ public class FrontEndDriver extends Application {
 			try {
 				commandValue=BEdriver.setCommand(currentCommand);
 				
+				
+				
 			} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException
 					| NoSuchMethodException | SecurityException | InstantiationException | ClassNotFoundException e1) {
 				// TODO Auto-generated catch block
