@@ -1,4 +1,4 @@
-package backend.commands;
+package backend.commands.mathOperations;
 
 import java.lang.reflect.Method;
 import java.util.Collections;
@@ -6,9 +6,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 import backend.Turtle;
+import backend.commands.Command;
 import backend.commands.turtleCommands.TurtleCommands;
 
-public class MathOperations implements Command {
+public class MathOperations {//implements Command {
 
 	private static final double ZERO = 0.0;
 	private static final double ONE = 1.0;
@@ -33,7 +34,7 @@ public class MathOperations implements Command {
 		numParams = Collections.unmodifiableMap(myMap);
 	}
 	
-	@Override
+	//@Override
 	public double execute(String methodName, Turtle currentTurtle) {
 		//use map to go from string method to num parameters for method
 		//reflection from string method to actual method

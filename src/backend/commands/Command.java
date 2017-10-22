@@ -1,6 +1,7 @@
 package backend.commands;
 
 import backend.Turtle;
+import java.util.Stack;
 
 public interface Command {
 
@@ -10,6 +11,6 @@ public interface Command {
 	 * @param currentTurtle Turtle that will be updated with the change (may not be required)
 	 * @return the double specified to be returned in the SLOGO specification, needed to be inserted into the stack of parameters
 	 */
-	public double execute(String methodName, Turtle currentTurtle);	
+	public Stack<Double> execute(Stack<Double> Vars, Turtle currentTurtle);	
 	
 }

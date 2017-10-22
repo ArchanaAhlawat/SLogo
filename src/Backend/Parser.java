@@ -1,4 +1,4 @@
-package Backend;
+package backend;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;

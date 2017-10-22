@@ -12,7 +12,7 @@ import backend.commands.Command;
  * @author kelly
  *
  */
-public class TurtleCommands implements Command {
+public class TurtleCommands {//implements Command {
 	
 	private static final double ZERO = 0.0;
 	private static final double ONE = 1.0;
@@ -36,7 +36,7 @@ public class TurtleCommands implements Command {
 		numParams = Collections.unmodifiableMap(myMap);
 	}
 	
-	@Override
+	//@Override
 	public double execute(String methodName, Turtle currentTurtle) {
 		//use map to go from string method to num parameters for method
 		//get parameters from parser

@@ -5,7 +5,7 @@ import java.lang.reflect.Method;
 import backend.Turtle;
 import backend.commands.Command;
 
-public class TurtleQueries implements Command {
+public class TurtleQueries {//implements Command {
 
 	private static final String XCOR = "xcor";
 	private static final String YCOR = "ycor";
@@ -14,7 +14,7 @@ public class TurtleQueries implements Command {
 	private static final String TURTLEVIS = "turtleVis";
 	private Turtle myTurtle;
 	
-	@Override
+	//@Override
 	public double execute(String methodName, Turtle currentTurtle) {
 		//reflection from string method to actual method with parameters
 			//gets the needed value from the turtle
