@@ -72,10 +72,10 @@ public class FrontEndDriver extends Application {
 	private static final int HISTORY_Y = 100;
 	private static final int HISTORY_X = 600;
 	private static final int VBOX_SPACING = 7;
-	private static final int width = 1000;
-	private static final int height = 800;
-	private static final int button_width = 200;
-	private static final int button_height = 40;
+	private static final int WIDTH = 1000;
+	private static final int HEIGHT = 800;
+	private static final int BUTTON_WIDTH = 200;
+	private static final int BUTTON_HEIGHT = 40;
 	private static final String DEFAULT_RESOURCE_PACKAGE = "resources.languages/buttons";
 	private static final String DEFAULT_TURTLE_DIRECTORY = "src/resources/turtle.png";
 	private static final int TURTLESIZE = 50;
@@ -110,20 +110,17 @@ public class FrontEndDriver extends Application {
 		root = new Group();
 		
 		
-		Scene startScene= new Scene(root, width, height);
-		//call turtle
-		
-		root.getChildren().addAll(layout,layout2);
+		Scene startScene= new Scene(root, WIDTH, HEIGHT);
+		addTurtleImage();
+		turtleArea= new Display(displayTurtle,DEFAULT_TURTLEAREA_COLOR,GRID_X1,GRID_Y1,GRID_WIDTH,GRID_HEIGHT);
 		addAllButtons(layout);
 		
 		turtlePath = new TurtlePath(ORIGIN_X,ORIGIN_Y);
-		addTurtleImage();
-		turtleArea= new Display(displayTurtle,GRID_X1,GRID_Y1,GRID_WIDTH,GRID_HEIGHT);
 		addCommandLine();
 		commandHistory = new History(myResources.getString("History"),HISTORY_X,HISTORY_Y,HISTORY_WIDTH,HISTORY_HEIGHT);
 		returnValue = new ReturnValue(myResources.getString("Return"),HISTORY_X, RETURN_Y,HISTORY_WIDTH,RETURN_HEIGHT);
 		
-		root.getChildren().addAll(turtlePath,turtleArea,commandHistory,returnValue);
+		root.getChildren().addAll(layout,layout2,turtlePath,turtleArea,commandHistory,returnValue);
 	
 		window.setTitle("SLogo");
 		window.setScene(startScene);
@@ -147,7 +144,7 @@ public class FrontEndDriver extends Application {
 	
 	private Label addLabelForButton(String name) {
 		Label l=new Label(myResources.getString(name));
-		l.setPrefWidth(button_width);
+		l.setPrefWidth(BUTTON_WIDTH);
 		return l;
 		
 		
@@ -237,9 +234,8 @@ public class FrontEndDriver extends Application {
 		
 		layout.setTranslateY(BUTTONS_Y);
 		Button b1=turtleImageButton();
-		
-		final ColorChooser b2 = new BackgroundPicker(Color.HONEYDEW,button_width,button_height,turtleArea);
-		final ColorPicker b3= new PenPicker(Color.BLACK,button_width,button_height,turtlePath);
+		final BackgroundPicker b2 = new BackgroundPicker(DEFAULT_TURTLEAREA_COLOR,BUTTON_WIDTH,BUTTON_HEIGHT,turtleArea);
+		final PenPicker b3= new PenPicker(Color.BLACK,BUTTON_WIDTH,BUTTON_HEIGHT,turtlePath);
 		ChoiceBox b4=setUpLanguage();
 		Hyperlink b5=helpButton();
 		layout.getChildren().addAll(b1,b2,b3,b4,b5);
@@ -247,8 +243,8 @@ public class FrontEndDriver extends Application {
 	
 	private ChoiceBox setUpLanguage() {
 		ChoiceBox<String> cb=makeChoiceBox();
-		cb.setPrefWidth(button_width);
-		cb.setPrefHeight(button_height);
+		cb.setPrefWidth(BUTTON_WIDTH);
+		cb.setPrefHeight(BUTTON_HEIGHT);
 		
 		cb.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
 		      @Override
@@ -307,8 +303,8 @@ public class FrontEndDriver extends Application {
 	private Hyperlink helpButton() {
 		
 		final Hyperlink help = new Hyperlink(myResources.getString("Help"));
-		help.setPrefHeight(button_height);
-		help.setPrefWidth(button_width);
+		help.setPrefHeight(BUTTON_HEIGHT);
+		help.setPrefWidth(BUTTON_WIDTH);
 		help.setAlignment(Pos.CENTER);
 		help.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -328,7 +324,7 @@ public class FrontEndDriver extends Application {
 	
 	private Button makeButton(String message) {
 		Button b = new Button(message);
-		b.setPrefSize(button_width, button_height);
+		b.setPrefSize(BUTTON_WIDTH, BUTTON_HEIGHT);
 		b.setAlignment(Pos.CENTER_LEFT);
 
 		return b;

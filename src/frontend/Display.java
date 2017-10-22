@@ -14,7 +14,7 @@ import javafx.scene.paint.Color;
 
 public class Display extends Pane{
 	
-	public Display(Node node,double X,double Y,double width,double height) {
+	public Display(Node node,Color color,double X,double Y,double width,double height) {
 		super(node);
 		this.setTranslateX(X);
 		this.setTranslateY(Y);
@@ -22,6 +22,7 @@ public class Display extends Pane{
 		this.setPrefHeight(height);
 		this.setBorder(new Border(new BorderStroke(Color.BLACK, 
 	            BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+		this.changeColor(color);
 	}
 	
 	protected void addNode(Node node) {
