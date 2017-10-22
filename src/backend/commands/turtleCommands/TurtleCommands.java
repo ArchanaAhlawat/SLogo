@@ -86,23 +86,23 @@ public class TurtleCommands {//implements Command {
 		return myTurtle.setHeading(degrees);
 	}
 
-	private double setXY(double[] xy) {
-		return myTurtle.setXY(xy);
+	private double setXY(double x, double y) {
+		return myTurtle.setXY(x, y);
 	}
 
-	private int penDown() {
+	private double penDown() {
 		return myTurtle.penChange(ONE);
 	}
 
-	private int penUp() {
+	private double penUp() {
 		return myTurtle.penChange(ZERO);
 	}
 
-	private int showTurtle() {
+	private double showTurtle() {
 		return myTurtle.visChange(ONE);
 	}
 
-	private int hideTurtle() {
+	private double hideTurtle() {
 		return myTurtle.visChange(ZERO);
 	}
 

@@ -1,6 +1,7 @@
 package backend;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,10 +31,10 @@ public class Turtle {
 		turtleVis = ONE;
 	}
 
-	public Turtle(double x, double y, double r, double penDown, double turtleVis) {
+	public Turtle(double x, double y, double t, double penDown, double turtleVis) {
 		this.xcor = x;
 		this.ycor = y;
-		this.theta = r;
+		this.theta = t;
 		this.penDown = penDown;
 		this.turtleVis = turtleVis;
 	}
@@ -81,9 +82,7 @@ public class Turtle {
 	public double getAbsoluteOrientation(String orientation) {
 		try {
 			Field t = Turtle.class.getDeclaredField(orientation);
-			Object obj = Turtle.class.newInstance();
-			System.out.println(obj);
-			return (double) t.get(obj);
+			return t.getDouble(this);
 		}
 		catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -111,26 +110,26 @@ public class Turtle {
 		return difference;
 	}
 
-	public double setXY(double[] xy) {
-		double distance = distance(xy[0], xy[1]);
-		this.xcor = xy[0];
-		this.ycor = xy[1];
+	public double setXY(double x, double y) {
+		double distance = distance(x, y);
+		this.xcor = x;
+		this.ycor = y;
 		return distance;
 	}
 
-	public int penChange(double change) {
+	public double penChange(double change) {
 		this.penDown = change;
-		return (int) change;
+		return change;
 	}
 
-	public int visChange(double change) {
+	public double visChange(double change) {
 		this.turtleVis = change;
-		return (int) change;
+		return change;
 	}
 
 	public double home() {
 		double distance = distance(ZERO, ZERO);
-		setXY(new double[] {ZERO, ZERO});
+		setXY(ZERO, ZERO);
 		return distance;
 	}
 
@@ -140,4 +139,11 @@ public class Turtle {
 		colorLine.clear();
 		return home();
 	}
+	
+//	public static void main (String[] args) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, InstantiationException, ClassNotFoundException {
+//		Turtle t = new Turtle(5.0,2.0,3.0,0.0,0.0);
+//		System.out.println(t.getAbsoluteOrientation("xcor"));
+//		System.out.println(t.getAbsoluteOrientation("ycor"));
+//		System.out.println(t.getAbsoluteOrientation("theta"));
+//	}
 }
