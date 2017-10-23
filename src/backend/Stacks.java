@@ -3,9 +3,13 @@ import java.util.Stack;
 
 //instantiate new Stacks object everytime an instruction is passed through
 public class Stacks {
-	Stack<Double> numberStack = new Stack<Double>();
-	Stack<String> variableStack = new Stack<String>();
-	Stack<Double[]> listStack = new Stack<Double[]>();
+	static Stack<Double> numberStack = new Stack<Double>();
+	static Stack<String> variableStack = new Stack<String>();
+	static Stack<Double[]> listStack = new Stack<Double[]>();
+	
+	public Stacks() {
+		
+	}
 	
 	public boolean canBeAdded(String element) { // tests whether non-command (right now: variable or double)
 		return (isNumeric(element) || isVariable(element));
@@ -34,6 +38,14 @@ public class Stacks {
 	}
 	
 	public Double getReturnVal() {
+		return numberStack.peek(); // TODO: MAY HAVE TO CHANGE TO POP LATER. VERY IMPORTANT. 
+	}
+	
+	public Double popDouble() {
 		return numberStack.pop();
+	}
+	
+	public void addDouble(double num) {
+		numberStack.push(num);
 	}
 }

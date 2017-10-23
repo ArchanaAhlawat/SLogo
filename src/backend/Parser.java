@@ -29,11 +29,11 @@ public class Parser {
 				instructionStacks.push(instructionArray[i]);
 			}
 			else {
+				
 				Class<?> commandClass = Class.forName("backend.commands." + langMap.get(instructionArray[i].toLowerCase()));
 				Object commandInstance = commandClass.newInstance();
 				Method commandMethod = commandClass.getDeclaredMethod("execute", Stacks.class, Turtle.class);
 				commandMethod.invoke(commandInstance, instructionStacks, currentTurtle);
-				// no need to copy stack ! changing return vals handled in instructionStacks (instance of stacks class)
 				val = instructionStacks.getReturnVal();
 				System.out.println("RETURN VAL IS " + val);
 			}
@@ -46,7 +46,7 @@ public class Parser {
 	
 	public static void main (String[] args) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, InstantiationException, ClassNotFoundException {
 		Parser p = new Parser(new Turtle());
-		p.parseInstruction("Forward 50");
+		p.parseInstruction("Forward Sum 50 5");
 		p.getReturnVal();
 	}
 }
