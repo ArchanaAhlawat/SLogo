@@ -6,12 +6,13 @@ import backend.Turtle;
 import backend.api.Command;
 
 /**
- * @author kelly
  * has the execute for when a back command is called
  *     peeks at the first parameter in the stack
  *     moves the turtle that distance back
  *     does not need to add the distance moved back to the stack because it was not popped (only peeked!)
  *     returns the stack of parameters
+ *
+ * @author kelly
  *
  */
 public class Back implements Command {

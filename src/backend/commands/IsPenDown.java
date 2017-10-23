@@ -6,12 +6,13 @@ import backend.Turtle;
 import backend.api.Command;
 
 /**
- * @author kelly
  * has the execute for when a ispendown command is called
  *     doesn't need any parameters from the stack
  *     asks the turtle for the pendown value
  *     pushes if the pen is up or down to the stack
  *     returns the stack of parameters
+ *
+ * @author kelly
  *
  */
 public class IsPenDown implements Command {

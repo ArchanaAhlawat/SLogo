@@ -6,10 +6,12 @@ import backend.Turtle;
 import backend.api.Command;
 
 /**
- * @author kelly
  * turtlequeries class that uses reflection to determine which method to use from the string of the method name
  * has a static map to know the number of parameters that need to be popped from the stack of values
  * not used anymore, instead each method is a class
+ * 
+ * @author kelly
+ * 
  */
 public class TurtleQueries {//implements Command {
 

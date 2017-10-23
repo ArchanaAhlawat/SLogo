@@ -6,12 +6,13 @@ import backend.Turtle;
 import backend.api.Command;
 
 /**
- * @author kelly
  * has the execute for when a xcor command is called
  *     doesn't need any parameter from the stack
  *     asks the turtle for its xcor value
  *     pushes if the turtle's xcor to the stack
  *     returns the stack of parameters
+ *
+ * @author kelly
  *
  */
 public class XCoordinate implements Command {

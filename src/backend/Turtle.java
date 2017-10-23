@@ -6,12 +6,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author kelly
  * Turtle that keeps track of all of their locations and parameters needed
  * has a constructor that sets up the original turtle and one to set up a turtle with initial parameters
  * has active methods to create all changes from turtlecommands
  * has getter that uses reflection to return each of the parameters needed
  * has a getter that returns the lines/trails to be drawn
+ * 
+ * @author kelly
  * 
  */
 public class Turtle {

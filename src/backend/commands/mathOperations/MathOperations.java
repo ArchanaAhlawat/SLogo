@@ -9,6 +9,10 @@ import backend.Turtle;
 import backend.api.Command;
 import backend.commands.turtleCommands.TurtleCommands;
 
+/**
+ * @author kelly
+ *
+ */
 public class MathOperations {//implements Command {
 
 	private static final double ZERO = 0.0;
