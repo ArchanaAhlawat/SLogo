@@ -1,4 +1,4 @@
-package backend.commands.mathOperations;
+package backend.commands;
 
 import java.util.Stack;
 

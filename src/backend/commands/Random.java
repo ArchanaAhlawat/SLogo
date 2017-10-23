@@ -1,7 +1,6 @@
-package backend.commands.mathOperations;
+package backend.commands;
 
 import java.util.Stack;
-import java.util.concurrent.ThreadLocalRandom;
 
 import backend.Turtle;
 import backend.api.Command;

@@ -4,6 +4,9 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
+
+import backend.commands.ArcTangent;
 
 /**
  * Turtle that keeps track of all of their locations and parameters needed
@@ -16,6 +19,10 @@ import java.util.List;
  * 
  */
 public class Turtle {
+	private static final double ZERO = 0.0;
+	private static final double HALF = 0.5;
+	private static final double ONE = 1.0;
+	private static final double RADTODEG = 180.0/Math.PI;
 
 	// xcor=0, ycor=0 is in center
 	// xcor increases to the right, ycor increases down
@@ -24,11 +31,7 @@ public class Turtle {
 	private double xcor, ycor, theta;
 	private double penDown, turtleVis;
 	private List<Double> lineCor;
-
-	private static final double ZERO = 0.0;
-	private static final double HALF = 0.5;
-	private static final double ONE = 1.0;
-
+	
 	public Turtle() {
 		xcor = ycor = theta = ZERO;
 		penDown = ZERO;
@@ -109,8 +112,8 @@ public class Turtle {
 	 * @param pixels
 	 */
 	public void move(double pixels) {
-		double newx = xcor + pixels*Math.sin(theta);
-		double newy = ycor - pixels*Math.cos(theta);
+		double newx = xcor + pixels*Math.sin(theta*RADTODEG);
+		double newy = ycor - pixels*Math.cos(theta*RADTODEG);
 		setXY(newx, newy);
 	}
 
