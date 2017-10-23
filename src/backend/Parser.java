@@ -1,13 +1,12 @@
 package backend;
 
-import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Stack;
 
 public class Parser {
+	//UserVariables userVariables = new UserVariables();
 	Turtle currentTurtle;
 	private double val;
 	
@@ -25,8 +24,11 @@ public class Parser {
 		//Stack<Double> instructionStack = new Stack<Double>();
 		String[] instructionArray = inst.split(" ");
 		for (int i = instructionArray.length - 1; i > -1; i--) {
-			if (instructionStacks.canBeAdded(instructionArray[i])) {
-				instructionStacks.push(instructionArray[i]);
+			if (UserVariables.contains(instructionArray[i])) {
+				instructionStacks.push(Double.toString(UserVariables.getVarVal(instructionArray[i])));
+			}
+			else if (instructionStacks.canBeAdded(instructionArray[i])) {
+				instructionStacks.push(instructionArray[i]); // types are abstracted to Stacks class - good design
 			}
 			else {
 				
@@ -46,7 +48,7 @@ public class Parser {
 	
 	public static void main (String[] args) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, InstantiationException, ClassNotFoundException {
 		Parser p = new Parser(new Turtle());
-		p.parseInstruction("Forward Sum 50 5");
+		p.parseInstruction("Forward Make :hi 50");
 		p.getReturnVal();
 	}
 }

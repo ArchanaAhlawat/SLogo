@@ -3,9 +3,9 @@ import java.util.Stack;
 
 //instantiate new Stacks object everytime an instruction is passed through
 public class Stacks {
-	static Stack<Double> numberStack = new Stack<Double>();
-	static Stack<String> variableStack = new Stack<String>();
-	static Stack<Double[]> listStack = new Stack<Double[]>();
+	Stack<Double> numberStack = new Stack<Double>(); // can these be static if only ever one copy? 
+	Stack<String> variableStack = new Stack<String>();
+	Stack<Double[]> listStack = new Stack<Double[]>();
 	
 	public Stacks() {
 		
@@ -18,6 +18,7 @@ public class Stacks {
 	public void push(String element) {
 		if (isNumeric(element)) numberStack.push(Double.parseDouble(element));
 		if (isVariable(element)) variableStack.push(element);
+		
 		if (element.matches("[ ]")) {
 			//TODO: 
 			//create the list in double[] form
@@ -47,5 +48,9 @@ public class Stacks {
 	
 	public void addDouble(double num) {
 		numberStack.push(num);
+	}
+	
+	public String popVariable() {
+		return variableStack.pop();
 	}
 }
