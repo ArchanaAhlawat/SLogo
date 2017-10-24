@@ -9,8 +9,6 @@ import javafx.scene.shape.PathElement;
 
 
 public class TurtlePath extends Path{
-	public static final int X_INDEX = 0;
-	public static final int Y_INDEX = 1;
 	private int prevPathSize;
 	
 	public TurtlePath(double origin_x,double origin_y) {
@@ -18,14 +16,14 @@ public class TurtlePath extends Path{
 		prevPathSize = 0;
 	}
 	
-	protected void updatePath(List<List<Double>> start,List<List<Double>> end) {
-		int currPathSize = start.size();
+	protected void updatePath(List<Double> points) {
+		int currPathSize = points.size();
 		if(currPathSize > prevPathSize) {
-			for(int i = 0; i < start.size(); i++) {
-				double startX = start.get(i).get(X_INDEX);
-				double startY = start.get(i).get(Y_INDEX);
-				double endX = end.get(i).get(X_INDEX);
-				double endY = end.get(i).get(Y_INDEX);
+			for(int i = prevPathSize; i < currPathSize; i += 4) {
+				double startX = points.get(i);
+				double startY = points.get(i + 1);
+				double endX = points.get(i + 2);
+				double endY = points.get(i + 3);
 				this.getElements().add(new MoveTo(startX,startY));
 				this.getElements().add(new LineTo(endX,endY));
 			}
