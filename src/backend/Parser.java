@@ -87,6 +87,7 @@ public class Parser {
 		Parser p = new Parser(new Turtle());
 		p.parseInstruction(""); // repeat 3 [ fd 54\nsum 2 4 ], DOTIMES [ :var 3 ] [ fd :var\nsum :var 4 ], 
 		//FOR [ :var 3 5 ] [ fd :var\nsum :var 4 ], IF 0 [ fd 54\nsum 2 4 ]
+		// IFELSE 0 [ fd 54\nsum 2 4 ] [ fd 700\nsum 70 70 ], 
 		p.getReturnVal(); // if not zero, run commands.
 	}
 	
