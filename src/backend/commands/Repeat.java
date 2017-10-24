@@ -11,7 +11,6 @@ public class Repeat implements Command{
 	@Override
 	public void execute(Stacks instructionStacks, Turtle currentTurtle) {
 		double repeatNum = instructionStacks.peekDouble();
-		System.out.println("repeatNum: " + repeatNum);
 		Parser tempParser = new Parser(currentTurtle);
 		
 		try {
