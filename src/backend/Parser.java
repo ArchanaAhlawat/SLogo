@@ -28,22 +28,35 @@ public class Parser {
 		String[] instructionArray = inst.split(" ");
 		for (int i = instructionArray.length - 1; i > -1; i--) {
 			if (UserVariables.contains(instructionArray[i])) {
-				System.out.println("assigned var: " + instructionArray[i]);
-				instructionStacks.push(Double.toString(UserVariables.getVarVal(instructionArray[i])));
+				instructionStacks.push(this.getVarVal(instructionArray[i]));
 			}
 		
 			else if (instructionArray[i].matches("\\]")) { // identified beginning of list (back of list)
-				System.out.println("beginning of list : " + instructionArray[i]);
-				i--; // I think the list will be \n[\ncommand1\ncommand2\ncommand3\n]\n (cont)
-				List<String> tempCommands = new ArrayList<String>();
-				while (! instructionArray[i].matches("\\[")) {
-					tempCommands.add(instructionArray[i]);
+				if (commandsList != null) { // we already have one set of commands
 					i--;
+					List<String> tempCommands = new ArrayList<String>();
+					while (! instructionArray[i].matches("\\[")) {
+						tempCommands.add(instructionArray[i]);
+						i--;
+					}
+					Collections.reverse(tempCommands); // in correct order
+					commandsList = String.join(" ", tempCommands);
+					System.out.println("second list (of commands or vars): " + commandsList);
+					instructionStacks.instantiateSecondCommandsList(commandsList);
+				} // lots of repeated code to refactor 
+				else { 
+					i--;
+					List<String> tempCommands = new ArrayList<String>();
+					while (! instructionArray[i].matches("\\[")) {
+						tempCommands.add(instructionArray[i]);
+						i--;
+					}
+					Collections.reverse(tempCommands); // in correct order
+					commandsList = String.join(" ", tempCommands);
+					System.out.println("list: " + commandsList);
+					instructionStacks.instantiateCommandsList(commandsList);
+			
 				}
-				Collections.reverse(tempCommands); // in correct order
-				commandsList = String.join(" ", tempCommands);
-				System.out.println("list: " + commandsList);
-				instructionStacks.instantiateCommandsList(commandsList);
 			}
 			else if (instructionArray[i].matches("\\[")) continue;
 			
@@ -51,7 +64,7 @@ public class Parser {
 				instructionStacks.push(instructionArray[i]); // types are abstracted to Stacks class - good design
 			}
 			else {
-				System.out.println("ok this should happen: " + instructionArray[i]);
+				System.out.println("instruction: " + instructionArray[i]);
 				reflectAndExecute(instructionStacks, instructionArray, i);
 			}
 		}
@@ -72,7 +85,15 @@ public class Parser {
 	
 	public static void main (String[] args) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, InstantiationException, ClassNotFoundException {
 		Parser p = new Parser(new Turtle());
-		p.parseInstruction("repeat 3 [ fd 54\nsum 2 4 ]");
+		p.parseInstruction(""); // repeat 3 [ fd 54\nsum 2 4 ], DOTIMES [ :var 3 ] [ fd :var\nsum :var 4 ]
 		p.getReturnVal();
+	}
+	
+	public String getVarVal(String var) {
+		return Double.toString(UserVariables.getVarVal(var));
+	}
+	
+	public void updateUserVars(String key, Double val) {
+		UserVariables.put(key, val);
 	}
 }

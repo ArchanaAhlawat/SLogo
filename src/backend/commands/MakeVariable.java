@@ -8,7 +8,7 @@ public class MakeVariable implements Command {
 
 	@Override
 	public void execute(Stacks instructionStacks, Turtle currentTurtle) {
-		String variable = instructionStacks.popVariable();
+		String variable = instructionStacks.peekVariable(); // what does changing pop to peek change? 
 		UserVariables.put(variable, instructionStacks.peekDouble());
 	}
 

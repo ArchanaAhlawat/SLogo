@@ -20,7 +20,7 @@ public class Repeat implements Command{
 				tempParser.parseInstruction(instruction);
 			}
 		}
-		double toReturn = tempParser.getReturnVal(); // does this work? 
+		double toReturn = tempParser.getReturnVal();
 		instructionStacks.addDouble(toReturn);
 		
 		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException

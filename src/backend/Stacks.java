@@ -9,6 +9,7 @@ public class Stacks {
 	Stack<Double[]> listStack = new Stack<Double[]>();
 	Stack<String> commandsStack = new Stack<String>();
 	CommandsList commandsList;
+	CommandsList secondCommandsOrVarsList;
 	
 	public Stacks() {
 		
@@ -57,6 +58,10 @@ public class Stacks {
 		return variableStack.pop();
 	}
 	
+	public String peekVariable() {
+		return variableStack.peek();
+	}
+	
 	public void addToCommands(String command) {
 		commandsStack.push(command);
 	}
@@ -67,5 +72,13 @@ public class Stacks {
 	
 	public List<String> getCommandsList() {
 		return commandsList.getCommandsList();
+	}
+	
+	public void instantiateSecondCommandsList(String commands) {
+		secondCommandsOrVarsList = new CommandsList(commands);
+	}
+	
+	public List<String> getSecondCommandsList() {
+		return secondCommandsOrVarsList.getCommandsList();
 	}
 }
