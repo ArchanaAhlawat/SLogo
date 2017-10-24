@@ -1,4 +1,5 @@
 package backend;
+import java.util.List;
 import java.util.Stack;
 
 //instantiate new Stacks object everytime an instruction is passed through
@@ -6,6 +7,8 @@ public class Stacks {
 	Stack<Double> numberStack = new Stack<Double>(); // can these be static if only ever one copy? 
 	Stack<String> variableStack = new Stack<String>();
 	Stack<Double[]> listStack = new Stack<Double[]>();
+	Stack<String> commandsStack = new Stack<String>();
+	CommandsList commandsList;
 	
 	public Stacks() {
 		
@@ -52,5 +55,17 @@ public class Stacks {
 	
 	public String popVariable() {
 		return variableStack.pop();
+	}
+	
+	public void addToCommands(String command) {
+		commandsStack.push(command);
+	}
+	
+	public void instantiateCommandsList(String commands) {
+		commandsList = new CommandsList(commands);
+	}
+	
+	public List<String> getCommandsList() {
+		return commandsList.getCommandsList();
 	}
 }
