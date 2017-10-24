@@ -20,6 +20,7 @@ public class Random implements Command {
 	public Stack<Double> execute(Stack<Double> vars, Turtle currentTurtle) {
 		double max = vars.pop();
 		vars.push(Math.random()*max); //Math.random() is 0.0 (inclusive) to 1.0 (exclusive)
+		//TODO: throw exception if max is negative/zero
 		return vars;
 	}
 }

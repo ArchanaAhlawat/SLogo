@@ -20,7 +20,8 @@ public class Tangent implements Command {
 	@Override
 	public Stack<Double> execute(Stack<Double> vars, Turtle currentTurtle) {
 		double tan = Math.tan(vars.pop()*RADTODEG);
-		vars.push(tan); //Math.random() is 0.0 (inclusive) to 1.0 (exclusive)
+		vars.push(tan);
+		//TODO: throw error if input is pi/2 + pi*i
 		return vars;
 	}
 }

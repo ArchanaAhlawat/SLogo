@@ -21,6 +21,8 @@ public class Remainder implements Command {
 		double expr1 = vars.pop();
 		double expr2 = vars.pop();
 		vars.push(expr1 % expr2);
+		//TODO: throw error if expr2 is 0.0
+		//negative modulus is defined
 		return vars;
 	}
 
