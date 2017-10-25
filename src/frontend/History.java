@@ -5,6 +5,7 @@ import javafx.scene.text.Text;
 
 public class History extends Scroll {
 	
+	
 	private static final String EMPTY_STRING = "";
 	
 	public History(String label, int x, int y, int width, int height) {
