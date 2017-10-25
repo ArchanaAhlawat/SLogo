@@ -20,16 +20,17 @@ public class ArcTangent implements Command {
 
 	@Override
 	public void execute(Stacks instructionStacks, Turtle currentTurtle) {
-		double atan = instructionStacks.popDouble();
-		instructionStacks.addDouble(Math.atan(atan)*RADTODEG);
+		//double atan = instructionStacks.popDouble();
+		instructionStacks.addDouble(Math.atan(instructionStacks.popDouble())*RADTODEG);
 	}
 	
-//	public static void main (String[] args[]) {
+//	public static void main (String[] args) {
 //		ArcTangent at = new ArcTangent();
-//		Stack<Double> vars = new Stack<>();
-//		vars.push(1.0);
+//		Stacks vars = new Stacks();
+//		vars.addDouble(0.5);
+//		vars.addDouble(0.5);
 //		Turtle currentTurtle = new Turtle();
 //		at.execute(vars, currentTurtle);
-//		System.out.println(vars.peek());
+//		System.out.println(vars.peekDouble());
 //	}
 }
