@@ -19,7 +19,7 @@ public abstract class ColorChooser extends ColorPicker {
 		this.setOnAction(e -> EventHandler(this.getValue(),changedNode));
 	}
 	
-	protected void EventHandler(Paint fill,Node node) {
+	protected void EventHandler(Color fill,Node node) {
 		
 	}
 	
