@@ -2,6 +2,7 @@ package backend.commands;
 
 import java.util.Stack;
 
+import backend.Stacks;
 import backend.Turtle;
 import backend.api.Command;
 
@@ -17,10 +18,9 @@ import backend.api.Command;
 public class Power implements Command {
 
 	@Override
-	public Stack<Double> execute(Stack<Double> vars, Turtle currentTurtle) {
-		double base = vars.pop();
-		double exponent = vars.pop();
-		vars.push(Math.pow(base,exponent));
-		return vars;
+	public void execute(Stacks instructionStacks, Turtle currentTurtle) {
+		double base = instructionStacks.popDouble();
+		double exponent = instructionStacks.popDouble();
+		instructionStacks.addDouble(Math.pow(base,exponent));
 	}
 }
