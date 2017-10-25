@@ -3,12 +3,8 @@ package frontend;
 import java.awt.image.BufferedImage;
 import backend.Driver;
 import java.io.File;
-import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-import java.net.URI;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
@@ -16,36 +12,19 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.BorderStroke;
-import javafx.scene.layout.BorderStrokeStyle;
-import javafx.scene.layout.BorderWidths;
-import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -63,6 +42,8 @@ public class FrontEndDriver extends Application {
 	private static final int GRID_X2 = 500;	//this should be the right-most line coordinate of the turtle grid
 	private static final int GRID_Y1 = 100;	//this should be the top-most line coordinate of the turtle grid
 	private static final int GRID_Y2 = 500;	//this should be the bottom-most line coordinate of the turtle grid
+	private static final int GRID_WIDTH = GRID_X2 - GRID_X1;
+	private static final int GRID_HEIGHT = GRID_Y2 - GRID_Y1;
 	private static final int HISTORY_WIDTH = 350;
 	private static final int HISTORY_HEIGHT = 200;
 	private static final int RETURN_HEIGHT = 70;
@@ -75,22 +56,22 @@ public class FrontEndDriver extends Application {
 	private static final int UserV_HEIGHT = 100;
 	
 	private static final int VBOX_SPACING = 7;
-	private static final int width = 1000;
-	private static final int height = 1000;
-	private static final int button_width = 200;
-	private static final int button_height = 40;
+	private static final int WIDTH = 1000;
+	private static final int HEIGHT = 1000;
+	private static final int BUTTON_WIDTH = 200;
+	private static final int BUTTON_HEIGHT = 40;
 	private static final String DEFAULT_RESOURCE_PACKAGE = "resources.languages/buttons";
 	private static final String DEFAULT_TURTLE_DIRECTORY = "src/resources/turtle.png";
 	private static final int TURTLESIZE = 50;
+	private static final Color DEFAULT_TURTLEAREA_COLOR = Color.HONEYDEW;
 
-    private Pane turtleArea;
-	private ImageView turtleImage;
+    private Display turtleArea;
 	private DisplayTurtle displayTurtle;
 	private TurtlePath turtlePath;
 	private Stage window;
 	private Group root;
 	private ResourceBundle myResources;
-	private TextField command;
+	private TextArea command;
 	private History commandHistory;
 	private ReturnValue returnValue;
 	private History userDefinedVariables;
@@ -115,21 +96,18 @@ public class FrontEndDriver extends Application {
 		root = new Group();
 		
 		
-		Scene startScene= new Scene(root, width, height);
-		//call turtle
-		
-		root.getChildren().addAll(layout,layout2);
+		Scene startScene= new Scene(root, WIDTH, HEIGHT);
+		addTurtleImage();
+		turtleArea= new Display(displayTurtle,DEFAULT_TURTLEAREA_COLOR,GRID_X1,GRID_Y1,GRID_WIDTH,GRID_HEIGHT);
 		addAllButtons(layout);
 		
 		turtlePath = new TurtlePath(ORIGIN_X,ORIGIN_Y);
-		addTurtleImage();
-		addTurtleArea();
 		addCommandLine();
 		commandHistory = new History(myResources.getString("History"),HISTORY_X,HISTORY_Y,HISTORY_WIDTH,HISTORY_HEIGHT);
 		returnValue = new ReturnValue(myResources.getString("Return"),HISTORY_X, RETURN_Y,HISTORY_WIDTH,RETURN_HEIGHT);
 		userDefinedVariables=new History(myResources.getString("UserV"),HISTORY_X,UserV_Y,HISTORY_WIDTH,UserV_HEIGHT);
 		userDefinedCommands=new History(myResources.getString("UserC"),HISTORY_X,UserC_Y,HISTORY_WIDTH,UserC_HEIGHT);
-		root.getChildren().addAll(commandHistory,returnValue,userDefinedVariables,userDefinedCommands);
+		root.getChildren().addAll(layout,layout2,turtlePath,turtleArea,commandHistory,returnValue,userDefinedVariables,userDefinedCommands);
 	
 		window.setTitle("SLogo");
 		window.setScene(startScene);
@@ -153,7 +131,7 @@ public class FrontEndDriver extends Application {
 	
 	private Label addLabelForButton(String name) {
 		Label l=new Label(myResources.getString(name));
-		l.setPrefWidth(button_width);
+		l.setPrefWidth(BUTTON_WIDTH);
 		return l;
 		
 		
@@ -161,7 +139,7 @@ public class FrontEndDriver extends Application {
 	
 	private void addCommandLine() {
 		
-		command = new TextField ();
+		command = new TextArea ();
 		command.setPromptText(myResources.getString("Prompt"));
 		command.setPrefHeight(COMMANDHEIGHT);
 		command.setPrefWidth(COMMANDWIDTH);
@@ -224,48 +202,19 @@ public class FrontEndDriver extends Application {
 		
 		return lb;
 	}
-	
-	private void addTurtleArea() {
-	    turtleArea=addPane(GRID_X1,GRID_Y1,(GRID_X2-GRID_X1),(GRID_Y2-GRID_Y1));
-	    turtleArea.getChildren().add(turtleImage);
-
-		turtleImage.setX(ORIGIN_X);
-		turtleImage.setY(ORIGIN_Y);
-		//turtleArea.setStyle("-fx-background-color: honeydew");
-		
-
-	}
-	
-	private Pane addPane(double X, double Y,double width,double height) {
-		Pane bp=new Pane();
-		bp.setTranslateX(X);
-		bp.setTranslateY(Y);
-		bp.setPrefWidth(width);
-		bp.setPrefHeight(height);
-		bp.setBorder(new Border(new BorderStroke(Color.BLACK, 
-	            BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
-		
-		root.getChildren().add(bp);
-		return bp;
-		
-	}
 
 	private void addTurtleImage() {
 		File file = new File(DEFAULT_TURTLE_DIRECTORY);
         Image image = new Image(file.toURI().toString());
-        turtleImage= new ImageView(image);
-		turtleImage.setFitHeight(TURTLESIZE);
-		turtleImage.setFitWidth(TURTLESIZE);
-		displayTurtle = new DisplayTurtle(turtleImage,ORIGIN_X,ORIGIN_Y);
+		displayTurtle = new DisplayTurtle(image,ORIGIN_X,ORIGIN_Y,TURTLESIZE);
 	}
 
 	private void addAllButtons(HBox layout) {
 		
 		layout.setTranslateY(BUTTONS_Y);
 		Button b1=turtleImageButton();
-		
-		final ColorChooser b2 = new BackgroundPicker(Color.HONEYDEW,button_width,button_height,turtleArea);
-		final ColorPicker b3= new PenPicker(Color.BLACK,button_width,button_height,turtlePath);
+		final BackgroundPicker b2 = new BackgroundPicker(DEFAULT_TURTLEAREA_COLOR,BUTTON_WIDTH,BUTTON_HEIGHT,turtleArea);
+		final PenPicker b3= new PenPicker(Color.BLACK,BUTTON_WIDTH,BUTTON_HEIGHT,turtlePath);
 		ChoiceBox b4=setUpLanguage();
 		Hyperlink b5=helpButton();
 		layout.getChildren().addAll(b1,b2,b3,b4,b5);
@@ -273,8 +222,8 @@ public class FrontEndDriver extends Application {
 	
 	private ChoiceBox setUpLanguage() {
 		ChoiceBox<String> cb=makeChoiceBox();
-		cb.setPrefWidth(button_width);
-		cb.setPrefHeight(button_height);
+		cb.setPrefWidth(BUTTON_WIDTH);
+		cb.setPrefHeight(BUTTON_HEIGHT);
 		
 		cb.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
 		      @Override
@@ -308,12 +257,9 @@ public class FrontEndDriver extends Application {
 	            try {
 	                BufferedImage bufferedImage = ImageIO.read(file);
 	                Image image = SwingFXUtils.toFXImage(bufferedImage, null);
-	                turtleImage.setImage(image);
+	                displayTurtle.setImage(image);
 	            } catch (Exception ex) {
-	            }
-		
-		
-		});
+	            }});
 		
 		return b;
 		
@@ -333,10 +279,10 @@ public class FrontEndDriver extends Application {
 	private Hyperlink helpButton() {
 		
 		final Hyperlink help = new Hyperlink(myResources.getString("Help"));
-		help.setPrefHeight(button_height);
-		help.setPrefWidth(button_width);
+		help.setPrefHeight(BUTTON_HEIGHT);
+		help.setPrefWidth(BUTTON_WIDTH);
 		help.setAlignment(Pos.CENTER);
-		 help.setOnAction(new EventHandler<ActionEvent>() {
+		help.setOnAction(new EventHandler<ActionEvent>() {
 
 			 @Override
 		        public void handle(ActionEvent e) {
@@ -354,7 +300,7 @@ public class FrontEndDriver extends Application {
 	
 	private Button makeButton(String message) {
 		Button b = new Button(message);
-		b.setPrefSize(button_width, button_height);
+		b.setPrefSize(BUTTON_WIDTH, BUTTON_HEIGHT);
 		b.setAlignment(Pos.CENTER_LEFT);
 
 		return b;
