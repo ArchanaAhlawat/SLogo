@@ -21,6 +21,7 @@ public class Tangent implements Command {
 	@Override
 	public void execute(Stacks instructionStacks, Turtle currentTurtle) {
 		double tan = Math.tan(instructionStacks.popDouble()*RADTODEG);
-		instructionStacks.addDouble(tan); //Math.random() is 0.0 (inclusive) to 1.0 (exclusive)
+		instructionStacks.addDouble(tan);
+		//TODO: throw error if input is pi/2 + pi*i
 	}
 }
