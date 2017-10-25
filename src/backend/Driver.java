@@ -26,13 +26,14 @@ public class Driver {
 		return p.getReturnVal();
 	}
 	
-	public List<Double> getTurtleUpdates() {
-		List<Double> returnValues = new ArrayList<Double>();
-		returnValues.add(myTurtle.getAbsoluteOrientation("xcor"));
-		returnValues.add(myTurtle.getAbsoluteOrientation("ycor"));
-		returnValues.add(myTurtle.getAbsoluteOrientation("theta"));
-		returnValues.add(myTurtle.getAbsoluteOrientation("turtleVis"));
-		return returnValues;
+	public Updates getTurtleUpdates() {
+//		List<Double> returnValues = new ArrayList<Double>();
+//		returnValues.add(myTurtle.getAbsoluteOrientation("xcor"));
+//		returnValues.add(myTurtle.getAbsoluteOrientation("ycor"));
+//		returnValues.add(myTurtle.getAbsoluteOrientation("theta"));
+//		returnValues.add(myTurtle.getAbsoluteOrientation("turtleVis"));
+//		return returnValues;
+		return new Updates(myTurtle);
 	}
 	
 	public List<Double> getLines() {
