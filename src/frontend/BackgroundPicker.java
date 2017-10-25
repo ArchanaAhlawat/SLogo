@@ -17,13 +17,9 @@ public class BackgroundPicker extends ColorChooser{
 		// TODO Auto-generated constructor stub
 	}
 	
-	protected void EventHandler(Paint fill,Node turtleArea) {
-		System.out.println(turtleArea instanceof Pane);
-		if(turtleArea instanceof Pane) {
-			System.out.println("Hi");
-			BackgroundFill backgroundFill = new BackgroundFill(fill, CornerRadii.EMPTY, Insets.EMPTY);
-	        Background background = new Background(backgroundFill);
-	        ((Pane) turtleArea).setBackground(background);
+	protected void EventHandler(Color fill,Node turtleArea) {
+		if(turtleArea instanceof Display) {
+			((Display) turtleArea).changeColor(fill);
 		}
 	}
 

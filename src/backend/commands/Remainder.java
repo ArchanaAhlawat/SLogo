@@ -21,6 +21,8 @@ public class Remainder implements Command {
 	public void execute(Stacks instructionStacks, Turtle currentTurtle) {
 		double expr1 = instructionStacks.popDouble();
 		double expr2 = instructionStacks.popDouble();
+		//TODO: throw error if expr2 is 0.0
+		//negative modulus is defined
 		instructionStacks.addDouble(expr1 % expr2);
 	}
 
