@@ -2,6 +2,7 @@ package backend.commands;
 
 import java.util.Stack;
 
+import backend.Stacks;
 import backend.Turtle;
 import backend.api.Command;
 
@@ -19,8 +20,7 @@ import backend.api.Command;
 public class Forward implements Command {
 	
 	@Override
-	public Stack<Double> execute(Stack<Double> vars, Turtle currentTurtle) {
-		currentTurtle.move(vars.peek());
-		return vars;
+	public void execute(Stacks instructionStacks, Turtle currentTurtle) {
+		currentTurtle.move(instructionStacks.peekDouble());
 	}
 }

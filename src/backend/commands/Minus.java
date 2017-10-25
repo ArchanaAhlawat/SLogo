@@ -2,6 +2,7 @@ package backend.commands;
 
 import java.util.Stack;
 
+import backend.Stacks;
 import backend.Turtle;
 import backend.api.Command;
 
@@ -17,10 +18,9 @@ import backend.api.Command;
 public class Minus implements Command {
 
 	@Override
-	public Stack<Double> execute(Stack<Double> vars, Turtle currentTurtle) {
-		double expr = vars.pop();
-		vars.push(-1*expr);
-		return vars;
+	public void execute(Stacks instructionStacks, Turtle currentTurtle) {
+		double expr = instructionStacks.popDouble();
+		instructionStacks.addDouble(-1*expr);
 	}
 
 }

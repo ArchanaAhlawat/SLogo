@@ -2,6 +2,7 @@ package backend.commands;
 
 import java.util.Stack;
 
+import backend.Stacks;
 import backend.Turtle;
 import backend.api.Command;
 
@@ -17,9 +18,8 @@ import backend.api.Command;
 public class Random implements Command {
 
 	@Override
-	public Stack<Double> execute(Stack<Double> vars, Turtle currentTurtle) {
-		double max = vars.pop();
-		vars.push(Math.random()*max); //Math.random() is 0.0 (inclusive) to 1.0 (exclusive)
-		return vars;
+	public void execute(Stacks instructionStacks, Turtle currentTurtle) {
+		double max = instructionStacks.popDouble();
+		instructionStacks.addDouble(Math.random()*max); //Math.random() is 0.0 (inclusive) to 1.0 (exclusive)
 	}
 }
