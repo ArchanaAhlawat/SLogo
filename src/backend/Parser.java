@@ -11,7 +11,7 @@ import java.util.Map;
 public class Parser {
 	//UserVariables userVariables = new UserVariables();
 	Turtle currentTurtle;
-	private double val;
+	private double val = 1;
 	private String commandsList;
 	private Map<String, String> langMap;
 	
@@ -23,9 +23,10 @@ public class Parser {
 	
 	// TODO: throw exceptions properly w try/catch
 	public void parseInstruction(String inst) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, InstantiationException, ClassNotFoundException {
+		System.out.println("NEW PASSED INST: " + inst);
 		Stacks instructionStacks = new Stacks();
 		inst = inst.replace("\n", ", ");
-		String[] instructionArray = inst.split(" ");
+		String[] instructionArray = inst.trim().split("\\s+");
 		for (int i = instructionArray.length - 1; i > -1; i--) {
 			if (UserVariables.contains(instructionArray[i])) {
 				instructionStacks.push(this.getVarVal(instructionArray[i]));
@@ -74,7 +75,10 @@ public class Parser {
 		Object commandInstance = commandClass.newInstance();
 		Method commandMethod = commandClass.getDeclaredMethod("execute", Stacks.class, Turtle.class);
 		commandMethod.invoke(commandInstance, instructionStacks, currentTurtle);
-		val = instructionStacks.getReturnVal();
+		if (instructionArray[i].toLowerCase().equals("ycor")) {
+			val = -1;
+		}
+		val *= instructionStacks.getReturnVal();
 		System.out.println("RETURN VAL IS " + val);
 	}
 	
@@ -84,7 +88,7 @@ public class Parser {
 	
 	public static void main (String[] args) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, InstantiationException, ClassNotFoundException {
 		Parser p = new Parser(new Turtle());
-		p.parseInstruction("TO commandName [ variable(s) ] [ command(s) ]"); // repeat 3 [ fd 54\nsum 2 4 ], DOTIMES [ :var 3 ] [ fd :var\nsum :var 4 ], 
+		p.parseInstruction("FOR [ :var 2 4 ] [ fd :var\nsum :var 4 ]"); // repeat 3 [ fd 54\nsum 2 4 ], DOTIMES [ :var 3 ] [ fd :var\nsum :var 4 ], 
 		//FOR [ :var 3 5 ] [ fd :var\nsum :var 4 ], IF 0 [ fd 54\nsum 2 4 ]
 		// IFELSE 0 [ fd 54\nsum 2 4 ] [ fd 700\nsum 70 70 ], 
 		p.getReturnVal(); // if not zero, run commands.
