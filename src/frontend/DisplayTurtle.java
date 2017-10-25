@@ -18,6 +18,8 @@ public class DisplayTurtle extends ImageView {
 		put(HEADING,2);
 		put(VISIBILITY,3);
 	}};
+	private static final double ORIGIN_X = FrontEndDriver.ORIGIN_X;
+	private static final double ORIGIN_Y = FrontEndDriver.ORIGIN_Y;
 	
 	public DisplayTurtle(Image image,double originX, double originY,int size) {
 		super(image);
@@ -28,8 +30,8 @@ public class DisplayTurtle extends ImageView {
 	}
 	
 	protected void updateTurtle(List<Double> turtleUpdates) {
-		this.setX(turtleUpdates.get(getUpdateIndex(XCOR)));
-		this.setY(turtleUpdates.get(getUpdateIndex(YCOR)));
+		this.setX(turtleUpdates.get(getUpdateIndex(XCOR)) + ORIGIN_X);
+		this.setY(turtleUpdates.get(getUpdateIndex(YCOR)) + ORIGIN_Y);
 		this.setRotate(turtleUpdates.get(getUpdateIndex(HEADING)));
 		this.setVisible(booleanConverter(turtleUpdates.get(getUpdateIndex(VISIBILITY))));
 	}

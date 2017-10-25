@@ -9,7 +9,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.control.ScrollPane;
 
-public abstract class Scroll extends ScrollPane{
+public abstract class Scroll extends ScrollPane {
 	
 	private static final int LABEL_START = 5;
 	private static final String NEW_LINE = "\n";
