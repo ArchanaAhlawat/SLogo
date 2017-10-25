@@ -20,6 +20,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
@@ -70,7 +71,7 @@ public class FrontEndDriver extends Application {
 	private Stage window;
 	private Group root;
 	private ResourceBundle myResources;
-	private TextField command;
+	private TextArea command;
 	private History commandHistory;
 	private ReturnValue returnValue;
 	private History userDefinedVariables;
@@ -138,7 +139,7 @@ public class FrontEndDriver extends Application {
 	
 	private void addCommandLine() {
 		
-		command = new TextField ();
+		command = new TextArea ();
 		command.setPromptText(myResources.getString("Prompt"));
 		command.setPrefHeight(COMMANDHEIGHT);
 		command.setPrefWidth(COMMANDWIDTH);
