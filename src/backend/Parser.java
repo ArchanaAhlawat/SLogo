@@ -1,5 +1,6 @@
 package backend;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ public class Parser {
 	private double val = 1;
 	private String commandsList;
 	private Map<String, String> langMap;
+	private Stacks instructionStacks;
 	
 	public Parser(Turtle current) {
 		currentTurtle = current;
@@ -68,12 +70,16 @@ public class Parser {
 				reflectAndExecute(instructionStacks, instructionArray, i);
 			}
 		}
+		//Stacks.clear();
 	}
 
 	private void reflectAndExecute(Stacks instructionStacks, String[] instructionArray, int i) throws ClassNotFoundException, InstantiationException, IllegalAccessException, NoSuchMethodException,InvocationTargetException {
 		Class<?> commandClass = Class.forName("backend.commands." + langMap.get(instructionArray[i].toLowerCase()));
-		Object commandInstance = commandClass.newInstance();
-		Method commandMethod = commandClass.getDeclaredMethod("execute", Stacks.class, Turtle.class);
+		Constructor<?> cons = commandClass.getConstructor(Stacks.class, Turtle.class);
+		//System.out.println(cons);
+		//Object commandInstance = commandClass.newInstance();
+		Object commandInstance = cons.newInstance(instructionStacks, currentTurtle);
+		Method commandMethod = commandClass.getMethod("execute", Stacks.class, Turtle.class);
 		commandMethod.invoke(commandInstance, instructionStacks, currentTurtle);
 		if (instructionArray[i].toLowerCase().equals("ycor")) {
 			val = -1;
@@ -86,13 +92,13 @@ public class Parser {
 		return val;
 	}
 	
-	public static void main (String[] args) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, InstantiationException, ClassNotFoundException {
-		Parser p = new Parser(new Turtle());
-		p.parseInstruction("FOR [ :var 2 4 ] [ fd :var\nsum :var 4 ]"); // repeat 3 [ fd 54\nsum 2 4 ], DOTIMES [ :var 3 ] [ fd :var\nsum :var 4 ], 
-		//FOR [ :var 3 5 ] [ fd :var\nsum :var 4 ], IF 0 [ fd 54\nsum 2 4 ]
-		// IFELSE 0 [ fd 54\nsum 2 4 ] [ fd 700\nsum 70 70 ], 
-		p.getReturnVal(); // if not zero, run commands.
-	}
+//	public static void main (String[] args) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, InstantiationException, ClassNotFoundException {
+//		Parser p = new Parser(new Turtle());
+//		p.parseInstruction("FOR [ :var 2 4 ] [ fd :var\nsum :var 4 ]"); // repeat 3 [ fd 54\nsum 2 4 ], DOTIMES [ :var 3 ] [ fd :var\nsum :var 4 ], 
+//		//FOR [ :var 3 5 ] [ fd :var\nsum :var 4 ], IF 0 [ fd 54\nsum 2 4 ]
+//		// IFELSE 0 [ fd 54\nsum 2 4 ] [ fd 700\nsum 70 70 ], 
+//		p.getReturnVal(); // if not zero, run commands.
+//	}
 	
 	public String getVarVal(String var) {
 		return Double.toString(UserVariables.getVarVal(var));

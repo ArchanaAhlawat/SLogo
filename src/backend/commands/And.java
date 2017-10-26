@@ -5,6 +5,7 @@ import java.util.Stack;
 import backend.Stacks;
 import backend.Turtle;
 import backend.api.Command;
+import backend.api.LogicCommand;
 
 /**
  * has the execute for when a and command is called
@@ -15,20 +16,19 @@ import backend.api.Command;
  * @author kelly
  *
  */
-public class And implements Command {
+public class And extends LogicCommand {
 
-	private static final double ZERO = 0.0;
-	private static final double ONE = 1.0;
+	public And(Stacks myStack, Turtle myTurtle) {
+		super(myStack, myTurtle);
+	}
 
 	@Override
-	public void execute(Stacks instructionStack, Turtle currentTurtle) {
-		double expr1 = instructionStack.popDouble();
-		double expr2 = instructionStack.popDouble();
+	public double doUpdate() {
 		if (expr1 != ZERO && expr2 != ZERO) {
-			instructionStack.addDouble(ONE);
+			return ONE;
 		}
 		else {
-			instructionStack.addDouble(ZERO);
+			return ZERO;
 		}
 	}
 }
