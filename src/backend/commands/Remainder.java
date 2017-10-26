@@ -2,6 +2,7 @@ package backend.commands;
 
 import java.util.Stack;
 
+import backend.Stacks;
 import backend.Turtle;
 import backend.api.Command;
 
@@ -17,11 +18,12 @@ import backend.api.Command;
 public class Remainder implements Command {
 
 	@Override
-	public Stack<Double> execute(Stack<Double> vars, Turtle currentTurtle) {
-		double expr1 = vars.pop();
-		double expr2 = vars.pop();
-		vars.push(expr1 % expr2);
-		return vars;
+	public void execute(Stacks instructionStacks, Turtle currentTurtle) {
+		double expr1 = instructionStacks.popDouble();
+		double expr2 = instructionStacks.popDouble();
+		//TODO: throw error if expr2 is 0.0
+		//negative modulus is defined
+		instructionStacks.addDouble(expr1 % expr2);
 	}
 
 }

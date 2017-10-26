@@ -2,6 +2,7 @@ package backend.commands;
 
 import java.util.Stack;
 
+import backend.Stacks;
 import backend.Turtle;
 import backend.api.Command;
 
@@ -18,18 +19,18 @@ public class ArcTangent implements Command {
 	private static final double RADTODEG = 180/Math.PI;
 
 	@Override
-	public Stack<Double> execute(Stack<Double> vars, Turtle currentTurtle) {
-		double atan = vars.pop();
-		vars.push(Math.atan(atan)*RADTODEG);
-		return vars;
+	public void execute(Stacks instructionStacks, Turtle currentTurtle) {
+		//double atan = instructionStacks.popDouble();
+		instructionStacks.addDouble(Math.atan(instructionStacks.popDouble())*RADTODEG);
 	}
 	
-//	public static void main (String[] args[]) {
+//	public static void main (String[] args) {
 //		ArcTangent at = new ArcTangent();
-//		Stack<Double> vars = new Stack<>();
-//		vars.push(1.0);
+//		Stacks vars = new Stacks();
+//		vars.addDouble(0.5);
+//		vars.addDouble(0.5);
 //		Turtle currentTurtle = new Turtle();
 //		at.execute(vars, currentTurtle);
-//		System.out.println(vars.peek());
+//		System.out.println(vars.peekDouble());
 //	}
 }

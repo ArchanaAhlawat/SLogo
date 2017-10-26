@@ -2,6 +2,7 @@ package backend.commands;
 
 import java.util.Stack;
 
+import backend.Stacks;
 import backend.Turtle;
 import backend.api.Command;
 
@@ -18,9 +19,9 @@ public class Tangent implements Command {
 	private static final double RADTODEG = 180.0/Math.PI;
 	
 	@Override
-	public Stack<Double> execute(Stack<Double> vars, Turtle currentTurtle) {
-		double tan = Math.tan(vars.pop()*RADTODEG);
-		vars.push(tan); //Math.random() is 0.0 (inclusive) to 1.0 (exclusive)
-		return vars;
+	public void execute(Stacks instructionStacks, Turtle currentTurtle) {
+		double tan = Math.tan(instructionStacks.popDouble()*RADTODEG);
+		instructionStacks.addDouble(tan);
+		//TODO: throw error if input is pi/2 + pi*i
 	}
 }

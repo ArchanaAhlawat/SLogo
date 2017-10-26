@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
+import backend.Updates;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -27,11 +28,11 @@ public class DisplayTurtle extends ImageView {
 		this.setFitHeight(size);
 	}
 	
-	protected void updateTurtle(List<Double> turtleUpdates) {
-		this.setX(turtleUpdates.get(getUpdateIndex(XCOR)));
-		this.setY(turtleUpdates.get(getUpdateIndex(YCOR)));
-		this.setRotate(turtleUpdates.get(getUpdateIndex(HEADING)));
-		this.setVisible(booleanConverter(turtleUpdates.get(getUpdateIndex(VISIBILITY))));
+	protected void updateTurtle(double xCor,double yCor,double theta,double turtleVis) {
+		this.setX(xCor);
+		this.setY(yCor);
+		this.setRotate(theta);
+		this.setVisible(booleanConverter(turtleVis));
 	}
 	
 	private int getUpdateIndex(String update) {

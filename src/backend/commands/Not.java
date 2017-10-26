@@ -2,6 +2,7 @@ package backend.commands;
 
 import java.util.Stack;
 
+import backend.Stacks;
 import backend.Turtle;
 import backend.api.Command;
 
@@ -20,14 +21,13 @@ public class Not implements Command {
 	private static final double ONE = 1.0;
 
 	@Override
-	public Stack<Double> execute(Stack<Double> vars, Turtle currentTurtle) {
-		double expr = vars.pop();
+	public void execute(Stacks instructionStacks, Turtle currentTurtle) {
+		double expr = instructionStacks.popDouble();
 		if (expr == ZERO) {
-			vars.push(ONE);
+			instructionStacks.addDouble(ONE);
 		}
 		else {
-			vars.push(ZERO);
+			instructionStacks.addDouble(ZERO);
 		}
-		return vars;
 	}
 }
