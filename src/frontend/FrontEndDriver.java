@@ -1,17 +1,12 @@
 package frontend;
-import java.awt.image.BufferedImage;
-import backend.Driver;
 import controller.Controller;
 
 import java.io.File;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ResourceBundle;
-import javax.imageio.ImageIO;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
-import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -22,11 +17,9 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 public class FrontEndDriver extends Application {
@@ -103,7 +96,7 @@ public class FrontEndDriver extends Application {
 		addAllButtons(layout);
 		
 		turtlePath = new TurtlePath(ORIGIN_X,ORIGIN_Y);
-		addCommandLine();
+		addCommandLine(); 
 		commandHistory = new History(myResources.getString("History"),HISTORY_X,HISTORY_Y,HISTORY_WIDTH,HISTORY_HEIGHT);
 		returnValue = new ReturnValue(myResources.getString("Return"),HISTORY_X, RETURN_Y,HISTORY_WIDTH,RETURN_HEIGHT);
 		userDefinedVariables=new History(myResources.getString("UserV"),HISTORY_X,UserV_Y,HISTORY_WIDTH,UserV_HEIGHT);
@@ -118,24 +111,18 @@ public class FrontEndDriver extends Application {
 	
 	private void addLabelsForButtons(HBox hb) {
 		hb.setTranslateY(5);
-		Label l1=addLabelForButton("ImageLabel");	
-		Label l2=addLabelForButton("BackgroundLabel");
-		Label l3=addLabelForButton("PenLabel");
-		Label l4=addLabelForButton("LanguageLabel");
-
-		
+		Label l1=addLabel("ImageLabel");	
+		Label l2=addLabel("BackgroundLabel");
+		Label l3=addLabel("PenLabel");
+		Label l4=addLabel("LanguageLabel");
 		
 		hb.getChildren().addAll(l1,l2,l3,l4);
-		
-		
 	}
 	
-	private Label addLabelForButton(String name) {
+	private Label addLabel(String name) {
 		Label l=new Label(myResources.getString(name));
 		l.setPrefWidth(BUTTON_WIDTH);
 		return l;
-		
-		
 	}
 	
 	private void addCommandLine() {
@@ -157,18 +144,10 @@ public class FrontEndDriver extends Application {
 	}
 	
 	private Button addSubmitButton() {
-		Button b = new Button(myResources.getString("Submit"));
-		b.setPrefSize(SUBMIT_BUTTON_WIDTH, SUBMIT_BUTTON_HEIGHT);
-		
+		SubmitButton b = new SubmitButton(myResources.getString("Submit"),SUBMIT_BUTTON_WIDTH,SUBMIT_BUTTON_HEIGHT);
 		b.setOnAction(e ->{
-
-			
-			
-		     
-
 			if (command.getText().equals(null)) {
 				System.out.println("error");
-				
 			}
 			else {
 			String currentCommand=command.getText();
@@ -181,30 +160,13 @@ public class FrontEndDriver extends Application {
 			System.out.println(theta);
 			double turtleVis=myController.getTurtleVis();
 			System.out.println(turtleVis);
-			
 			displayTurtle.updateTurtle(xCor,yCor,theta,turtleVis);
-			
-			
-			
 			commandHistory.addHistory(currentCommand);
 			returnValue.addReturnValue(commandValue);
 			command.clear();
 			}
-		
-
-		
 		});
-		
 		return b;
-		
-	}
-	
-	private Label addLabel(String labelName,double X, double Y) {
-		Label lb=new Label(myResources.getString(labelName));
-		lb.setTranslateX(X);
-		lb.setTranslateY(Y);
-		
-		return lb;
 	}
 
 	private void addTurtleImage() {
@@ -242,28 +204,11 @@ public class FrontEndDriver extends Application {
 	
 	private Button turtleImageButton() {
 		
-		Button b=makeButton(myResources.getString("SetImage"));
+		TurtleImageButton b = new TurtleImageButton(myResources.getString("SetImage"),BUTTON_WIDTH,BUTTON_HEIGHT);
 		
 		b.setOnAction(e ->{
-			
-			
-			 FileChooser fileChooser = new FileChooser();
-	            
-	            //Set extension filter
-	            FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter("JPG files (*.jpg)", "*.JPG");
-	            FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.PNG");
-	            fileChooser.setInitialDirectory(new File(System.getProperty("user.dir")));
-	            fileChooser.getExtensionFilters().addAll(extFilterJPG, extFilterPNG);
-	             
-	            //Show open file dialog
-	            File file = fileChooser.showOpenDialog(null);
-	                      
-	            try {
-	                BufferedImage bufferedImage = ImageIO.read(file);
-	                Image image = SwingFXUtils.toFXImage(bufferedImage, null);
-	                displayTurtle.setImage(image);
-	            } catch (Exception ex) {
-	            }});
+			displayTurtle.setImage(b.chooseTurtle(displayTurtle));
+		});
 		
 		return b;
 		
@@ -300,15 +245,6 @@ public class FrontEndDriver extends Application {
 		        }});
 		 
 		return help;
-	}
-	
-	private Button makeButton(String message) {
-		Button b = new Button(message);
-		b.setPrefSize(BUTTON_WIDTH, BUTTON_HEIGHT);
-		b.setAlignment(Pos.CENTER_LEFT);
-
-		return b;
-		
 	}
 	
 	public static void main(String[] args) {

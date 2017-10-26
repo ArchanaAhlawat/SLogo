@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import javafx.scene.Group;
 import javafx.scene.control.ScrollPane;
 
-public abstract class Scroll extends ScrollPane{
+public abstract class Scroll extends ScrollPane {
 	
 	private static final int LABEL_START = 5;
 	private static final String NEW_LINE = "\n";

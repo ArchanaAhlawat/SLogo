@@ -19,6 +19,8 @@ public class DisplayTurtle extends ImageView {
 		put(HEADING,2);
 		put(VISIBILITY,3);
 	}};
+	private static final double ORIGIN_X = FrontEndDriver.ORIGIN_X;
+	private static final double ORIGIN_Y = FrontEndDriver.ORIGIN_Y;
 	
 	public DisplayTurtle(Image image,double originX, double originY,int size) {
 		super(image);
@@ -33,10 +35,6 @@ public class DisplayTurtle extends ImageView {
 		this.setY(yCor);
 		this.setRotate(theta);
 		this.setVisible(booleanConverter(turtleVis));
-	}
-	
-	private int getUpdateIndex(String update) {
-		return UPDATEINDICES.get(update);
 	}
 	
 	private boolean booleanConverter(double dub) {
