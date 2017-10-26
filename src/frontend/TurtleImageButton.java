@@ -7,15 +7,19 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.stage.FileChooser;
 
-public class TurtleImageButt0n extends Butt0n{
-	
+public class TurtleImageButton extends Button{
 	private FileChooser fileChooser;
 
-	public TurtleImageButt0n(String label, double width, double height) {
-		super(label, width, height);
+	public TurtleImageButton(String label, double width, double height) {
+		super(label);
+		this.setPrefSize(width, height);
+		buildFileChooser();
 		// TODO Auto-generated constructor stub
 	}
 	
@@ -27,18 +31,23 @@ public class TurtleImageButt0n extends Butt0n{
         fileChooser.getExtensionFilters().addAll(extFilterJPG, extFilterPNG);
 	}
 
-	protected Image chooseTurtle(Image currentImage) throws IOException {
+	protected Image chooseTurtle(DisplayTurtle currentDisplayTurtle) {
+		Image currentImage = currentDisplayTurtle.getImage();
 		File file = fileChooser.showOpenDialog(null);
 		if(file == null) {
 			return currentImage;
 		}
 		else {
-            try {BufferedImage bufferedImage = ImageIO.read(file);
+            try {
+            	BufferedImage bufferedImage = ImageIO.read(file);
             	Image image = SwingFXUtils.toFXImage(bufferedImage, null);
             	return image;
             }
             catch(IOException e) {
-            	throw new BadImageFile();
+            	Alert a = new Alert(AlertType.ERROR);
+                a.setContentText(e.getMessage());
+                a.showAndWait(); 
+                return currentImage;
             }
 		}
 	}

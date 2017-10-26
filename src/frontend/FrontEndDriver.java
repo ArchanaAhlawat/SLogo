@@ -149,42 +149,27 @@ public class FrontEndDriver extends Application {
 	}
 	
 	private Button addSubmitButton() {
-		Butt0n b = new Butt0n(myResources.getString("Submit"),SUBMIT_BUTTON_WIDTH,SUBMIT_BUTTON_HEIGHT);
-		
+		SubmitButton b = new SubmitButton(myResources.getString("Submit"),SUBMIT_BUTTON_WIDTH,SUBMIT_BUTTON_HEIGHT);
 		b.setOnAction(e ->{
-
+			if (!command.getText().equals(null)) {
+				String currentCommand=command.getText();
 			
-			
-		     
-
-			if (command.getText().equals(null)) {
-				System.out.println("error");
-				
-			}
-			else {
-			String currentCommand=command.getText();
-			
-			try {
-				commandValue=BEdriver.setCommand(currentCommand);
-				
-				
-				
-			} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException
-					| NoSuchMethodException | SecurityException | InstantiationException | ClassNotFoundException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-			commandHistory.addHistory(currentCommand);
-			returnValue.addReturnValue(commandValue);
-			command.clear();
-			}
-		
-
-		
+				try {
+					commandValue=BEdriver.setCommand(currentCommand);
+					
+					
+					
+				} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException
+						| NoSuchMethodException | SecurityException | InstantiationException | ClassNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				commandHistory.addHistory(currentCommand);
+				returnValue.addReturnValue(commandValue);
+				command.clear();
+				}
 		});
-		
 		return b;
-		
 	}
 
 	private void addTurtleImage() {
@@ -222,28 +207,11 @@ public class FrontEndDriver extends Application {
 	
 	private Button turtleImageButton() {
 		
-		Butt0n b = new Butt0n(myResources.getString("SetImage"),BUTTON_WIDTH,BUTTON_HEIGHT);
+		TurtleImageButton b = new TurtleImageButton(myResources.getString("SetImage"),BUTTON_WIDTH,BUTTON_HEIGHT);
 		
 		b.setOnAction(e ->{
-			
-			
-			 FileChooser fileChooser = new FileChooser();
-	            
-	            //Set extension filter
-	            FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter("JPG files (*.jpg)", "*.JPG");
-	            FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.PNG");
-	            fileChooser.setInitialDirectory(new File(System.getProperty("user.dir")));
-	            fileChooser.getExtensionFilters().addAll(extFilterJPG, extFilterPNG);
-	             
-	            //Show open file dialog
-	            File file = fileChooser.showOpenDialog(null);
-	                      
-	            try {
-	                BufferedImage bufferedImage = ImageIO.read(file);
-	                Image image = SwingFXUtils.toFXImage(bufferedImage, null);
-	                displayTurtle.setImage(image);
-	            } catch (Exception ex) {
-	            }});
+			displayTurtle.setImage(b.chooseTurtle(displayTurtle));
+		});
 		
 		return b;
 		
@@ -280,14 +248,6 @@ public class FrontEndDriver extends Application {
 		        }});
 		 
 		return help;
-	}
-	
-	private Button makeButton(String message) {
-		Button b = new Button(message);
-		b.setPrefSize(BUTTON_WIDTH, BUTTON_HEIGHT);
-
-		return b;
-		
 	}
 	
 	public static void main(String[] args) {
