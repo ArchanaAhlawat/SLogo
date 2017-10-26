@@ -153,13 +153,9 @@ public class FrontEndDriver extends Application {
 			String currentCommand=command.getText();
 			commandValue=myController.setCommand(currentCommand);
 			double xCor=myController.getXCor();
-			System.out.println(xCor);
 			double yCor=myController.getYCor();
-			System.out.println(yCor);
 			double theta=myController.getTheta();
-			System.out.println(theta);
 			double turtleVis=myController.getTurtleVis();
-			System.out.println(turtleVis);
 			displayTurtle.updateTurtle(xCor,yCor,theta,turtleVis);
 			commandHistory.addHistory(currentCommand);
 			returnValue.addReturnValue(commandValue);
@@ -179,8 +175,8 @@ public class FrontEndDriver extends Application {
 		
 		layout.setTranslateY(BUTTONS_Y);
 		Button b1=turtleImageButton();
-		final BackgroundPicker b2 = new BackgroundPicker(DEFAULT_TURTLEAREA_COLOR,BUTTON_WIDTH,BUTTON_HEIGHT,turtleArea);
-		final PenPicker b3= new PenPicker(Color.BLACK,BUTTON_WIDTH,BUTTON_HEIGHT,turtlePath);
+		BackgroundPicker b2 = new BackgroundPicker(DEFAULT_TURTLEAREA_COLOR,BUTTON_WIDTH,BUTTON_HEIGHT,turtleArea);
+		PenPicker b3= new PenPicker(Color.BLACK,BUTTON_WIDTH,BUTTON_HEIGHT,turtlePath);
 		ChoiceBox b4=setUpLanguage();
 		Hyperlink b5=helpButton();
 		layout.getChildren().addAll(b1,b2,b3,b4,b5);
