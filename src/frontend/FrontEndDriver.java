@@ -222,7 +222,7 @@ public class FrontEndDriver extends Application {
 	
 	private Button turtleImageButton() {
 		
-		Butt0n b = new Butt0n(myResources.getString("SetImage"),Button.USE_PREF_SIZE,Button.USE_PREF_SIZE);
+		Butt0n b = new Butt0n(myResources.getString("SetImage"),BUTTON_WIDTH,BUTTON_HEIGHT);
 		
 		b.setOnAction(e ->{
 			

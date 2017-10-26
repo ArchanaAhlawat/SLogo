@@ -7,6 +7,4 @@ public class SubmitButt0n extends Butt0n {
 		// TODO Auto-generated constructor stub
 	}
 	
-	
-	
 }
