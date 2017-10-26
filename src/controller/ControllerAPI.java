@@ -11,4 +11,13 @@ public interface ControllerAPI {
 	public Turtle getTurtle(List<Object> newTurtle);
 	
 	public double getReturnValue();
+	
+	public double getXCor();
+	
+	public double getYCor();
+	
+	public double getTheta();
+	
+	public double getTurtleVis();
+	
 }

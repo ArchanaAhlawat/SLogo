@@ -4,11 +4,13 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 import backend.Driver;
+import backend.Updates;
 import frontend.Turtle;
 
 public class Controller implements ControllerAPI {
 	
 	private Driver BEdriver = new Driver();
+	
 
 	@Override
 	public double setCommand(String command) {
@@ -42,5 +44,39 @@ public class Controller implements ControllerAPI {
 		// TODO Auto-generated method stub
 		//return BackEndDriver.getRetVal();
 		return 0;
+	}
+
+
+	@Override
+	public double getXCor() {
+		// TODO Auto-generated method stub
+		return getUpdates().getXCor();
+	}
+
+
+	@Override
+	public double getYCor() {
+		// TODO Auto-generated method stub
+		return getUpdates().getYCor();
+	}
+
+
+	@Override
+	public double getTheta() {
+		// TODO Auto-generated method stub
+		return getUpdates().getTheta();
+	}
+	
+	public Updates getUpdates() {
+		return BEdriver.getTurtleUpdates();
+		
+		
+	}
+
+
+	@Override
+	public double getTurtleVis() {
+		// TODO Auto-generated method stub
+		return getUpdates().getTurtleVis();
 	}
 }
