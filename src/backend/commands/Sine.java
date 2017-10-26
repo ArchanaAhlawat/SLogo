@@ -21,6 +21,6 @@ public class Sine implements Command {
 	@Override
 	public void execute(Stacks instructionStacks, Turtle currentTurtle) {
 		double sine = Math.sin(instructionStacks.popDouble()*RADTODEG);
-		instructionStacks.addDouble(sine); //Math.random() is 0.0 (inclusive) to 1.0 (exclusive)
+		instructionStacks.addDouble(sine);
 	}
 }
