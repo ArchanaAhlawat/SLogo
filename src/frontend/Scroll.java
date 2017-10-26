@@ -19,17 +19,26 @@ public abstract class Scroll extends ScrollPane {
 	
 	public Scroll(String label,int x,int y,int width,int height) {
 		super(new Text(label));
-		scrollLabel = label;
-		allHistory = new Text(label);
+		scrollLabel = scrollLabelBuilder(label);
+		allHistory = allHistoryBuilder(label);
 		this.setTranslateX(x);
 		this.setTranslateY(y);
 		this.setPrefWidth(width);
 		this.setPrefHeight(height);
 		this.setBorder(new Border(new BorderStroke(Color.BLACK, 
 	            BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+		this.setContent(allHistory);
+	}
+	
+	private Text allHistoryBuilder(String label) {
+		Text allHistory = new Text(label);
 		allHistory.wrappingWidthProperty().bind(this.widthProperty());
 		allHistory.setTranslateX(LABEL_START);
-		this.setContent(allHistory);
+		return allHistory;
+	}
+	
+	private String scrollLabelBuilder(String label) {
+		return label;
 	}
 	
 	protected String formatCommand(String command) {
