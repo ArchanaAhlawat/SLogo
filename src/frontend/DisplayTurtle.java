@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
+import backend.Updates;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -18,6 +19,8 @@ public class DisplayTurtle extends ImageView {
 		put(HEADING,2);
 		put(VISIBILITY,3);
 	}};
+	private static final double ORIGIN_X = FrontEndDriver.ORIGIN_X;
+	private static final double ORIGIN_Y = FrontEndDriver.ORIGIN_Y;
 	
 	public DisplayTurtle(Image image,double originX, double originY,int size) {
 		super(image);
@@ -27,15 +30,11 @@ public class DisplayTurtle extends ImageView {
 		this.setFitHeight(size);
 	}
 	
-	protected void updateTurtle(List<Double> turtleUpdates) {
-		this.setX(turtleUpdates.get(getUpdateIndex(XCOR)));
-		this.setY(turtleUpdates.get(getUpdateIndex(YCOR)));
-		this.setRotate(turtleUpdates.get(getUpdateIndex(HEADING)));
-		this.setVisible(booleanConverter(turtleUpdates.get(getUpdateIndex(VISIBILITY))));
-	}
-	
-	private int getUpdateIndex(String update) {
-		return UPDATEINDICES.get(update);
+	protected void updateTurtle(double xCor,double yCor,double theta,double turtleVis) {
+		this.setX(xCor + ORIGIN_X);
+		this.setY(yCor + ORIGIN_Y);
+		this.setRotate(theta);
+		this.setVisible(booleanConverter(turtleVis));
 	}
 	
 	private boolean booleanConverter(double dub) {
