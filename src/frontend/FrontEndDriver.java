@@ -149,8 +149,7 @@ public class FrontEndDriver extends Application {
 	}
 	
 	private Button addSubmitButton() {
-		Button b = new Button(myResources.getString("Submit"));
-		b.setPrefSize(SUBMIT_BUTTON_WIDTH, SUBMIT_BUTTON_HEIGHT);
+		Butt0n b = new Butt0n(myResources.getString("Submit"),SUBMIT_BUTTON_WIDTH,SUBMIT_BUTTON_HEIGHT);
 		
 		b.setOnAction(e ->{
 
@@ -223,7 +222,7 @@ public class FrontEndDriver extends Application {
 	
 	private Button turtleImageButton() {
 		
-		Butt0n b = new Butt0n(myResources.getString("SetImage"));
+		Butt0n b = new Butt0n(myResources.getString("SetImage"),Button.USE_PREF_SIZE,Button.USE_PREF_SIZE);
 		
 		b.setOnAction(e ->{
 			
@@ -286,7 +285,6 @@ public class FrontEndDriver extends Application {
 	private Button makeButton(String message) {
 		Button b = new Button(message);
 		b.setPrefSize(BUTTON_WIDTH, BUTTON_HEIGHT);
-		b.setAlignment(Pos.CENTER_LEFT);
 
 		return b;
 		
