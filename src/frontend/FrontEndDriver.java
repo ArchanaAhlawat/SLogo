@@ -1,16 +1,12 @@
 package frontend;
+import controller.Controller;
 
-import java.awt.image.BufferedImage;
-import backend.Driver;
 import java.io.File;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ResourceBundle;
-import javax.imageio.ImageIO;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
-import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -24,7 +20,6 @@ import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 public class FrontEndDriver extends Application {
@@ -77,7 +72,7 @@ public class FrontEndDriver extends Application {
 	private History userDefinedCommands;
 	private double commandValue;
 	
-	private Driver BEdriver = new Driver();
+	private Controller myController=new Controller();
 	
 	public static final double ORIGIN_X = (GRID_X2 - GRID_X1 - TURTLESIZE)/2;
 	public static final double ORIGIN_Y = (GRID_Y2 - GRID_Y1 - TURTLESIZE)/2;
@@ -151,23 +146,25 @@ public class FrontEndDriver extends Application {
 	private Button addSubmitButton() {
 		SubmitButton b = new SubmitButton(myResources.getString("Submit"),SUBMIT_BUTTON_WIDTH,SUBMIT_BUTTON_HEIGHT);
 		b.setOnAction(e ->{
-			if (!command.getText().equals(null)) {
-				String currentCommand=command.getText();
-			
-				try {
-					commandValue=BEdriver.setCommand(currentCommand);
-					
-					
-					
-				} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException
-						| NoSuchMethodException | SecurityException | InstantiationException | ClassNotFoundException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				commandHistory.addHistory(currentCommand);
-				returnValue.addReturnValue(commandValue);
-				command.clear();
-				}
+			if (command.getText().equals(null)) {
+				System.out.println("error");
+			}
+			else {
+			String currentCommand=command.getText();
+			commandValue=myController.setCommand(currentCommand);
+			double xCor=myController.getXCor();
+			System.out.println(xCor);
+			double yCor=myController.getYCor();
+			System.out.println(yCor);
+			double theta=myController.getTheta();
+			System.out.println(theta);
+			double turtleVis=myController.getTurtleVis();
+			System.out.println(turtleVis);
+			displayTurtle.updateTurtle(xCor,yCor,theta,turtleVis);
+			commandHistory.addHistory(currentCommand);
+			returnValue.addReturnValue(commandValue);
+			command.clear();
+			}
 		});
 		return b;
 	}
