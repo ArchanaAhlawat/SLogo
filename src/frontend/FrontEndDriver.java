@@ -54,7 +54,7 @@ public class FrontEndDriver extends Application {
 	private static final int HEIGHT = 1000;
 	private static final int BUTTON_WIDTH = 200;
 	private static final int BUTTON_HEIGHT = 40;
-	private static final String DEFAULT_RESOURCE_PACKAGE = "resources.languages/buttons";
+	private static final String DEFAULT_RESOURCE_PACKAGE = "resources.languages/buttons_labels";
 	private static final String DEFAULT_TURTLE_DIRECTORY = "src/resources/turtle.png";
 	private static final int TURTLESIZE = 50;
 	private static final Color DEFAULT_TURTLEAREA_COLOR = Color.HONEYDEW;
@@ -174,51 +174,15 @@ public class FrontEndDriver extends Application {
 	private void addAllButtons(HBox layout) {
 		
 		layout.setTranslateY(BUTTONS_Y);
-		Button b1=turtleImageButton();
+		TurtleImageButton b1 = new TurtleImageButton(myResources.getString("SetImage"),BUTTON_WIDTH,BUTTON_HEIGHT);
+		b1.setOnAction(e ->{
+			displayTurtle.setImage(b1.chooseTurtle(displayTurtle));
+		});
 		BackgroundPicker b2 = new BackgroundPicker(DEFAULT_TURTLEAREA_COLOR,BUTTON_WIDTH,BUTTON_HEIGHT,turtleArea);
-		PenPicker b3= new PenPicker(Color.BLACK,BUTTON_WIDTH,BUTTON_HEIGHT,turtlePath);
-		ChoiceBox b4=setUpLanguage();
+		PenPicker b3 = new PenPicker(Color.BLACK,BUTTON_WIDTH,BUTTON_HEIGHT,turtlePath);
+		LanguageChooser b4 = new LanguageChooser(myResources.getString("Languages"),BUTTON_WIDTH,BUTTON_HEIGHT);
 		Hyperlink b5=helpButton();
 		layout.getChildren().addAll(b1,b2,b3,b4,b5);
-	}
-	
-	private ChoiceBox setUpLanguage() {
-		ChoiceBox<String> cb=makeChoiceBox();
-		cb.setPrefWidth(BUTTON_WIDTH);
-		cb.setPrefHeight(BUTTON_HEIGHT);
-		
-		cb.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
-		      @Override
-		      public void changed(ObservableValue<? extends Number> observableValue, Number number, Number number2) {
-		        String language=cb.getItems().get((Integer) number2);
-		      }
-		    });
-		
-        return cb;
-		
-	} 
-	
-	private Button turtleImageButton() {
-		
-		TurtleImageButton b = new TurtleImageButton(myResources.getString("SetImage"),BUTTON_WIDTH,BUTTON_HEIGHT);
-		
-		b.setOnAction(e ->{
-			displayTurtle.setImage(b.chooseTurtle(displayTurtle));
-		});
-		
-		return b;
-		
-	}
-	
-	private ChoiceBox<String> makeChoiceBox() {
-		ChoiceBox<String> cb = new ChoiceBox<String>();
-		cb.setItems(FXCollections.observableArrayList(
-				"Chinese","English","French","German","Italian","Portuguese","Russian","Spanish")
-		);
-		
-		cb.setValue("English");
-		return cb;
-		
 	}
 	
 	private Hyperlink helpButton() {
