@@ -1,12 +1,9 @@
 package backend;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Stack;
 
-import backend.commands.ArcTangent;
 import javafx.scene.paint.Color;
 
 /**
@@ -20,6 +17,7 @@ import javafx.scene.paint.Color;
  * 
  */
 public class Turtle {
+	private static final int NEGATE = -1;
 	private static final double ZERO = 0.0;
 	private static final double HALF = 0.5;
 	private static final double ONE = 1.0;
@@ -119,7 +117,7 @@ public class Turtle {
 	 */
 	public void move(double pixels) {
 		double newx = xcor + pixels*Math.sin(theta*DEGTORAD);
-		double newy = ycor - pixels*Math.cos(theta*DEGTORAD);
+		double newy = ycor + pixels*Math.cos(theta*DEGTORAD);
 		setXY(newx, newy);
 	}
 
@@ -144,7 +142,7 @@ public class Turtle {
 		System.out.println(lineCor);
 		double distance = distance(x, y);
 		xcor = x;
-		ycor = y;
+		ycor = NEGATE*y;
 		return distance;
 	}
 
