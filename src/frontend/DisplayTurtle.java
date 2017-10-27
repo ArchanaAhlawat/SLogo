@@ -31,8 +31,8 @@ public class DisplayTurtle extends ImageView {
 	}
 	
 	protected void updateTurtle(double xCor,double yCor,double theta,double turtleVis) {
-		this.setX(xCor);
-		this.setY(yCor);
+		this.setX(xCor+ORIGIN_X);
+		this.setY(yCor+ORIGIN_Y);
 		this.setRotate(theta);
 		this.setVisible(booleanConverter(turtleVis));
 	}

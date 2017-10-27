@@ -20,7 +20,7 @@ public abstract class Scroll extends ScrollPane {
 	
 	private ArrayList<Text> allHistory=new ArrayList<Text>();
 	private String scrollLabel;
-	private Group root;
+	protected Group root;
 	
 	
 	public Scroll(String label,int x,int y,int width,int height) {
