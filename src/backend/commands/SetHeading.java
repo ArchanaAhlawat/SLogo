@@ -20,6 +20,6 @@ public class SetHeading implements Command {
 
 	@Override
 	public void execute(Stacks instructionStacks, Turtle currentTurtle) {
-		currentTurtle.setHeading(instructionStacks.peekDouble());
+		instructionStacks.addDouble(currentTurtle.setHeading(instructionStacks.popDouble()));
 	}
 }
