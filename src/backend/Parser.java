@@ -9,6 +9,15 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+/**
+ * Parses the instructions passed from the frontend to the backend
+ * Uses reflection to call the actual command/operation needed to be executed
+ * Does this by keeping track of the instructions, parameters and variables
+ * 
+ * @author archana
+ * @author kelly
+ *
+ */
 public class Parser {
 	//UserVariables userVariables = new UserVariables();
 	Turtle currentTurtle;
