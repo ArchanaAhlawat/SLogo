@@ -28,6 +28,7 @@ public class Turtle {
 
 	// xcor=0, ycor=0 is in center
 	// xcor increases to the right, ycor increases down
+	// ycor is negated as a return value to the frontend (which has the grid oriented the normal math way -- up: +y, right: +x)
 	// theta = 0 is pointed north (up)
 	// theta is in degrees 0 to 360 going clockwise
 	private double xcor, ycor, theta;
@@ -76,14 +77,14 @@ public class Turtle {
 		double xDis = xDisplacement(x);
 		double yDis = yDisplacement(y);
 		double angle = Math.atan(xDis/yDis)*RADTODEG;
-		if (xDis >= 0 && yDis >= 0) {
+		if (xDis >= ZERO && yDis >= ZERO) {
 			return angle;
 		}
-		else if (xDis <= 0 && yDis >= 0) {
-			return 360 - angle;
+		else if (xDis <= ZERO && yDis >= ZERO) {
+			return DEGREESINCIRCLE - angle;
 		}
 		else {
-			return 180 + angle;
+			return DEGREESINCIRCLE*HALF + angle;
 		}
 	}
 
@@ -103,7 +104,7 @@ public class Turtle {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return 0.0;
+		return ZERO;
 	}
 
 	/**
