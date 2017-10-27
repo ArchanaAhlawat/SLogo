@@ -1,4 +1,4 @@
-package backend.commands;
+package backend.commands.mathOperations;
 
 import java.util.Stack;
 
@@ -15,12 +15,12 @@ import backend.api.Command;
  * @author kelly
  *
  */
-public class Cosine implements Command {
+public class Sine implements Command {
 	private static final double RADTODEG = 180.0/Math.PI;
 
 	@Override
 	public void execute(Stacks instructionStacks, Turtle currentTurtle) {
-		double cosine = Math.cos(instructionStacks.popDouble()*RADTODEG);
-		instructionStacks.addDouble(cosine); //Math.random() is 0.0 (inclusive) to 1.0 (exclusive)
+		double sine = Math.sin(instructionStacks.popDouble()*RADTODEG);
+		instructionStacks.addDouble(sine);
 	}
 }

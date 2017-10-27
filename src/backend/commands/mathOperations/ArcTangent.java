@@ -1,4 +1,4 @@
-package backend.commands;
+package backend.commands.mathOperations;
 
 import java.util.Stack;
 
@@ -16,12 +16,13 @@ import backend.api.Command;
  *
  */
 public class ArcTangent implements Command {
+	
 	private static final double RADTODEG = 180/Math.PI;
 
 	@Override
 	public void execute(Stacks instructionStacks, Turtle currentTurtle) {
-		//double atan = instructionStacks.popDouble();
-		instructionStacks.addDouble(Math.atan(instructionStacks.popDouble())*RADTODEG);
+		double atan = instructionStacks.popDouble();
+		instructionStacks.addDouble(Math.atan(atan)*RADTODEG);
 	}
 	
 //	public static void main (String[] args) {

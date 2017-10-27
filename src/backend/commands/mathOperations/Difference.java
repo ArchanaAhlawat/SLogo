@@ -1,4 +1,4 @@
-package backend.commands;
+package backend.commands.mathOperations;
 
 import java.util.Stack;
 
@@ -7,21 +7,21 @@ import backend.Turtle;
 import backend.api.Command;
 
 /**
- * has the execute for when a product command is called
- *     pops the two parameter in the stack
- *     pushes their product onto the stack
+ * has the execute for when a difference command is called
+ *     pops the two parameter from the stack
+ *     pushes their sum onto the stack
  *     returns the stack of parameters
  *
  * @author kelly
- *
+ * 
  */
-public class Product implements Command {
+public class Difference implements Command {
 
 	@Override
 	public void execute(Stacks instructionStacks, Turtle currentTurtle) {
 		double expr1 = instructionStacks.popDouble();
 		double expr2 = instructionStacks.popDouble();
-		instructionStacks.addDouble(expr1*expr2);
+		instructionStacks.addDouble(expr1-expr2);
 	}
 
 }
