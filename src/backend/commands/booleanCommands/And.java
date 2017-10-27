@@ -5,7 +5,7 @@ import java.util.Stack;
 import backend.Stacks;
 import backend.Turtle;
 import backend.api.Command;
-import backend.api.LogicCommand;
+import backend.commands.BooleanOperation;
 
 /**
  * has the execute for when a and command is called
@@ -16,14 +16,14 @@ import backend.api.LogicCommand;
  * @author kelly
  *
  */
-public class And extends LogicCommand {
+public class And extends BooleanOperation {
 
 	public And(Stacks myStack, Turtle myTurtle) {
 		super(myStack, myTurtle);
 	}
 
 	@Override
-	public double doUpdate() {
+	protected double doUpdate() {
 		if (expr1 != ZERO && expr2 != ZERO) {
 			return ONE;
 		}

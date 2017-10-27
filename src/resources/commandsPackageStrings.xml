@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<commandData>
+	<commandType command = "booleanOperations">
+		<packagePath>backend.commands.booleanOperations.</packagePath>
+	    <commands>And, Equal, GreaterThan, LessThan, Not, NotEqual, Or</commands>
+	</commandType>
+	<commandType command = "displayCommands">
+		<packagePath>backend.commands.displayCommands.</packagePath>
+	    <commands></commands>
+	</commandType>
+	<commandType command = "mathOperations">
+		<packagePath>backend.commands.mathOperations.</packagePath>
+	    <commands>ArcTangent, Cosine, Difference, Minus, NaturalLog, Pi, Power, Product, Quotient, Random, Remainder, Sine, Sum, Tangent</commands>
+	</commandType>
+</commandData>
