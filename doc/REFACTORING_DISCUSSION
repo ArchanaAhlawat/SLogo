@@ -1,0 +1,5 @@
+Owen Smith (os29)
+Yiqin Zhou (yz259)
+
+We decided to make 2 different button classes instead of just instantiating them in the front end driver. This allowed us to remove duplicated code and remove cluttered code from the front end driver class. One class that we made was the background image chooser. The other that we made was the submit button. 
+We also refactored the Scroll class to incorporate clickable histories to run as command. We had to move things from the abstract scroll class to the specific history scroll class.
