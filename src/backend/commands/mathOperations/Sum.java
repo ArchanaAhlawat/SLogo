@@ -2,7 +2,7 @@ package backend.commands.mathOperations;
 
 import backend.Stacks;
 import backend.Turtle;
-import backend.api.MathOperations;
+import backend.commands.MathOperations;
 
 public class Sum extends MathOperations {
 	

@@ -1,4 +1,4 @@
-package backend.commands;
+package backend.commands.miscellaneousCommands;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;

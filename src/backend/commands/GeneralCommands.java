@@ -1,7 +1,8 @@
-package backend.api;
+package backend.commands;
 
 import backend.Stacks;
 import backend.Turtle;
+import backend.api.Command;
 
 public abstract class GeneralCommands implements Command {
 	protected double expr1;

@@ -1,4 +1,4 @@
-package backend.commands;
+package backend.commands.miscellaneousCommands;
 
 import backend.Stacks;
 import backend.Turtle;

@@ -2,7 +2,7 @@ package backend.commands.mathOperations;
 
 import backend.Stacks;
 import backend.Turtle;
-import backend.api.MathOperations;
+import backend.commands.MathOperations;
 
 /**
  * has the execute for when a sine command is called
