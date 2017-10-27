@@ -1,4 +1,4 @@
-package backend.commands;
+package backend.commands.booleanCommands;
 
 import java.util.Stack;
 
@@ -7,15 +7,15 @@ import backend.Turtle;
 import backend.api.Command;
 
 /**
- * has the execute for when a equal command is called
+ * has the execute for when a greaterthan command is called
  *     pops two parameters off the stack
- *     pushes if the first one is equal to the second onto the stack
+ *     pushes if the first one is greater than the second onto the stack
  *     returns the stack of parameters
  * 
  * @author kelly
  *
  */
-public class Equal implements Command {
+public class GreaterThan implements Command {
 
 	private static final double ZERO = 0.0;
 	private static final double ONE = 1.0;
@@ -24,7 +24,7 @@ public class Equal implements Command {
 	public void execute(Stacks instructionStacks, Turtle currentTurtle) {
 		double expr1 = instructionStacks.popDouble();
 		double expr2 = instructionStacks.popDouble();
-		if (expr1 == expr2) {
+		if (expr1 > expr2) {
 			instructionStacks.addDouble(ONE);
 		}
 		else {
