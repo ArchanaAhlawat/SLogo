@@ -1,4 +1,4 @@
-package backend.commands;
+package backend.commands.booleanCommands;
 
 import java.util.Stack;
 
