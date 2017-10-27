@@ -69,8 +69,6 @@ public class Controller implements ControllerAPI {
 	
 	public Updates getUpdates() {
 		return BEdriver.getTurtleUpdates();
-		
-		
 	}
 
 

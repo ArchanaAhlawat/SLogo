@@ -4,12 +4,8 @@ import controller.Controller;
 import java.io.File;
 import java.util.ResourceBundle;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
@@ -43,19 +39,15 @@ public class FrontEndDriver extends Application {
 	private static final int UserC_Y = 530;
 	private static final int UserC_HEIGHT = 150;
 	private static final int UserV_HEIGHT = 100;
-	
 	private static final int VBOX_SPACING = 7;
 	private static final int WIDTH = 1000;
 	private static final int HEIGHT = 1000;
 	private static final int BUTTON_WIDTH = 200;
 	private static final int BUTTON_HEIGHT = 40;
 	private static final String DEFAULT_RESOURCE_PACKAGE = "resources.languages/buttons_labels";
-	private static final String DEFAULT_TURTLE_DIRECTORY = "src/resources/turtle.png";
-	private static final int TURTLESIZE = 50;
 	private static final Color DEFAULT_TURTLEAREA_COLOR = Color.HONEYDEW;
 
     private Display turtleArea;
-	private DisplayTurtle displayTurtle;
 	private TurtlePath turtlePath;
 	private Stage window;
 	private Group root;
@@ -65,13 +57,14 @@ public class FrontEndDriver extends Application {
 	private ReturnValue returnValue;
 	private History userDefinedVariables;
 	private History userDefinedCommands;
+	private TurtleManager turtleManager;
 	private double commandValue;
 	
-	private Controller myController=new Controller();
+	private Controller myController = new Controller();
 	
+	public static final double TURTLESIZE = 50;
 	public static final double ORIGIN_X = (GRID_X2 - GRID_X1 - TURTLESIZE)/2;
 	public static final double ORIGIN_Y = (GRID_Y2 - GRID_Y1 - TURTLESIZE)/2;
-	
 	
 	@Override
 	public void start(Stage primaryStage)throws Exception {
@@ -84,8 +77,9 @@ public class FrontEndDriver extends Application {
 		root = new Group();
 		
 		Scene startScene= new Scene(root, WIDTH, HEIGHT);
-		addTurtleImage();
-		turtleArea= new Display(displayTurtle,DEFAULT_TURTLEAREA_COLOR,GRID_X1,GRID_Y1,GRID_WIDTH,GRID_HEIGHT);
+		DisplayTurtle firstTurtle = new DisplayTurtle(1);
+		turtleManager = new TurtleManager(firstTurtle);
+		turtleArea = new Display(firstTurtle,GRID_X1,GRID_Y1,GRID_WIDTH,GRID_HEIGHT);
 		addAllButtons(layout);
 		
 		turtlePath = new TurtlePath(ORIGIN_X,ORIGIN_Y);
@@ -119,9 +113,11 @@ public class FrontEndDriver extends Application {
 	
 	private void addCommandLine() {
 		
-		command = new TextArea (myResources.getString("Prompt"));
+		command = new TextArea();
+		command.setPromptText(myResources.getString("Prompt"));
 		command.setPrefHeight(COMMANDHEIGHT);
 		command.setPrefWidth(COMMANDWIDTH);
+		command.setFocusTraversable(false);
 		
 		SubmitButton b = addSubmitButton();
 		
@@ -141,7 +137,7 @@ public class FrontEndDriver extends Application {
 			double yCor=myController.getYCor();
 			double theta=myController.getTheta();
 			double turtleVis=myController.getTurtleVis();
-			displayTurtle.updateTurtle(xCor,yCor,theta,turtleVis);
+			turtleManager.updateTurtles(xCor,yCor,theta,turtleVis);
 			commandHistory.addHistory(currentCommand);
 			returnValue.addReturnValue(commandValue);
 			command.clear();
@@ -149,16 +145,10 @@ public class FrontEndDriver extends Application {
 		return b;
 	}
 
-	private void addTurtleImage() {
-		File file = new File(DEFAULT_TURTLE_DIRECTORY);
-        Image image = new Image(file.toURI().toString());
-		displayTurtle = new DisplayTurtle(image,ORIGIN_X,ORIGIN_Y,TURTLESIZE);
-	}
-
 	private void addAllButtons(HBox layout) {
 		layout.setTranslateY(BUTTONS_Y);
 		TurtleImageButton b1 = new TurtleImageButton(myResources.getString("SetImage"),BUTTON_WIDTH,BUTTON_HEIGHT);
-		b1.setOnAction(e -> displayTurtle.setImage(b1.chooseTurtle(displayTurtle)));
+		b1.setOnAction(e -> turtleManager.setImages(b1.chooseTurtle(turtleManager.getActiveTurtle())));
 		BackgroundPicker b2 = new BackgroundPicker(DEFAULT_TURTLEAREA_COLOR,BUTTON_WIDTH,BUTTON_HEIGHT,turtleArea);
 		PenPicker b3 = new PenPicker(Color.BLACK,BUTTON_WIDTH,BUTTON_HEIGHT,turtlePath);
 		LanguageChooser b4 = new LanguageChooser(myResources.getString("Languages"),BUTTON_WIDTH,BUTTON_HEIGHT);
