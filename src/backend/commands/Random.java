@@ -20,6 +20,7 @@ public class Random implements Command {
 	@Override
 	public void execute(Stacks instructionStacks, Turtle currentTurtle) {
 		double max = instructionStacks.popDouble();
+		//TODO: throw exception if max is negative/zero
 		instructionStacks.addDouble(Math.random()*max); //Math.random() is 0.0 (inclusive) to 1.0 (exclusive)
 	}
 }

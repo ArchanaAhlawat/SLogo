@@ -4,9 +4,8 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Stack;
 
-import backend.commands.ArcTangent;
+import javafx.scene.paint.Color;
 
 /**
  * Turtle that keeps track of all of their locations and parameters needed
@@ -19,10 +18,13 @@ import backend.commands.ArcTangent;
  * 
  */
 public class Turtle {
+	private static final int DEGREESINCIRCLE = 360;
+	private static final int NEGATE = -1;
 	private static final double ZERO = 0.0;
 	private static final double HALF = 0.5;
 	private static final double ONE = 1.0;
-	private static final double RADTODEG = 180.0/Math.PI;
+	private static final double DEGTORAD = Math.PI/180.0;
+	private static final double RADTODEG = 180/Math.PI;
 
 	// xcor=0, ycor=0 is in center
 	// xcor increases to the right, ycor increases down
@@ -31,6 +33,8 @@ public class Turtle {
 	private double xcor, ycor, theta;
 	private double penDown, turtleVis;
 	private List<Double> lineCor;
+	private List<Color> lineColor;
+	private List<Double> lineThickness;
 	
 	public Turtle() {
 		xcor = ycor = theta = ZERO;
@@ -46,6 +50,8 @@ public class Turtle {
 		penDown = pD;
 		turtleVis = tV;
 		lineCor = new ArrayList<Double>();
+		lineColor = new ArrayList<Color>();
+		lineThickness= new ArrayList<Double>();
 	}
 
 	private double xDisplacement(double x) {
@@ -69,7 +75,7 @@ public class Turtle {
 	public double angle(double x, double y) {
 		double xDis = xDisplacement(x);
 		double yDis = yDisplacement(y);
-		double angle = Math.atan(xDis/yDis);
+		double angle = Math.atan(xDis/yDis)*RADTODEG;
 		if (xDis >= 0 && yDis >= 0) {
 			return angle;
 		}
@@ -112,8 +118,12 @@ public class Turtle {
 	 * @param pixels
 	 */
 	public void move(double pixels) {
-		double newx = xcor + pixels*Math.sin(theta*RADTODEG);
-		double newy = ycor - pixels*Math.cos(theta*RADTODEG);
+		System.out.println("x is: " + xcor);
+		System.out.println("y is: " + ycor);
+		double newx = xcor + pixels*Math.sin(theta*DEGTORAD);
+		double newy = ycor - pixels*Math.cos(theta*DEGTORAD);
+		System.out.println("new x is: " + newx);
+		System.out.println("new y is: " + newy);
 		setXY(newx, newy);
 	}
 
@@ -123,8 +133,9 @@ public class Turtle {
 	}
 
 	public double setHeading(double degrees) {
-		double difference = degrees - theta;
-		theta = degrees;
+		double difference = Math.abs(degrees - theta);
+		//https://stackoverflow.com/questions/5385024/mod-in-java-produces-negative-numbers
+		theta = ((degrees % DEGREESINCIRCLE) + DEGREESINCIRCLE) % DEGREESINCIRCLE;
 		return difference;
 	}
 
@@ -133,8 +144,9 @@ public class Turtle {
 			lineCor.add(xcor);
 			lineCor.add(ycor);
 			lineCor.add(x);
-			lineCor.add(y);
+			lineCor.add(y*NEGATE);
 		}
+		System.out.println(lineCor);
 		double distance = distance(x, y);
 		xcor = x;
 		ycor = y;
@@ -162,10 +174,11 @@ public class Turtle {
 		return home();
 	}
 
-	//	public static void main (String[] args) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, InstantiationException, ClassNotFoundException {
-	//		Turtle t = new Turtle(5.0,2.0,3.0,0.0,0.0);
-	//		System.out.println(t.getAbsoluteOrientation("xcor"));
-	//		System.out.println(t.getAbsoluteOrientation("ycor"));
-	//		System.out.println(t.getAbsoluteOrientation("theta"));
-	//	}
+//	public static void main (String[] args) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, InstantiationException, ClassNotFoundException {
+//		Turtle t = new Turtle(5.0,2.0,3.0,0.0,0.0);
+//		System.out.println(t.getAbsoluteOrientation("xcor"));
+//		System.out.println(t.getAbsoluteOrientation("ycor"));
+//		System.out.println(t.getAbsoluteOrientation("theta"));
+//		System.out.println(((-90%360)+360)%360);
+//	}
 }

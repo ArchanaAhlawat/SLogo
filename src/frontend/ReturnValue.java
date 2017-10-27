@@ -10,7 +10,9 @@ public class ReturnValue extends Scroll {
 	}
 	
 	protected void addReturnValue(double value) {
-		addToScrollPane(getScrollLabel() + value);
+		String valueS=Double.toString(value);
+	
+		addToScrollPane(valueS);
 	}
 
 }

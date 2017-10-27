@@ -16,7 +16,7 @@ import backend.api.Command;
  * @author kelly
  *
  */
-public class Back implements Command {
+public class Backward implements Command {
 	
 	@Override
 	public void execute(Stacks instructionStacks, Turtle currentTurtle) {
