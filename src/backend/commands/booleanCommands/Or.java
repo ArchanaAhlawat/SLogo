@@ -5,6 +5,7 @@ import java.util.Stack;
 import backend.Stacks;
 import backend.Turtle;
 import backend.api.Command;
+import backend.api.BooleanOperation;
 
 /**
  * has the execute for when a or command is called
@@ -15,20 +16,19 @@ import backend.api.Command;
  * @author kelly
  *
  */
-public class Or implements Command {
+public class Or extends BooleanOperation {
 
-	private static final double ZERO = 0.0;
-	private static final double ONE = 1.0;
+	public Or(Stacks myStack, Turtle myTurtle) {
+		super(myStack, myTurtle);
+	}
 
 	@Override
-	public void execute(Stacks instructionStacks, Turtle currentTurtle) {
-		double expr1 = instructionStacks.popDouble();
-		double expr2 = instructionStacks.popDouble();
+	protected double doUpdate() {
 		if (expr1 != ZERO || expr2 != ZERO) {
-			instructionStacks.addDouble(ONE);
+			return ONE;
 		}
 		else {
-			instructionStacks.addDouble(ZERO);
+			return ZERO;
 		}
 	}
 }

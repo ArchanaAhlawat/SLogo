@@ -3,7 +3,7 @@ package backend.api;
 import backend.Stacks;
 import backend.Turtle;
 
-public abstract class LogicCommand implements Command {
+public abstract class BooleanOperation implements Command {
 
 	protected static final double ZERO = 0.0;
 	protected static final double ONE = 1.0;
@@ -13,7 +13,7 @@ public abstract class LogicCommand implements Command {
 	protected Stacks instructionStacks;
 	protected Turtle currentTurtle;
 	
-	public LogicCommand(Stacks myStack, Turtle myTurtle) {
+	public BooleanOperation(Stacks myStack, Turtle myTurtle) {
 		instructionStacks = myStack;
 		currentTurtle = myTurtle;
 	}

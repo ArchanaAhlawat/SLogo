@@ -74,11 +74,11 @@ public class Parser {
 	}
 
 	private void reflectAndExecute(Stacks instructionStacks, String[] instructionArray, int i) throws ClassNotFoundException, InstantiationException, IllegalAccessException, NoSuchMethodException,InvocationTargetException {
-		Class<?> commandClass = Class.forName("backend.commands." + langMap.get(instructionArray[i].toLowerCase()));
-		//Constructor<?> cons = commandClass.getConstructor(Stacks.class, Turtle.class);
-		//System.out.println(cons);
-		Object commandInstance = commandClass.newInstance();
-		//Object commandInstance = cons.newInstance(instructionStacks, currentTurtle);
+		Class<?> commandClass = Class.forName("backend.commands.booleanCommands." + langMap.get(instructionArray[i].toLowerCase()));
+		Constructor<?> cons = commandClass.getConstructor(Stacks.class, Turtle.class);
+		System.out.println(cons);
+		//Object commandInstance = commandClass.newInstance();
+		Object commandInstance = cons.newInstance(instructionStacks, currentTurtle);
 		Method commandMethod = commandClass.getMethod("execute", Stacks.class, Turtle.class);
 		commandMethod.invoke(commandInstance, instructionStacks, currentTurtle);
 		val = instructionStacks.getReturnVal();

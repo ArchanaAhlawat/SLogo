@@ -19,6 +19,10 @@ public class Not implements Command {
 
 	private static final double ZERO = 0.0;
 	private static final double ONE = 1.0;
+	
+	
+	public Not(Stacks myStack, Turtle myTurtle) {
+	}
 
 	@Override
 	public void execute(Stacks instructionStacks, Turtle currentTurtle) {
