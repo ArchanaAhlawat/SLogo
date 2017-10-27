@@ -4,16 +4,11 @@ import controller.Controller;
 import java.io.File;
 import java.util.ResourceBundle;
 import javafx.application.Application;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
@@ -86,9 +81,7 @@ public class FrontEndDriver extends Application {
 		HBox layout2=new HBox(VBOX_SPACING);
 		addLabelsForButtons(layout2);
 		
-		
 		root = new Group();
-		
 		
 		Scene startScene= new Scene(root, WIDTH, HEIGHT);
 		addTurtleImage();
@@ -115,41 +108,33 @@ public class FrontEndDriver extends Application {
 		Label l2=addLabel("BackgroundLabel");
 		Label l3=addLabel("PenLabel");
 		Label l4=addLabel("LanguageLabel");
-		
 		hb.getChildren().addAll(l1,l2,l3,l4);
 	}
 	
 	private Label addLabel(String name) {
-		Label l=new Label(myResources.getString(name));
+		Label l = new Label(myResources.getString(name));
 		l.setPrefWidth(BUTTON_WIDTH);
 		return l;
 	}
 	
 	private void addCommandLine() {
 		
-		command = new TextArea ();
-		command.setPromptText(myResources.getString("Prompt"));
+		command = new TextArea (myResources.getString("Prompt"));
 		command.setPrefHeight(COMMANDHEIGHT);
 		command.setPrefWidth(COMMANDWIDTH);
 		
-		Button b=addSubmitButton();
+		SubmitButton b = addSubmitButton();
 		
-		HBox hb = new HBox();
-		hb.getChildren().addAll(command,b);
+		HBox hb = new HBox(command,b);
 		hb.setSpacing(HBOX_SPACING);
 		hb.setTranslateX(GRID_X1);
 		hb.setTranslateY(GRID_Y2+TURTLEAREA_TEXTFILED_SPACE);
 		root.getChildren().add(hb);
-		
 	}
 	
-	private Button addSubmitButton() {
+	private SubmitButton addSubmitButton() {
 		SubmitButton b = new SubmitButton(myResources.getString("Submit"),SUBMIT_BUTTON_WIDTH,SUBMIT_BUTTON_HEIGHT);
 		b.setOnAction(e ->{
-			if (command.getText().equals(null)) {
-				System.out.println("error");
-			}
-			else {
 			String currentCommand=command.getText();
 			commandValue=myController.setCommand(currentCommand);
 			double xCor=myController.getXCor();
@@ -160,7 +145,6 @@ public class FrontEndDriver extends Application {
 			commandHistory.addHistory(currentCommand);
 			returnValue.addReturnValue(commandValue);
 			command.clear();
-			}
 		});
 		return b;
 	}
@@ -172,39 +156,15 @@ public class FrontEndDriver extends Application {
 	}
 
 	private void addAllButtons(HBox layout) {
-		
 		layout.setTranslateY(BUTTONS_Y);
 		TurtleImageButton b1 = new TurtleImageButton(myResources.getString("SetImage"),BUTTON_WIDTH,BUTTON_HEIGHT);
-		b1.setOnAction(e ->{
-			displayTurtle.setImage(b1.chooseTurtle(displayTurtle));
-		});
+		b1.setOnAction(e -> displayTurtle.setImage(b1.chooseTurtle(displayTurtle)));
 		BackgroundPicker b2 = new BackgroundPicker(DEFAULT_TURTLEAREA_COLOR,BUTTON_WIDTH,BUTTON_HEIGHT,turtleArea);
 		PenPicker b3 = new PenPicker(Color.BLACK,BUTTON_WIDTH,BUTTON_HEIGHT,turtlePath);
 		LanguageChooser b4 = new LanguageChooser(myResources.getString("Languages"),BUTTON_WIDTH,BUTTON_HEIGHT);
-		Hyperlink b5=helpButton();
+		HelpButton b5 = new HelpButton(myResources.getString("Help"),BUTTON_WIDTH,BUTTON_HEIGHT);
+		b5.setOnAction(e -> b5.GoToHelpPage(myResources.getString("HelpPage"), this));
 		layout.getChildren().addAll(b1,b2,b3,b4,b5);
-	}
-	
-	private Hyperlink helpButton() {
-		
-		final Hyperlink help = new Hyperlink(myResources.getString("Help"));
-		help.setPrefHeight(BUTTON_HEIGHT);
-		help.setPrefWidth(BUTTON_WIDTH);
-		help.setAlignment(Pos.CENTER);
-		help.setOnAction(new EventHandler<ActionEvent>() {
-
-			 @Override
-		        public void handle(ActionEvent e) {
-		   
-		            try {
-		            	   getHostServices().showDocument(myResources.getString("HelpPage"));
-
-		            } catch (final Exception exc) {
-		                System.out.println("Error: the following link could not be open:" + help.getText());
-		            }
-		        }});
-		 
-		return help;
 	}
 	
 	public static void main(String[] args) {
