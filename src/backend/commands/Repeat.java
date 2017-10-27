@@ -10,9 +10,9 @@ import backend.api.Command;
 public class Repeat implements Command{
 
 	@Override
-	public void execute(Stacks instructionStacks, Turtle currentTurtle) {
+	public void execute(Stacks instructionStacks, Turtle currentTurtle) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
 		double repeatNum = instructionStacks.peekDouble();
-		Parser tempParser = new Parser(currentTurtle);
+		Parser tempParser = new Parser(currentTurtle, instructionStacks.getLanguage());
 		
 		try {
 		for (int i = 0; i < repeatNum; i++) {

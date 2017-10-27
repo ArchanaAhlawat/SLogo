@@ -10,6 +10,7 @@ public class Stacks {
 	Stack<String> commandsStack = new Stack<String>();
 	CommandsList commandsList;
 	CommandsList secondCommandsOrVarsList;
+	String language;
 	
 	public Stacks() {
 		
@@ -17,6 +18,14 @@ public class Stacks {
 	
 	public boolean canBeAdded(String element) { // tests whether non-command (right now: variable or double)
 		return (isNumeric(element) || isVariable(element));
+	}
+	
+	public void setLanguage(String lang) {
+		language = lang;
+	}
+	
+	public String getLanguage() {
+		return language;
 	}
 	
 	public void push(String element) {

@@ -11,9 +11,9 @@ import backend.api.Command;
 public class For implements Command{
 
 	@Override
-	public void execute(Stacks instructionStacks, Turtle currentTurtle) {
+	public void execute(Stacks instructionStacks, Turtle currentTurtle) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
 		List<String> var = instructionStacks.getSecondCommandsList();
-		Parser tempParser = new Parser(currentTurtle);
+		Parser tempParser = new Parser(currentTurtle, instructionStacks.getLanguage());
 		try {
 			System.out.println("hey: " + var.get(0)); // :var 3 5
 			String varName = var.get(0).split(" ")[0];

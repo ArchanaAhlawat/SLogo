@@ -14,7 +14,11 @@ public interface Command {
 	 * @param methodName string of the instruction/method name
 	 * @param currentTurtle Turtle that will be updated with the change (may not be required)
 	 * @return the double specified to be returned in the SLOGO specification, needed to be inserted into the stack of parameters
+	 * @throws IllegalAccessException 
+	 * @throws IllegalArgumentException 
+	 * @throws SecurityException 
+	 * @throws NoSuchFieldException 
 	 */
-	public void execute(Stacks instructionStacks, Turtle currentTurtle);	
+	public void execute(Stacks instructionStacks, Turtle currentTurtle) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException;	
 	
 }

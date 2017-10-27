@@ -11,9 +11,9 @@ import backend.api.Command;
 public class DoTimes implements Command {
 
 	@Override
-	public void execute(Stacks instructionStacks, Turtle currentTurtle) {
+	public void execute(Stacks instructionStacks, Turtle currentTurtle) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
 		List<String> var = instructionStacks.getSecondCommandsList();
-		Parser tempParser = new Parser(currentTurtle);
+		Parser tempParser = new Parser(currentTurtle, instructionStacks.getLanguage());
 		try {
 			String varName = var.get(0).split(" ")[0];
 			tempParser.parseInstruction("Set " + varName + " " + var.get(0).split(" ")[1]); // want to get variable name 

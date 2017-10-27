@@ -10,8 +10,8 @@ import backend.api.Command;
 public class IfElse implements Command{
 
 	@Override
-	public void execute(Stacks instructionStacks, Turtle currentTurtle) {
-		Parser tempParser = new Parser(currentTurtle);
+	public void execute(Stacks instructionStacks, Turtle currentTurtle) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+		Parser tempParser = new Parser(currentTurtle, instructionStacks.getLanguage());
 		if (instructionStacks.popDouble() != 0) {
 			for (String instruction : instructionStacks.getSecondCommandsList()) {
 				try {
