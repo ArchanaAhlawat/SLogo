@@ -10,6 +10,7 @@ public class Stacks {
 	Stack<String> commandsStack = new Stack<String>();
 	CommandsList commandsList;
 	CommandsList secondCommandsOrVarsList;
+	
 	String language;
 	
 	public Stacks() {
@@ -73,6 +74,10 @@ public class Stacks {
 	
 	public void addToCommands(String command) {
 		commandsStack.push(command);
+	}
+	
+	public String getCommand() {
+		return commandsStack.pop();
 	}
 	
 	public void instantiateCommandsList(String commands) {

@@ -2,6 +2,8 @@ package backend.api;
 
 import backend.Stacks;
 import backend.Turtle;
+
+import java.lang.reflect.InvocationTargetException;
 import java.util.Stack;
 
 public interface Command {
@@ -18,7 +20,11 @@ public interface Command {
 	 * @throws IllegalArgumentException 
 	 * @throws SecurityException 
 	 * @throws NoSuchFieldException 
+	 * @throws ClassNotFoundException 
+	 * @throws InstantiationException 
+	 * @throws NoSuchMethodException 
+	 * @throws InvocationTargetException 
 	 */
-	public void execute(Stacks instructionStacks, Turtle currentTurtle) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException;	
+	public void execute(Stacks instructionStacks, Turtle currentTurtle) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, InvocationTargetException, NoSuchMethodException, InstantiationException, ClassNotFoundException;	
 	
 }

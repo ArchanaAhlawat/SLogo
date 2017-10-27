@@ -10,7 +10,8 @@ import java.util.Locale;
 import java.util.Map;
 
 public class Parser {
-	//UserVariables userVariables = new UserVariables();
+	private UserVariables userVariables = new UserVariables();
+	//public UserCommands userCommands = new UserCommands(); // for now static 
 	Turtle currentTurtle;
 	private double val = 1;
 	private String commandsList;
@@ -36,7 +37,6 @@ public class Parser {
 			if (UserVariables.contains(instructionArray[i])) {
 				instructionStacks.push(this.getVarVal(instructionArray[i]));
 			}
-		
 			else if (instructionArray[i].matches("\\]")) { // identified beginning of list (back of list)
 				if (commandsList != null) { // we already have one set of commands
 					i--;
@@ -60,32 +60,37 @@ public class Parser {
 					Collections.reverse(tempCommands); // in correct order
 					commandsList = String.join(" ", tempCommands);
 					instructionStacks.instantiateCommandsList(commandsList);
-			
 				}
 			}
-			else if (instructionArray[i].matches("\\[")) continue;
-			
 			else if (instructionStacks.canBeAdded(instructionArray[i])) {
-				instructionStacks.push(instructionArray[i]); // types are abstracted to Stacks class - good design
+				instructionStacks.push(instructionArray[i]);
+			}
+			else if (! langMap.containsKey(instructionArray[i].toLowerCase().trim()) && ! UserCommands.contains(instructionArray[i].toLowerCase().trim())) {
+				UserCommands.setToDefine(instructionArray[i].toLowerCase());
+			}
+			else if (UserCommands.contains(instructionArray[i].toLowerCase().trim())) {
+				instructionStacks.addToCommands(instructionArray[i].toLowerCase().trim());
+				reflectAndExecute(instructionStacks, "ProcessUserInstruction"); // bad design? 
 			}
 			else {
 				System.out.println("instruction: " + instructionArray[i]);
-				reflectAndExecute(instructionStacks, instructionArray, i);
+				reflectAndExecute(instructionStacks, instructionArray[i].toLowerCase());
 			}
 		}
 		//Stacks.clear();
 	}
 
-	private void reflectAndExecute(Stacks instructionStacks, String[] instructionArray, int i) throws ClassNotFoundException, InstantiationException, IllegalAccessException, NoSuchMethodException,InvocationTargetException {
-		Class<?> commandClass = Class.forName("backend.commands." + langMap.get(instructionArray[i].toLowerCase()));
-		//Constructor<?> cons = commandClass.getConstructor(Stacks.class, Turtle.class);
-		//System.out.println(cons);
+	private void reflectAndExecute(Stacks instructionStacks, String instruction) throws ClassNotFoundException, InstantiationException, IllegalAccessException, NoSuchMethodException,InvocationTargetException {
+		String location = instruction;
+		if (langMap.containsKey(instruction)) {
+			location = langMap.get(instruction);
+		}
+		Class<?> commandClass = Class.forName("backend.commands." + location);
 		Object commandInstance = commandClass.newInstance();
-		//Object commandInstance = cons.newInstance(instructionStacks, currentTurtle);
 		Method commandMethod = commandClass.getMethod("execute", Stacks.class, Turtle.class);
 		commandMethod.invoke(commandInstance, instructionStacks, currentTurtle);
 		val = instructionStacks.getReturnVal();
-		if (instructionArray[i].toLowerCase().equals("ycor")) {
+		if (instruction.equals("ycor")) {
 			val *= -1;
 		}
 		System.out.println("RETURN VAL IS " + val);
@@ -97,9 +102,10 @@ public class Parser {
 	
 	public static void main (String[] args) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, InstantiationException, ClassNotFoundException, NoSuchFieldException {
 		Parser p = new Parser(new Turtle(), "english");
-		p.parseInstruction("FOR [ :var 3 5 ] [ fd :var\nsum :var 4 ]"); // repeat 3 [ fd 54\nsum 2 4 ], DOTIMES [ :var 3 ] [ fd :var\nsum :var 4 ], 
+		p.parseInstruction("wow TO wow [ :hi 3\n:omg 8 ] [ fd :hi\nsum :omg 70 ]"); // repeat 3 [ fd 54\nsum 2 4 ], DOTIMES [ :var 3 ] [ fd :var\nsum :var 4 ], 
 		//FOR [ :var 3 5 ] [ fd :var\nsum :var 4 ], IF 0 [ fd 54\nsum 2 4 ]
 		// IFELSE 0 [ fd 54\nsum 2 4 ] [ fd 700\nsum 70 70 ], 
+		//wow TO wow [ :hi 3\n:omg 8 ] [ fd 3\nsum 70 70 ]
 		p.getReturnVal(); // if not zero, run commands.
 	}
 	
