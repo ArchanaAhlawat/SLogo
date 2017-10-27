@@ -1,10 +1,8 @@
 package backend.commands.mathOperations;
 
-import java.util.Stack;
-
 import backend.Stacks;
 import backend.Turtle;
-import backend.api.Command;
+import backend.api.MathOperations;
 
 /**
  * has the execute for when a arctan command is called
@@ -15,9 +13,11 @@ import backend.api.Command;
  * @author kelly
  *
  */
-public class ArcTangent implements Command {
+public class ArcTangent extends MathOperations {
 	
-	private static final double RADTODEG = 180/Math.PI;
+	public ArcTangent(Stacks myStack, Turtle myTurtle) {
+		super(myStack, myTurtle);
+	}
 
 	@Override
 	public void execute(Stacks instructionStacks, Turtle currentTurtle) {

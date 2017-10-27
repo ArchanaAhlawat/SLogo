@@ -1,10 +1,8 @@
 package backend.commands.mathOperations;
 
-import java.util.Stack;
-
 import backend.Stacks;
 import backend.Turtle;
-import backend.api.Command;
+import backend.api.MathOperations;
 
 /**
  * has the execute for when a tangent command is called
@@ -15,9 +13,12 @@ import backend.api.Command;
  * @author kelly
  *
  */
-public class Tangent implements Command {
-	private static final double RADTODEG = 180.0/Math.PI;
+public class Tangent extends MathOperations {
 	
+	public Tangent(Stacks myStack, Turtle myTurtle) {
+		super(myStack, myTurtle);
+	}
+
 	@Override
 	public void execute(Stacks instructionStacks, Turtle currentTurtle) {
 		double tan = Math.tan(instructionStacks.popDouble()*RADTODEG);

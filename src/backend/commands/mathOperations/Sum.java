@@ -1,17 +1,18 @@
 package backend.commands.mathOperations;
 
-import java.util.Stack;
-
 import backend.Stacks;
 import backend.Turtle;
-import backend.api.Command;
+import backend.api.MathOperations;
 
-public class Sum implements Command {
+public class Sum extends MathOperations {
 	
+	public Sum(Stacks myStack, Turtle myTurtle) {
+		super(myStack, myTurtle);
+	}
+
 	@Override
-	public void execute(Stacks instructionStacks, Turtle currentTurtle) {
-		double sum = instructionStacks.popDouble() + instructionStacks.popDouble();
-		instructionStacks.addDouble(sum);
+	protected double doUpdate() {
+		return expr1+expr2;
 	}
 }
 

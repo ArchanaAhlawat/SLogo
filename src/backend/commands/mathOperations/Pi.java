@@ -1,10 +1,8 @@
 package backend.commands.mathOperations;
 
-import java.util.Stack;
-
 import backend.Stacks;
 import backend.Turtle;
-import backend.api.Command;
+import backend.api.MathOperations;
 
 /**
  * has the execute for when a pi command is called
@@ -15,7 +13,11 @@ import backend.api.Command;
  * @author kelly
  *
  */
-public class Pi implements Command {
+public class Pi extends MathOperations {
+
+	public Pi(Stacks myStack, Turtle myTurtle) {
+		super(myStack, myTurtle);
+	}
 
 	@Override
 	public void execute(Stacks instructionStacks, Turtle currentTurtle) {

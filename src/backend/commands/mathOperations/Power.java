@@ -1,10 +1,8 @@
 package backend.commands.mathOperations;
 
-import java.util.Stack;
-
 import backend.Stacks;
 import backend.Turtle;
-import backend.api.Command;
+import backend.api.MathOperations;
 
 /**
  * has the execute for when a power command is called
@@ -15,10 +13,14 @@ import backend.api.Command;
  * @author kelly
  *
  */
-public class Power implements Command {
+public class Power extends MathOperations {
+
+	public Power(Stacks myStack, Turtle myTurtle) {
+		super(myStack, myTurtle);
+	}
 
 	@Override
-	public void execute(Stacks instructionStacks, Turtle currentTurtle) {
-		instructionStacks.addDouble(Math.pow(instructionStacks.popDouble(),instructionStacks.popDouble()));
+	protected double doUpdate() {
+		return Math.pow(expr1,expr2);
 	}
 }

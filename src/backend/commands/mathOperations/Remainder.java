@@ -1,10 +1,8 @@
 package backend.commands.mathOperations;
 
-import java.util.Stack;
-
 import backend.Stacks;
 import backend.Turtle;
-import backend.api.Command;
+import backend.api.MathOperations;
 
 /**
  * has the execute for when a remainder command is called
@@ -15,15 +13,14 @@ import backend.api.Command;
  * @author kelly
  *
  */
-public class Remainder implements Command {
+public class Remainder extends MathOperations {
 
-	@Override
-	public void execute(Stacks instructionStacks, Turtle currentTurtle) {
-		double expr1 = instructionStacks.popDouble();
-		double expr2 = instructionStacks.popDouble();
-		//TODO: throw error if expr2 is 0.0
-		//negative modulus is defined
-		instructionStacks.addDouble(expr1 % expr2);
+	public Remainder(Stacks myStack, Turtle myTurtle) {
+		super(myStack, myTurtle);
 	}
 
+	@Override
+	protected double doUpdate() {
+		return expr1 % expr2;
+	}
 }

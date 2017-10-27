@@ -1,10 +1,8 @@
 package backend.commands.mathOperations;
 
-import java.util.Stack;
-
 import backend.Stacks;
 import backend.Turtle;
-import backend.api.Command;
+import backend.api.MathOperations;
 
 /**
  * has the execute for when a product command is called
@@ -15,13 +13,14 @@ import backend.api.Command;
  * @author kelly
  *
  */
-public class Product implements Command {
+public class Product extends MathOperations {
 
-	@Override
-	public void execute(Stacks instructionStacks, Turtle currentTurtle) {
-		double expr1 = instructionStacks.popDouble();
-		double expr2 = instructionStacks.popDouble();
-		instructionStacks.addDouble(expr1*expr2);
+	public Product(Stacks myStack, Turtle myTurtle) {
+		super(myStack, myTurtle);
 	}
 
+	@Override
+	protected double doUpdate() {
+		return expr1*expr2;
+	}
 }

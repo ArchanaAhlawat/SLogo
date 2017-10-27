@@ -1,10 +1,8 @@
 package backend.commands.mathOperations;
 
-import java.util.Stack;
-
 import backend.Stacks;
 import backend.Turtle;
-import backend.api.Command;
+import backend.api.MathOperations;
 
 /**
  * has the execute for when a sine command is called
@@ -15,8 +13,11 @@ import backend.api.Command;
  * @author kelly
  *
  */
-public class Sine implements Command {
-	private static final double RADTODEG = 180.0/Math.PI;
+public class Sine extends MathOperations {
+
+	public Sine(Stacks myStack, Turtle myTurtle) {
+		super(myStack, myTurtle);
+	}
 
 	@Override
 	public void execute(Stacks instructionStacks, Turtle currentTurtle) {
