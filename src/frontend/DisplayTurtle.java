@@ -1,7 +1,6 @@
 package frontend;
 
 import java.io.File;
-import java.util.HashMap;
 import java.util.List;
 
 import javafx.scene.image.Image;
@@ -50,6 +49,10 @@ public class DisplayTurtle extends ImageView {
 	
 	protected int getID() {
 		return turtID;
+	}
+	
+	public double getHeading() {
+		return this.getRotate();
 	}
 	
 	private boolean booleanConverter(double dub) {

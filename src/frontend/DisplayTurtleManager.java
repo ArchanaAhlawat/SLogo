@@ -6,12 +6,12 @@ import java.util.List;
 
 import javafx.scene.image.Image;
 
-public class TurtleManager {
+public class DisplayTurtleManager {
 	
 	private List<DisplayTurtle> activeTurtles;
 	private List<DisplayTurtle> turtles;
 
-	public TurtleManager(DisplayTurtle firstTurtle) {
+	public DisplayTurtleManager(DisplayTurtle firstTurtle) {
 		firstTurtle.setOnMouseClicked(e -> firstTurtle.changeTurtleActivity(activeTurtles));
 		activeTurtles = new LinkedList<DisplayTurtle>(Arrays.asList(firstTurtle));
 		turtles = new LinkedList<DisplayTurtle>(Arrays.asList(firstTurtle));

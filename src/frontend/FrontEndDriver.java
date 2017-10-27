@@ -1,21 +1,17 @@
 package frontend;
 import controller.Controller;
-
-import java.io.File;
 import java.util.ResourceBundle;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
-import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class FrontEndDriver extends Application {
 	
-
 	private static final int BUTTONS_Y = 30;
 	private static final int HBOX_SPACING = 20;
 	private static final int SUBMIT_BUTTON_WIDTH = 80;
@@ -57,7 +53,7 @@ public class FrontEndDriver extends Application {
 	private ReturnValue returnValue;
 	private History userDefinedVariables;
 	private History userDefinedCommands;
-	private TurtleManager turtleManager;
+	private DisplayTurtleManager turtleManager;
 	private double commandValue;
 	
 	private Controller myController = new Controller();
@@ -78,7 +74,7 @@ public class FrontEndDriver extends Application {
 		
 		Scene startScene= new Scene(root, WIDTH, HEIGHT);
 		DisplayTurtle firstTurtle = new DisplayTurtle(1);
-		turtleManager = new TurtleManager(firstTurtle);
+		turtleManager = new DisplayTurtleManager(firstTurtle);
 		turtleArea = new Display(firstTurtle,GRID_X1,GRID_Y1,GRID_WIDTH,GRID_HEIGHT);
 		addAllButtons(layout);
 		
@@ -132,7 +128,7 @@ public class FrontEndDriver extends Application {
 		SubmitButton b = new SubmitButton(myResources.getString("Submit"),SUBMIT_BUTTON_WIDTH,SUBMIT_BUTTON_HEIGHT);
 		b.setOnAction(e ->{
 			String currentCommand=command.getText();
-			commandValue=myController.setCommand(currentCommand);
+			commandValue=myController.setCommand(currentCommand,turtleManager.getActiveTurtle());
 			double xCor=myController.getXCor();
 			double yCor=myController.getYCor();
 			double theta=myController.getTheta();
