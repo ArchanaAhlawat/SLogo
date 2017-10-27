@@ -10,10 +10,12 @@ import javafx.scene.shape.PathElement;
 
 public class TurtlePath extends Path{
 	private int prevPathSize;
+	private boolean isPenDown;
 	
 	public TurtlePath(double origin_x,double origin_y) {
 		super(new MoveTo(origin_x,origin_y));
 		prevPathSize = 0;
+		isPenDown = false;
 	}
 	
 	protected void updatePath(List<Double> points) {
