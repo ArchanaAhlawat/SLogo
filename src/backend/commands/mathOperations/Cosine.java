@@ -21,7 +21,7 @@ public class Cosine extends MathOperations {
 
 	@Override
 	public void execute(Stacks instructionStacks, Turtle currentTurtle) {
-		double cosine = Math.cos(instructionStacks.popDouble()*RADTODEG);
+		double cosine = Math.cos(instructionStacks.popDouble()*DEGTORAD);
 		instructionStacks.addDouble(cosine); 
 	}
 }

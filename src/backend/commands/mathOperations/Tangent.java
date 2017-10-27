@@ -21,7 +21,7 @@ public class Tangent extends MathOperations {
 
 	@Override
 	public void execute(Stacks instructionStacks, Turtle currentTurtle) {
-		double tan = Math.tan(instructionStacks.popDouble()*RADTODEG);
+		double tan = Math.tan(instructionStacks.popDouble()*DEGTORAD);
 		instructionStacks.addDouble(tan);
 		//TODO: throw error if input is pi/2 + pi*i
 	}

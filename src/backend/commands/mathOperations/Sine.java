@@ -21,7 +21,7 @@ public class Sine extends MathOperations {
 
 	@Override
 	public void execute(Stacks instructionStacks, Turtle currentTurtle) {
-		double sine = Math.sin(instructionStacks.popDouble()*RADTODEG);
+		double sine = Math.sin(instructionStacks.popDouble()*DEGTORAD);
 		instructionStacks.addDouble(sine);
 	}
 }
