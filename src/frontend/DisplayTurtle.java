@@ -42,15 +42,9 @@ public class DisplayTurtle extends ImageView {
 	protected void changeTurtleActivity(List<DisplayTurtle> activeTurtles) {
 		if(activeTurtles.contains(this))  {
 			activeTurtles.remove(this);
-			this.setFitWidth(TURTLESIZE/2);
-			this.setFitHeight(TURTLESIZE/2);
-			reposition(TURTLESIZE_GROWTH);
 		}
 		else {
 			activeTurtles.add(this);
-			this.setFitWidth(TURTLESIZE);
-			this.setFitHeight(TURTLESIZE);
-			reposition(-TURTLESIZE_GROWTH);
 		}
 	}
 	
@@ -60,11 +54,6 @@ public class DisplayTurtle extends ImageView {
 	
 	private boolean booleanConverter(double dub) {
 		return (dub == 1) ? true:false;
-	}
-	
-	private void reposition(double sizeChange) {
-		this.setTranslateX(sizeChange/2);
-		this.setTranslateY(sizeChange/2);
 	}
 
 }
