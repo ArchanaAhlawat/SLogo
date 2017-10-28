@@ -77,14 +77,11 @@ public class Turtle {
 		double xDis = xDisplacement(x);
 		double yDis = yDisplacement(y);
 		double angle = Math.atan(xDis/yDis)*RADTODEG;
-		if (xDis >= ZERO && yDis >= ZERO) {
-			return angle;
+		if (yDis <= ZERO) { //first and fourth quadrants
+			return DEGREESINCIRCLE + NEGATE*angle;
 		}
-		else if (xDis <= ZERO && yDis >= ZERO) {
-			return DEGREESINCIRCLE - angle;
-		}
-		else {
-			return DEGREESINCIRCLE*HALF + angle;
+		else { //second and third quadrants
+			return DEGREESINCIRCLE*HALF + NEGATE*angle;
 		}
 	}
 
