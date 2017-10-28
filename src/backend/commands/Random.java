@@ -4,6 +4,7 @@ import java.util.Stack;
 
 import backend.Stacks;
 import backend.Turtle;
+import backend.TurtleTree;
 import backend.api.Command;
 
 /**
@@ -18,7 +19,7 @@ import backend.api.Command;
 public class Random implements Command {
 
 	@Override
-	public void execute(Stacks instructionStacks, Turtle currentTurtle) {
+	public void execute(Stacks instructionStacks, TurtleTree currentTurtle) {
 		double max = instructionStacks.popDouble();
 		//TODO: throw exception if max is negative/zero
 		instructionStacks.addDouble(Math.random()*max); //Math.random() is 0.0 (inclusive) to 1.0 (exclusive)

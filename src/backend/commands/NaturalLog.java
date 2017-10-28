@@ -4,6 +4,7 @@ import java.util.Stack;
 
 import backend.Stacks;
 import backend.Turtle;
+import backend.TurtleTree;
 import backend.api.Command;
 
 /**
@@ -18,7 +19,7 @@ import backend.api.Command;
 public class NaturalLog implements Command {
 
 	@Override
-	public void execute(Stacks instructionStacks, Turtle currentTurtle) {
+	public void execute(Stacks instructionStacks, TurtleTree currentTurtle) {
 		double expr = instructionStacks.popDouble();
 		instructionStacks.addDouble(Math.log(expr));
 		//TODO: throw errors if expr is invalid input for ln

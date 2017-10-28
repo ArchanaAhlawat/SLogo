@@ -4,6 +4,7 @@ import java.util.Stack;
 
 import backend.Stacks;
 import backend.Turtle;
+import backend.TurtleTree;
 import backend.api.Command;
 
 /**
@@ -18,7 +19,7 @@ import backend.api.Command;
 public class Quotient implements Command {
 
 	@Override
-	public void execute(Stacks instructionStacks, Turtle currentTurtle) {
+	public void execute(Stacks instructionStacks, TurtleTree currentTurtle) {
 		double expr1 = instructionStacks.popDouble();
 		//TODO: throw error if expr2 is 0.0
 		double expr2 = instructionStacks.popDouble();

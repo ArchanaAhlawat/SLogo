@@ -4,6 +4,7 @@ import java.util.Stack;
 
 import backend.Stacks;
 import backend.Turtle;
+import backend.TurtleTree;
 import backend.api.Command;
 
 /**
@@ -19,7 +20,7 @@ public class Tangent implements Command {
 	private static final double RADTODEG = 180.0/Math.PI;
 	
 	@Override
-	public void execute(Stacks instructionStacks, Turtle currentTurtle) {
+	public void execute(Stacks instructionStacks, TurtleTree currentTurtle) {
 		double tan = Math.tan(instructionStacks.popDouble()*RADTODEG);
 		instructionStacks.addDouble(tan);
 		//TODO: throw error if input is pi/2 + pi*i

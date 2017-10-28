@@ -12,22 +12,21 @@ import java.util.Map;
 public class Parser {
 	private UserVariables userVariables = new UserVariables();
 	//public UserCommands userCommands = new UserCommands(); // for now static 
-	Turtle currentTurtle;
+	TurtleTree currentTurtle;
 	private double val = 1;
 	private String commandsList;
 	private Map<String, String> langMap;
-	private Stacks instructionStacks;
 	private String language;
 	
-	public Parser(Turtle current, String language) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
-		currentTurtle = current;
+	public Parser(String language) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
 		LangMaps maps = new LangMaps(language); // TODO: instantiate in driver later. JUST FOR TESTING
 		langMap = maps.getMaps(language.toUpperCase());
 		this.language = language;
 	}
 	
 	// TODO: throw exceptions properly w try/catch
-	public void parseInstruction(String inst) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, InstantiationException, ClassNotFoundException {
+	public void parseInstruction(TurtleTree current, String inst) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, InstantiationException, ClassNotFoundException {
+		currentTurtle = current;
 		System.out.println("NEW PASSED INST: " + inst);
 		Stacks instructionStacks = new Stacks();
 		instructionStacks.setLanguage(language);
@@ -87,7 +86,7 @@ public class Parser {
 		}
 		Class<?> commandClass = Class.forName("backend.commands." + location);
 		Object commandInstance = commandClass.newInstance();
-		Method commandMethod = commandClass.getMethod("execute", Stacks.class, Turtle.class);
+		Method commandMethod = commandClass.getMethod("execute", Stacks.class, TurtleTree.class);
 		commandMethod.invoke(commandInstance, instructionStacks, currentTurtle);
 		val = instructionStacks.getReturnVal();
 		if (instruction.equals("ycor")) {
@@ -101,8 +100,13 @@ public class Parser {
 	}
 	
 	public static void main (String[] args) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, InstantiationException, ClassNotFoundException, NoSuchFieldException {
-		Parser p = new Parser(new Turtle(), "english");
-		p.parseInstruction("wow TO wow [ :hi 3\n:omg 8 ] [ fd :hi\nsum :omg 70 ]"); // repeat 3 [ fd 54\nsum 2 4 ], DOTIMES [ :var 3 ] [ fd :var\nsum :var 4 ], 
+		Parser p = new Parser("english");
+		TurtleTree turtles = new TurtleManager();
+		//turtles.addActiveTurtle();
+		//turtles.addActiveTurtle();
+		p.parseInstruction(turtles, "setheading 7"); // repeat 3 [ fd 54\nsum 2 4 ], DOTIMES [ :var 3 ] [ fd :var\nsum :var 4 ], 
+		
+		
 		//FOR [ :var 3 5 ] [ fd :var\nsum :var 4 ], IF 0 [ fd 54\nsum 2 4 ]
 		// IFELSE 0 [ fd 54\nsum 2 4 ] [ fd 700\nsum 70 70 ], 
 		//wow TO wow [ :hi 3\n:omg 8 ] [ fd 3\nsum 70 70 ]
@@ -120,4 +124,5 @@ public class Parser {
 	public String getLanguage() {
 		return language;
 	}
+	
 }

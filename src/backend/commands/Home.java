@@ -4,6 +4,7 @@ import java.util.Stack;
 
 import backend.Stacks;
 import backend.Turtle;
+import backend.TurtleTree;
 import backend.api.Command;
 
 /**
@@ -21,7 +22,7 @@ public class Home implements Command {
 	private static final double ZERO = 0.0;
 
 	@Override
-	public void execute(Stacks instructionStacks, Turtle currentTurtle) {
+	public void execute(Stacks instructionStacks, TurtleTree currentTurtle) {
 		instructionStacks.addDouble(currentTurtle.home());
 	}
 }

@@ -1,9 +1,12 @@
 package backend.commands;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Stack;
 
 import backend.Stacks;
 import backend.Turtle;
+import backend.TurtleManager;
+import backend.TurtleTree;
 import backend.api.Command;
 
 /**
@@ -21,7 +24,8 @@ public class YCoordinate implements Command {
 	private static final String YCOR = "ycor";
 	
 	@Override
-	public void execute(Stacks instructionStacks, Turtle currentTurtle) {
+	public void execute(Stacks instructionStacks, TurtleTree currentTurtle) {
 		instructionStacks.addDouble(currentTurtle.getAbsoluteOrientation(YCOR));
 	}
+
 }

@@ -6,6 +6,7 @@ import java.util.List;
 import backend.Parser;
 import backend.Stacks;
 import backend.Turtle;
+import backend.TurtleTree;
 import backend.api.Command;
 
 public abstract class ComplexCommand implements Command {
@@ -15,10 +16,9 @@ public abstract class ComplexCommand implements Command {
 		return varSplit;
 	}
 	
-	protected double copiedCode(Stacks instructionStacks, Turtle currentTurtle, String specificCommand, int start, int limit, String varName) throws IllegalAccessException,
-		
+	protected double copiedCode(Stacks instructionStacks, TurtleTree currentTurtle, String specificCommand, int start, int limit, String varName) throws IllegalAccessException,
 		Parser tempParser = new Parser(currentTurtle);
-		tempParser.parseInstruction("Set " + varName + " " + varSplit[1]);
+		tempParser.parseInstruction(currentTurtle, "Set " + varName + " " + varSplit[1]);
 		Double parameter = Double.parseDouble(tempParser.getVarVal(varName));
 		Double start;
 		Double limit;
@@ -34,7 +34,7 @@ public abstract class ComplexCommand implements Command {
 		for (double i = start; i < (limit+1); i++) {
 			tempParser.updateUserVars(varName, i);
 			for (String instruction : instructionStacks.getCommandsList()) {
-				tempParser.parseInstruction(instruction);
+				tempParser.parseInstruction(currentTurtle, instruction);
 			}
 		}
 		double toReturn = tempParser.getReturnVal();

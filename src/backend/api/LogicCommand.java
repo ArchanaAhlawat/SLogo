@@ -2,6 +2,7 @@ package backend.api;
 
 import backend.Stacks;
 import backend.Turtle;
+import backend.TurtleTree;
 
 public abstract class LogicCommand implements Command {
 
@@ -19,7 +20,7 @@ public abstract class LogicCommand implements Command {
 	}
 	
 	@Override
-	public void execute(Stacks instructionStacks, Turtle currentTurtle) {
+	public void execute(Stacks instructionStacks, TurtleTree currentTurtle) {
 		setParams();
 		addReturn(doUpdate());
 	}
