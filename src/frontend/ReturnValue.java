@@ -1,8 +1,6 @@
 package frontend;
 
-import java.util.ArrayList;
 
-import javafx.scene.Group;
 import javafx.scene.text.Text;
 
 public class ReturnValue extends Scroll {
