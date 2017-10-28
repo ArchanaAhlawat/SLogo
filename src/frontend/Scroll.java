@@ -20,7 +20,8 @@ public abstract class Scroll extends ScrollPane {
 	
 	private ArrayList<Text> allHistory=new ArrayList<Text>();
 	private String scrollLabel;
-	private Group root;
+	protected Group root;
+	protected Text curr;
 	
 	
 	public Scroll(String label,int x,int y,int width,int height) {
@@ -55,7 +56,7 @@ public abstract class Scroll extends ScrollPane {
 	}
 	
 	protected void addToScrollPane(String command) {
-		Text curr=new Text(command);
+		curr=new Text(command);
 		allHistory.add(curr);
 		formatHistoryEntry(allHistory.size()-1);
 	}

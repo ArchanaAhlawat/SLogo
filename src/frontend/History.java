@@ -1,16 +1,32 @@
 package frontend;
 
-import javafx.scene.control.ScrollPane;
+
+import controller.Controller;
+import javafx.event.EventHandler;
+import javafx.scene.Node;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 
 public class History extends Scroll {
-	private Text[] historyList;
+
 	
 	private static final String EMPTY_STRING = "";
+	private DisplayTurtle displayTurtle;
+	private ReturnValue returnValue;
+	private Controller myController;
 	
-	public History(String label, int x, int y, int width, int height) {
+	
+	public History(String label, int x, int y, int width, int height,DisplayTurtle displayTurtle,ReturnValue returnValue,Controller myController) {
 		super(label, x, y, width, height);
 		// TODO Auto-generated constructor stub
+	
+		this.displayTurtle=displayTurtle; 
+		this.returnValue=returnValue;
+		this.myController=myController;
+		
+
+	
+		
 	}
 	
 	protected void addHistory(String command) {
@@ -18,6 +34,40 @@ public class History extends Scroll {
 			String formattedCommand = formatCommand(command);
 		    
 			addToScrollPane(formattedCommand);
+			
+			clickable();
 		}
 	}
+	
+	protected void clickable() {
+	
+		Text curr=super.curr;
+		System.out.println(curr.getText());
+		curr.setOnMouseClicked(e -> handleMouseClick(e,displayTurtle,returnValue,curr,myController));
+
+     }
+	
+	protected void handleMouseClick(MouseEvent e,DisplayTurtle display,ReturnValue returnValue,Text current,Controller myController) {
+		
+		
+		String currentCommand=current.getText().trim();
+		double commandValue=myController.setCommand(currentCommand);
+		
+		double xCor=myController.getXCor();
+	
+		double yCor=myController.getYCor();
+	
+		double theta=myController.getTheta();
+	
+		double turtleVis=myController.getTurtleVis();
+		System.out.println("current x cor is"+xCor);
+		System.out.println("current y cor is"+yCor);
+		
+		display.updateTurtle(xCor,yCor,theta,turtleVis);
+		addHistory(currentCommand);
+		returnValue.addReturnValue(commandValue);
+       
+
+	}
+	
 }
