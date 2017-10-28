@@ -9,13 +9,12 @@ import frontend.Turtle;
 
 public class Controller implements ControllerAPI {
 	
-	private Driver BEdriver;
+	private Driver BEdriver = new Driver();
 	
 	@Override
 	public double setCommand(String command) {
 		
 		try {
-			BEdriver = new Driver();
 			double commandValue=BEdriver.setCommand(command);
 			return commandValue;
 		} catch (IllegalAccessException
@@ -24,7 +23,7 @@ public class Controller implements ControllerAPI {
 				| NoSuchMethodException
 				| SecurityException
 				| InstantiationException
-				| ClassNotFoundException | NoSuchFieldException e) {
+				| ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
