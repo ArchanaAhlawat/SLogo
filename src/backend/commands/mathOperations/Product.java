@@ -2,6 +2,7 @@ package backend.commands.mathOperations;
 
 import backend.Stacks;
 import backend.Turtle;
+import backend.TurtleTree;
 
 /**
  * has the execute for when a product command is called
@@ -13,7 +14,7 @@ import backend.Turtle;
  */
 public class Product extends MathOperations {
 
-	public Product(Stacks myStack, Turtle myTurtle) {
+	public Product(Stacks myStack, TurtleTree myTurtle) {
 		super(myStack, myTurtle);
 	}
 

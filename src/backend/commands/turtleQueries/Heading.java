@@ -2,6 +2,7 @@ package backend.commands.turtleQueries;
 
 import backend.Stacks;
 import backend.Turtle;
+import backend.TurtleTree;
 
 /**
  * has the execute for when a heading command is called
@@ -16,7 +17,7 @@ public class Heading extends TurtleQueries {
 	
 	private static final String HEADING = "theta";
 	
-	public Heading(Stacks myStack, Turtle myTurtle) {
+	public Heading(Stacks myStack, TurtleTree myTurtle) {
 		super(myStack, myTurtle);
 	}
 

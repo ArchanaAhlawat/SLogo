@@ -17,7 +17,7 @@ import javafx.scene.paint.Color;
  * @author kelly
  * 
  */
-public class Turtle {
+public class Turtle implements TurtleTree{
 	private static final int DEGREESINCIRCLE = 360;
 	private static final int NEGATE = -1;
 	private static final double ZERO = 0.0;
@@ -25,23 +25,20 @@ public class Turtle {
 	private static final double ONE = 1.0;
 	private static final double DEGTORAD = Math.PI/180.0;
 	private static final double RADTODEG = 180/Math.PI;
-
-	// xcor=0, ycor=0 is in center
-	// xcor increases to the right, ycor increases down
-	// ycor is negated as a return value to the frontend (which has the grid oriented the normal math way -- up: +y, right: +x)
-	// theta = 0 is pointed north (up)
-	// theta is in degrees 0 to 360 going clockwise
+	private List<Double> allIDs = new ArrayList<Double>();
 	private double xcor, ycor, theta;
 	private double penDown, turtleVis;
 	private List<Double> lineCor;
 	private Color lineColor;
 	private double lineThickness;
+	private double turtleCount = 1;
+	protected double turtleID = 1;
+
 	
 	public Turtle() {
 		xcor = ycor = theta = ZERO;
 		penDown = ZERO;
 		turtleVis = ONE;
-		lineCor = new ArrayList<Double>();
 		lineCor = new ArrayList<Double>();
 		lineColor = Color.BLACK;
 		lineThickness= ONE;
@@ -58,15 +55,18 @@ public class Turtle {
 //		lineThickness= ONE;
 //	}
 
-	private double xDisplacement(double x) {
+	@Override
+	public double xDisplacement(double x) {
 		return x-xcor;
 	}
-
-	private double yDisplacement(double y) {
+	
+	@Override
+	public double yDisplacement(double y) {
 		return y-ycor;
 	}
 
-	private double distance(double x, double y) {
+	@Override
+	public double distance(double x, double y) {
 		return Math.pow(Math.pow(xDisplacement(x), 2) + Math.pow(yDisplacement(y), 2), HALF);
 	}
 
@@ -192,11 +192,72 @@ public class Turtle {
 		return home();
 	}
 
-//	public static void main (String[] args) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, InstantiationException, ClassNotFoundException {
-//		Turtle t = new Turtle(5.0,2.0,3.0,0.0,0.0);
-//		System.out.println(t.getAbsoluteOrientation("xcor"));
-//		System.out.println(t.getAbsoluteOrientation("ycor"));
-//		System.out.println(t.getAbsoluteOrientation("theta"));
-//		System.out.println(((-90%360)+360)%360);
-//	}
+	@Override
+	public void addTurtle() {
+		// do nothing 
+	}
+
+	@Override
+	public void removeTurtle(double num) {
+		// do nothing
+		
+	}
+
+	@Override
+	public double getSize() {
+		return turtleCount;
+	}
+
+	@Override
+	public double getActiveTurtleID() {
+		return this.turtleID;
+	}
+
+	@Override
+	public void setActiveTurtles() {
+		// do nothing
+	}
+
+	public void setTurtleID(double id) {
+		System.out.println("id: " + id);
+		turtleID = id;
+	}
+	
+	public void addActiveTurtle() {
+		// do nothing. 
+	}
+
+	@Override
+	public void createTurtles(int num) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void addTurtle(double num) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void addActiveTurtle(double num) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
+	public boolean containsID(double num) {
+		return (allIDs.contains(num));
+	}
+
+	@Override
+	public void activateTurtle(double ID) {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void clearActiveTurtles() {
+		// TODO Auto-generated method stub
+		
+	}
 }
