@@ -11,8 +11,8 @@ public class Controller implements ControllerAPI {
 	
 	private Driver BEdriver;
 	
-	public Controller(String language) {
-		BEdriver = new Driver(language);
+	public Controller() {
+		BEdriver = new Driver();
 	}
 	
 
@@ -85,6 +85,6 @@ public class Controller implements ControllerAPI {
 
 	@Override
 	public void setParserLanguage(String language) {
-		BEdriver = new Driver(language);
+		BEdriver.setLanguage(language);
 	}
 }

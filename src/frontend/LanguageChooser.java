@@ -2,30 +2,33 @@ package frontend;
 
 import java.util.Arrays;
 import java.util.List;
-
-import javax.swing.event.ChangeListener;
-
+import javafx.beans.property.ReadOnlyIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ChoiceBox;
 
 public class LanguageChooser extends ChoiceBox<String>{
 	
-	private static final String LANGUAGE_DEFAULT = "English";
+	public static final String LANGUAGE_DEFAULT = "English";
+	
 	private static final String COMMA = ",";
 	
 	private ObservableList<String> languageOptions;
 	
 	public LanguageChooser(String languages,double width,double height) {
 		super();
-		this.setItems(ListToObservable(languages));
-		this.setValue(LANGUAGE_DEFAULT);
-		this.setPrefWidth(width);
-		this.setPrefHeight(height);
+		setItems(ListToObservable(languages));
+		setValue(LANGUAGE_DEFAULT);
+		setPrefWidth(width);
+		setPrefHeight(height);
 	}
 	
-	protected ObservableList<String> getLanguageOptions() {
-		return languageOptions;
+	protected ReadOnlyIntegerProperty getIndex() {
+		return getSelectionModel().selectedIndexProperty();
+	}
+	
+	protected String getCurrentLanguage(Number number) {
+		return languageOptions.get((int) number);
 	}
 	
 	private ObservableList<String> ListToObservable(String languages) {

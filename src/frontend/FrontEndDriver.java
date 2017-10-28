@@ -2,14 +2,8 @@ package frontend;
 import controller.Controller;
 
 import java.util.ResourceBundle;
-
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-
 import javafx.application.Application;
-import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
-import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -83,6 +77,7 @@ public class FrontEndDriver extends Application {
 		DisplayTurtle firstTurtle = new DisplayTurtle(1);
 		turtleManager = new DisplayTurtleManager(firstTurtle);
 		turtleArea = new Display(firstTurtle,GRID_X1,GRID_Y1,GRID_WIDTH,GRID_HEIGHT);
+		myController = new Controller();
 		addAllButtons(layout);
 		
 		addCommandLine(); 
@@ -95,8 +90,6 @@ public class FrontEndDriver extends Application {
 		window.setTitle("SLogo");
 		window.setScene(startScene);
 		window.show();
-		
-		
 		
 		root.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
 
@@ -211,11 +204,7 @@ public class FrontEndDriver extends Application {
 		BackgroundPicker b2 = new BackgroundPicker(DEFAULT_TURTLEAREA_COLOR,BUTTON_WIDTH,BUTTON_HEIGHT,turtleArea);
 		PenPicker b3 = new PenPicker(Color.BLACK,BUTTON_WIDTH,BUTTON_HEIGHT,turtlePath);
 		LanguageChooser b4 = new LanguageChooser(myResources.getString("Languages"),BUTTON_WIDTH,BUTTON_HEIGHT);
-		b4.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
-          public void changed(ObservableValue ov, Number value, Number new_value) {
-            b4.setText(b4.getLanguageOptions[new_value.intValue()]);
-          }
-        });
+		b4.getIndex().addListener((observable,oldIndex,newIndex) -> myController.setParserLanguage(b4.getCurrentLanguage(newIndex)));
 		HelpButton b5 = new HelpButton(myResources.getString("Help"),BUTTON_WIDTH,BUTTON_HEIGHT);
 		b5.setOnAction(e -> b5.GoToHelpPage(myResources.getString("HelpPage"), this));
 		layout.getChildren().addAll(b1,b2,b3,b4,b5);
