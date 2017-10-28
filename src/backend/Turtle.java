@@ -4,9 +4,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Stack;
 
-import backend.commands.ArcTangent;
 import javafx.scene.paint.Color;
 
 /**
@@ -20,6 +18,8 @@ import javafx.scene.paint.Color;
  * 
  */
 public class Turtle {
+	private static final int DEGREESINCIRCLE = 360;
+	private static final int NEGATE = -1;
 	private static final double ZERO = 0.0;
 	private static final double HALF = 0.5;
 	private static final double ONE = 1.0;
@@ -118,8 +118,12 @@ public class Turtle {
 	 * @param pixels
 	 */
 	public void move(double pixels) {
+		System.out.println("x is: " + xcor);
+		System.out.println("y is: " + ycor);
 		double newx = xcor + pixels*Math.sin(theta*DEGTORAD);
 		double newy = ycor - pixels*Math.cos(theta*DEGTORAD);
+		System.out.println("new x is: " + newx);
+		System.out.println("new y is: " + newy);
 		setXY(newx, newy);
 	}
 
@@ -129,8 +133,9 @@ public class Turtle {
 	}
 
 	public double setHeading(double degrees) {
-		double difference = degrees - theta;
-		theta = degrees;
+		double difference = Math.abs(degrees - theta);
+		//https://stackoverflow.com/questions/5385024/mod-in-java-produces-negative-numbers
+		theta = ((degrees % DEGREESINCIRCLE) + DEGREESINCIRCLE) % DEGREESINCIRCLE;
 		return difference;
 	}
 
@@ -139,7 +144,7 @@ public class Turtle {
 			lineCor.add(xcor);
 			lineCor.add(ycor);
 			lineCor.add(x);
-			lineCor.add(y);
+			lineCor.add(y*NEGATE);
 		}
 		System.out.println(lineCor);
 		double distance = distance(x, y);
@@ -169,10 +174,11 @@ public class Turtle {
 		return home();
 	}
 
-	//	public static void main (String[] args) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, InstantiationException, ClassNotFoundException {
-	//		Turtle t = new Turtle(5.0,2.0,3.0,0.0,0.0);
-	//		System.out.println(t.getAbsoluteOrientation("xcor"));
-	//		System.out.println(t.getAbsoluteOrientation("ycor"));
-	//		System.out.println(t.getAbsoluteOrientation("theta"));
-	//	}
+//	public static void main (String[] args) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, InstantiationException, ClassNotFoundException {
+//		Turtle t = new Turtle(5.0,2.0,3.0,0.0,0.0);
+//		System.out.println(t.getAbsoluteOrientation("xcor"));
+//		System.out.println(t.getAbsoluteOrientation("ycor"));
+//		System.out.println(t.getAbsoluteOrientation("theta"));
+//		System.out.println(((-90%360)+360)%360);
+//	}
 }

@@ -1,0 +1,4 @@
+Owen Smith (os29)
+Yiqin Zhou (yz259)
+
+We decided to refactor the controller class. This is turn made it easier to transfer information from the front end to the back end and vice versa. Now our front end driver class is cleaner.

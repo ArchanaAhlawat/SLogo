@@ -41,8 +41,9 @@ public class History extends Scroll {
 	
 	protected void clickable() {
 	
+
 		Text curr=super.curr;
-		
+
 		curr.setOnMouseClicked(e -> handleMouseClick(e,displayTurtle,returnValue,curr,myController));
 
      }
@@ -60,8 +61,7 @@ public class History extends Scroll {
 		double theta=myController.getTheta();
 	
 		double turtleVis=myController.getTurtleVis();
-	
-		
+
 		display.updateTurtle(xCor,yCor,theta,turtleVis);
 		addHistory(currentCommand);
 		returnValue.addReturnValue(commandValue);

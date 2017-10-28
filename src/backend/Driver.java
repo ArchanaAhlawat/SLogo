@@ -15,7 +15,21 @@ public class Driver {
 	
 	public Driver() {
 		myTurtle = new Turtle();
-		p = new Parser(myTurtle);
+		try {
+			p = new Parser(myTurtle, "english");
+		} catch (NoSuchFieldException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 		//turtles = new ArrayList<>();
 		//turtles.add(new Turtle());
