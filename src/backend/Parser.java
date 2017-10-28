@@ -85,6 +85,7 @@ public class Parser {
 		//Class<?> commandClass = Class.forName("backend.commands.booleanOperations." + langMap.get(instructionArray[i].toLowerCase()));
 		//Class<?> commandClass = Class.forName("backend.commands.mathOperations." + langMap.get(instructionArray[i].toLowerCase()));
 		Class<?> commandClass = Class.forName("backend.commands.turtleCommands.oneParam." + langMap.get(instructionArray[i].toLowerCase()));
+		//Class<?> commandClass = Class.forName("backend.commands.turtleCommands.twoParams." + langMap.get(instructionArray[i].toLowerCase()));
 		Constructor<?> cons = commandClass.getConstructor(Stacks.class, Turtle.class);
 		Object commandInstance = cons.newInstance(instructionStacks, currentTurtle);
 		Method commandMethod = commandClass.getMethod("execute", Stacks.class, Turtle.class);

@@ -20,7 +20,7 @@ public class Backward extends TurtleCommandsOneParam {
 
 	@Override
 	protected double doUpdate() {
-		currentTurtle.move(-1*expr1);
+		currentTurtle.move(expr1);
 		return expr1;
 	}
 }

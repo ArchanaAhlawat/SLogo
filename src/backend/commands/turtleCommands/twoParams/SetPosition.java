@@ -1,11 +1,8 @@
 package backend.commands.turtleCommands.twoParams;
 
-import java.util.Stack;
-
 import backend.Stacks;
 import backend.Turtle;
-import backend.api.Command;
-import backend.commands.turtleCommands.TurtleCommands;
+import backend.commands.turtleCommands.TurtleCommandsTwoParams;
 
 /**
  * has the execute for when a setposition command is called
@@ -17,7 +14,7 @@ import backend.commands.turtleCommands.TurtleCommands;
  * @author kelly
  *
  */
-public class SetPosition extends TurtleCommands {
+public class SetPosition extends TurtleCommandsTwoParams {
 	
 	public SetPosition(Stacks myStack, Turtle myTurtle) {
 		super(myStack, myTurtle);
@@ -25,6 +22,6 @@ public class SetPosition extends TurtleCommands {
 
 	@Override
 	protected double doUpdate() {
-		return currentTurtle.setXY(expr1, expr2);
+		return currentTurtle.setXY(expr1, NEGATE*expr2);
 	}
 }
