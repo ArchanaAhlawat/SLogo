@@ -34,26 +34,29 @@ public class Turtle {
 	private double xcor, ycor, theta;
 	private double penDown, turtleVis;
 	private List<Double> lineCor;
-	private List<Color> lineColor;
-	private List<Double> lineThickness;
+	private Color lineColor;
+	private double lineThickness;
 	
 	public Turtle() {
 		xcor = ycor = theta = ZERO;
 		penDown = ZERO;
 		turtleVis = ONE;
 		lineCor = new ArrayList<Double>();
+		lineCor = new ArrayList<Double>();
+		lineColor = Color.BLACK;
+		lineThickness= ONE;
 	}
 
-	public Turtle(double x, double y, double t, double pD, double tV) {
-		xcor = x;
-		ycor = y;
-		theta = t;
-		penDown = pD;
-		turtleVis = tV;
-		lineCor = new ArrayList<Double>();
-		lineColor = new ArrayList<Color>();
-		lineThickness= new ArrayList<Double>();
-	}
+//	public Turtle(double x, double y, double t, double pD, double tV) {
+//		xcor = x;
+//		ycor = y;
+//		theta = t;
+//		penDown = pD;
+//		turtleVis = tV;
+//		lineCor = new ArrayList<Double>();
+//		lineColor = Color.BLACK;
+//		lineThickness= ONE;
+//	}
 
 	private double xDisplacement(double x) {
 		return x-xcor;
@@ -110,6 +113,13 @@ public class Turtle {
 	public List<Double> getLines() {
 		return lineCor;
 	}
+	
+	/**
+	 * @return
+	 */
+	public Color getLineColor() {
+		return lineColor;
+	}
 
 	//all the active methods for the turtle (done using turtle commands)
 	/**
@@ -144,13 +154,13 @@ public class Turtle {
 			lineCor.add(x);
 			lineCor.add(y);
 		}
-		System.out.println(lineCor);
+//		System.out.println(lineCor);
 		double distance = distance(x, y);
-		System.out.println("distance: " + distance);
-		System.out.println("xcor: " + xcor);
-		System.out.println("ycor: " + ycor);
-		System.out.println("newxcor: " + x);
-		System.out.println("newycor: " + y);
+//		System.out.println("distance: " + distance);
+//		System.out.println("xcor: " + xcor);
+//		System.out.println("ycor: " + ycor);
+//		System.out.println("newxcor: " + x);
+//		System.out.println("newycor: " + y);
 		xcor = x;
 		ycor = y;
 		return distance;

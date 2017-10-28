@@ -1,15 +1,31 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <commandData>
-	<commandType command = "booleanOperations">
-		<packagePath>backend.commands.booleanOperations.</packagePath>
-	    <commands>And, Equal, GreaterThan, LessThan, Not, NotEqual, Or</commands>
+	<commandType command = "turtleCommands">
+		<packagePath>backend.commands.turtleCommands.</packagePath>
+	    <commands>Forward, Backward, Left, Right, SetHeading, SetTowards, SetPosition, PenDown, PenUp, ShowTurtle, HideTurtle, Home, ClearScreen</commands>
 	</commandType>
-	<commandType command = "displayCommands">
-		<packagePath>backend.commands.displayCommands.</packagePath>
-	    <commands></commands>
+	<commandType command = "turtleQueries">
+		<packagePath>backend.commands.turtleQueries.</packagePath>
+	    <commands>XCoordinate, YCoordinate, Heading, IsPenDown, IsShowing</commands>
 	</commandType>
 	<commandType command = "mathOperations">
 		<packagePath>backend.commands.mathOperations.</packagePath>
 	    <commands>ArcTangent, Cosine, Difference, Minus, NaturalLog, Pi, Power, Product, Quotient, Random, Remainder, Sine, Sum, Tangent</commands>
+	</commandType>
+	<commandType command = "booleanOperations">
+		<packagePath>backend.commands.booleanOperations.</packagePath>
+	    <commands>And, Equal, GreaterThan, LessThan, Not, NotEqual, Or</commands>
+	</commandType>
+	<commandType command = "miscellaneousCommands">
+		<packagePath>backend.commands.miscellaneousCommands.</packagePath>
+	    <commands>MakeVariable, Repeat, DoTimes, For, If, IfElse, MakeUserInstruction</commands>
+	</commandType>
+	<commandType command = "displayCommands">
+		<packagePath>backend.commands.displayCommands.</packagePath>
+	    <commands>SetBackground, SetPenColor, SetPenSize, SetShape, SetPalette, GetPenColor, GetShape, Stamp, ClearStamps</commands>
+	</commandType>
+	<commandType command = "multipleTurtleCommands">
+		<packagePath>backend.commands.multipleTurtleCommands.</packagePath>
+	    <commands>MakeVariable, Repeat, DoTimes, For, If, IfElse, MakeUserInstruction</commands>
 	</commandType>
 </commandData>
