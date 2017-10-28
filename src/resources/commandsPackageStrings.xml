@@ -26,6 +26,6 @@
 	</commandType>
 	<commandType command = "multipleTurtleCommands">
 		<packagePath>backend.commands.multipleTurtleCommands.</packagePath>
-	    <commands>MakeVariable, Repeat, DoTimes, For, If, IfElse, MakeUserInstruction</commands>
+	    <commands>ID, Turtles, Tell, Ask, AskWith</commands>
 	</commandType>
 </commandData>

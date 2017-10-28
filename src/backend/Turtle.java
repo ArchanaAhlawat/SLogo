@@ -184,6 +184,7 @@ public class Turtle {
 	}
 
 	public double clearScreen() {
+		penDown = ZERO;
 		lineCor.clear();
 		//double returnVal = home();
 		//System.out.println(returnVal);
