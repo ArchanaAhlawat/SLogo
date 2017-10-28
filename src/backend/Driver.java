@@ -13,9 +13,14 @@ public class Driver {
 	private Turtle myTurtle;
 	
 	
-	public Driver() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+	public Driver() {
 		myTurtle = new Turtle();
-		p = new Parser(myTurtle, "ENGLISH");
+		try {
+			p = new Parser(myTurtle, "ENGLISH");
+		} catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 		//turtles = new ArrayList<>();
 		//turtles.add(new Turtle());

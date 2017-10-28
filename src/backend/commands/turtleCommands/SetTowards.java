@@ -1,8 +1,7 @@
-package backend.commands.turtleCommands.twoParams;
+package backend.commands.turtleCommands;
 
 import backend.Stacks;
 import backend.Turtle;
-import backend.commands.turtleCommands.TurtleCommandsTwoParams;
 
 /**
  * has the execute for when a settowards command is called

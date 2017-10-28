@@ -34,26 +34,29 @@ public class Turtle {
 	private double xcor, ycor, theta;
 	private double penDown, turtleVis;
 	private List<Double> lineCor;
-	private List<Color> lineColor;
-	private List<Double> lineThickness;
+	private Color lineColor;
+	private double lineThickness;
 	
 	public Turtle() {
 		xcor = ycor = theta = ZERO;
 		penDown = ZERO;
 		turtleVis = ONE;
 		lineCor = new ArrayList<Double>();
+		lineCor = new ArrayList<Double>();
+		lineColor = Color.BLACK;
+		lineThickness= ONE;
 	}
 
-	public Turtle(double x, double y, double t, double pD, double tV) {
-		xcor = x;
-		ycor = y;
-		theta = t;
-		penDown = pD;
-		turtleVis = tV;
-		lineCor = new ArrayList<Double>();
-		lineColor = new ArrayList<Color>();
-		lineThickness= new ArrayList<Double>();
-	}
+//	public Turtle(double x, double y, double t, double pD, double tV) {
+//		xcor = x;
+//		ycor = y;
+//		theta = t;
+//		penDown = pD;
+//		turtleVis = tV;
+//		lineCor = new ArrayList<Double>();
+//		lineColor = Color.BLACK;
+//		lineThickness= ONE;
+//	}
 
 	private double xDisplacement(double x) {
 		return x-xcor;
@@ -78,10 +81,10 @@ public class Turtle {
 		double yDis = yDisplacement(y);
 		double angle = Math.atan(xDis/yDis)*RADTODEG;
 		if (yDis <= ZERO) { //first and fourth quadrants
-			return DEGREESINCIRCLE + NEGATE*angle;
+			return (((DEGREESINCIRCLE + NEGATE*angle) % DEGREESINCIRCLE) + DEGREESINCIRCLE) % DEGREESINCIRCLE;
 		}
 		else { //second and third quadrants
-			return DEGREESINCIRCLE*HALF + NEGATE*angle;
+			return (((DEGREESINCIRCLE*HALF + NEGATE*angle) % DEGREESINCIRCLE) + DEGREESINCIRCLE) % DEGREESINCIRCLE;
 		}
 	}
 
@@ -110,6 +113,13 @@ public class Turtle {
 	public List<Double> getLines() {
 		return lineCor;
 	}
+	
+	/**
+	 * @return
+	 */
+	public Color getLineColor() {
+		return lineColor;
+	}
 
 	//all the active methods for the turtle (done using turtle commands)
 	/**
@@ -118,7 +128,7 @@ public class Turtle {
 	public void move(double pixels) {
 		System.out.println("x is: " + xcor);
 		System.out.println("y is: " + ycor);
-		double newx = xcor + pixels*Math.sin(theta*DEGTORAD);
+		double newx = xcor - pixels*Math.sin(theta*DEGTORAD);
 		double newy = ycor + pixels*Math.cos(theta*DEGTORAD);
 		System.out.println("new x is: " + newx);
 		System.out.println("new y is: " + newy);
@@ -133,7 +143,7 @@ public class Turtle {
 	public double setHeading(double degrees) {
 		double difference = Math.abs(degrees - theta);
 		//https://stackoverflow.com/questions/5385024/mod-in-java-produces-negative-numbers
-		theta = ((degrees % DEGREESINCIRCLE) + DEGREESINCIRCLE) % DEGREESINCIRCLE;
+		theta = degrees;
 		return difference;
 	}
 
@@ -144,13 +154,13 @@ public class Turtle {
 			lineCor.add(x);
 			lineCor.add(y);
 		}
-		System.out.println(lineCor);
+//		System.out.println(lineCor);
 		double distance = distance(x, y);
-		System.out.println("distance: " + distance);
-		System.out.println("xcor: " + xcor);
-		System.out.println("ycor: " + ycor);
-		System.out.println("newxcor: " + x);
-		System.out.println("newycor: " + y);
+//		System.out.println("distance: " + distance);
+//		System.out.println("xcor: " + xcor);
+//		System.out.println("ycor: " + ycor);
+//		System.out.println("newxcor: " + x);
+//		System.out.println("newycor: " + y);
 		xcor = x;
 		ycor = y;
 		return distance;
@@ -167,18 +177,18 @@ public class Turtle {
 	}
 
 	public double home() {
-		double returnVal = setXY(ZERO, ZERO);
-		System.out.println(returnVal);
-		return returnVal;
-		//return setXY(ZERO, ZERO);
+		//double returnVal = setXY(ZERO, ZERO);
+		//System.out.println(returnVal);
+		//return returnVal;
+		return setXY(ZERO, ZERO);
 	}
 
 	public double clearScreen() {
 		lineCor.clear();
-		double returnVal = home();
-		System.out.println(returnVal);
-		return returnVal;
-		//return home();
+		//double returnVal = home();
+		//System.out.println(returnVal);
+		//return returnVal;
+		return home();
 	}
 
 //	public static void main (String[] args) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, InstantiationException, ClassNotFoundException {

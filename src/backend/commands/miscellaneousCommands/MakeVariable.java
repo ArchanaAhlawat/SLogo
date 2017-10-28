@@ -3,9 +3,13 @@ package backend.commands.miscellaneousCommands;
 import backend.Stacks;
 import backend.Turtle;
 import backend.UserVariables;
-import backend.api.Command;
+import backend.commands.GeneralCommands;
 
-public class MakeVariable implements Command {
+public class MakeVariable extends GeneralCommands {
+
+	public MakeVariable(Stacks myStack, Turtle myTurtle) {
+		super(myStack, myTurtle);
+	}
 
 	@Override
 	public void execute(Stacks instructionStacks, Turtle currentTurtle) {
