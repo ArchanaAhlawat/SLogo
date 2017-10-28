@@ -1,11 +1,19 @@
 package frontend;
 import controller.Controller;
+
 import java.util.ResourceBundle;
+
+
+
 import javafx.application.Application;
+import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -55,8 +63,8 @@ public class FrontEndDriver extends Application {
 	private History userDefinedCommands;
 	private DisplayTurtleManager turtleManager;
 	private double commandValue;
-	
 	private Controller myController = new Controller();
+	private Scene startScene;
 	
 	public static final double TURTLESIZE = 50;
 	public static final double ORIGIN_X = (GRID_X2 - GRID_X1 - TURTLESIZE)/2;
@@ -71,7 +79,6 @@ public class FrontEndDriver extends Application {
 		addLabelsForButtons(layout2);
 		
 		root = new Group();
-		
 		Scene startScene= new Scene(root, WIDTH, HEIGHT);
 		DisplayTurtle firstTurtle = new DisplayTurtle(1);
 		turtleManager = new DisplayTurtleManager(firstTurtle);
@@ -79,17 +86,60 @@ public class FrontEndDriver extends Application {
 		addAllButtons(layout);
 		
 		addCommandLine(); 
-		commandHistory = new History(myResources.getString("History"),HISTORY_X,HISTORY_Y,HISTORY_WIDTH,HISTORY_HEIGHT);
+		
 		returnValue = new ReturnValue(myResources.getString("Return"),HISTORY_X, RETURN_Y,HISTORY_WIDTH,RETURN_HEIGHT);
-		userDefinedVariables=new History(myResources.getString("UserV"),HISTORY_X,UserV_Y,HISTORY_WIDTH,UserV_HEIGHT);
-		userDefinedCommands=new History(myResources.getString("UserC"),HISTORY_X,UserC_Y,HISTORY_WIDTH,UserC_HEIGHT);
-		root.getChildren().addAll(layout,layout2,turtleArea,commandHistory,returnValue,userDefinedVariables,userDefinedCommands);
-	
+		commandHistory = new History(myResources.getString("History"),HISTORY_X,HISTORY_Y,HISTORY_WIDTH,HISTORY_HEIGHT,turtleManager.getActiveTurtle(),returnValue,myController);
+		userDefinedVariables=new History(myResources.getString("UserV"),HISTORY_X,UserV_Y,HISTORY_WIDTH,UserV_HEIGHT,turtleManager.getActiveTurtle(),returnValue,myController);
+		userDefinedCommands=new History(myResources.getString("UserC"),HISTORY_X,UserC_Y,HISTORY_WIDTH,UserC_HEIGHT,turtleManager.getActiveTurtle(),returnValue,myController);
+		root.getChildren().addAll(layout,layout2,commandHistory,returnValue,userDefinedVariables,userDefinedCommands,turtleArea);
 		window.setTitle("SLogo");
 		window.setScene(startScene);
 		window.show();
 		
+		
+		
+		root.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+
+		    @Override
+		    public void handle(javafx.scene.input.KeyEvent event) {
+		    	
+		    	    handleInput(event);
+		              
+		      
+		    }
+		});
+		
+		
+
 	}
+	
+	private void handleInput(javafx.scene.input.KeyEvent event) {
+		 if (event.getCode() == KeyCode.UP) {
+				
+				executeCommandOnly("FORWARD 10");
+				event.consume();
+			}
+	        
+	        if (event.getCode()==KeyCode.DOWN) {
+				executeCommandOnly("BACK 10");
+				System.out.println("go down");
+			}
+			
+	      if (event.getCode() == KeyCode.LEFT) {
+				
+			  executeCommandOnly("LEFT 10");
+	    	      System.out.println("go left");
+			}
+	      
+	      if (event.getCode() == KeyCode.RIGHT) {
+				
+			  executeCommandOnly("RIGHT 10");
+	    	      System.out.println("go right");
+			}
+		
+	}
+	
+
 	
 	private void addLabelsForButtons(HBox hb) {
 		hb.setTranslateY(5);
@@ -127,17 +177,31 @@ public class FrontEndDriver extends Application {
 		SubmitButton b = new SubmitButton(myResources.getString("Submit"),SUBMIT_BUTTON_WIDTH,SUBMIT_BUTTON_HEIGHT);
 		b.setOnAction(e ->{
 			String currentCommand=command.getText();
-			commandValue=myController.setCommand(currentCommand);
-			double xCor=myController.getXCor();
-			double yCor=myController.getYCor();
-			double theta=myController.getTheta();
-			double turtleVis=myController.getTurtleVis();
-			turtleManager.updateTurtles(xCor,yCor,theta,turtleVis);
-			commandHistory.addHistory(currentCommand);
-			returnValue.addReturnValue(commandValue);
+			executeCommand(currentCommand);
 			command.clear();
 		});
 		return b;
+	}
+	
+	private void executeCommand (String currentCommand) {
+		executeCommandOnly(currentCommand);
+		commandHistory.addHistory(currentCommand);
+		returnValue.addReturnValue(commandValue);
+		
+	}
+	
+	private void executeCommandOnly(String currentCommand) {
+		commandValue=myController.setCommand(currentCommand);
+		double xCor=myController.getXCor();
+	
+		double yCor=myController.getYCor();
+	
+		double theta=myController.getTheta();
+	
+		double turtleVis=myController.getTurtleVis();
+		
+		turtleManager.updateTurtles(xCor,yCor,theta,turtleVis);
+		
 	}
 
 	private void addAllButtons(HBox layout) {

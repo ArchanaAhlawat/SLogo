@@ -18,10 +18,11 @@ public abstract class Scroll extends ScrollPane {
 	private static final int LABEL_START = 5;
 	private static final String NEW_LINE = "\n";
 	
+	protected Text curr;
+	
 	private ArrayList<Text> allHistory=new ArrayList<Text>();
 	private String scrollLabel;
 	private Group scrollPaneRoot;
-	
 	
 	public Scroll(String label,int x,int y,int width,int height) {
 		super(new Text(label));
@@ -36,18 +37,6 @@ public abstract class Scroll extends ScrollPane {
 	            BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
 		this.setContent(scrollPaneRoot);
 		formatHistoryEntry(0);
-			
-		
-		
-		
-	}
-
-	public void formatHistoryEntry(int number) {
-		Text curr=allHistory.get(number);
-		curr.wrappingWidthProperty().bind(this.widthProperty());
-		curr.setTranslateX(LABEL_START);
-		curr.setTranslateY(number*20);
-		scrollPaneRoot.getChildren().add(curr);
 	}
 	
 	protected String formatCommand(String command) {
@@ -55,14 +44,24 @@ public abstract class Scroll extends ScrollPane {
 	}
 	
 	protected void addToScrollPane(String command) {
-		Text curr=new Text(command);
+		curr = new Text(command);
 		allHistory.add(curr);
 		formatHistoryEntry(allHistory.size()-1);
 	}
 	
-	
-	
 	protected String getScrollLabel() {
 		return scrollLabel;
+	}
+	
+	protected void addToRoot(Text text) {
+		scrollPaneRoot.getChildren().add(text);
+	}
+	
+	private void formatHistoryEntry(int number) {
+		Text curr=allHistory.get(number);
+		curr.wrappingWidthProperty().bind(this.widthProperty());
+		curr.setTranslateX(LABEL_START);
+		curr.setTranslateY(number*20);
+		addToRoot(curr);
 	}
 }
