@@ -14,15 +14,18 @@ import javafx.scene.paint.Color;
 
 public class Display extends Pane{
 	
-	public Display(Node node,Color color,double X,double Y,double width,double height) {
-		super(node);
+	private static final Color DEFAULT_TURTLEAREA_COLOR = Color.HONEYDEW;
+	
+	public Display(DisplayTurtle displayTurtle,double X,double Y,double width,double height) {
+		super(displayTurtle);
+		addNode(displayTurtle.getPath());
 		this.setTranslateX(X);
 		this.setTranslateY(Y);
 		this.setPrefWidth(width);
 		this.setPrefHeight(height);
 		this.setBorder(new Border(new BorderStroke(Color.BLACK, 
 	            BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
-		this.changeColor(color);
+		this.changeColor(DEFAULT_TURTLEAREA_COLOR);
 	}
 	
 	protected void addNode(Node node) {
