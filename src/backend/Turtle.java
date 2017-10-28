@@ -128,7 +128,7 @@ public class Turtle {
 	public void move(double pixels) {
 		System.out.println("x is: " + xcor);
 		System.out.println("y is: " + ycor);
-		double newx = xcor + pixels*Math.sin(theta*DEGTORAD);
+		double newx = xcor - pixels*Math.sin(theta*DEGTORAD);
 		double newy = ycor + pixels*Math.cos(theta*DEGTORAD);
 		System.out.println("new x is: " + newx);
 		System.out.println("new y is: " + newy);
@@ -177,18 +177,18 @@ public class Turtle {
 	}
 
 	public double home() {
-		double returnVal = setXY(ZERO, ZERO);
-		System.out.println(returnVal);
-		return returnVal;
-		//return setXY(ZERO, ZERO);
+		//double returnVal = setXY(ZERO, ZERO);
+		//System.out.println(returnVal);
+		//return returnVal;
+		return setXY(ZERO, ZERO);
 	}
 
 	public double clearScreen() {
 		lineCor.clear();
-		double returnVal = home();
-		System.out.println(returnVal);
-		return returnVal;
-		//return home();
+		//double returnVal = home();
+		//System.out.println(returnVal);
+		//return returnVal;
+		return home();
 	}
 
 //	public static void main (String[] args) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, InstantiationException, ClassNotFoundException {
