@@ -13,9 +13,9 @@ public class TurtlePath extends Path{
 	private int prevPathSize;
 	private boolean isPenDown;
 	
-	private static final double ORIGIN_X = FrontEndDriver.ORIGIN_X;
-	private static final double ORIGIN_Y = FrontEndDriver.ORIGIN_Y;
 	private static final double TURTLE_SIZE = FrontEndDriver.TURTLESIZE;
+	private static final double ORIGIN_X_PATH = FrontEndDriver.ORIGIN_X + TURTLE_SIZE/2;
+	private static final double ORIGIN_Y_PATH = FrontEndDriver.ORIGIN_Y + TURTLE_SIZE/2;
 	
 	public TurtlePath(double origin_x,double origin_y) {
 		super(new MoveTo(origin_x,origin_y));
@@ -31,8 +31,8 @@ public class TurtlePath extends Path{
 				double startY = points.get(i + 1);
 				double endX = points.get(i + 2);
 				double endY = points.get(i + 3);
-				this.getElements().add(new MoveTo(startX + ORIGIN_X,startY + ORIGIN_Y));
-				this.getElements().add(new LineTo(endX + ORIGIN_X,endY + ORIGIN_Y));
+				this.getElements().add(new MoveTo(startX + ORIGIN_X_PATH,startY + ORIGIN_Y_PATH));
+				this.getElements().add(new LineTo(endX + ORIGIN_X_PATH,endY + ORIGIN_Y_PATH));
 			}
 		}
 		else if(currPathSize == 0){
