@@ -119,12 +119,12 @@ public class Turtle {
 	 * @param pixels
 	 */
 	public void move(double pixels) {
-		System.out.println("x is: " + xcor);
-		System.out.println("y is: " + ycor);
+		//System.out.println("x is: " + xcor);
+		//System.out.println("y is: " + ycor);
 		double newx = xcor + pixels*Math.sin(theta*DEGTORAD);
 		double newy = ycor - pixels*Math.cos(theta*DEGTORAD);
-		System.out.println("new x is: " + newx);
-		System.out.println("new y is: " + newy);
+		//System.out.println("new x is: " + newx);
+		//System.out.println("new y is: " + newy);
 		setXY(newx, newy);
 	}
 
@@ -145,15 +145,15 @@ public class Turtle {
 			lineCor.add(xcor);
 			lineCor.add(ycor);
 			lineCor.add(x);
-			lineCor.add(y*NEGATE);
+			lineCor.add(y);
 		}
-		System.out.println(lineCor);
+		//System.out.println(lineCor);
 		double distance = distance(x, y);
-		System.out.println("distance: " + distance);
-		System.out.println("xcor: " + xcor);
-		System.out.println("ycor: " + ycor);
-		System.out.println("newxcor: " + x);
-		System.out.println("newycor: " + y);
+		//System.out.println("distance: " + distance);
+		//System.out.println("xcor: " + xcor);
+		//System.out.println("ycor: " + ycor);
+		//System.out.println("newxcor: " + x);
+		//System.out.println("newycor: " + y);
 		xcor = x;
 		ycor = y;
 		return distance;
