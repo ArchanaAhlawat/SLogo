@@ -7,9 +7,9 @@ import java.util.ResourceBundle;
 
 import javafx.application.Application;
 import javafx.event.EventHandler;
-import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyCode;
@@ -20,7 +20,12 @@ import javafx.stage.Stage;
 
 public class FrontEndDriver extends Application {
 	
+	private static final int BOTTOM_LAYOUT_X = 50;
 	private static final int BUTTONS_Y = 30;
+	private static final int BOTTOM_BUTTONS_Y = 620;
+	private static final int SAVE_BUTTON_WIDTH = 60;
+	private static final int SAVE_BUTTON_HEIGHT = 40;
+	
 	private static final int HBOX_SPACING = 20;
 	private static final int SUBMIT_BUTTON_WIDTH = 80;
 	private static final int SUBMIT_BUTTON_HEIGHT = 40;
@@ -46,7 +51,7 @@ public class FrontEndDriver extends Application {
 	private static final int VBOX_SPACING = 7;
 	private static final int WIDTH = 1000;
 	private static final int HEIGHT = 1000;
-	private static final int BUTTON_WIDTH = 200;
+	private static final int BUTTON_WIDTH = 150;
 	private static final int BUTTON_HEIGHT = 40;
 	private static final String DEFAULT_RESOURCE_PACKAGE = "resources.languages/buttons_labels";
 	private static final Color DEFAULT_TURTLEAREA_COLOR = Color.HONEYDEW;
@@ -64,7 +69,6 @@ public class FrontEndDriver extends Application {
 	private DisplayTurtleManager turtleManager;
 	private double commandValue;
 	private Controller myController = new Controller();
-	private Scene startScene;
 	
 	public static final double TURTLESIZE = 50;
 	public static final double ORIGIN_X = (GRID_X2 - GRID_X1 - TURTLESIZE)/2;
@@ -76,6 +80,7 @@ public class FrontEndDriver extends Application {
 		window = primaryStage;
 		HBox layout = new HBox(VBOX_SPACING);
 		HBox layout2=new HBox(VBOX_SPACING);
+		HBox bottomlayout=new HBox(VBOX_SPACING);
 		addLabelsForButtons(layout2);
 		
 		root = new Group();
@@ -86,12 +91,13 @@ public class FrontEndDriver extends Application {
 		addAllButtons(layout);
 		
 		addCommandLine(); 
+		addBottomButtons(bottomlayout);
 		
 		returnValue = new ReturnValue(myResources.getString("Return"),HISTORY_X, RETURN_Y,HISTORY_WIDTH,RETURN_HEIGHT);
 		commandHistory = new History(myResources.getString("History"),HISTORY_X,HISTORY_Y,HISTORY_WIDTH,HISTORY_HEIGHT,turtleManager.getActiveTurtle(),returnValue,myController);
 		userDefinedVariables=new History(myResources.getString("UserV"),HISTORY_X,UserV_Y,HISTORY_WIDTH,UserV_HEIGHT,turtleManager.getActiveTurtle(),returnValue,myController);
 		userDefinedCommands=new History(myResources.getString("UserC"),HISTORY_X,UserC_Y,HISTORY_WIDTH,UserC_HEIGHT,turtleManager.getActiveTurtle(),returnValue,myController);
-		root.getChildren().addAll(layout,layout2,commandHistory,returnValue,userDefinedVariables,userDefinedCommands,turtleArea);
+		root.getChildren().addAll(bottomlayout,layout,layout2,commandHistory,returnValue,userDefinedVariables,userDefinedCommands,turtleArea);
 		window.setTitle("SLogo");
 		window.setScene(startScene);
 		window.show();
@@ -114,27 +120,26 @@ public class FrontEndDriver extends Application {
 	}
 	
 	private void handleInput(javafx.scene.input.KeyEvent event) {
-		 if (event.getCode() == KeyCode.UP) {
-				
+		 if (event.getCode() == KeyCode.UP) {		
 				executeCommandOnly("FORWARD 10");
 				event.consume();
 			}
 	        
 	        if (event.getCode()==KeyCode.DOWN) {
 				executeCommandOnly("BACK 10");
-				System.out.println("go down");
+				
 			}
 			
 	      if (event.getCode() == KeyCode.LEFT) {
 				
 			  executeCommandOnly("LEFT 10");
-	    	      System.out.println("go left");
+	    	 
 			}
 	      
 	      if (event.getCode() == KeyCode.RIGHT) {
 				
 			  executeCommandOnly("RIGHT 10");
-	    	      System.out.println("go right");
+	    	      
 			}
 		
 	}
@@ -147,7 +152,8 @@ public class FrontEndDriver extends Application {
 		Label l2=addLabel("BackgroundLabel");
 		Label l3=addLabel("PenLabel");
 		Label l4=addLabel("LanguageLabel");
-		hb.getChildren().addAll(l1,l2,l3,l4);
+		Label l5=addLabel("NewLabel");
+		hb.getChildren().addAll(l1,l2,l3,l4,l5);
 	}
 	
 	private Label addLabel(String name) {
@@ -172,6 +178,8 @@ public class FrontEndDriver extends Application {
 		hb.setTranslateY(GRID_Y2+TURTLEAREA_TEXTFILED_SPACE);
 		root.getChildren().add(hb);
 	}
+	
+	
 	
 	private SubmitButton addSubmitButton() {
 		SubmitButton b = new SubmitButton(myResources.getString("Submit"),SUBMIT_BUTTON_WIDTH,SUBMIT_BUTTON_HEIGHT);
@@ -203,6 +211,17 @@ public class FrontEndDriver extends Application {
 		turtleManager.updateTurtles(xCor,yCor,theta,turtleVis);
 		
 	}
+	
+	
+	private void addBottomButtons(HBox layout) {
+		layout.setTranslateX(BOTTOM_LAYOUT_X);
+		layout.setTranslateY(BOTTOM_BUTTONS_Y);
+		SaveButton b1=new SaveButton(myResources.getString("Save"),SAVE_BUTTON_WIDTH,SAVE_BUTTON_HEIGHT);
+		b1.setOnAction(e -> b1.save(this));
+		layout.getChildren().addAll(b1);
+		
+		
+	}
 
 	private void addAllButtons(HBox layout) {
 		layout.setTranslateY(BUTTONS_Y);
@@ -213,7 +232,9 @@ public class FrontEndDriver extends Application {
 		LanguageChooser b4 = new LanguageChooser(myResources.getString("Languages"),BUTTON_WIDTH,BUTTON_HEIGHT);
 		HelpButton b5 = new HelpButton(myResources.getString("Help"),BUTTON_WIDTH,BUTTON_HEIGHT);
 		b5.setOnAction(e -> b5.GoToHelpPage(myResources.getString("HelpPage"), this));
-		layout.getChildren().addAll(b1,b2,b3,b4,b5);
+		NewWorkSpaceButton b6=new NewWorkSpaceButton(myResources.getString("new"),BUTTON_WIDTH,BUTTON_HEIGHT); 
+		b6.setOnAction(e -> b6.createNewWorkSpace(this));
+		layout.getChildren().addAll(b1,b2,b3,b4,b6,b5);
 	}
 	
 	public static void main(String[] args) {
