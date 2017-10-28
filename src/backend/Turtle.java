@@ -26,36 +26,34 @@ public class Turtle implements TurtleTree{
 	private static final double DEGTORAD = Math.PI/180.0;
 	private static final double RADTODEG = 180/Math.PI;
 	private List<Double> allIDs = new ArrayList<Double>();
-
-	// xcor=0, ycor=0 is in center
-	// xcor increases to the right, ycor increases down
-	// theta = 0 is pointed north (up)
-	// theta is in degrees 0 to 360 going clockwise
 	private double xcor, ycor, theta;
 	private double penDown, turtleVis;
 	private List<Double> lineCor;
-	private List<Color> lineColor;
-	private List<Double> lineThickness;
+	private Color lineColor;
+	private double lineThickness;
 	private double turtleCount = 1;
 	protected double turtleID = 1;
+
 	
 	public Turtle() {
 		xcor = ycor = theta = ZERO;
 		penDown = ZERO;
 		turtleVis = ONE;
 		lineCor = new ArrayList<Double>();
+		lineColor = Color.BLACK;
+		lineThickness= ONE;
 	}
 
-	public Turtle(double x, double y, double t, double pD, double tV) {
-		xcor = x;
-		ycor = y;
-		theta = t;
-		penDown = pD;
-		turtleVis = tV;
-		lineCor = new ArrayList<Double>();
-		lineColor = new ArrayList<Color>();
-		lineThickness= new ArrayList<Double>();
-	}
+//	public Turtle(double x, double y, double t, double pD, double tV) {
+//		xcor = x;
+//		ycor = y;
+//		theta = t;
+//		penDown = pD;
+//		turtleVis = tV;
+//		lineCor = new ArrayList<Double>();
+//		lineColor = Color.BLACK;
+//		lineThickness= ONE;
+//	}
 
 	@Override
 	public double xDisplacement(double x) {
@@ -82,14 +80,11 @@ public class Turtle implements TurtleTree{
 		double xDis = xDisplacement(x);
 		double yDis = yDisplacement(y);
 		double angle = Math.atan(xDis/yDis)*RADTODEG;
-		if (xDis >= 0 && yDis >= 0) {
-			return angle;
+		if (yDis <= ZERO) { //first and fourth quadrants
+			return (((DEGREESINCIRCLE + NEGATE*angle) % DEGREESINCIRCLE) + DEGREESINCIRCLE) % DEGREESINCIRCLE;
 		}
-		else if (xDis <= 0 && yDis >= 0) {
-			return 360 - angle;
-		}
-		else {
-			return 180 + angle;
+		else { //second and third quadrants
+			return (((DEGREESINCIRCLE*HALF + NEGATE*angle) % DEGREESINCIRCLE) + DEGREESINCIRCLE) % DEGREESINCIRCLE;
 		}
 	}
 
@@ -109,7 +104,7 @@ public class Turtle implements TurtleTree{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return 0.0;
+		return ZERO;
 	}
 
 	/**
@@ -117,6 +112,13 @@ public class Turtle implements TurtleTree{
 	 */
 	public List<Double> getLines() {
 		return lineCor;
+	}
+	
+	/**
+	 * @return
+	 */
+	public Color getLineColor() {
+		return lineColor;
 	}
 
 	//all the active methods for the turtle (done using turtle commands)
@@ -126,8 +128,8 @@ public class Turtle implements TurtleTree{
 	public void move(double pixels) {
 		System.out.println("x is: " + xcor);
 		System.out.println("y is: " + ycor);
-		double newx = xcor + pixels*Math.sin(theta*DEGTORAD);
-		double newy = ycor - pixels*Math.cos(theta*DEGTORAD);
+		double newx = xcor - pixels*Math.sin(theta*DEGTORAD);
+		double newy = ycor + pixels*Math.cos(theta*DEGTORAD);
 		System.out.println("new x is: " + newx);
 		System.out.println("new y is: " + newy);
 		setXY(newx, newy);
@@ -141,7 +143,7 @@ public class Turtle implements TurtleTree{
 	public double setHeading(double degrees) {
 		double difference = Math.abs(degrees - theta);
 		//https://stackoverflow.com/questions/5385024/mod-in-java-produces-negative-numbers
-		theta = ((degrees % DEGREESINCIRCLE) + DEGREESINCIRCLE) % DEGREESINCIRCLE;
+		theta = degrees;
 		return difference;
 	}
 
@@ -150,10 +152,15 @@ public class Turtle implements TurtleTree{
 			lineCor.add(xcor);
 			lineCor.add(ycor);
 			lineCor.add(x);
-			lineCor.add(y*NEGATE);
+			lineCor.add(y);
 		}
 		System.out.println(lineCor);
 		double distance = distance(x, y);
+//		System.out.println("distance: " + distance);
+//		System.out.println("xcor: " + xcor);
+//		System.out.println("ycor: " + ycor);
+//		System.out.println("newxcor: " + x);
+//		System.out.println("newycor: " + y);
 		xcor = x;
 		ycor = y;
 		return distance;
@@ -170,13 +177,18 @@ public class Turtle implements TurtleTree{
 	}
 
 	public double home() {
-		double distance = distance(ZERO, ZERO);
-		setXY(ZERO, ZERO);
-		return distance;
+		//double returnVal = setXY(ZERO, ZERO);
+		//System.out.println(returnVal);
+		//return returnVal;
+		return setXY(ZERO, ZERO);
 	}
 
 	public double clearScreen() {
+		penDown = ZERO;
 		lineCor.clear();
+		//double returnVal = home();
+		//System.out.println(returnVal);
+		//return returnVal;
 		return home();
 	}
 

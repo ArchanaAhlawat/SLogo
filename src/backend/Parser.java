@@ -4,10 +4,13 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 
 public class Parser {
 	private UserVariables userVariables = new UserVariables();
@@ -17,13 +20,27 @@ public class Parser {
 	private String commandsList;
 	private Map<String, String> langMap;
 	private String language;
-	
+
+	private static final Map<String, String[]> packageMap;
+	static {
+		Map<String, String[]> myMap = new HashMap<>();
+		myMap.put("backend.commands.booleanOperations.", new String[] {"And", "Equal", "GreaterThan", "LessThan", "Not", "NotEqual", "Or"});
+		myMap.put("backend.commands.dispayCommands.", new String[] {"SetBackground", "SetPenColor", "SetPenSize", "SetShape", "SetPalette", "GetPenColor", "GetShape", "Stamp", "ClearStamps"});
+		myMap.put("backend.commands.mathOperations.", new String[] {"ArcTangent", "Cosine", "Difference", "Minus", "NaturalLog", "Pi", "Power", "Product", "Quotient", "Random", "Remainder", "Sine", "Sum", "Tangent"});
+		myMap.put("backend.commands.miscellaneousCommands.", new String[] {"MakeVariable", "Repeat", "DoTimes", "For", "If", "IfElse", "MakeUserInstruction"});
+		myMap.put("backend.commands.multipleTurtleCommands.", new String[] {"ID", "Turtles", "Tell", "Ask", "AskWith"});
+		myMap.put("backend.commands.turtleCommands.", new String[] {"Forward", "Backward", "Left", "Right", "SetHeading", "SetTowards", "SetPosition", "PenDown", "PenUp", "ShowTurtle", "HideTurtle", "Home", "ClearScreen"});
+		myMap.put("backend.commands.turtleQueries.", new String[] {"XCoordinate", "YCoordinate", "Heading", "IsPenDown", "IsShowing"});
+		packageMap = Collections.unmodifiableMap(myMap);
+	}
+
+
 	public Parser(String language) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
 		LangMaps maps = new LangMaps(language); // TODO: instantiate in driver later. JUST FOR TESTING
 		langMap = maps.getMaps(language.toUpperCase());
 		this.language = language;
 	}
-	
+
 	// TODO: throw exceptions properly w try/catch
 	public void parseInstruction(TurtleTree current, String inst) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, InstantiationException, ClassNotFoundException {
 		currentTurtle = current;
@@ -76,7 +93,6 @@ public class Parser {
 				reflectAndExecute(instructionStacks, instructionArray[i].toLowerCase());
 			}
 		}
-		//Stacks.clear();
 	}
 
 	private void reflectAndExecute(Stacks instructionStacks, String instruction) throws ClassNotFoundException, InstantiationException, IllegalAccessException, NoSuchMethodException,InvocationTargetException {
@@ -84,8 +100,9 @@ public class Parser {
 		if (langMap.containsKey(instruction)) {
 			location = langMap.get(instruction);
 		}
-		Class<?> commandClass = Class.forName("backend.commands." + location);
-		Object commandInstance = commandClass.newInstance();
+		Class<?> commandClass = Class.forName(getPackageName(instruction) + location);
+		Constructor<?> cons = commandClass.getConstructor(Stacks.class, TurtleTree.class);
+		Object commandInstance = cons.newInstance(instructionStacks, currentTurtle);
 		Method commandMethod = commandClass.getMethod("execute", Stacks.class, TurtleTree.class);
 		commandMethod.invoke(commandInstance, instructionStacks, currentTurtle);
 		val = instructionStacks.getReturnVal();
@@ -94,7 +111,17 @@ public class Parser {
 		}
 		System.out.println("RETURN VAL IS " + val);
 	}
-	
+
+	private String getPackageName(String instruction) {
+		Set<String> myKeys = packageMap.keySet();
+		for (String key : myKeys) {
+			if (Arrays.asList(packageMap.get(key)).contains(instruction)) {
+				return key;
+			}
+		}
+		return null;
+	}
+
 	public double getReturnVal() {
 		return val;
 	}
@@ -106,7 +133,6 @@ public class Parser {
 		//turtles.addActiveTurtle();
 		p.parseInstruction(turtles, "setheading 7"); // repeat 3 [ fd 54\nsum 2 4 ], DOTIMES [ :var 3 ] [ fd :var\nsum :var 4 ], 
 		
-		
 		//FOR [ :var 3 5 ] [ fd :var\nsum :var 4 ], IF 0 [ fd 54\nsum 2 4 ]
 		// IFELSE 0 [ fd 54\nsum 2 4 ] [ fd 700\nsum 70 70 ], 
 		//wow TO wow [ :hi 3\n:omg 8 ] [ fd 3\nsum 70 70 ]
@@ -116,7 +142,7 @@ public class Parser {
 	public String getVarVal(String var) {
 		return Double.toString(UserVariables.getVarVal(var));
 	}
-	
+
 	public void updateUserVars(String key, Double val) {
 		UserVariables.put(key, val);
 	}
@@ -124,5 +150,4 @@ public class Parser {
 	public String getLanguage() {
 		return language;
 	}
-	
 }

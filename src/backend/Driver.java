@@ -4,26 +4,49 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
+import frontend.LanguageChooser;
+
 public class Driver {
 	
-	private List<Turtle> turtles;
+	private static final String LANGUAGE_DEFAULT = LanguageChooser.LANGUAGE_DEFAULT;
+	
 	private String input;
-	private List<String> instructions;
 	private Parser p;
 	private Turtle myTurtle;
 	
 	
 	public Driver() {
 		myTurtle = new Turtle();
-		p = new Parser(myTurtle);
+		try {
+			p = new Parser(LANGUAGE_DEFAULT);
+		} catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
-		//turtles = new ArrayList<>();
-		//turtles.add(new Turtle());
 		
-	
 	public double setCommand(String instruction) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, InstantiationException, ClassNotFoundException {
-		p.parseInstruction(instruction);
+		TurtleTree t = new TurtleManager();
+		p.parseInstruction(t, instruction);
 		return p.getReturnVal();
+	}
+	
+	public void setLanguage(String language) { // what? 
+			try {
+				p = new Parser(language);
+			} catch (NoSuchFieldException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SecurityException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalArgumentException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	}
 	
 	public Updates getTurtleUpdates() {
