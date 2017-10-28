@@ -1,8 +1,7 @@
-package backend.commands.turtleCommands.zeroParams;
+package backend.commands.turtleCommands;
 
 import backend.Stacks;
 import backend.Turtle;
-import backend.commands.turtleCommands.TurtleCommands;
 
 /**
  * has the execute for when a showturtle command is called

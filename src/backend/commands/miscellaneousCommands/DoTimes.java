@@ -6,15 +6,24 @@ import java.util.List;
 import backend.Parser;
 import backend.Stacks;
 import backend.Turtle;
-import backend.api.Command;
+import backend.commands.GeneralCommands;
 
-public class DoTimes implements Command {
+/**
+ * @author archana
+ *
+ */
+public class DoTimes extends GeneralCommands{
+
+	public DoTimes(Stacks myStack, Turtle myTurtle) {
+		super(myStack, myTurtle);
+	}
 
 	@Override
 	public void execute(Stacks instructionStacks, Turtle currentTurtle) {
 		List<String> var = instructionStacks.getSecondCommandsList();
-		Parser tempParser = new Parser(currentTurtle);
+		Parser tempParser;
 		try {
+			tempParser = new Parser(currentTurtle, "ENGLISH");
 			String varName = var.get(0).split(" ")[0];
 			tempParser.parseInstruction("Set " + varName + " " + var.get(0).split(" ")[1]); // want to get variable name 
 			Double limit = Double.parseDouble(tempParser.getVarVal(varName));
@@ -27,8 +36,7 @@ public class DoTimes implements Command {
 			}
 			double toReturn = tempParser.getReturnVal();
 			instructionStacks.addDouble(toReturn);
-		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException
-				| SecurityException | InstantiationException | ClassNotFoundException e) {
+		} catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException | InvocationTargetException | NoSuchMethodException | InstantiationException | ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

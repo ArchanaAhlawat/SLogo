@@ -1,8 +1,7 @@
-package backend.commands.turtleCommands.oneParam;
+package backend.commands.turtleCommands;
 
 import backend.Stacks;
 import backend.Turtle;
-import backend.commands.turtleCommands.TurtleCommandsOneParam;
 
 /**
  * has the execute for when a right command is called
