@@ -11,6 +11,11 @@ public abstract class TurtleCommands extends GeneralCommands {
 	
 	@Override
 	protected void setParams() {
-		expr1 = instructionStacks.popDouble();
+		expr1 = instructionStacks.peekDouble();
+	}
+
+	@Override
+	protected void addReturn(double returnVal) {
+		//do nothing
 	}
 }

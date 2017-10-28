@@ -6,9 +6,8 @@ import backend.commands.TurtleCommands;
 
 /**
  * has the execute for when a back command is called
- *     pops the first parameter in the stack
+ *     peeks the first parameter in the stack
  *     moves the turtle that distance back
- *     adds it back to the stack
  *
  * @author kelly
  *
