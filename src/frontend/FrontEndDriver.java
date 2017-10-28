@@ -189,6 +189,7 @@ public class FrontEndDriver extends Application {
 		double xCor=myController.getXCor();
 	
 		double yCor=myController.getYCor();
+		System.out.println("yCor is " + yCor);
 	
 		double theta=myController.getTheta();
 	
