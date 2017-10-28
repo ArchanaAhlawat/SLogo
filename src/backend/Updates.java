@@ -2,6 +2,11 @@ package backend;
 
 import java.util.List;
 
+/**
+ * Used to send all of the updated information to the front end
+ * @author kelly
+ *
+ */
 public class Updates {
 	private static final String XCOR = "xcor";
 	private static final String YCOR = "ycor";
@@ -55,6 +60,9 @@ public class Updates {
 		return turtleVis;
 	}
 	
+	/**
+	 * @return the coordinates of the lines that need to be displayed on the front end (will be empty if there are no lines)
+	 */
 	public List<Double> getLineCor() {
 		return lineCor;
 	}

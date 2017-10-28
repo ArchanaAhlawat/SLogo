@@ -11,6 +11,11 @@ public class Controller implements ControllerAPI {
 	
 	private Driver BEdriver = new Driver();
 	
+
+	public Controller() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+		BEdriver = new Driver();
+	}
+
 	@Override
 	public double setCommand(String command) {
 		
@@ -29,13 +34,6 @@ public class Controller implements ControllerAPI {
 		}
 		return 0.0;
 		
-	}
-	
-
-	@Override
-	public Turtle getTurtle(List<Object> newTurtle) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
@@ -68,8 +66,6 @@ public class Controller implements ControllerAPI {
 	
 	public Updates getUpdates() {
 		return BEdriver.getTurtleUpdates();
-		
-		
 	}
 
 
@@ -77,5 +73,17 @@ public class Controller implements ControllerAPI {
 	public double getTurtleVis() {
 		// TODO Auto-generated method stub
 		return getUpdates().getTurtleVis();
+	}
+
+
+	@Override
+	public void setParserLanguage(String language) {
+		BEdriver.setLanguage(language);
+	}
+
+	@Override
+	public List<Double> getLinestoDraw() {
+		// TODO Auto-generated method stub
+		return BEdriver.getLines();
 	}
 }
