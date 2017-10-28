@@ -1,27 +1,27 @@
 package backend.commands.turtleQueries;
 
-import java.util.Stack;
-
 import backend.Stacks;
 import backend.Turtle;
-import backend.api.Command;
 
 /**
  * has the execute for when a ispendown command is called
  *     doesn't need any parameters from the stack
  *     asks the turtle for the pendown value
  *     pushes if the pen is up or down to the stack
- *     returns the stack of parameters
  *
  * @author kelly
  *
  */
-public class IsPenDown implements Command {
+public class IsPenDown extends TurtleQueries {
 	
 	private static final String ISPENDOWN = "penDown";
 	
+	public IsPenDown(Stacks myStack, Turtle myTurtle) {
+		super(myStack, myTurtle);
+	}
+	
 	@Override
-	public void execute(Stacks instructionStacks, Turtle currentTurtle) {
-		instructionStacks.addDouble(currentTurtle.getAbsoluteOrientation(ISPENDOWN));
+	protected double doUpdate() {
+		return currentTurtle.getAbsoluteOrientation(ISPENDOWN);
 	}
 }
