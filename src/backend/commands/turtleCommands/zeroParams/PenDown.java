@@ -1,27 +1,26 @@
-package backend.commands.turtleCommands;
-
-import java.util.Stack;
+package backend.commands.turtleCommands.zeroParams;
 
 import backend.Stacks;
 import backend.Turtle;
-import backend.api.Command;
+import backend.commands.turtleCommands.TurtleCommands;
 
 /**
  * has the execute for when a pendown command is called
  *     doesn't need any input parameters from the stack
  *     sets the pen to down and tracks the trails drawn by the turtle in the next commands
  *     pushes the return value from the pendown command (1) to the stack
- * 	   returns the stack of parameters
  * 
  * @author kelly
  * 
  */
-public class PenDown implements Command {
+public class PenDown extends TurtleCommands {
 	
-	private static final double ONE = 1.0;
-
+	public PenDown(Stacks myStack, Turtle myTurtle) {
+		super(myStack, myTurtle);
+	}
+	
 	@Override
-	public void execute(Stacks instructionStacks, Turtle currentTurtle) {
-		instructionStacks.addDouble((double) currentTurtle.penChange(ONE));
+	protected double doUpdate() {
+		return currentTurtle.penChange(ONE);
 	}
 }

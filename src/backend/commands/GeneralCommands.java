@@ -5,6 +5,10 @@ import backend.Turtle;
 import backend.api.Command;
 
 public abstract class GeneralCommands implements Command {
+	
+	protected static final double ZERO = 0.0;
+	protected static final double ONE = 1.0;
+	
 	protected double expr1;
 	protected double expr2;
 	protected Stacks instructionStacks;

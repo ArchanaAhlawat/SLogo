@@ -1,8 +1,8 @@
-package backend.commands.turtleCommands;
+package backend.commands.turtleCommands.oneParam;
 
 import backend.Stacks;
 import backend.Turtle;
-import backend.commands.TurtleCommands;
+import backend.commands.turtleCommands.TurtleCommandsOneParam;
 
 /**
  * has the execute for when a back command is called
@@ -12,7 +12,7 @@ import backend.commands.TurtleCommands;
  * @author kelly
  *
  */
-public class Backward extends TurtleCommands {
+public class Backward extends TurtleCommandsOneParam {
 	
 	public Backward(Stacks myStack, Turtle myTurtle) {
 		super(myStack, myTurtle);
@@ -22,10 +22,5 @@ public class Backward extends TurtleCommands {
 	protected double doUpdate() {
 		currentTurtle.move(-1*expr1);
 		return expr1;
-	}
-	
-	@Override
-	protected void addReturn(double returnVal) {
-		//do nothing
 	}
 }

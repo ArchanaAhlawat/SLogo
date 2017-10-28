@@ -2,7 +2,6 @@ package backend.commands.booleanOperations;
 
 import backend.Stacks;
 import backend.Turtle;
-import backend.commands.BooleanOperations;
 
 /**
  * has the execute for when a notequal command is called

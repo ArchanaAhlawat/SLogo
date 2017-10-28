@@ -5,7 +5,6 @@ import java.util.Stack;
 import backend.Stacks;
 import backend.Turtle;
 import backend.api.Command;
-import backend.commands.BooleanOperations;
 
 /**
  * has the execute for when a and command is called

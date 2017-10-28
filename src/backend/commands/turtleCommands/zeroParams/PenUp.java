@@ -1,27 +1,26 @@
-package backend.commands.turtleCommands;
-
-import java.util.Stack;
+package backend.commands.turtleCommands.zeroParams;
 
 import backend.Stacks;
 import backend.Turtle;
-import backend.api.Command;
+import backend.commands.turtleCommands.TurtleCommands;
 
 /**
  * has the execute for when a penup command is called
  *     doesn't need any input parameters from the stack
  *     sets the pen to up and doesn't track any trails for the pen
  *     pushes the return value from the penup command (0) to the stack
- * 	   returns the stack of parameters
  * 
  *  @author kelly
  * 
  */
-public class PenUp implements Command {
+public class PenUp extends TurtleCommands {
 	
-	private static final double ZERO = 0.0;
+	public PenUp(Stacks myStack, Turtle myTurtle) {
+		super(myStack, myTurtle);
+	}
 
 	@Override
-	public void execute(Stacks instructionStacks, Turtle currentTurtle) {
-		instructionStacks.addDouble(currentTurtle.penChange(ZERO));
+	protected double doUpdate() {
+		return currentTurtle.penChange(ZERO);
 	}
 }

@@ -1,8 +1,8 @@
-package backend.commands.turtleCommands;
+package backend.commands.turtleCommands.zeroParams;
 
 import backend.Stacks;
 import backend.Turtle;
-import backend.commands.TurtleCommands;
+import backend.commands.turtleCommands.TurtleCommands;
 
 /**
  * has the execute for when a clearscreen command is called
@@ -19,11 +19,6 @@ public class ClearScreen extends TurtleCommands {
 		super(myStack, myTurtle);
 	}
 	
-	@Override
-	protected void setParams() {
-		//do nothing
-	}
-
 	@Override
 	protected double doUpdate() {
 		return currentTurtle.clearScreen();

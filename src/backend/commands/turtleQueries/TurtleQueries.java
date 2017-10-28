@@ -1,4 +1,4 @@
-package backend.commands;
+package backend.commands.turtleQueries;
 
 public abstract class TurtleQueries {
 
