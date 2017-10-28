@@ -8,7 +8,6 @@ import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyCode;
@@ -240,7 +239,7 @@ private static final int BOTTOM_LAYOUT_X = 50;
 		HelpButton b5 = new HelpButton(myResources.getString("Help"), BUTTON_WIDTH, BUTTON_HEIGHT);
 		b5.setOnAction(e -> b5.GoToHelpPage(myResources.getString("HelpPage"), this));
 		NewWorkSpaceButton b6=new NewWorkSpaceButton(myResources.getString("new"),BUTTON_WIDTH,BUTTON_HEIGHT); 
-		b6.setOnAction(e -> b6.createNewWorkSpace(this));
+		b6.setOnAction(e -> b6.createNewWorkSpace());
 		layout.getChildren().addAll(b1,b2,b3,languageChooser,b6,b5);
 
 	}

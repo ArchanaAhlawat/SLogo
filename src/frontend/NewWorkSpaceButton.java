@@ -1,6 +1,5 @@
 package frontend;
 
-import javafx.application.Application;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
@@ -11,8 +10,8 @@ public class NewWorkSpaceButton extends Button {
 		this.setPrefSize(width, height);
 	}
 	
-	protected void createNewWorkSpace(Application FEDriver) {
-		
+	protected void createNewWorkSpace() {
+		    FrontEndDriver FEDriver=new FrontEndDriver();
 			Stage t = new Stage();
 			try {
 				FEDriver.start(t);
