@@ -3,9 +3,11 @@ import controller.Controller;
 
 import java.util.ResourceBundle;
 
-
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import javafx.application.Application;
+import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
@@ -63,8 +65,7 @@ public class FrontEndDriver extends Application {
 	private History userDefinedCommands;
 	private DisplayTurtleManager turtleManager;
 	private double commandValue;
-	private Controller myController = new Controller();
-	private Scene startScene;
+	private Controller myController;
 	
 	public static final double TURTLESIZE = 50;
 	public static final double ORIGIN_X = (GRID_X2 - GRID_X1 - TURTLESIZE)/2;
@@ -77,7 +78,6 @@ public class FrontEndDriver extends Application {
 		HBox layout = new HBox(VBOX_SPACING);
 		HBox layout2=new HBox(VBOX_SPACING);
 		addLabelsForButtons(layout2);
-		
 		root = new Group();
 		Scene startScene= new Scene(root, WIDTH, HEIGHT);
 		DisplayTurtle firstTurtle = new DisplayTurtle(1);
@@ -101,7 +101,7 @@ public class FrontEndDriver extends Application {
 		root.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
 
 		    @Override
-		    public void handle(javafx.scene.input.KeyEvent event) {
+		    public void handle(KeyEvent event) {
 		    	
 		    	    handleInput(event);
 		              
@@ -113,7 +113,7 @@ public class FrontEndDriver extends Application {
 
 	}
 	
-	private void handleInput(javafx.scene.input.KeyEvent event) {
+	private void handleInput(KeyEvent event) {
 		 if (event.getCode() == KeyCode.UP) {
 				
 				executeCommandOnly("FORWARD 10");
@@ -211,6 +211,11 @@ public class FrontEndDriver extends Application {
 		BackgroundPicker b2 = new BackgroundPicker(DEFAULT_TURTLEAREA_COLOR,BUTTON_WIDTH,BUTTON_HEIGHT,turtleArea);
 		PenPicker b3 = new PenPicker(Color.BLACK,BUTTON_WIDTH,BUTTON_HEIGHT,turtlePath);
 		LanguageChooser b4 = new LanguageChooser(myResources.getString("Languages"),BUTTON_WIDTH,BUTTON_HEIGHT);
+		b4.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+          public void changed(ObservableValue ov, Number value, Number new_value) {
+            b4.setText(b4.getLanguageOptions[new_value.intValue()]);
+          }
+        });
 		HelpButton b5 = new HelpButton(myResources.getString("Help"),BUTTON_WIDTH,BUTTON_HEIGHT);
 		b5.setOnAction(e -> b5.GoToHelpPage(myResources.getString("HelpPage"), this));
 		layout.getChildren().addAll(b1,b2,b3,b4,b5);

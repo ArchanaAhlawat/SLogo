@@ -20,4 +20,6 @@ public interface ControllerAPI {
 	
 	public double getTurtleVis();
 	
+	public void setParserLanguage(String language);
+	
 }

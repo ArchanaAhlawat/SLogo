@@ -13,10 +13,10 @@ public class Driver {
 	private Turtle myTurtle;
 	
 	
-	public Driver() {
+	public Driver(String language) {
 		myTurtle = new Turtle();
 		try {
-			p = new Parser(myTurtle, "english");
+			p = new Parser(myTurtle, language);
 		} catch (NoSuchFieldException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

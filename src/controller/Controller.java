@@ -9,7 +9,11 @@ import frontend.Turtle;
 
 public class Controller implements ControllerAPI {
 	
-	private Driver BEdriver = new Driver();
+	private Driver BEdriver;
+	
+	public Controller(String language) {
+		BEdriver = new Driver(language);
+	}
 	
 
 	@Override
@@ -69,8 +73,6 @@ public class Controller implements ControllerAPI {
 	
 	public Updates getUpdates() {
 		return BEdriver.getTurtleUpdates();
-		
-		
 	}
 
 
@@ -78,5 +80,11 @@ public class Controller implements ControllerAPI {
 	public double getTurtleVis() {
 		// TODO Auto-generated method stub
 		return getUpdates().getTurtleVis();
+	}
+
+
+	@Override
+	public void setParserLanguage(String language) {
+		BEdriver = new Driver(language);
 	}
 }
