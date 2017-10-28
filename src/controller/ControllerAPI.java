@@ -22,4 +22,6 @@ public interface ControllerAPI {
 	
 	public void setParserLanguage(String language);
 	
+	public List<Double> getLinestoDraw();
+	
 }

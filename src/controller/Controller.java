@@ -14,7 +14,6 @@ public class Controller implements ControllerAPI {
 	public Controller() {
 		BEdriver = new Driver();
 	}
-	
 
 	@Override
 	public double setCommand(String command) {
@@ -86,5 +85,11 @@ public class Controller implements ControllerAPI {
 	@Override
 	public void setParserLanguage(String language) {
 		BEdriver.setLanguage(language);
+	}
+
+	@Override
+	public List<Double> getLinestoDraw() {
+		// TODO Auto-generated method stub
+		return BEdriver.getLines();
 	}
 }

@@ -57,7 +57,7 @@ public class FrontEndDriver extends Application {
 	private ReturnValue returnValue;
 	private History userDefinedVariables;
 	private History userDefinedCommands;
-	private DisplayTurtleManager turtleManager;
+	private DisplayTurtleManager displayTurtleManager;
 	private double commandValue;
 	private Controller myController;
 	
@@ -75,7 +75,7 @@ public class FrontEndDriver extends Application {
 		root = new Group();
 		Scene startScene= new Scene(root, WIDTH, HEIGHT);
 		DisplayTurtle firstTurtle = new DisplayTurtle(1);
-		turtleManager = new DisplayTurtleManager(firstTurtle);
+		displayTurtleManager = new DisplayTurtleManager(firstTurtle);
 		turtleArea = new Display(firstTurtle,GRID_X1,GRID_Y1,GRID_WIDTH,GRID_HEIGHT);
 		myController = new Controller();
 		addAllButtons(layout);
@@ -83,9 +83,9 @@ public class FrontEndDriver extends Application {
 		addCommandLine(); 
 		
 		returnValue = new ReturnValue(myResources.getString("Return"),HISTORY_X, RETURN_Y,HISTORY_WIDTH,RETURN_HEIGHT);
-		commandHistory = new History(myResources.getString("History"),HISTORY_X,HISTORY_Y,HISTORY_WIDTH,HISTORY_HEIGHT,turtleManager.getActiveTurtle(),returnValue,myController);
-		userDefinedVariables=new History(myResources.getString("UserV"),HISTORY_X,UserV_Y,HISTORY_WIDTH,UserV_HEIGHT,turtleManager.getActiveTurtle(),returnValue,myController);
-		userDefinedCommands=new History(myResources.getString("UserC"),HISTORY_X,UserC_Y,HISTORY_WIDTH,UserC_HEIGHT,turtleManager.getActiveTurtle(),returnValue,myController);
+		commandHistory = new History(myResources.getString("History"),HISTORY_X,HISTORY_Y,HISTORY_WIDTH,HISTORY_HEIGHT,displayTurtleManager.getActiveTurtle(),returnValue,myController);
+		userDefinedVariables=new History(myResources.getString("UserV"),HISTORY_X,UserV_Y,HISTORY_WIDTH,UserV_HEIGHT,displayTurtleManager.getActiveTurtle(),returnValue,myController);
+		userDefinedCommands=new History(myResources.getString("UserC"),HISTORY_X,UserC_Y,HISTORY_WIDTH,UserC_HEIGHT,displayTurtleManager.getActiveTurtle(),returnValue,myController);
 		root.getChildren().addAll(layout,layout2,commandHistory,returnValue,userDefinedVariables,userDefinedCommands,turtleArea);
 		window.setTitle("SLogo");
 		window.setScene(startScene);
@@ -171,6 +171,7 @@ public class FrontEndDriver extends Application {
 		b.setOnAction(e ->{
 			String currentCommand=command.getText();
 			executeCommand(currentCommand);
+			displayTurtleManager.drawLines(myController.getLinestoDraw());
 			command.clear();
 		});
 		return b;
@@ -193,14 +194,14 @@ public class FrontEndDriver extends Application {
 	
 		double turtleVis=myController.getTurtleVis();
 		
-		turtleManager.updateTurtles(xCor,yCor,theta,turtleVis);
+		displayTurtleManager.updateTurtles(xCor,yCor,theta,turtleVis);
 		
 	}
 
 	private void addAllButtons(HBox layout) {
 		layout.setTranslateY(BUTTONS_Y);
 		TurtleImageButton b1 = new TurtleImageButton(myResources.getString("SetImage"),BUTTON_WIDTH,BUTTON_HEIGHT);
-		b1.setOnAction(e -> turtleManager.setImages(b1.chooseTurtle(turtleManager.getActiveTurtle())));
+		b1.setOnAction(e -> displayTurtleManager.setImages(b1.chooseTurtle(displayTurtleManager.getActiveTurtle())));
 		BackgroundPicker b2 = new BackgroundPicker(DEFAULT_TURTLEAREA_COLOR,BUTTON_WIDTH,BUTTON_HEIGHT,turtleArea);
 		PenPicker b3 = new PenPicker(Color.BLACK,BUTTON_WIDTH,BUTTON_HEIGHT,turtlePath);
 		LanguageChooser b4 = new LanguageChooser(myResources.getString("Languages"),BUTTON_WIDTH,BUTTON_HEIGHT);

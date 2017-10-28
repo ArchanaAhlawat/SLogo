@@ -7,7 +7,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ChoiceBox;
 
-public class LanguageChooser extends ChoiceBox<String>{
+public class LanguageChooser extends ChoiceBox<String> {
 	
 	public static final String LANGUAGE_DEFAULT = "English";
 	

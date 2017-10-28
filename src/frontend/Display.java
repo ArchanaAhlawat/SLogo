@@ -18,6 +18,7 @@ public class Display extends Pane{
 	
 	public Display(DisplayTurtle displayTurtle,double X,double Y,double width,double height) {
 		super(displayTurtle);
+		addNode(displayTurtle.getPath());
 		this.setTranslateX(X);
 		this.setTranslateY(Y);
 		this.setPrefWidth(width);

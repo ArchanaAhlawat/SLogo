@@ -1,5 +1,6 @@
 package frontend;
 
+import java.util.Iterator;
 import java.util.List;
 
 import javafx.scene.shape.LineTo;
@@ -31,8 +32,10 @@ public class TurtlePath extends Path{
 			}
 		}
 		else if(currPathSize == 0){
-			for(PathElement e : this.getElements()) {
-				this.getElements().remove(e);
+			Iterator it = this.getElements().iterator();
+			while(it.hasNext()) {
+				it.next();
+				it.remove();
 			}
 		}
 	}

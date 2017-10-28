@@ -5,6 +5,7 @@ import java.util.List;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.shape.Path;
 
 public class DisplayTurtle extends ImageView {
 	private static final String DEFAULT_TURTLE_DIRECTORY = "src/resources/turtle.png";
@@ -38,6 +39,14 @@ public class DisplayTurtle extends ImageView {
 		this.setY(yCor + ORIGIN_Y);
 		this.setRotate(theta);
 		this.setVisible(booleanConverter(turtleVis));
+	}
+	
+	protected TurtlePath getPath() {
+		return turtlePath;
+	}
+	
+	protected void drawPath(List<Double> linesToDraw) {
+		turtlePath.updatePath(linesToDraw);
 	}
 	
 	protected void changeTurtleActivity(List<DisplayTurtle> activeTurtles) {
