@@ -11,16 +11,16 @@ public class History extends Scroll {
 
 	
 	private static final String EMPTY_STRING = "";
-	private DisplayTurtle displayTurtle;
+	private DisplayTurtleManager displayTurtleManager;
 	private ReturnValue returnValue;
 	private Controller myController;
 	
 	
-	public History(String label, int x, int y, int width, int height,DisplayTurtle displayTurtle,ReturnValue returnValue,Controller myController) {
+	public History(String label, int x, int y, int width, int height,DisplayTurtleManager displayTurtleManager,ReturnValue returnValue,Controller myController) {
 		super(label, x, y, width, height);
 		// TODO Auto-generated constructor stub
 	
-		this.displayTurtle=displayTurtle; 
+		this.displayTurtleManager=displayTurtleManager; 
 		this.returnValue=returnValue;
 		this.myController=myController;
 		
@@ -42,13 +42,14 @@ public class History extends Scroll {
 	protected void clickable() {
 	
 
-		Text curr=super.curr;
+		Text curr = super.curr;
+		
+		curr.setOnMouseClicked(e -> handleMouseClick(e,displayTurtleManager,returnValue,curr,myController));
 
-		curr.setOnMouseClicked(e -> handleMouseClick(e,displayTurtle,returnValue,curr,myController));
 
      }
 	
-	protected void handleMouseClick(MouseEvent e,DisplayTurtle display,ReturnValue returnValue,Text current,Controller myController) {
+	protected void handleMouseClick(MouseEvent e,DisplayTurtleManager displayTurtleManager,ReturnValue returnValue,Text current,Controller myController) {
 		
 		
 		String currentCommand=current.getText().trim();
@@ -62,8 +63,10 @@ public class History extends Scroll {
 	
 		double turtleVis=myController.getTurtleVis();
 
-		display.updateTurtle(xCor,yCor,theta,turtleVis);
+		displayTurtleManager.updateTurtles(xCor,yCor,theta,turtleVis);
+
 		addHistory(currentCommand);
+		displayTurtleManager.drawLines(myController.getLinestoDraw());
 		returnValue.addReturnValue(commandValue);
        
 

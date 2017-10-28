@@ -3,8 +3,13 @@ package frontend;
 import java.io.File;
 import java.util.List;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.css.PseudoClass;
+import javafx.geometry.Insets;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 
 public class DisplayTurtle extends ImageView {
 	private static final String DEFAULT_TURTLE_DIRECTORY = "src/resources/turtle.png";
@@ -12,10 +17,12 @@ public class DisplayTurtle extends ImageView {
 	private static final double ORIGIN_Y = FrontEndDriver.ORIGIN_Y;
 	private static final double TURTLESIZE = FrontEndDriver.TURTLESIZE;
 	private static final double TURTLESIZE_GROWTH = TURTLESIZE/2;
+	private static final String ACTIVETURTLE_BORDER_DIRECTORY = "resources/ActiveTurtleBorder.css";
 	
 	private int turtID;
 	private boolean isActive;
 	private TurtlePath turtlePath;
+	private BooleanProperty imageViewBorderActive;
 	
 	public DisplayTurtle(int ID) {
 		super();
@@ -24,6 +31,7 @@ public class DisplayTurtle extends ImageView {
 		this.setY(ORIGIN_Y);
 		this.setFitWidth(TURTLESIZE);
 		this.setFitHeight(TURTLESIZE);
+		setUpBorder();
 		turtID = ID;
 		turtlePath = new TurtlePath(ORIGIN_X,ORIGIN_Y);
 	}
@@ -40,6 +48,14 @@ public class DisplayTurtle extends ImageView {
 		this.setVisible(booleanConverter(turtleVis));
 	}
 	
+	protected TurtlePath getPath() {
+		return turtlePath;
+	}
+	
+	protected void drawPath(List<Double> linesToDraw) {
+		turtlePath.updatePath(linesToDraw);
+	}
+	
 	protected void changeTurtleActivity(List<DisplayTurtle> activeTurtles) {
 		if(activeTurtles.contains(this))  {
 			activeTurtles.remove(this);
@@ -47,14 +63,25 @@ public class DisplayTurtle extends ImageView {
 		else {
 			activeTurtles.add(this);
 		}
+		imageViewBorderActive.set(!imageViewBorderActive.get());
 	}
 	
 	protected int getID() {
 		return turtID;
 	}
 	
-	public double getHeading() {
-		return this.getRotate();
+	private void setUpBorder() {
+		PseudoClass imageViewBorder = PseudoClass.getPseudoClass("border");
+		BorderPane imageViewWrapper = new BorderPane(this);
+	    imageViewWrapper.getStyleClass().add(ACTIVETURTLE_BORDER_DIRECTORY);
+	    imageViewBorderActive = new SimpleBooleanProperty() {
+	        @Override
+	        protected void invalidated() {
+	            imageViewWrapper.pseudoClassStateChanged(imageViewBorder, get());
+	        }
+	    };
+	    BorderPane root = new BorderPane(imageViewWrapper);
+	    root.setPadding(new Insets(15));
 	}
 	
 	private boolean booleanConverter(double dub) {

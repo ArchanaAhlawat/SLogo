@@ -33,6 +33,14 @@ public class DisplayTurtleManager {
 		}
 	}
 	
+	protected void drawLines(List<Double> linesToDraw) {
+		if(!activeTurtles.isEmpty()) {
+			for(DisplayTurtle displayTurtle : activeTurtles) {
+				displayTurtle.drawPath(linesToDraw);
+			}
+		}
+	}
+	
 	protected void setImages(Image image) {
 		if(!activeTurtles.isEmpty()) {
 			for(DisplayTurtle displayTurtle : activeTurtles) {
