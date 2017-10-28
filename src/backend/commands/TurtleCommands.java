@@ -1,5 +1,16 @@
 package backend.commands;
 
-public abstract class TurtleCommands {
+import backend.Stacks;
+import backend.Turtle;
 
+public abstract class TurtleCommands extends GeneralCommands {
+
+	public TurtleCommands(Stacks myStack, Turtle myTurtle) {
+		super(myStack, myTurtle);
+	}
+	
+	@Override
+	protected void setParams() {
+		expr1 = instructionStacks.popDouble();
+	}
 }

@@ -8,7 +8,6 @@ import backend.commands.MathOperations;
  * has the execute for when a pi command is called
  *     doesn't take any parameters
  *     pushes the value of pi onto the stack
- *     returns the stack of parameters
  * 
  * @author kelly
  *

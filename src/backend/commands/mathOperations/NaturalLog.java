@@ -8,7 +8,6 @@ import backend.commands.MathOperations;
  * has the execute for when a naturallog command is called
  *     pops a parameter off the stack, the max
  *     pushes the natural log of the number onto the stack
- *     returns the stack of parameters
  * 
  * @author kelly
  *

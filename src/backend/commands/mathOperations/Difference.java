@@ -8,7 +8,6 @@ import backend.commands.MathOperations;
  * has the execute for when a difference command is called
  *     pops the two parameter from the stack
  *     pushes their sum onto the stack
- *     returns the stack of parameters
  *
  * @author kelly
  * 

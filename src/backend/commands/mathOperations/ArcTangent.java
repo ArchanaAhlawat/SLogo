@@ -8,7 +8,6 @@ import backend.commands.MathOperations;
  * has the execute for when a arctan command is called
  *     pops a parameter off the stack, the tangent of some angle
  *     pushes the angle in degrees onto the stack
- *     returns the stack of parameters
  * 
  * @author kelly
  *

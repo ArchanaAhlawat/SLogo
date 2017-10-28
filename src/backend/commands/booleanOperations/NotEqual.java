@@ -1,22 +1,18 @@
-package backend.commands.booleanCommands;
-
-import java.util.Stack;
+package backend.commands.booleanOperations;
 
 import backend.Stacks;
 import backend.Turtle;
-import backend.api.Command;
-import backend.commands.BooleanOperation;
+import backend.commands.BooleanOperations;
 
 /**
  * has the execute for when a notequal command is called
  *     pops two parameters off the stack
  *     pushes if the first one is not equal to the second onto the stack
- *     returns the stack of parameters
  * 
  * @author kelly
  *
  */
-public class NotEqual extends BooleanOperation {
+public class NotEqual extends BooleanOperations {
 
 	public NotEqual(Stacks myStack, Turtle myTurtle) {
 		super(myStack, myTurtle);

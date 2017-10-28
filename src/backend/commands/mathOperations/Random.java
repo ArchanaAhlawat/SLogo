@@ -8,7 +8,6 @@ import backend.commands.MathOperations;
  * has the execute for when a random command is called
  *     pops a parameter off the stack, the max
  *     pushes a random non-negative number less than max onto the stack
- *     returns the stack of parameters
  * 
  * @author kelly
  *

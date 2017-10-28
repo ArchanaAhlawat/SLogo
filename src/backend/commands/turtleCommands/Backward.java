@@ -1,25 +1,27 @@
 package backend.commands.turtleCommands;
 
-import java.util.Stack;
-
 import backend.Stacks;
 import backend.Turtle;
-import backend.api.Command;
+import backend.commands.TurtleCommands;
 
 /**
  * has the execute for when a back command is called
- *     peeks at the first parameter in the stack
+ *     pops the first parameter in the stack
  *     moves the turtle that distance back
- *     does not need to add the distance moved back to the stack because it was not popped (only peeked!)
- *     returns the stack of parameters
+ *     adds it back to the stack
  *
  * @author kelly
  *
  */
-public class Backward implements Command {
+public class Backward extends TurtleCommands {
 	
+	public Backward(Stacks myStack, Turtle myTurtle) {
+		super(myStack, myTurtle);
+	}
+
 	@Override
-	public void execute(Stacks instructionStacks, Turtle currentTurtle) {
-		currentTurtle.move(-1*instructionStacks.peekDouble());
+	protected double doUpdate() {
+		currentTurtle.move(-1*expr1);
+		return expr1;
 	}
 }
