@@ -78,10 +78,10 @@ public class Turtle {
 		double yDis = yDisplacement(y);
 		double angle = Math.atan(xDis/yDis)*RADTODEG;
 		if (yDis <= ZERO) { //first and fourth quadrants
-			return DEGREESINCIRCLE + NEGATE*angle;
+			return (((DEGREESINCIRCLE + NEGATE*angle) % DEGREESINCIRCLE) + DEGREESINCIRCLE) % DEGREESINCIRCLE;
 		}
 		else { //second and third quadrants
-			return DEGREESINCIRCLE*HALF + NEGATE*angle;
+			return (((DEGREESINCIRCLE*HALF + NEGATE*angle) % DEGREESINCIRCLE) + DEGREESINCIRCLE) % DEGREESINCIRCLE;
 		}
 	}
 
@@ -133,7 +133,7 @@ public class Turtle {
 	public double setHeading(double degrees) {
 		double difference = Math.abs(degrees - theta);
 		//https://stackoverflow.com/questions/5385024/mod-in-java-produces-negative-numbers
-		theta = ((degrees % DEGREESINCIRCLE) + DEGREESINCIRCLE) % DEGREESINCIRCLE;
+		theta = degrees;
 		return difference;
 	}
 
