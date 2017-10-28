@@ -1,40 +1,60 @@
 package frontend;
 
-import java.util.Arrays;
-import java.util.HashMap;
+import java.io.File;
 import java.util.List;
 
-import backend.Updates;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class DisplayTurtle extends ImageView {
-	private static final String XCOR = "xCor";
-	private static final String YCOR = "yCor";
-	private static final String HEADING = "heading";
-	private static final String VISIBILITY = "visibility";
-	private static final HashMap<String,Integer> UPDATEINDICES = new HashMap<String,Integer>() {{
-		put(XCOR,0);
-		put(YCOR,1);
-		put(HEADING,2);
-		put(VISIBILITY,3);
-	}};
+	private static final String DEFAULT_TURTLE_DIRECTORY = "src/resources/turtle.png";
 	private static final double ORIGIN_X = FrontEndDriver.ORIGIN_X;
 	private static final double ORIGIN_Y = FrontEndDriver.ORIGIN_Y;
+	private static final double TURTLESIZE = FrontEndDriver.TURTLESIZE;
+	private static final double TURTLESIZE_GROWTH = TURTLESIZE/2;
 	
-	public DisplayTurtle(Image image,double originX, double originY,int size) {
-		super(image);
-		this.setX(originX);
-		this.setY(originY);
-		this.setFitWidth(size);
-		this.setFitHeight(size);
+	private int turtID;
+	private boolean isActive;
+	private TurtlePath turtlePath;
+	
+	public DisplayTurtle(int ID) {
+		super();
+		this.setImage(setDefaultImage());
+		this.setX(ORIGIN_X);
+		this.setY(ORIGIN_Y);
+		this.setFitWidth(TURTLESIZE);
+		this.setFitHeight(TURTLESIZE);
+		turtID = ID;
+		turtlePath = new TurtlePath(ORIGIN_X,ORIGIN_Y);
+	}
+	
+	private Image setDefaultImage() {
+		File file = new File(DEFAULT_TURTLE_DIRECTORY);
+        return new Image(file.toURI().toString());
 	}
 	
 	protected void updateTurtle(double xCor,double yCor,double theta,double turtleVis) {
-		this.setX(xCor+ORIGIN_X);
-		this.setY(yCor+ORIGIN_Y);
+		this.setX(xCor + ORIGIN_X);
+		this.setY(yCor + ORIGIN_Y);
 		this.setRotate(theta);
 		this.setVisible(booleanConverter(turtleVis));
+	}
+	
+	protected void changeTurtleActivity(List<DisplayTurtle> activeTurtles) {
+		if(activeTurtles.contains(this))  {
+			activeTurtles.remove(this);
+		}
+		else {
+			activeTurtles.add(this);
+		}
+	}
+	
+	protected int getID() {
+		return turtID;
+	}
+	
+	public double getHeading() {
+		return this.getRotate();
 	}
 	
 	private boolean booleanConverter(double dub) {

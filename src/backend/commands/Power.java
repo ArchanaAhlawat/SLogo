@@ -19,8 +19,6 @@ public class Power implements Command {
 
 	@Override
 	public void execute(Stacks instructionStacks, Turtle currentTurtle) {
-		double base = instructionStacks.popDouble();
-		double exponent = instructionStacks.popDouble();
-		instructionStacks.addDouble(Math.pow(base,exponent));
+		instructionStacks.addDouble(Math.pow(instructionStacks.popDouble(),instructionStacks.popDouble()));
 	}
 }
