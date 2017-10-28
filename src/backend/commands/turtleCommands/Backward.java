@@ -23,4 +23,9 @@ public class Backward extends TurtleCommands {
 		currentTurtle.move(-1*expr1);
 		return expr1;
 	}
+	
+	@Override
+	protected void addReturn(double returnVal) {
+		//do nothing
+	}
 }

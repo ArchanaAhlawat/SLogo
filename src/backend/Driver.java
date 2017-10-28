@@ -15,7 +15,7 @@ public class Driver {
 	
 	public Driver() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
 		myTurtle = new Turtle();
-		p = new Parser(myTurtle, "de");
+		p = new Parser(myTurtle, "ENGLISH");
 	}
 		//turtles = new ArrayList<>();
 		//turtles.add(new Turtle());

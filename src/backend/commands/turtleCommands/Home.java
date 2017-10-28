@@ -1,10 +1,8 @@
 package backend.commands.turtleCommands;
 
-import java.util.Stack;
-
 import backend.Stacks;
 import backend.Turtle;
-import backend.api.Command;
+import backend.commands.TurtleCommands;
 
 /**
  * has the execute for when a home command is called
@@ -16,12 +14,19 @@ import backend.api.Command;
  * @author kelly
  * 
  */
-public class Home implements Command {
+public class Home extends TurtleCommands {
 	
-	private static final double ZERO = 0.0;
+	public Home(Stacks myStack, Turtle myTurtle) {
+		super(myStack, myTurtle);
+	}
+	
+	@Override
+	protected void setParams() {
+		//do nothing
+	}
 
 	@Override
-	public void execute(Stacks instructionStacks, Turtle currentTurtle) {
-		instructionStacks.addDouble(currentTurtle.home());
+	protected double doUpdate() {
+		return currentTurtle.home();
 	}
 }
