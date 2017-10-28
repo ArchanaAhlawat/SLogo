@@ -5,7 +5,6 @@ import java.util.List;
 
 import backend.Driver;
 import backend.Updates;
-import frontend.DisplayTurtle;
 import frontend.Turtle;
 
 public class Controller implements ControllerAPI {
@@ -14,7 +13,7 @@ public class Controller implements ControllerAPI {
 	
 
 	@Override
-	public double setCommand(String command,DisplayTurtle displayTurtle) {
+	public double setCommand(String command) {
 		
 		try {
 			double commandValue=BEdriver.setCommand(command);
@@ -70,6 +69,8 @@ public class Controller implements ControllerAPI {
 	
 	public Updates getUpdates() {
 		return BEdriver.getTurtleUpdates();
+		
+		
 	}
 
 

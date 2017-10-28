@@ -15,6 +15,7 @@ public class DisplayTurtle extends ImageView {
 	
 	private int turtID;
 	private boolean isActive;
+	private TurtlePath turtlePath;
 	
 	public DisplayTurtle(int ID) {
 		super();
@@ -24,6 +25,7 @@ public class DisplayTurtle extends ImageView {
 		this.setFitWidth(TURTLESIZE);
 		this.setFitHeight(TURTLESIZE);
 		turtID = ID;
+		turtlePath = new TurtlePath(ORIGIN_X,ORIGIN_Y);
 	}
 	
 	private Image setDefaultImage() {

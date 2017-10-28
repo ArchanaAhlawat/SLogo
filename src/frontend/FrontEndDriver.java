@@ -78,13 +78,12 @@ public class FrontEndDriver extends Application {
 		turtleArea = new Display(firstTurtle,GRID_X1,GRID_Y1,GRID_WIDTH,GRID_HEIGHT);
 		addAllButtons(layout);
 		
-		turtlePath = new TurtlePath(ORIGIN_X,ORIGIN_Y);
 		addCommandLine(); 
 		commandHistory = new History(myResources.getString("History"),HISTORY_X,HISTORY_Y,HISTORY_WIDTH,HISTORY_HEIGHT);
 		returnValue = new ReturnValue(myResources.getString("Return"),HISTORY_X, RETURN_Y,HISTORY_WIDTH,RETURN_HEIGHT);
 		userDefinedVariables=new History(myResources.getString("UserV"),HISTORY_X,UserV_Y,HISTORY_WIDTH,UserV_HEIGHT);
 		userDefinedCommands=new History(myResources.getString("UserC"),HISTORY_X,UserC_Y,HISTORY_WIDTH,UserC_HEIGHT);
-		root.getChildren().addAll(layout,layout2,turtlePath,turtleArea,commandHistory,returnValue,userDefinedVariables,userDefinedCommands);
+		root.getChildren().addAll(layout,layout2,turtleArea,commandHistory,returnValue,userDefinedVariables,userDefinedCommands);
 	
 		window.setTitle("SLogo");
 		window.setScene(startScene);
@@ -128,7 +127,7 @@ public class FrontEndDriver extends Application {
 		SubmitButton b = new SubmitButton(myResources.getString("Submit"),SUBMIT_BUTTON_WIDTH,SUBMIT_BUTTON_HEIGHT);
 		b.setOnAction(e ->{
 			String currentCommand=command.getText();
-			commandValue=myController.setCommand(currentCommand,turtleManager.getActiveTurtle());
+			commandValue=myController.setCommand(currentCommand);
 			double xCor=myController.getXCor();
 			double yCor=myController.getYCor();
 			double theta=myController.getTheta();
