@@ -89,11 +89,11 @@ public class FrontEndDriver extends Application implements FEControllerAPI {
 		returnValue = new ReturnValue(myResources.getString("Return"), HISTORY_X, RETURN_Y, HISTORY_WIDTH,
 				RETURN_HEIGHT);
 		commandHistory = new History(myResources.getString("History"), HISTORY_X, HISTORY_Y, HISTORY_WIDTH,
-				HISTORY_HEIGHT, displayTurtleManager.getActiveTurtle(), returnValue, myController);
+				HISTORY_HEIGHT, displayTurtleManager, returnValue, myController);
 		userDefinedVariables = new History(myResources.getString("UserV"), HISTORY_X, UserV_Y, HISTORY_WIDTH,
-				UserV_HEIGHT, displayTurtleManager.getActiveTurtle(), returnValue, myController);
+				UserV_HEIGHT, displayTurtleManager, returnValue, myController);
 		userDefinedCommands = new History(myResources.getString("UserC"), HISTORY_X, UserC_Y, HISTORY_WIDTH,
-				UserC_HEIGHT, displayTurtleManager.getActiveTurtle(), returnValue, myController);
+				UserC_HEIGHT, displayTurtleManager, returnValue, myController);
 		root.getChildren().addAll(layout, layout2, commandHistory, returnValue, userDefinedVariables,
 				userDefinedCommands, turtleArea);
 		window.setTitle("SLogo");

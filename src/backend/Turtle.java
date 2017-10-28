@@ -154,7 +154,7 @@ public class Turtle {
 			lineCor.add(x);
 			lineCor.add(y);
 		}
-//		System.out.println(lineCor);
+		System.out.println(lineCor);
 		double distance = distance(x, y);
 //		System.out.println("distance: " + distance);
 //		System.out.println("xcor: " + xcor);
