@@ -222,28 +222,4 @@ public class FrontEndDriver extends Application implements FEControllerAPI {
 		return languageChooser.getCurrentLanguage(newIndex);
 	}
 
-	@Override
-	public double getXCor() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public double getYCor() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public double getTheta() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public double getTurtleVis() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
 }

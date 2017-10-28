@@ -2,12 +2,12 @@ package controller;
 
 import java.util.List;
 
+import backend.Updates;
+
 public interface BEControllerAPI {
 	
 	public double getReturnValue();
 	
-	public double getUpdatedTurtle();
-	
-	public List<Double> getLinestoDraw();
+	public Updates getUpdate();
 	
 }
