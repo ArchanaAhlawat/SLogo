@@ -138,8 +138,7 @@ public class Turtle {
 	}
 
 	public double setXY(double x, double y) {
-		if (true) {
-		//if (penDown == ONE) {
+		if (penDown == ONE) {
 			lineCor.add(xcor);
 			lineCor.add(ycor);
 			lineCor.add(x);
