@@ -106,9 +106,9 @@ public class FrontEndDriver extends Application {
 		addCommandLine(); 
 		
 		returnValue = new ReturnValue(myResources.getString("Return"),HISTORY_X, RETURN_Y,HISTORY_WIDTH,RETURN_HEIGHT);
-		commandHistory = new History(myResources.getString("History"),HISTORY_X,HISTORY_Y,HISTORY_WIDTH,HISTORY_HEIGHT,displayTurtle,returnValue);
-		userDefinedVariables=new History(myResources.getString("UserV"),HISTORY_X,UserV_Y,HISTORY_WIDTH,UserV_HEIGHT,displayTurtle,returnValue);
-		userDefinedCommands=new History(myResources.getString("UserC"),HISTORY_X,UserC_Y,HISTORY_WIDTH,UserC_HEIGHT,displayTurtle,returnValue);
+		commandHistory = new History(myResources.getString("History"),HISTORY_X,HISTORY_Y,HISTORY_WIDTH,HISTORY_HEIGHT,displayTurtle,returnValue,myController);
+		userDefinedVariables=new History(myResources.getString("UserV"),HISTORY_X,UserV_Y,HISTORY_WIDTH,UserV_HEIGHT,displayTurtle,returnValue,myController);
+		userDefinedCommands=new History(myResources.getString("UserC"),HISTORY_X,UserC_Y,HISTORY_WIDTH,UserC_HEIGHT,displayTurtle,returnValue,myController);
 		root.getChildren().addAll(layout,layout2,commandHistory,returnValue,userDefinedVariables,userDefinedCommands,turtlePath,turtleArea);
 		
 		window.setTitle("SLogo");
