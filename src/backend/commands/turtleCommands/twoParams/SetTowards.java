@@ -1,10 +1,11 @@
-package backend.commands.turtleCommands;
+package backend.commands.turtleCommands.twoParams;
 
 import java.util.Stack;
 
 import backend.Stacks;
 import backend.Turtle;
 import backend.api.Command;
+import backend.commands.turtleCommands.TurtleCommands;
 
 /**
  * has the execute for when a settowards command is called
@@ -16,13 +17,17 @@ import backend.api.Command;
  * @author kelly
  *
  */
-public class SetTowards implements Command {
+public class SetTowards extends TurtleCommands {
 	
+	public SetTowards(Stacks myStack, Turtle myTurtle) {
+		super(myStack, myTurtle);
+	}
+
 	@Override
-	public void execute(Stacks instructionStacks, Turtle currentTurtle) {
+	protected double doUpdate() {
 		double currentAngle = currentTurtle.getAbsoluteOrientation("theta");
-		double newAngle = currentTurtle.angle(instructionStacks.popDouble(), instructionStacks.popDouble());
+		double newAngle = currentTurtle.angle(expr1, expr2);
 		currentTurtle.setHeading(newAngle);
-		instructionStacks.addDouble(newAngle - currentAngle);
+		return newAngle - currentAngle;
 	}
 }

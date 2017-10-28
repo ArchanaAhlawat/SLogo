@@ -1,7 +1,8 @@
-package backend.commands;
+package backend.commands.mathOperations;
 
 import backend.Stacks;
 import backend.Turtle;
+import backend.commands.GeneralCommands;
 
 public abstract class MathOperations extends GeneralCommands {
 

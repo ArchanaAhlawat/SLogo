@@ -1,10 +1,8 @@
-package backend.commands.turtleCommands;
-
-import java.util.Stack;
+package backend.commands.turtleCommands.oneParam;
 
 import backend.Stacks;
 import backend.Turtle;
-import backend.api.Command;
+import backend.commands.turtleCommands.TurtleCommandsOneParam;
 
 /**
  * has the execute for when a left command is called
@@ -16,10 +14,15 @@ import backend.api.Command;
  * @author kelly
  *
  */
-public class Left implements Command {
+public class Left extends TurtleCommandsOneParam {
+	
+	public Left(Stacks myStack, Turtle myTurtle) {
+		super(myStack, myTurtle);
+	}
 	
 	@Override
-	public void execute(Stacks instructionStacks, Turtle currentTurtle) {
-		currentTurtle.rotate(-1*instructionStacks.peekDouble());
+	protected double doUpdate() {
+		currentTurtle.rotate(-1*expr1);
+		return expr1;
 	}
 }

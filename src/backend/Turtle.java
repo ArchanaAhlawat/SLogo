@@ -149,6 +149,11 @@ public class Turtle {
 		}
 		System.out.println(lineCor);
 		double distance = distance(x, y);
+		System.out.println("distance: " + distance);
+		System.out.println("xcor: " + xcor);
+		System.out.println("ycor: " + ycor);
+		System.out.println("newxcor: " + x);
+		System.out.println("newycor: " + y);
 		xcor = x;
 		ycor = y;
 		return distance;
@@ -165,14 +170,18 @@ public class Turtle {
 	}
 
 	public double home() {
-		double distance = distance(ZERO, ZERO);
-		setXY(ZERO, ZERO);
-		return distance;
+		double returnVal = setXY(ZERO, ZERO);
+		System.out.println(returnVal);
+		return returnVal;
+		//return setXY(ZERO, ZERO);
 	}
 
 	public double clearScreen() {
 		lineCor.clear();
-		return home();
+		double returnVal = home();
+		System.out.println(returnVal);
+		return returnVal;
+		//return home();
 	}
 
 //	public static void main (String[] args) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, InstantiationException, ClassNotFoundException {

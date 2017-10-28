@@ -1,22 +1,17 @@
-package backend.commands.booleanCommands;
-
-import java.util.Stack;
+package backend.commands.booleanOperations;
 
 import backend.Stacks;
 import backend.Turtle;
-import backend.api.Command;
-import backend.commands.BooleanOperation;
 
 /**
  * has the execute for when a or command is called
  *     pops two parameters off the stack
  *     pushes if either the first or second are nonzero onto the stack
- *     returns the stack of parameters
  * 
  * @author kelly
  *
  */
-public class Or extends BooleanOperation {
+public class Or extends BooleanOperations {
 
 	public Or(Stacks myStack, Turtle myTurtle) {
 		super(myStack, myTurtle);

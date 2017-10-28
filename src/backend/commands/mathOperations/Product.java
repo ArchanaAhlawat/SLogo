@@ -2,13 +2,11 @@ package backend.commands.mathOperations;
 
 import backend.Stacks;
 import backend.Turtle;
-import backend.commands.MathOperations;
 
 /**
  * has the execute for when a product command is called
  *     pops the two parameter in the stack
  *     pushes their product onto the stack
- *     returns the stack of parameters
  *
  * @author kelly
  *

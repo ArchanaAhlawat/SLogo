@@ -1,27 +1,27 @@
 package backend.commands.turtleQueries;
 
-import java.util.Stack;
-
 import backend.Stacks;
 import backend.Turtle;
-import backend.api.Command;
 
 /**
  * has the execute for when a heading command is called
  *     doesn't need any parameters from the stack
  *     asks the turtle for the heading value
  *     pushes if the angle (heading) of the turtle facing to the stack
- *     returns the stack of parameters
  *
  * @author kelly
  *
  */
-public class Heading implements Command {
+public class Heading extends TurtleQueries {
 	
 	private static final String HEADING = "theta";
 	
+	public Heading(Stacks myStack, Turtle myTurtle) {
+		super(myStack, myTurtle);
+	}
+
 	@Override
-	public void execute(Stacks instructionStacks, Turtle currentTurtle) {
-		instructionStacks.addDouble(currentTurtle.getAbsoluteOrientation(HEADING));
+	protected double doUpdate() {
+		return currentTurtle.getAbsoluteOrientation(HEADING);
 	}
 }
