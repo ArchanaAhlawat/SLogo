@@ -5,6 +5,7 @@ import java.util.Stack;
 import backend.Stacks;
 import backend.Turtle;
 import backend.api.Command;
+import backend.commands.BooleanOperation;
 
 /**
  * has the execute for when a not command is called
@@ -15,13 +16,10 @@ import backend.api.Command;
  * @author kelly
  *
  */
-public class Not implements Command {
+public class Not extends BooleanOperation {
 
-	private static final double ZERO = 0.0;
-	private static final double ONE = 1.0;
-	
-	
 	public Not(Stacks myStack, Turtle myTurtle) {
+		super(myStack, myTurtle);
 	}
 
 	@Override
