@@ -22,7 +22,7 @@ public class Forward extends TurtleCommandsOneParam {
 
 	@Override
 	protected double doUpdate() {
-		currentTurtle.move(expr1);
+		currentTurtle.move(NEGATE*expr1);
 		return expr1;
 	}
 }

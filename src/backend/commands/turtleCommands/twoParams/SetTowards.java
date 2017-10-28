@@ -1,11 +1,8 @@
 package backend.commands.turtleCommands.twoParams;
 
-import java.util.Stack;
-
 import backend.Stacks;
 import backend.Turtle;
-import backend.api.Command;
-import backend.commands.turtleCommands.TurtleCommands;
+import backend.commands.turtleCommands.TurtleCommandsTwoParams;
 
 /**
  * has the execute for when a settowards command is called
@@ -17,7 +14,7 @@ import backend.commands.turtleCommands.TurtleCommands;
  * @author kelly
  *
  */
-public class SetTowards extends TurtleCommands {
+public class SetTowards extends TurtleCommandsTwoParams {
 	
 	public SetTowards(Stacks myStack, Turtle myTurtle) {
 		super(myStack, myTurtle);
@@ -26,7 +23,7 @@ public class SetTowards extends TurtleCommands {
 	@Override
 	protected double doUpdate() {
 		double currentAngle = currentTurtle.getAbsoluteOrientation("theta");
-		double newAngle = currentTurtle.angle(expr1, expr2);
+		double newAngle = currentTurtle.angle(expr1, NEGATE*expr2);
 		currentTurtle.setHeading(newAngle);
 		return newAngle - currentAngle;
 	}

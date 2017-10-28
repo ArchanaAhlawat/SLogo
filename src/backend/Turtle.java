@@ -77,14 +77,11 @@ public class Turtle {
 		double xDis = xDisplacement(x);
 		double yDis = yDisplacement(y);
 		double angle = Math.atan(xDis/yDis)*RADTODEG;
-		if (xDis >= ZERO && yDis >= ZERO) {
-			return angle;
+		if (yDis <= ZERO) { //first and fourth quadrants
+			return DEGREESINCIRCLE + NEGATE*angle;
 		}
-		else if (xDis <= ZERO && yDis >= ZERO) {
-			return DEGREESINCIRCLE - angle;
-		}
-		else {
-			return DEGREESINCIRCLE*HALF + angle;
+		else { //second and third quadrants
+			return DEGREESINCIRCLE*HALF + NEGATE*angle;
 		}
 	}
 
@@ -122,7 +119,7 @@ public class Turtle {
 		System.out.println("x is: " + xcor);
 		System.out.println("y is: " + ycor);
 		double newx = xcor + pixels*Math.sin(theta*DEGTORAD);
-		double newy = ycor - pixels*Math.cos(theta*DEGTORAD);
+		double newy = ycor + pixels*Math.cos(theta*DEGTORAD);
 		System.out.println("new x is: " + newx);
 		System.out.println("new y is: " + newy);
 		setXY(newx, newy);
@@ -145,7 +142,7 @@ public class Turtle {
 			lineCor.add(xcor);
 			lineCor.add(ycor);
 			lineCor.add(x);
-			lineCor.add(y*NEGATE);
+			lineCor.add(y);
 		}
 		System.out.println(lineCor);
 		double distance = distance(x, y);
