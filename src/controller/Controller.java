@@ -11,7 +11,8 @@ public class Controller implements ControllerAPI {
 	
 	private Driver BEdriver;
 	
-	public Controller() {
+
+	public Controller() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
 		BEdriver = new Driver();
 	}
 
@@ -19,6 +20,7 @@ public class Controller implements ControllerAPI {
 	public double setCommand(String command) {
 		
 		try {
+			BEdriver = new Driver();
 			double commandValue=BEdriver.setCommand(command);
 			return commandValue;
 		} catch (IllegalAccessException
@@ -27,19 +29,12 @@ public class Controller implements ControllerAPI {
 				| NoSuchMethodException
 				| SecurityException
 				| InstantiationException
-				| ClassNotFoundException e) {
+				| ClassNotFoundException | NoSuchFieldException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return 0.0;
 		
-	}
-	
-
-	@Override
-	public Turtle getTurtle(List<Object> newTurtle) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override

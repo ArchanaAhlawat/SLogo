@@ -9,13 +9,21 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+/**
+ * Parses the instructions passed from the frontend to the backend
+ * Uses reflection to call the actual command/operation needed to be executed
+ * Does this by keeping track of the instructions, parameters and variables
+ * 
+ * @author archana
+ * @author kelly
+ *
+ */
 public class Parser {
 	//UserVariables userVariables = new UserVariables();
 	Turtle currentTurtle;
 	private double val = 1;
 	private String commandsList;
 	private Map<String, String> langMap;
-	private Stacks instructionStacks;
 	
 	public Parser(Turtle current, String language) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
 		currentTurtle = current;
@@ -74,11 +82,12 @@ public class Parser {
 	}
 
 	private void reflectAndExecute(Stacks instructionStacks, String[] instructionArray, int i) throws ClassNotFoundException, InstantiationException, IllegalAccessException, NoSuchMethodException,InvocationTargetException {
-		Class<?> commandClass = Class.forName("backend.commands." + langMap.get(instructionArray[i].toLowerCase()));
-		//Constructor<?> cons = commandClass.getConstructor(Stacks.class, Turtle.class);
-		//System.out.println(cons);
-		Object commandInstance = commandClass.newInstance();
-		//Object commandInstance = cons.newInstance(instructionStacks, currentTurtle);
+		//Class<?> commandClass = Class.forName("backend.commands.booleanOperations." + langMap.get(instructionArray[i].toLowerCase()));
+		//Class<?> commandClass = Class.forName("backend.commands.mathOperations." + langMap.get(instructionArray[i].toLowerCase()));
+		//Class<?> commandClass = Class.forName("backend.commands.turtleCommands.oneParam." + langMap.get(instructionArray[i].toLowerCase()));
+		Class<?> commandClass = Class.forName("backend.commands.turtleCommands.twoParams." + langMap.get(instructionArray[i].toLowerCase()));
+		Constructor<?> cons = commandClass.getConstructor(Stacks.class, Turtle.class);
+		Object commandInstance = cons.newInstance(instructionStacks, currentTurtle);
 		Method commandMethod = commandClass.getMethod("execute", Stacks.class, Turtle.class);
 		commandMethod.invoke(commandInstance, instructionStacks, currentTurtle);
 		val = instructionStacks.getReturnVal();

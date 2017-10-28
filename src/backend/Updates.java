@@ -1,5 +1,7 @@
 package backend;
 
+import java.util.List;
+
 public class Updates {
 	private static final String XCOR = "xcor";
 	private static final String YCOR = "ycor";
@@ -7,6 +9,7 @@ public class Updates {
 	private static final String PENDOWN = "penDown";
 	private static final String TURTLEVIS = "turtleVis";	
 	private double xcor, ycor, theta, penDown, turtleVis;
+	private List<Double> lineCor;
 	
 	public Updates(Turtle myTurtle) {
 		xcor = myTurtle.getAbsoluteOrientation(XCOR);
@@ -14,6 +17,7 @@ public class Updates {
 		theta = myTurtle.getAbsoluteOrientation(THETA);
 		penDown = myTurtle.getAbsoluteOrientation(PENDOWN);
 		turtleVis = myTurtle.getAbsoluteOrientation(TURTLEVIS);
+		lineCor = myTurtle.getLines();
 	}
 	
 	/**
@@ -49,5 +53,9 @@ public class Updates {
 	 */
 	public double getTurtleVis() {
 		return turtleVis;
+	}
+	
+	public List<Double> getLineCor() {
+		return lineCor;
 	}
 }

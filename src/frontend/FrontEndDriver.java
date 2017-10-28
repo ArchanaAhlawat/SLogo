@@ -1,6 +1,7 @@
 package frontend;
 
 import controller.Controller;
+import controller.FEControllerAPI;
 
 import java.util.ResourceBundle;
 import javafx.application.Application;
@@ -15,7 +16,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-public class FrontEndDriver extends Application {
+public class FrontEndDriver extends Application implements FEControllerAPI {
 
 	private static final int BUTTONS_Y = 30;
 	private static final int HBOX_SPACING = 20;
@@ -59,6 +60,7 @@ public class FrontEndDriver extends Application {
 	private History userDefinedVariables;
 	private History userDefinedCommands;
 	private DisplayTurtleManager displayTurtleManager;
+	private LanguageChooser languageChooser;
 	private double commandValue;
 	private Controller myController;
 
@@ -183,7 +185,6 @@ public class FrontEndDriver extends Application {
 		double xCor = myController.getXCor();
 
 		double yCor = myController.getYCor();
-		System.out.println("yCor is " + yCor);
 
 		double theta = myController.getTheta();
 
@@ -199,16 +200,50 @@ public class FrontEndDriver extends Application {
 		b1.setOnAction(e -> displayTurtleManager.setImages(b1.chooseTurtle(displayTurtleManager.getActiveTurtle())));
 		BackgroundPicker b2 = new BackgroundPicker(DEFAULT_TURTLEAREA_COLOR, BUTTON_WIDTH, BUTTON_HEIGHT, turtleArea);
 		PenPicker b3 = new PenPicker(Color.BLACK, BUTTON_WIDTH, BUTTON_HEIGHT, turtlePath);
-		LanguageChooser b4 = new LanguageChooser(myResources.getString("Languages"), BUTTON_WIDTH, BUTTON_HEIGHT);
-		b4.getIndex().addListener(
-				(observable, oldIndex, newIndex) -> myController.setParserLanguage(b4.getCurrentLanguage(newIndex)));
+		languageChooser = new LanguageChooser(myResources.getString("Languages"), BUTTON_WIDTH, BUTTON_HEIGHT);
+		languageChooser.getIndex().addListener(
+				(observable, oldIndex, newIndex) -> myController.setParserLanguage(languageChooser.getCurrentLanguage(newIndex)));
 		HelpButton b5 = new HelpButton(myResources.getString("Help"), BUTTON_WIDTH, BUTTON_HEIGHT);
 		b5.setOnAction(e -> b5.GoToHelpPage(myResources.getString("HelpPage"), this));
-		layout.getChildren().addAll(b1, b2, b3, b4, b5);
+		layout.getChildren().addAll(b1, b2, b3, languageChooser, b5);
 	}
 
 	public static void main(String[] args) {
 		launch(args);
+	}
+
+	@Override
+	public String getCommand() {
+		return command.getText();
+	}
+
+	@Override
+	public String getParserLanguage(Number newIndex) {
+		return languageChooser.getCurrentLanguage(newIndex);
+	}
+
+	@Override
+	public double getXCor() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public double getYCor() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public double getTheta() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public double getTurtleVis() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

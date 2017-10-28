@@ -15,23 +15,9 @@ public class Driver {
 	private Turtle myTurtle;
 	
 	
-	public Driver() {
+	public Driver() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
 		myTurtle = new Turtle();
-		try {
-			p = new Parser(myTurtle, LANGUAGE_DEFAULT);
-		} catch (NoSuchFieldException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SecurityException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalArgumentException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		p = new Parser(myTurtle, LANGUAGE_DEFAULT);
 	}
 		//turtles = new ArrayList<>();
 		//turtles.add(new Turtle());
@@ -43,21 +29,21 @@ public class Driver {
 	}
 	
 	public void setLanguage(String language) {
-		try {
-			p = new Parser(myTurtle,language);
-		} catch (NoSuchFieldException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SecurityException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalArgumentException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+			try {
+				p = new Parser(myTurtle,language);
+			} catch (NoSuchFieldException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SecurityException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalArgumentException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	}
 	
 	public Updates getTurtleUpdates() {
