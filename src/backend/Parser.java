@@ -150,4 +150,8 @@ public class Parser {
 	public String getLanguage() {
 		return language;
 	}
+	
+	public List<String> getUserDefinedVars() { // this process needs to be updated! 
+		return UserVariables.getUserDefinedVars();
+	}
 }

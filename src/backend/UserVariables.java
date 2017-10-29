@@ -1,6 +1,8 @@
 package backend;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class UserVariables {
@@ -16,5 +18,13 @@ public class UserVariables {
 	
 	public static boolean contains(String key) {
 		return (userVars.containsKey(key));
+	}
+	
+	public static List<String> getUserDefinedVars() {
+		List<String> toReturn = new ArrayList<String>();
+		for (String varName : userVars.keySet()) {
+			toReturn.add(varName.substring(1) + ": " + userVars.get(varName));
+		}
+		return toReturn;
 	}
 }

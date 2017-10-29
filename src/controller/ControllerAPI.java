@@ -9,8 +9,6 @@ public interface ControllerAPI {
 	
 	public double setCommand(String command);
 	
-	public double getReturnValue();
-	
 	public double getXCor();
 	
 	public double getYCor();
@@ -25,4 +23,5 @@ public interface ControllerAPI {
 
 	void createTurtleTree();
 	
+	public List<String> getUserDefinedVars();
 }
