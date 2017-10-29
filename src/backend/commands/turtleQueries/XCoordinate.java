@@ -23,6 +23,7 @@ public class XCoordinate extends TurtleQueries {
 	
 	@Override
 	protected double doUpdate() {
-		return currentTurtle.getAbsoluteOrientation(XCOR);
+		int length = currentTurtle.getAbsoluteOrientation(XCOR).length;
+		return currentTurtle.getAbsoluteOrientation(XCOR)[length - 1];
 	}
 }

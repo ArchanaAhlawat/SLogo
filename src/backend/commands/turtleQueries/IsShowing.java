@@ -23,6 +23,7 @@ public class IsShowing extends TurtleQueries {
 
 	@Override
 	protected double doUpdate() {
-		return currentTurtle.getAbsoluteOrientation(ISSHOWING);
+		int length = currentTurtle.getAbsoluteOrientation(ISSHOWING).length;
+		return currentTurtle.getAbsoluteOrientation(ISSHOWING)[length - 1];
 	}
 }

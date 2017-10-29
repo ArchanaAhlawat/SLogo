@@ -29,8 +29,8 @@ public class Parser {
 		myMap.put("backend.commands.mathOperations.", new String[] {"arctangent", "cosine", "difference", "minus", "naturallog", "pi", "power", "product", "quotient", "random", "remainder", "sine", "sum", "tangent"});
 		myMap.put("backend.commands.miscellaneousCommands.", new String[] {"makevariable", "repeat", "dotimes", "for", "if", "ifelse", "makeuserinstruction"});
 		myMap.put("backend.commands.multipleTurtleCommands.", new String[] {"id", "turtles", "tell", "ask", "askwith"});
-		myMap.put("backend.commands.turtleCommands.", new String[] {"forward", "backward", "left", "right", "setheading", "settowards", "setposition", "pendown", "penup", "showturtle", "hideturtle", "home", "clearscreen"});
-		myMap.put("backend.commands.turtleQueries.", new String[] {"xcoordinate", "ycoordinate", "heading", "ispendown", "isshowing"});
+		myMap.put("backend.commands.turtleCommands.", new String[] {"forward", "backward", "left", "right", "setheading", "settowards", "towards", "setposition", "setxy", "pendown", "penup", "showturtle", "hideturtle", "home", "clearscreen"});
+		myMap.put("backend.commands.turtleQueries.", new String[] {"xcoordinate", "xcor", "ycor", "ycoordinate", "heading", "ispendown", "isshowing"});
 		packageMap = Collections.unmodifiableMap(myMap);
 	}
 
@@ -132,7 +132,7 @@ public class Parser {
 		TurtleTree turtles = new TurtleManager();
 		//turtles.addActiveTurtle();
 		//turtles.addActiveTurtle();
-		p.parseInstruction(turtles, "Forward 7"); // repeat 3 [ fd 54\nsum 2 4 ], DOTIMES [ :var 3 ] [ fd :var\nsum :var 4 ], 
+		p.parseInstruction(turtles, "heading"); // repeat 3 [ fd 54\nsum 2 4 ], DOTIMES [ :var 3 ] [ fd :var\nsum :var 4 ], 
 		
 		//FOR [ :var 3 5 ] [ fd :var\nsum :var 4 ], IF 0 [ fd 54\nsum 2 4 ]
 		// IFELSE 0 [ fd 54\nsum 2 4 ] [ fd 700\nsum 70 70 ], 
