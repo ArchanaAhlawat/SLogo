@@ -8,14 +8,20 @@ import backend.Stacks;
 import backend.Turtle;
 import backend.TurtleTree;
 import backend.api.Command;
+import backend.commands.GeneralCommands;
 
-public class DoTimes implements Command {
+public class DoTimes extends GeneralCommands {
+
+	public DoTimes(Stacks myStack, TurtleTree myTurtle) {
+		super(myStack, myTurtle);
+	}
 
 	@Override
-	public void execute(Stacks instructionStacks, TurtleTree currentTurtle) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+	public void execute(Stacks instructionStacks, TurtleTree currentTurtle) {
 		List<String> var = instructionStacks.getSecondCommandsList();
-		Parser tempParser = new Parser(instructionStacks.getLanguage());
+		Parser tempParser;
 		try {
+			tempParser = new Parser(instructionStacks.getLanguage());
 			String varName = var.get(0).split(" ")[0];
 			tempParser.parseInstruction(currentTurtle, "Set " + varName + " " + var.get(0).split(" ")[1]); // want to get variable name 
 			Double limit = Double.parseDouble(tempParser.getVarVal(varName));
@@ -29,7 +35,7 @@ public class DoTimes implements Command {
 			double toReturn = tempParser.getReturnVal();
 			instructionStacks.addDouble(toReturn);
 		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException
-				| SecurityException | InstantiationException | ClassNotFoundException e) {
+				| SecurityException | InstantiationException | ClassNotFoundException | NoSuchFieldException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

@@ -75,12 +75,13 @@ public class TurtleManager implements TurtleTree {
 	}
 
 	@Override
-	public double[] setHeading(double[] degrees) {
-		double[] toReturn = new double[degrees.length];
+	public double setHeading(double[] degrees) {
+		double toReturn = 0;
 		for (int i = 0; i < degrees.length; i++) {
-			toReturn[i] = activeTurtles.get(i).setHeading(degrees)[0];
+			toReturn = activeTurtles.get(i).setHeading(new double[]{degrees[i]});
 		}
 		return toReturn;
+		//return activeTurtles.get(0).setHeading(degrees);
 	}
 
 	@Override

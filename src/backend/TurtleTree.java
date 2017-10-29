@@ -40,7 +40,7 @@ public interface TurtleTree {
 	
 	public void rotate(double degrees);
 	
-	public double[] setHeading(double[] degrees);
+	public double setHeading(double[] expr1);
 	
 	public double setXY(double x, double y);
 	
