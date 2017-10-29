@@ -193,7 +193,7 @@ private static final int BOTTOM_LAYOUT_X = 50;
 		b.setOnAction(e -> {
 			String currentCommand = command.getText();
 			executeCommand(currentCommand);
-			displayTurtleManager.drawLines(myController.getLinestoDraw());
+			displayTurtleManager.drawLines(myController.getLinestoDraw()); // TODO WILL NOT WORK
 			command.clear();
 		});
 		return b;
@@ -209,6 +209,7 @@ private static final int BOTTOM_LAYOUT_X = 50;
 	private void executeCommandOnly(String currentCommand) {
 		commandValue = myController.setCommand(currentCommand);
 		displayTurtleManager.updateTurtles(myController.getXCor(),myController.getYCor(),myController.getTheta(),myController.getTurtleVis());
+
 
 	}
 	

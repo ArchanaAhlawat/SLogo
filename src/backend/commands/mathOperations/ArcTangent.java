@@ -2,6 +2,9 @@ package backend.commands.mathOperations;
 
 import backend.Stacks;
 import backend.Turtle;
+import backend.TurtleTree;
+import backend.api.Command;
+
 
 /**
  * has the execute for when a arctan command is called
@@ -13,12 +16,12 @@ import backend.Turtle;
  */
 public class ArcTangent extends MathOperations {
 	
-	public ArcTangent(Stacks myStack, Turtle myTurtle) {
+	public ArcTangent(Stacks myStack, TurtleTree myTurtle) {
 		super(myStack, myTurtle);
 	}
 
 	@Override
-	public void execute(Stacks instructionStacks, Turtle currentTurtle) {
+	public void execute(Stacks instructionStacks, TurtleTree currentTurtle) {
 		double atan = instructionStacks.popDouble();
 		instructionStacks.addDouble(Math.atan(atan)*RADTODEG);
 	}

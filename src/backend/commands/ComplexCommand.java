@@ -6,6 +6,7 @@ import java.util.List;
 import backend.Parser;
 import backend.Stacks;
 import backend.Turtle;
+import backend.TurtleTree;
 import backend.api.Command;
 
 /**
@@ -14,12 +15,12 @@ import backend.api.Command;
  *
  */
 public abstract class ComplexCommand implements Command {
-	protected String[] getVars(Stacks instructionStacks, Turtle currentTurtle) {
+	protected String[] getVars(Stacks instructionStacks, TurtleTree currentTurtle) {
 		List<String> var = instructionStacks.getSecondCommandsList();
 		String[] varSplit = var.get(0).split(" ");
 		return varSplit;
 	}
-	
+
 //	protected double copiedCode(Stacks instructionStacks, Turtle currentTurtle, String specificCommand, int start, int limit, String varName) throws IllegalAccessException,
 //		
 //		Parser tempParser = new Parser(currentTurtle);

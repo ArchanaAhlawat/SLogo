@@ -2,6 +2,7 @@ package backend.commands;
 
 import backend.Stacks;
 import backend.Turtle;
+import backend.TurtleTree;
 import backend.api.Command;
 
 public abstract class GeneralCommands implements Command {
@@ -13,15 +14,15 @@ public abstract class GeneralCommands implements Command {
 	protected double expr1;
 	protected double expr2;
 	protected Stacks instructionStacks;
-	protected Turtle currentTurtle;
+	protected TurtleTree currentTurtle;
 	
-	public GeneralCommands(Stacks myStack, Turtle myTurtle) {
+	public GeneralCommands(Stacks myStack, TurtleTree myTurtle) {
 		instructionStacks = myStack;
 		currentTurtle = myTurtle;
 	}
 	
 	@Override
-	public void execute(Stacks instructionStacks, Turtle currentTurtle) {
+	public void execute(Stacks instructionStacks, TurtleTree currentTurtle) {
 		setParams();
 		addReturn(doUpdate());
 	}

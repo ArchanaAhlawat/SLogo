@@ -2,6 +2,7 @@ package backend.commands.booleanOperations;
 
 import backend.Stacks;
 import backend.Turtle;
+import backend.TurtleTree;
 
 /**
  * has the execute for when a lessthan command is called
@@ -13,7 +14,7 @@ import backend.Turtle;
  */
 public class LessThan extends BooleanOperations {
 
-	public LessThan(Stacks myStack, Turtle myTurtle) {
+	public LessThan(Stacks myStack, TurtleTree myTurtle) {
 		super(myStack, myTurtle);
 	}
 

@@ -2,6 +2,7 @@ package backend.commands.turtleCommands;
 
 import backend.Stacks;
 import backend.Turtle;
+import backend.TurtleTree;
 
 /**
  * has the execute for when a penup command is called
@@ -14,7 +15,7 @@ import backend.Turtle;
  */
 public class PenUp extends TurtleCommands {
 	
-	public PenUp(Stacks myStack, Turtle myTurtle) {
+	public PenUp(Stacks myStack, TurtleTree myTurtle) {
 		super(myStack, myTurtle);
 	}
 

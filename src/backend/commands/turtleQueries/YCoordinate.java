@@ -2,6 +2,7 @@ package backend.commands.turtleQueries;
 
 import backend.Stacks;
 import backend.Turtle;
+import backend.TurtleTree;
 
 /**
  * has the execute for when a ycor command is called
@@ -16,7 +17,7 @@ public class YCoordinate extends TurtleQueries {
 
 	private static final String YCOR = "ycor";
 	
-	public YCoordinate(Stacks myStack, Turtle myTurtle) {
+	public YCoordinate(Stacks myStack, TurtleTree myTurtle) {
 		super(myStack, myTurtle);
 	}
 	
