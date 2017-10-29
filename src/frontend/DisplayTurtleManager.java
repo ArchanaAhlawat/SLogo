@@ -28,6 +28,7 @@ public class DisplayTurtleManager {
 	protected void updateTurtles(double xCor,double yCor,double theta,double turtleVis) {
 		if(!activeTurtles.isEmpty()) {
 			for(DisplayTurtle displayTurtle : activeTurtles) {
+				System.out.println("Hi");
 				displayTurtle.updateTurtle(xCor, yCor, theta, turtleVis);
 			}
 		}

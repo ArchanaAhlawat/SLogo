@@ -104,11 +104,10 @@ public class FrontEndDriver extends Application implements FEControllerAPI {
 
 			@Override
 			public void handle(KeyEvent event) {
-
+				
 				if (event.getCode() == KeyCode.UP) {
 
 					executeCommandOnly("FORWARD 10");
-					event.consume();
 				}
 
 				if (event.getCode() == KeyCode.DOWN) {
@@ -207,7 +206,7 @@ public class FrontEndDriver extends Application implements FEControllerAPI {
 		b5.setOnAction(e -> b5.GoToHelpPage(myResources.getString("HelpPage"), this));
 		layout.getChildren().addAll(b1, b2, b3, languageChooser, b5);
 	}
-
+	
 	public static void main(String[] args) {
 		launch(args);
 	}
