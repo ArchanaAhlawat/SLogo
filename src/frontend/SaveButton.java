@@ -1,11 +1,11 @@
 package frontend;
 
-import javafx.application.Application;
+import controller.Controller;
 import javafx.geometry.Pos;
-import javafx.scene.Group;
 import javafx.scene.control.Button;
 
 public class SaveButton extends Button {
+	SaveUI saveUI=new SaveUI();
 
 
 	public SaveButton(String label,double width,double height) {
@@ -16,11 +16,12 @@ public class SaveButton extends Button {
 	
 	}
 	
-	protected void save(Application FEDriver) {
-	
-	
+	protected void save(Controller myController) {
+		saveUI.save(myController);
 		
 		
+	
+	
 		
 		
 		

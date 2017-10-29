@@ -111,47 +111,17 @@ private static final int BOTTOM_LAYOUT_X = 50;
 		window.setTitle("SLogo");
 		window.setScene(startScene);
 		window.show();
-	
+		
+	    KeyboardHandler keyboardHandler=new KeyboardHandler(root,this);
+	    keyboardHandler.execute();
+		
+		
 
-		root.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
-
-			@Override
-			public void handle(KeyEvent event) {
-			
-				
-				switch(event.getCode()) {
-				case UP:
-					keyBoardExecute("FORWARD 10",event);
-					break;
-				case DOWN: 
-					keyBoardExecute("BACK 10",event);
-					break;
-				case LEFT: 
-					keyBoardExecute("LEFT 10",event);
-					break;
-				case RIGHT: 
-					keyBoardExecute("RIGHT 10",event);
-					break;
-				default:
-					break;
-							
-				
-				}
-			
-                
-
-	         }
-		});
-	
+		
 	}
 	
 
 
-	private void keyBoardExecute(String c,KeyEvent event) {
-		executeCommandOnly(c);
-		event.consume();
-			
-	}
 
 	private void addLabelsForButtons(HBox hb) {
 		hb.setTranslateY(5);
@@ -206,7 +176,7 @@ private static final int BOTTOM_LAYOUT_X = 50;
 
 	}
 
-	private void executeCommandOnly(String currentCommand) {
+	protected void executeCommandOnly(String currentCommand) {
 		commandValue = myController.setCommand(currentCommand);
 		displayTurtleManager.updateTurtles(myController.getXCor(),myController.getYCor(),myController.getTheta(),myController.getTurtleVis());
 
@@ -219,7 +189,7 @@ private static final int BOTTOM_LAYOUT_X = 50;
 		layout.setTranslateY(BOTTOM_BUTTONS_Y);
 		SaveButton b1=new SaveButton(myResources.getString("Save"),SAVE_BUTTON_WIDTH,SAVE_BUTTON_HEIGHT);
 		ResumeButton b2=new ResumeButton(myResources.getString("Resume"),SAVE_BUTTON_WIDTH,SAVE_BUTTON_HEIGHT);
-		b1.setOnAction(e -> b1.save(this));
+		b1.setOnAction(e -> b1.save(myController));
 		b2.setOnAction(e -> b2.resume(this));
 		layout.getChildren().addAll(b1,b2);
 		
