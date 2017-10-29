@@ -46,13 +46,6 @@ public class Controller implements ControllerAPI {
 		
 	}
 
-	@Override
-	public double getReturnValue() {
-		// TODO Auto-generated method stub
-		//return BackEndDriver.getRetVal();
-		return 0;
-	}
-
 	public void reactivate(double id) {
 		BEdriver.reactivate(id);
 	}
@@ -94,6 +87,8 @@ public class Controller implements ControllerAPI {
 		// TODO Auto-generated method stub
 		return getUpdates().getTurtleVis();
 	}
+	
+	
 
 
 	@Override
@@ -103,8 +98,12 @@ public class Controller implements ControllerAPI {
 
 	@Override
 	public List<Double> getLinestoDraw() {
-		// TODO Auto-generated method stub
 		return BEdriver.getLines();
+	}
+
+	@Override
+	public List<String> getUserDefinedVars() {
+		return BEdriver.getUserDefinedVars();
 	}
 	
 }
