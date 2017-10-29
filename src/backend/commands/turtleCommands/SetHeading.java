@@ -21,7 +21,7 @@ public class SetHeading extends TurtleCommandsOneParam {
 	
 	@Override
 	protected double doUpdate() {
-		return currentTurtle.setHeading(expr1);
+		return currentTurtle.setHeading(new double[] {expr1});
 	}
 }
 

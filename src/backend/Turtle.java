@@ -139,11 +139,10 @@ public class Turtle implements TurtleTree{
 		double newtheta = theta + degrees;
 		setHeading(new double[] {newtheta});
 	}
-
-	public double[] setHeading(double[] degrees) {
-		double[] difference = new double[] {Math.abs(degrees[0] - theta)};
-		//https://stackoverflow.com/questions/5385024/mod-in-java-produces-negative-numbers
-		theta = degrees[0];
+	
+	public double setHeading(double[] expr1) {
+		double difference = Math.abs(expr1[0] - theta);
+		theta = (((expr1[0]) % DEGREESINCIRCLE) + DEGREESINCIRCLE) % DEGREESINCIRCLE;;
 		return difference;
 	}
 
