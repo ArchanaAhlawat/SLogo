@@ -5,6 +5,8 @@ import javafx.scene.layout.BorderStroke;
 import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
@@ -24,6 +26,9 @@ public abstract class Scroll extends ScrollPane {
 	private String scrollLabel;
 	private Group scrollPaneRoot;
 	
+	private VBox layout;
+	private static final int VBOX_SPACING = 0;
+	
 	public Scroll(String label,int x,int y,int width,int height) {
 		super(new Text(label));
 		scrollPaneRoot=new Group();
@@ -36,6 +41,8 @@ public abstract class Scroll extends ScrollPane {
 		this.setBorder(new Border(new BorderStroke(Color.BLACK, 
 	            BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
 		this.setContent(scrollPaneRoot);
+		layout = new VBox(VBOX_SPACING);
+		scrollPaneRoot.getChildren().add(layout);
 		formatHistoryEntry(0);
 	}
 	
@@ -54,14 +61,13 @@ public abstract class Scroll extends ScrollPane {
 	}
 	
 	protected void addToRoot(Text text) {
-		scrollPaneRoot.getChildren().add(text);
+		layout.getChildren().add(text);
 	}
 	
 	private void formatHistoryEntry(int number) {
 		Text curr=allHistory.get(number);
 		curr.wrappingWidthProperty().bind(this.widthProperty());
-		curr.setTranslateX(LABEL_START);
-		curr.setTranslateY(number*20);
 		addToRoot(curr);
+		
 	}
 }
