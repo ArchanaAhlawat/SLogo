@@ -43,7 +43,7 @@ public class DisplayTurtle extends ImageView {
 	}
 	
 	protected void activateShadow() {
-			setStyle("-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8),15,0,0,0)");
+		setStyle("-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8),15,0,0,0)");
 	}
 	
 	protected void activateTransparent() {
