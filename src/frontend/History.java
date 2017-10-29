@@ -29,7 +29,7 @@ public class History extends Scroll {
 		
 	}
 	
-	protected void addHistory(String command) {
+	void addHistory(String command) {
 		if(!command.equals(EMPTY_STRING)) {
 			String formattedCommand = formatCommand(command);
 		    
@@ -39,21 +39,27 @@ public class History extends Scroll {
 		}
 	}
 	
-	protected void clickable() {
+	private void clickable() {
 	
+
 		Text curr = super.curr;
 		
 		curr.setOnMouseClicked(e -> handleMouseClick(e,displayTurtleManager,returnValue,curr,myController,turtleArea));
 
+
      }
 	
+
 	protected void handleMouseClick(MouseEvent e,DisplayTurtleManager displayTurtleManager,ReturnValue returnValue,Text current,Controller myController,Display turtleArea) {
+
 		
 		
 		String currentCommand=current.getText().trim();
 		double commandValue=myController.setCommand(currentCommand);
+
 		
 		displayTurtleManager.updateTurtles(myController.getTurtles(),turtleArea);
+
 		addHistory(currentCommand);
 		returnValue.addReturnValue(commandValue);
        
