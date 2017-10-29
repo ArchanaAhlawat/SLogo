@@ -70,6 +70,7 @@ public class FrontEndDriver extends Application implements FEControllerAPI {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
+		myController.createTurtleTree();
 		myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE);
 		window = primaryStage;
 		HBox layout = new HBox(VBOX_SPACING);
@@ -182,18 +183,15 @@ public class FrontEndDriver extends Application implements FEControllerAPI {
 
 	private void executeCommandOnly(String currentCommand) {
 		commandValue = myController.setCommand(currentCommand);
-		double xCor = myController.getXCor();
+		//double xCor = myController.getXCor();
 
-		double yCor = myController.getYCor();
+		//double yCor = myController.getYCor();
 
-		double theta = myController.getTheta();
+		//double theta = myController.getTheta();
 
-		double turtleVis = myController.getTurtleVis();
-		
-		System.out.print("xCor: " + xCor);
-		System.out.print("yCor: " + yCor);
+		//double turtleVis = myController.getTurtleVis();
 
-		displayTurtleManager.updateTurtles(xCor, yCor, theta, turtleVis);
+		displayTurtleManager.updateTurtles(myController.getTurtles());
 
 	}
 
