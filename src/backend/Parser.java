@@ -16,7 +16,6 @@ public class Parser {
 	//public UserCommands userCommands = new UserCommands(); // for now static 
 	TurtleTree currentTurtle;
 	private double val = 1;
-	private String commandsList;
 	private Map<String, String> langMap;
 	private String language;
 
@@ -43,6 +42,7 @@ public class Parser {
 
 	// TODO: throw exceptions properly w try/catch
 	public void parseInstruction(TurtleTree current, String inst) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, InstantiationException, ClassNotFoundException {
+		String commandsList = ""; // THIS CHANGE SUNDAY 6:30 PM.
 		currentTurtle = current;
 		System.out.println("NEW PASSED INST: " + inst);
 		Stacks instructionStacks = new Stacks();
@@ -54,7 +54,8 @@ public class Parser {
 				instructionStacks.push(this.getVarVal(instructionArray[i]));
 			}
 			else if (instructionArray[i].matches("\\]")) { // identified beginning of list (back of list)
-				if (commandsList != null) { // we already have one set of commands
+				System.out.println("found beginning of list");
+				if (commandsList != "") { // we already have one set of commands
 					i--;
 					List<String> tempCommands = new ArrayList<String>();
 					while (! instructionArray[i].matches("\\[")) {
@@ -67,6 +68,7 @@ public class Parser {
 					instructionStacks.instantiateSecondCommandsList(commandsList);
 				} // lots of repeated code to refactor 
 				else { 
+					System.out.println("FIRST list of commands");
 					i--;
 					List<String> tempCommands = new ArrayList<String>();
 					while (! instructionArray[i].matches("\\[")) {
@@ -100,7 +102,6 @@ public class Parser {
 		if (langMap.containsKey(instruction)) {
 			location = langMap.get(instruction);
 		}
-		System.out.println(getPackageName(location) + "--> is this it");
 		Class<?> commandClass = Class.forName(getPackageName(location) + location);
 		Constructor<?> cons = commandClass.getConstructor(Stacks.class, TurtleTree.class);
 		Object commandInstance = cons.newInstance(instructionStacks, currentTurtle);
@@ -132,8 +133,9 @@ public class Parser {
 		TurtleTree turtles = new TurtleManager();
 		//turtles.addActiveTurtle();
 		//turtles.addActiveTurtle();
-		p.parseInstruction(turtles, "heading"); // repeat 3 [ fd 54\nsum 2 4 ], DOTIMES [ :var 3 ] [ fd :var\nsum :var 4 ], 
-		
+		p.parseInstruction(turtles, "wow TO wow [ :hi 3\n:omg 8 ] [ fd 3\nsum 70 70 ]"); 
+		// repeat 3 [ fd 54\nsum 2 4 ], DOTIMES [ :var 3 ] [ fd :var\nsum :var 4 ],
+		p.parseInstruction(turtles, "wow TO wow [ :hi 3\n:omg 8 ] [ fd 3\nsum 70 70 ]");
 		//FOR [ :var 3 5 ] [ fd :var\nsum :var 4 ], IF 0 [ fd 54\nsum 2 4 ]
 		// IFELSE 0 [ fd 54\nsum 2 4 ] [ fd 700\nsum 70 70 ], 
 		//wow TO wow [ :hi 3\n:omg 8 ] [ fd 3\nsum 70 70 ]
