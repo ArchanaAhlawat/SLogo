@@ -20,8 +20,9 @@ public class SetHeading extends TurtleCommandsOneParam {
 	}
 	
 	@Override
-	protected double doUpdate() {
-		return currentTurtle.setHeading(new double[] {expr1});
+	public void execute(Stacks instructionStacks, TurtleTree currentTurtle) {
+		expr1 = instructionStacks.popDouble();
+		instructionStacks.addDouble(currentTurtle.setHeading(new double[] {expr1}));
 	}
 }
 
