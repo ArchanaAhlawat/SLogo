@@ -22,7 +22,7 @@ public interface ControllerAPI {
 	public void setParserLanguage(String language);
 	
 	public List<Double> getLinestoDraw();
-	
-	public void setActiveTurtles(List<Turtle> activeTurtles);
+
+	void createTurtleTree();
 	
 }

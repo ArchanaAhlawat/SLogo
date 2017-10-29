@@ -1,8 +1,6 @@
 package frontend;
 
 import controller.Controller;
-import controller.FEControllerAPI;
-
 import java.util.ResourceBundle;
 import javafx.application.Application;
 import javafx.event.EventHandler;
@@ -16,7 +14,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-public class FrontEndDriver extends Application implements FEControllerAPI {
+public class FrontEndDriver extends Application {
 
 	private static final int BUTTONS_Y = 30;
 	private static final int HBOX_SPACING = 20;
@@ -70,6 +68,8 @@ public class FrontEndDriver extends Application implements FEControllerAPI {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
+		myController = new Controller(displayTurtleManager);
+		myController.createTurtleTree();
 		myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE);
 		window = primaryStage;
 		HBox layout = new HBox(VBOX_SPACING);
@@ -81,7 +81,6 @@ public class FrontEndDriver extends Application implements FEControllerAPI {
 		DisplayTurtle firstTurtle = new DisplayTurtle();
 		turtleArea = new Display(firstTurtle, GRID_X1, GRID_Y1, GRID_WIDTH, GRID_HEIGHT);
 		displayTurtleManager = new DisplayTurtleManager(firstTurtle);
-		myController = new Controller();
 		addAllButtons(layout);
 
 		addCommandLine();
@@ -89,11 +88,11 @@ public class FrontEndDriver extends Application implements FEControllerAPI {
 		returnValue = new ReturnValue(myResources.getString("Return"), HISTORY_X, RETURN_Y, HISTORY_WIDTH,
 				RETURN_HEIGHT);
 		commandHistory = new History(myResources.getString("History"), HISTORY_X, HISTORY_Y, HISTORY_WIDTH,
-				HISTORY_HEIGHT, displayTurtleManager, returnValue, myController);
+				HISTORY_HEIGHT, displayTurtleManager, returnValue, myController,turtleArea);
 		userDefinedVariables = new History(myResources.getString("UserV"), HISTORY_X, UserV_Y, HISTORY_WIDTH,
-				UserV_HEIGHT, displayTurtleManager, returnValue, myController);
+				UserV_HEIGHT, displayTurtleManager, returnValue, myController,turtleArea);
 		userDefinedCommands = new History(myResources.getString("UserC"), HISTORY_X, UserC_Y, HISTORY_WIDTH,
-				UserC_HEIGHT, displayTurtleManager, returnValue, myController);
+				UserC_HEIGHT, displayTurtleManager, returnValue, myController,turtleArea);
 		root.getChildren().addAll(layout, layout2, commandHistory, returnValue, userDefinedVariables,
 				userDefinedCommands, turtleArea);
 		window.setTitle("SLogo");
@@ -180,14 +179,22 @@ public class FrontEndDriver extends Application implements FEControllerAPI {
 
 	private void executeCommandOnly(String currentCommand) {
 		commandValue = myController.setCommand(currentCommand);
-		displayTurtleManager.updateTurtles(turtles);
+		//double xCor = myController.getXCor();
+
+		//double yCor = myController.getYCor();
+
+		//double theta = myController.getTheta();
+
+		//double turtleVis = myController.getTurtleVis();
+
+		displayTurtleManager.updateTurtles(myController.getTurtles(),turtleArea);
 
 	}
 
 	private void addAllButtons(HBox layout) {
 		layout.setTranslateY(BUTTONS_Y);
 		TurtleImageButton b1 = new TurtleImageButton(myResources.getString("SetImage"), BUTTON_WIDTH, BUTTON_HEIGHT);
-		b1.setOnAction(e -> displayTurtleManager.setImages(b1.chooseTurtle(displayTurtleManager.getActiveTurtle())));
+		b1.setOnAction(e -> displayTurtleManager.setImages(b1.chooseTurtleImage(displayTurtleManager.getAnActiveTurtle())));
 		BackgroundPicker b2 = new BackgroundPicker(DEFAULT_TURTLEAREA_COLOR, BUTTON_WIDTH, BUTTON_HEIGHT, turtleArea);
 		PenPicker b3 = new PenPicker(Color.BLACK, BUTTON_WIDTH, BUTTON_HEIGHT, turtlePath);
 		languageChooser = new LanguageChooser(myResources.getString("Languages"), BUTTON_WIDTH, BUTTON_HEIGHT);
@@ -200,16 +207,6 @@ public class FrontEndDriver extends Application implements FEControllerAPI {
 	
 	public static void main(String[] args) {
 		launch(args);
-	}
-
-	@Override
-	public String getCommand() {
-		return command.getText();
-	}
-
-	@Override
-	public String getParserLanguage(Number newIndex) {
-		return languageChooser.getCurrentLanguage(newIndex);
 	}
 
 }

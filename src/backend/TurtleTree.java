@@ -28,9 +28,11 @@ public interface TurtleTree {
 
 	public double distance(double x, double y);
 	
-	public double angle(double x, double y);
+	public double[] angle(double x, double y);
 	
-	public double getAbsoluteOrientation(String orientation);
+	public void reactivateTurtle(double num);
+	
+	public double[] getAbsoluteOrientation(String orientation);
 	
 	public List<Double> getLines();
 	
@@ -38,7 +40,7 @@ public interface TurtleTree {
 	
 	public void rotate(double degrees);
 	
-	public double setHeading(double degrees);
+	public double[] setHeading(double[] degrees);
 	
 	public double setXY(double x, double y);
 	
@@ -58,7 +60,7 @@ public interface TurtleTree {
 	
 	public double getSize();
 	
-	public int getActiveTurtleID();
+	public double getActiveTurtleID();
 	
 	public void setActiveTurtles();
 	
@@ -73,4 +75,8 @@ public interface TurtleTree {
 	public void activateTurtle(double ID);
 	
 	public void clearActiveTurtles();
+
+	public void deactivateTurtle(double id);
+
+	public List<Turtle> getActiveTurtles();
 }

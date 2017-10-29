@@ -16,7 +16,6 @@ public class Driver {
 	
 	
 	public Driver() {
-		myTurtleManager = new TurtleManager();
 		try {
 			p = new Parser(LANGUAGE_DEFAULT);
 		} catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException e) {
@@ -24,11 +23,26 @@ public class Driver {
 			e.printStackTrace();
 		}
 	}
+	
+	public void setTurtleTree() { // create new turtle manager
+		myTurtleManager = new TurtleManager();
+	}
 		
 	public double setCommand(String instruction) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, InstantiationException, ClassNotFoundException {
-		//TurtleTree t = new TurtleManager();
 		p.parseInstruction(myTurtleManager, instruction);
 		return p.getReturnVal();
+	}
+	
+	public void reactivate(double id) {
+		myTurtleManager.reactivateTurtle(id); // DOES THIS WORK? 
+	}
+	
+	public void deactivate(double id) {
+		myTurtleManager.deactivateTurtle(id);
+	}
+	
+	public List<Turtle> getTurtles() {
+		return myTurtleManager.getActiveTurtles();
 	}
 	
 	public void setLanguage(String language) { // what? 

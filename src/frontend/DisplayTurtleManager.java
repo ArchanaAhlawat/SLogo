@@ -18,6 +18,7 @@ public class DisplayTurtleManager {
 
 	public DisplayTurtleManager(DisplayTurtle firstDisplayTurtle) {
 		activeDisplayTurtles = new HashMap<Integer,DisplayTurtle>();
+		allDisplayTurtles = new HashMap<Integer,DisplayTurtle>();
 		activeDisplayTurtles.put(FIRST_TURTLE_ID, firstDisplayTurtle);
 		allDisplayTurtles.put(FIRST_TURTLE_ID, firstDisplayTurtle);
 		firstDisplayTurtle.setOnMouseClicked(e -> activate(FIRST_TURTLE_ID));
@@ -25,7 +26,7 @@ public class DisplayTurtleManager {
 	
 	protected void updateTurtles(List<Turtle> turtles,Display turtleArea) {
 		for(Turtle turtle : turtles) {
-			int turtleID = turtle.getActiveTurtleID();
+			int turtleID = (int)turtle.getActiveTurtleID();
 			Updates turtleUpdate = new Updates(turtle);
 			double updatedXCor = turtleUpdate.getXCor() + ORIGIN_X;
 			double updatedYCor = turtleUpdate.getYCor() + ORIGIN_Y;
@@ -39,7 +40,7 @@ public class DisplayTurtleManager {
 				DisplayTurtle newDisplayTurtle = new DisplayTurtle();
 				newDisplayTurtle.updateTurtle(updatedXCor, updatedYCor, updatedTheta, updatedTurtleVis,turtle.getLines());
 				newDisplayTurtle.setOnMouseClicked(e -> activate(newDisplayTurtle.getID()));
-				activeDisplayTurtles.put(turtle.getActiveTurtleID(),newDisplayTurtle);
+				activeDisplayTurtles.put((int)turtle.getActiveTurtleID(),newDisplayTurtle);
 				turtleArea.getChildren().addAll(newDisplayTurtle,newDisplayTurtle.getPath());
 			}
 		}
@@ -49,6 +50,10 @@ public class DisplayTurtleManager {
 		for(DisplayTurtle displayTurtle : activeDisplayTurtles.values()) {
 			displayTurtle.setImage(image);
 		}
+	}
+	
+	protected DisplayTurtle getAnActiveTurtle() {
+		return activeDisplayTurtles.get(1);
 	}
 	
 	protected void activate(int turtleID) {

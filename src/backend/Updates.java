@@ -16,13 +16,13 @@ public class Updates {
 	private double xcor, ycor, theta, penDown, turtleVis;
 	private List<Double> lineCor;
 	
-	public Updates(TurtleTree myTurtle) {
-		xcor = myTurtle.getAbsoluteOrientation(XCOR);
+	public Updates(TurtleTree myTurtle) { // ONE TURTLE ONLY
+		xcor = myTurtle.getAbsoluteOrientation(XCOR)[0];
 		System.out.println("updated Turtle xCor from Updates: " + xcor);
-		ycor = myTurtle.getAbsoluteOrientation(YCOR);
-		theta = myTurtle.getAbsoluteOrientation(THETA);
-		penDown = myTurtle.getAbsoluteOrientation(PENDOWN);
-		turtleVis = myTurtle.getAbsoluteOrientation(TURTLEVIS);
+		ycor = myTurtle.getAbsoluteOrientation(YCOR)[0];
+		theta = myTurtle.getAbsoluteOrientation(THETA)[0];
+		penDown = myTurtle.getAbsoluteOrientation(PENDOWN)[0];
+		turtleVis = myTurtle.getAbsoluteOrientation(TURTLEVIS)[0];
 		lineCor = myTurtle.getLines();
 	}
 	
