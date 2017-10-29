@@ -10,7 +10,6 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
@@ -27,7 +26,7 @@ public class FrontEndDriver extends Application implements FEControllerAPI {
 private static final int BOTTOM_LAYOUT_X = 50;
 	private static final int BUTTONS_Y = 30;
 	private static final int BOTTOM_BUTTONS_Y = 620;
-	private static final int SAVE_BUTTON_WIDTH = 60;
+	private static final int SAVE_BUTTON_WIDTH = 80;
 	private static final int SAVE_BUTTON_HEIGHT = 40;
 	
 	private static final int HBOX_SPACING = 20;
@@ -59,6 +58,9 @@ private static final int BOTTOM_LAYOUT_X = 50;
 	private static final int BUTTON_HEIGHT = 40;
 	private static final String DEFAULT_RESOURCE_PACKAGE = "resources.languages/buttons_labels";
 	private static final Color DEFAULT_TURTLEAREA_COLOR = Color.HONEYDEW;
+	public static final double TURTLESIZE = 50;
+	public static final double ORIGIN_X = (GRID_X2 - GRID_X1 - TURTLESIZE) / 2;
+	public static final double ORIGIN_Y = (GRID_Y2 - GRID_Y1 - TURTLESIZE) / 2;
 
 	private Display turtleArea;
 	private TurtlePath turtlePath;
@@ -74,9 +76,9 @@ private static final int BOTTOM_LAYOUT_X = 50;
 	private LanguageChooser languageChooser;
 	private double commandValue;
 	private Controller myController;
-	public static final double TURTLESIZE = 50;
-	public static final double ORIGIN_X = (GRID_X2 - GRID_X1 - TURTLESIZE) / 2;
-	public static final double ORIGIN_Y = (GRID_Y2 - GRID_Y1 - TURTLESIZE) / 2;
+
+
+
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -115,30 +117,28 @@ private static final int BOTTOM_LAYOUT_X = 50;
 
 			@Override
 			public void handle(KeyEvent event) {
-
-				if (event.getCode() == KeyCode.UP) {
-
-					executeCommandOnly("FORWARD 10");
-					event.consume();
+			
+				
+				switch(event.getCode()) {
+				case UP:
+					keyBoardExecute("FORWARD 10",event);
+					break;
+				case DOWN: 
+					keyBoardExecute("BACK 10",event);
+					break;
+				case LEFT: 
+					keyBoardExecute("LEFT 10",event);
+					break;
+				case RIGHT: 
+					keyBoardExecute("RIGHT 10",event);
+					break;
+				default:
+					break;
+							
+				
 				}
-
-				if (event.getCode() == KeyCode.DOWN) {
-					executeCommandOnly("BACK 10");
-					event.consume();
-				}
-
-				if (event.getCode() == KeyCode.LEFT) {
-
-					executeCommandOnly("LEFT 10");
-					event.consume();
-				}
-
-				if (event.getCode() == KeyCode.RIGHT) {
-
-					executeCommandOnly("RIGHT 10");
-					event.consume();
-				}
-
+			
+                
 
 	         }
 		});
@@ -147,7 +147,11 @@ private static final int BOTTOM_LAYOUT_X = 50;
 	
 
 
-	
+	private void keyBoardExecute(String c,KeyEvent event) {
+		executeCommandOnly(c);
+		event.consume();
+			
+	}
 
 	private void addLabelsForButtons(HBox hb) {
 		hb.setTranslateY(5);
@@ -204,15 +208,7 @@ private static final int BOTTOM_LAYOUT_X = 50;
 
 	private void executeCommandOnly(String currentCommand) {
 		commandValue = myController.setCommand(currentCommand);
-		double xCor = myController.getXCor();
-
-		double yCor = myController.getYCor();
-
-		double theta = myController.getTheta();
-
-		double turtleVis = myController.getTurtleVis();
-
-		displayTurtleManager.updateTurtles(xCor, yCor, theta, turtleVis);
+		displayTurtleManager.updateTurtles(myController.getXCor(),myController.getYCor(),myController.getTheta(),myController.getTurtleVis());
 
 	}
 	
@@ -221,8 +217,10 @@ private static final int BOTTOM_LAYOUT_X = 50;
 		layout.setTranslateX(BOTTOM_LAYOUT_X);
 		layout.setTranslateY(BOTTOM_BUTTONS_Y);
 		SaveButton b1=new SaveButton(myResources.getString("Save"),SAVE_BUTTON_WIDTH,SAVE_BUTTON_HEIGHT);
+		ResumeButton b2=new ResumeButton(myResources.getString("Resume"),SAVE_BUTTON_WIDTH,SAVE_BUTTON_HEIGHT);
 		b1.setOnAction(e -> b1.save(this));
-		layout.getChildren().addAll(b1);
+		b2.setOnAction(e -> b2.resume(this));
+		layout.getChildren().addAll(b1,b2);
 		
 		
 	}
