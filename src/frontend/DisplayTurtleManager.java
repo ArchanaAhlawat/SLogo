@@ -1,59 +1,65 @@
 package frontend;
 
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
-
 import backend.Turtle;
+import backend.Updates;
 import javafx.scene.image.Image;
-import javafx.scene.shape.Path;
 
 public class DisplayTurtleManager {
 	
 	public static final double ORIGIN_X = FrontEndDriver.ORIGIN_X;
 	public static final double ORIGIN_Y = FrontEndDriver.ORIGIN_Y;
 	
-	private HashMap<Integer,DisplayTurtle> activeTurtles;
+	private static final int FIRST_TURTLE_ID = 1;
+	
+	private HashMap<Integer,DisplayTurtle> activeDisplayTurtles;
+	private HashMap<Integer,DisplayTurtle> allDisplayTurtles;
 
-	public DisplayTurtleManager(DisplayTurtle firstTurtle) {
-		firstTurtle.setOnMouseClicked(e -> firstTurtle.activate());
-		activeTurtles = new HashMap<Integer,DisplayTurtle>();
-		activeTurtles.put(1, firstTurtle);
+	public DisplayTurtleManager(DisplayTurtle firstDisplayTurtle) {
+		activeDisplayTurtles = new HashMap<Integer,DisplayTurtle>();
+		activeDisplayTurtles.put(FIRST_TURTLE_ID, firstDisplayTurtle);
+		allDisplayTurtles.put(FIRST_TURTLE_ID, firstDisplayTurtle);
+		firstDisplayTurtle.setOnMouseClicked(e -> activate(FIRST_TURTLE_ID));
 	}
 	
-	protected void updateTurtles(List<Turtle> turtles) {
+	protected void updateTurtles(List<Turtle> turtles,Display turtleArea) {
 		for(Turtle turtle : turtles) {
-			int turtleID = turtle.getID();
-			double updatedXCor = turtle.getX() + ORIGIN_X;
-			double updatedYCor = turtle.getY() + ORIGIN_Y;
-			double updatedTheta = turtle.getTheta();
-			double updatedTurtleVis = turtle.getTurtleVis();
-			if(activeTurtles.keySet().contains(turtleID)) {
-				DisplayTurtle oldTurtle = activeTurtles.get(turtleID);
-				oldTurtle.updateTurtle(updatedXCor, updatedYCor, updatedTheta, updatedTurtleVis);
+			int turtleID = turtle.getActiveTurtleID();
+			Updates turtleUpdate = new Updates(turtle);
+			double updatedXCor = turtleUpdate.getXCor() + ORIGIN_X;
+			double updatedYCor = turtleUpdate.getYCor() + ORIGIN_Y;
+			double updatedTheta = turtleUpdate.getTheta();
+			double updatedTurtleVis = turtleUpdate.getTurtleVis();
+			if(activeDisplayTurtles.containsKey(turtleID)) {
+				DisplayTurtle oldDisplayTurtle = activeDisplayTurtles.get(turtleID);
+				oldDisplayTurtle.updateTurtle(updatedXCor, updatedYCor, updatedTheta, updatedTurtleVis,turtle.getLines());
 			}
-			else {
+			else if(!allDisplayTurtles.containsKey(turtleID)){
 				DisplayTurtle newDisplayTurtle = new DisplayTurtle();
-				activeTurtles.put(turtle.getID(),newDisplayTurtle.updateTurtle(updatedXCor, updatedYCor, updatedTheta, updatedTurtleVis);
+				newDisplayTurtle.updateTurtle(updatedXCor, updatedYCor, updatedTheta, updatedTurtleVis,turtle.getLines());
+				newDisplayTurtle.setOnMouseClicked(e -> activate(newDisplayTurtle.getID()));
+				activeDisplayTurtles.put(turtle.getActiveTurtleID(),newDisplayTurtle);
+				turtleArea.getChildren().addAll(newDisplayTurtle,newDisplayTurtle.getPath());
 			}
-		}
-	}
-	
-	protected void drawLines(List<Turtle> turtles) {
-		for(Turtle turtle : turtles) {
-			int turtleID = turtle.getID();
-			Path turtlePath = turtle.getPath();
-			activeTurtles.put(turtleID, turtlePath);
 		}
 	}
 	
 	protected void setImages(Image image) {
-		if(!activeTurtles.isEmpty()) {
-			for(DisplayTurtle displayTurtle : activeTurtles.values()) {
-				displayTurtle.setImage(image);
-			}
+		for(DisplayTurtle displayTurtle : activeDisplayTurtles.values()) {
+			displayTurtle.setImage(image);
+		}
+	}
+	
+	protected void activate(int turtleID) {
+		DisplayTurtle displayTurtle = allDisplayTurtles.get(turtleID);
+		if(!activeDisplayTurtles.containsKey(turtleID)) {
+			activeDisplayTurtles.put(turtleID, displayTurtle);
+			displayTurtle.activateTransparent();
+		}
+		else {
+			activeDisplayTurtles.remove(turtleID);
+			displayTurtle.activateTransparent();
 		}
 	}
 	

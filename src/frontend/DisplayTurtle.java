@@ -30,31 +30,32 @@ public class DisplayTurtle extends ImageView {
         return new Image(file.toURI().toString());
 	}
 	
-	protected void updateTurtle(double xCor,double yCor,double theta,double turtleVis) {
-		this.setX(xCor);
-		this.setY(yCor);
-		this.setRotate(theta);
-		this.setVisible(booleanConverter(turtleVis));
+	protected void updateTurtle(double xCor,double yCor,double theta,double turtleVis,List<Double> linesToDraw) {
+		setX(xCor);
+		setY(yCor);
+		setRotate(theta);
+		setVisible(booleanConverter(turtleVis));
+		drawPath(linesToDraw);
 	}
 	
 	protected TurtlePath getPath() {
 		return turtlePath;
 	}
 	
-	protected void drawPath(List<Double> linesToDraw) {
-		turtlePath.updatePath(linesToDraw);
-	}
-	
-	protected void deactivate() {
+	protected void activateShadow() {
 			setStyle("-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8),15,0,0,0)");
 	}
 	
-	protected void activate() {
+	protected void activateTransparent() {
 		setStyle("-fx-background-color:transparent");
 	}
 	
 	protected int getID() {
 		return turtID;
+	}
+	
+	private void drawPath(List<Double> linesToDraw) {
+		turtlePath.updatePath(linesToDraw);
 	}
 	
 	private boolean booleanConverter(double dub) {

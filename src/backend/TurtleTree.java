@@ -58,7 +58,7 @@ public interface TurtleTree {
 	
 	public double getSize();
 	
-	public double getActiveTurtleID();
+	public int getActiveTurtleID();
 	
 	public void setActiveTurtles();
 	

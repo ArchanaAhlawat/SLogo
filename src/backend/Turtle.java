@@ -31,7 +31,7 @@ public class Turtle implements TurtleTree{
 	private Color lineColor;
 	private double lineThickness;
 	private double turtleCount = 1;
-	protected double turtleID = 1;
+	protected int turtleID = 1;
 
 	
 	public Turtle() {
@@ -208,7 +208,7 @@ public class Turtle implements TurtleTree{
 	}
 
 	@Override
-	public double getActiveTurtleID() {
+	public int getActiveTurtleID() {
 		return this.turtleID;
 	}
 
@@ -217,7 +217,7 @@ public class Turtle implements TurtleTree{
 		// do nothing
 	}
 
-	public void setTurtleID(double id) {
+	public void setTurtleID(int id) {
 		System.out.println("id: " + id);
 		turtleID = id;
 	}
