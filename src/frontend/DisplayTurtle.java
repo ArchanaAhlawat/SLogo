@@ -2,7 +2,6 @@ package frontend;
 
 import java.io.File;
 import java.util.List;
-
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.css.PseudoClass;
@@ -13,29 +12,25 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 public class DisplayTurtle extends ImageView {
 	private static final String DEFAULT_TURTLE_DIRECTORY = "src/resources/turtle.png";
-	private static final double ORIGIN_X = FrontEndDriver.ORIGIN_X;
-	private static final double ORIGIN_Y = FrontEndDriver.ORIGIN_Y;
 	private static final double TURTLESIZE = FrontEndDriver.TURTLESIZE;
-	private static final double TURTLESIZE_GROWTH = TURTLESIZE/2;
-	private static final String ACTIVETURTLE_BORDER_DIRECTORY = "resources/ActiveTurtleBorder.css";
+	private static final double ORIGIN_X = DisplayTurtleManager.ORIGIN_X;
+	private static final double ORIGIN_Y = DisplayTurtleManager.ORIGIN_Y;
 	
 	private int turtID;
-	private boolean isActive;
 	private TurtlePath turtlePath;
-	private BooleanProperty imageViewBorderActive;
 	
-	public DisplayTurtle(int ID) {
+	public DisplayTurtle() {
 		super();
 		this.setImage(setDefaultImage());
 		this.setX(ORIGIN_X);
 		this.setY(ORIGIN_Y);
 		this.setFitWidth(TURTLESIZE);
 		this.setFitHeight(TURTLESIZE);
-		setUpBorder();
-		turtID = ID;
 		turtlePath = new TurtlePath(ORIGIN_X,ORIGIN_Y);
 	}
 	
@@ -44,47 +39,32 @@ public class DisplayTurtle extends ImageView {
         return new Image(file.toURI().toString());
 	}
 	
-	protected void updateTurtle(double xCor,double yCor,double theta,double turtleVis) {
-		this.setX(xCor + ORIGIN_X);
-		this.setY(yCor + ORIGIN_Y);
-		this.setRotate(theta);
-		this.setVisible(booleanConverter(turtleVis));
+	protected void updateTurtle(double xCor,double yCor,double theta,double turtleVis,List<Double> linesToDraw) {
+		setX(xCor);
+		setY(yCor);
+		setRotate(theta);
+		setVisible(booleanConverter(turtleVis));
+		drawPath(linesToDraw);
 	}
 	
 	protected TurtlePath getPath() {
 		return turtlePath;
 	}
 	
-	protected void drawPath(List<Double> linesToDraw) {
-		turtlePath.updatePath(linesToDraw);
+	protected void activateShadow() {
+			setStyle("-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8),15,0,0,0)");
 	}
 	
-	protected void changeTurtleActivity(List<DisplayTurtle> activeTurtles) {
-		if(activeTurtles.contains(this))  {
-			activeTurtles.remove(this);
-		}
-		else {
-			activeTurtles.add(this);
-		}
-		imageViewBorderActive.set(!imageViewBorderActive.get());
+	protected void activateTransparent() {
+		setStyle("-fx-background-color:transparent");
 	}
 	
 	protected int getID() {
 		return turtID;
 	}
 	
-	private void setUpBorder() {
-		PseudoClass imageViewBorder = PseudoClass.getPseudoClass("border");
-		BorderPane imageViewWrapper = new BorderPane(this);
-	    imageViewWrapper.getStyleClass().add(ACTIVETURTLE_BORDER_DIRECTORY);
-	    imageViewBorderActive = new SimpleBooleanProperty() {
-	        @Override
-	        protected void invalidated() {
-	            imageViewWrapper.pseudoClassStateChanged(imageViewBorder, get());
-	        }
-	    };
-	    BorderPane root = new BorderPane(imageViewWrapper);
-	    root.setPadding(new Insets(15));
+	private void drawPath(List<Double> linesToDraw) {
+		turtlePath.updatePath(linesToDraw);
 	}
 	
 	private boolean booleanConverter(double dub) {

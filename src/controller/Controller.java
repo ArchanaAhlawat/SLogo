@@ -1,19 +1,29 @@
 package controller;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.LinkedList;
 import java.util.List;
 
 import backend.Driver;
 import backend.Updates;
-import frontend.Turtle;
+import frontend.DisplayTurtle;
+import frontend.DisplayTurtleManager;
+import backend.Turtle;
 
 public class Controller implements ControllerAPI {
 	
-	private Driver BEdriver = new Driver();
+	private Driver BEdriver;
+	private DisplayTurtleManager displayTurtleManager;
 	
 
-	public Controller() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+	public Controller(DisplayTurtleManager FEdisplayTurtleManager) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
 		BEdriver = new Driver();
+		displayTurtleManager = FEdisplayTurtleManager;
+	}
+	
+	@Override
+	public void createTurtleTree() {
+		BEdriver.setTurtleTree(); // create new turtle tree
 	}
 
 	@Override
@@ -36,18 +46,20 @@ public class Controller implements ControllerAPI {
 		
 	}
 
-	@Override
-	public double getReturnValue() {
-		// TODO Auto-generated method stub
-		//return BackEndDriver.getRetVal();
-		return 0;
+	public void reactivate(double id) {
+		BEdriver.reactivate(id);
 	}
-
+	
+	public void deactivate(double id) {
+		BEdriver.deactivate(id);
+	}
+	
+	public List<Turtle> getTurtles() {
+		return BEdriver.getTurtles();
+	}
 
 	@Override
 	public double getXCor() {
-		// TODO Auto-generated method stub
-		System.out.println("controller XCor: " + getUpdates().getXCor());
 		return getUpdates().getXCor();
 	}
 
@@ -75,6 +87,8 @@ public class Controller implements ControllerAPI {
 		// TODO Auto-generated method stub
 		return getUpdates().getTurtleVis();
 	}
+	
+	
 
 
 	@Override
@@ -84,7 +98,12 @@ public class Controller implements ControllerAPI {
 
 	@Override
 	public List<Double> getLinestoDraw() {
-		// TODO Auto-generated method stub
 		return BEdriver.getLines();
 	}
+
+	@Override
+	public List<String> getUserDefinedVars() {
+		return BEdriver.getUserDefinedVars();
+	}
+	
 }

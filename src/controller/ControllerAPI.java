@@ -2,13 +2,12 @@ package controller;
 
 import java.util.List;
 
-import frontend.Turtle;
+import backend.Turtle;
+import frontend.DisplayTurtle;
 
 public interface ControllerAPI {
 	
 	public double setCommand(String command);
-	
-	public double getReturnValue();
 	
 	public double getXCor();
 	
@@ -21,5 +20,8 @@ public interface ControllerAPI {
 	public void setParserLanguage(String language);
 	
 	public List<Double> getLinestoDraw();
+
+	void createTurtleTree();
 	
+	public List<String> getUserDefinedVars();
 }

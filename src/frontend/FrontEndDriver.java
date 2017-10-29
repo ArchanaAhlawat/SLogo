@@ -1,8 +1,6 @@
 package frontend;
 
 import controller.Controller;
-import controller.FEControllerAPI;
-
 import java.util.ResourceBundle;
 import javafx.application.Application;
 import javafx.event.EventHandler;
@@ -16,10 +14,8 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 
-	
-	
+public class FrontEndDriver extends Application {
 
-public class FrontEndDriver extends Application implements FEControllerAPI {
 
 
 
@@ -82,6 +78,8 @@ private static final int BOTTOM_LAYOUT_X = 50;
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
+		myController = new Controller(displayTurtleManager);
+		myController.createTurtleTree();
 		myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE);
 		window = primaryStage;
 		HBox layout = new HBox(VBOX_SPACING);
@@ -92,21 +90,25 @@ private static final int BOTTOM_LAYOUT_X = 50;
 		root = new Group();
 		Scene startScene = new Scene(root, WIDTH, HEIGHT);
 		//startScene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-		DisplayTurtle firstTurtle = new DisplayTurtle(1);
-		displayTurtleManager = new DisplayTurtleManager(firstTurtle);
+		DisplayTurtle firstTurtle = new DisplayTurtle();
 		turtleArea = new Display(firstTurtle, GRID_X1, GRID_Y1, GRID_WIDTH, GRID_HEIGHT);
-		myController = new Controller();
+		displayTurtleManager = new DisplayTurtleManager(firstTurtle);
 		addAllButtons(layout);
 
-		
-		addCommandLine(); 
-		addBottomButtons(bottomlayout);
-		
-		returnValue = new ReturnValue(myResources.getString("Return"),HISTORY_X, RETURN_Y,HISTORY_WIDTH,RETURN_HEIGHT);
-		commandHistory = new History(myResources.getString("History"),HISTORY_X,HISTORY_Y,HISTORY_WIDTH,HISTORY_HEIGHT,displayTurtleManager,returnValue,myController);
-		userDefinedVariables=new History(myResources.getString("UserV"),HISTORY_X,UserV_Y,HISTORY_WIDTH,UserV_HEIGHT,displayTurtleManager,returnValue,myController);
-		userDefinedCommands=new History(myResources.getString("UserC"),HISTORY_X,UserC_Y,HISTORY_WIDTH,UserC_HEIGHT,displayTurtleManager,returnValue,myController);
-		root.getChildren().addAll(bottomlayout,layout,layout2,commandHistory,returnValue,userDefinedVariables,userDefinedCommands,turtleArea);
+   
+        addBottomButtons(bottomlayout);
+		addCommandLine();
+
+		returnValue = new ReturnValue(myResources.getString("Return"), HISTORY_X, RETURN_Y, HISTORY_WIDTH,
+				RETURN_HEIGHT);
+		commandHistory = new History(myResources.getString("History"), HISTORY_X, HISTORY_Y, HISTORY_WIDTH,
+				HISTORY_HEIGHT, displayTurtleManager, returnValue, myController,turtleArea);
+		userDefinedVariables = new History(myResources.getString("UserV"), HISTORY_X, UserV_Y, HISTORY_WIDTH,
+				UserV_HEIGHT, displayTurtleManager, returnValue, myController,turtleArea);
+		userDefinedCommands = new History(myResources.getString("UserC"), HISTORY_X, UserC_Y, HISTORY_WIDTH,
+				UserC_HEIGHT, displayTurtleManager, returnValue, myController,turtleArea);
+		root.getChildren().addAll(layout, layout2, commandHistory, returnValue, userDefinedVariables,
+				userDefinedCommands, turtleArea);
 
 		window.setTitle("SLogo");
 		window.setScene(startScene);
@@ -163,7 +165,6 @@ private static final int BOTTOM_LAYOUT_X = 50;
 		b.setOnAction(e -> {
 			String currentCommand = command.getText();
 			executeCommand(currentCommand);
-			displayTurtleManager.drawLines(myController.getLinestoDraw()); // TODO WILL NOT WORK
 			command.clear();
 		});
 		return b;
@@ -178,8 +179,8 @@ private static final int BOTTOM_LAYOUT_X = 50;
 
 	protected void executeCommandOnly(String currentCommand) {
 		commandValue = myController.setCommand(currentCommand);
-		displayTurtleManager.updateTurtles(myController.getXCor(),myController.getYCor(),myController.getTheta(),myController.getTurtleVis());
 
+        displayTurtleManager.updateTurtles(myController.getTurtles(),turtleArea);
 
 	}
 	
@@ -194,12 +195,24 @@ private static final int BOTTOM_LAYOUT_X = 50;
 		layout.getChildren().addAll(b1,b2);
 		
 		
+
+		//double xCor = myController.getXCor();
+
+		//double yCor = myController.getYCor();
+
+		//double theta = myController.getTheta();
+
+		//double turtleVis = myController.getTurtleVis();
+
+		
+
+
 	}
 
 	private void addAllButtons(HBox layout) {
 		layout.setTranslateY(BUTTONS_Y);
 		TurtleImageButton b1 = new TurtleImageButton(myResources.getString("SetImage"), BUTTON_WIDTH, BUTTON_HEIGHT);
-		b1.setOnAction(e -> displayTurtleManager.setImages(b1.chooseTurtle(displayTurtleManager.getActiveTurtle())));
+		b1.setOnAction(e -> displayTurtleManager.setImages(b1.chooseTurtleImage(displayTurtleManager.getAnActiveTurtle())));
 		BackgroundPicker b2 = new BackgroundPicker(DEFAULT_TURTLEAREA_COLOR, BUTTON_WIDTH, BUTTON_HEIGHT, turtleArea);
 		PenPicker b3 = new PenPicker(Color.BLACK, BUTTON_WIDTH, BUTTON_HEIGHT, turtlePath);
 		languageChooser = new LanguageChooser(myResources.getString("Languages"), BUTTON_WIDTH, BUTTON_HEIGHT);
@@ -212,20 +225,13 @@ private static final int BOTTOM_LAYOUT_X = 50;
 		layout.getChildren().addAll(b1,b2,b3,languageChooser,b6,b5);
 
 	}
-
+	
 	public static void main(String[] args) {
 		launch(args);
 	}
 
-	@Override
-	public String getCommand() {
-		return command.getText();
-	}
 
-	@Override
-	public String getParserLanguage(Number newIndex) {
-		return languageChooser.getCurrentLanguage(newIndex);
-	}
+
 
 }
-	
+

@@ -1,7 +1,9 @@
 package backend;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class TurtleManager implements TurtleTree {
 	protected List<Turtle> allTurtles = new ArrayList<Turtle>();
@@ -9,6 +11,7 @@ public class TurtleManager implements TurtleTree {
 	protected double turtleCount = 0;
 	protected int turtleID;
 	private List<Double> activeIDs = new ArrayList<Double>();
+	private Map<Double, Turtle> IDTurtleMap = new HashMap<Double, Turtle>();
 	
 	public TurtleManager() {
 		this.addActiveTurtle();
@@ -33,15 +36,21 @@ public class TurtleManager implements TurtleTree {
 	}
 
 	@Override
-	public double angle(double x, double y) {
-		// TODO Auto-generated method stub
-		return 0;
+	public double[] angle(double x, double y) {
+		double[] toReturn = new double[activeTurtles.size()];
+		for (int i = 0; i < activeTurtles.size(); i++) {
+			toReturn[i] = activeTurtles.get(i).angle(x, y)[0];
+		}
+		return toReturn;
 	}
 
 	@Override
-	public double getAbsoluteOrientation(String orientation) {
-		// TODO Auto-generated method stub
-		return 0;
+	public double[] getAbsoluteOrientation(String orientation) {
+		double[] toReturn = new double[activeTurtles.size()];
+		for (int i = 0; i < activeTurtles.size(); i++) {
+			toReturn[i] = activeTurtles.get(i).getAbsoluteOrientation(orientation)[0];
+		}
+		return toReturn;
 	}
 
 	@Override
@@ -66,42 +75,58 @@ public class TurtleManager implements TurtleTree {
 	}
 
 	@Override
-	public double setHeading(double degrees) {
+	public double setHeading(double[] degrees) {
+		double toReturn = 0;
+		for (int i = 0; i < degrees.length; i++) {
+			toReturn = activeTurtles.get(i).setHeading(new double[]{degrees[i]});
+		}
+		return toReturn;
+		//return activeTurtles.get(0).setHeading(degrees);
+	}
+
+	@Override
+	public double setXY(double x, double y) {
 		double toReturn = 0;
 		for (Turtle t : activeTurtles) {
-			toReturn = t.setHeading(degrees);
+			toReturn = t.setXY(x, y);
 		}
 		return toReturn;
 	}
 
 	@Override
-	public double setXY(double x, double y) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
 	public double penChange(double change) {
-		// TODO Auto-generated method stub
-		return 0;
+		double toReturn = 0;
+		for (Turtle t : activeTurtles) {
+			toReturn = t.penChange(change);
+		}
+		return toReturn;
 	}
 
 	@Override
 	public double visChange(double change) {
-		// TODO Auto-generated method stub
-		return 0;
+		double toReturn = 0;
+		for (Turtle t : activeTurtles) {
+			toReturn = t.visChange(change);
+		}
+		return toReturn;
 	}
 
 	@Override
 	public double home() {
-		// TODO Auto-generated method stub
-		return 0;
+		double toReturn = 0;
+		for (Turtle t : activeTurtles) {
+			toReturn = t.home();
+		}
+		return toReturn;
 	}
 
 	@Override
 	public double clearScreen() {
-		// TODO Auto-generated method stub
-		return 0;
+		double toReturn = 0;
+		for (Turtle t : activeTurtles) {
+			toReturn = t.clearScreen();
+		}
+		return toReturn;
 	}
 
 	@Override
@@ -122,7 +147,12 @@ public class TurtleManager implements TurtleTree {
 		activeIDs.add(num);
 	}
 	
-	public void addActiveTurtle(Turtle t) {
+	public void reactivateTurtle(double num) { 
+		Turtle t = IDTurtleMap.get(num);
+		addActiveTurtle(t);
+	}
+	
+	public void addActiveTurtle(Turtle t) { // for internal use i think
 		activeTurtles.add(t);
 		activeIDs.add(t.turtleID);
 	}
@@ -193,6 +223,17 @@ public class TurtleManager implements TurtleTree {
 	
 	public void clearActiveTurtles() {
 		activeTurtles.clear();
+	}
+
+	@Override
+	public void deactivateTurtle(double id) {
+		Turtle toRemove = IDTurtleMap.get(id);
+		activeTurtles.remove(toRemove); // ALL TURTLES LIST SHOULD ALWAYS HAVE ALL TURTLES? 
+	}
+
+	@Override
+	public List<Turtle> getActiveTurtles() { // uh this is bad bc mutable :o RIP
+		return activeTurtles;
 	}
 
 }

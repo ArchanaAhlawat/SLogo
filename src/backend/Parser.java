@@ -8,7 +8,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
@@ -22,15 +21,16 @@ public class Parser {
 	private String language;
 
 	private static final Map<String, String[]> packageMap;
-	static {
+	static { //https://stackoverflow.com/questions/507602/how-can-i-initialise-a-static-map
 		Map<String, String[]> myMap = new HashMap<>();
-		myMap.put("backend.commands.booleanOperations.", new String[] {"and", "equal", "greaterthan", "lessthan", "not", "notequal", "or"});
-		myMap.put("backend.commands.dispayCommands.", new String[] {"setbackground", "setpencolor", "setpensize", "setshape", "setpalette", "getpencolor", "getshape", "stamp", "clearstamps"});
-		myMap.put("backend.commands.mathOperations.", new String[] {"arctangent", "cosine", "difference", "minus", "naturallog", "pi", "power", "product", "quotient", "random", "remainder", "sine", "sum", "tangent"});
-		myMap.put("backend.commands.miscellaneousCommands.", new String[] {"makevariable", "repeat", "dotimes", "for", "if", "ifelse", "makeuserinstruction"});
-		myMap.put("backend.commands.multipleTurtleCommands.", new String[] {"id", "turtles", "tell", "ask", "askwith"});
-		myMap.put("backend.commands.turtleCommands.", new String[] {"forward", "backward", "left", "right", "setheading", "settowards", "setposition", "pendown", "penup", "showturtle", "hideturtle", "home", "clearscreen"});
-		myMap.put("backend.commands.turtleQueries.", new String[] {"xcoordinate", "ycoordinate", "heading", "ispendown", "isshowing"});
+		myMap.put("backend.commands.booleanOperations.", new String[] {"And", "Equal", "GreaterThan", "LessThan", "Not", "NotEqual", "Or"});
+		myMap.put("backend.commands.dispayCommands.", new String[] {"SetBackground", "SetPenColor", "SetPenSize", "SetShape", "SetPalette", "GetPenColor", "GetShape", "Stamp", "ClearStamps"});
+		myMap.put("backend.commands.mathOperations.", new String[] {"ArcTangent", "Cosine", "Difference", "Minus", "NaturalLog", "Pi", "Power", "Product", "Quotient", "Random", "Remainder", "Sine", "Sum", "Tangent"});
+		myMap.put("backend.commands.miscellaneousCommands.", new String[] {"MakeVariable", "Repeat", "DoTimes", "For", "If", "IfElse", "MakeUserInstruction"});
+		myMap.put("backend.commands.multipleTurtleCommands.", new String[] {"ID", "Turtles", "Tell", "Ask", "AskWith"});
+		myMap.put("backend.commands.turtleCommands.", new String[] {"Forward", "Backward", "Left", "Right", "SetHeading", "SetTowards", "SetPosition", "PenDown", "PenUp", "ShowTurtle", "HideTurtle", "Home", "ClearScreen"});
+		myMap.put("backend.commands.turtleQueries.", new String[] {"XCoordinate", "YCoordinate", "Heading", "IsPenDown", "IsShowing"});
+		myMap.put("backend.commands.", new String[] {"ID", "ProcessUserInstruction", "Tell"});
 		packageMap = Collections.unmodifiableMap(myMap);
 	}
 
@@ -100,8 +100,8 @@ public class Parser {
 		if (langMap.containsKey(instruction)) {
 			location = langMap.get(instruction);
 		}
-		System.out.println(getPackageName(instruction) + "--> is this it");
-		Class<?> commandClass = Class.forName(getPackageName(instruction) + location);
+		System.out.println(getPackageName(location) + "--> is this it");
+		Class<?> commandClass = Class.forName(getPackageName(location) + location);
 		Constructor<?> cons = commandClass.getConstructor(Stacks.class, TurtleTree.class);
 		Object commandInstance = cons.newInstance(instructionStacks, currentTurtle);
 		Method commandMethod = commandClass.getMethod("execute", Stacks.class, TurtleTree.class);
@@ -132,7 +132,7 @@ public class Parser {
 		TurtleTree turtles = new TurtleManager();
 		//turtles.addActiveTurtle();
 		//turtles.addActiveTurtle();
-		p.parseInstruction(turtles, "Forward 7"); // repeat 3 [ fd 54\nsum 2 4 ], DOTIMES [ :var 3 ] [ fd :var\nsum :var 4 ], 
+		p.parseInstruction(turtles, "heading"); // repeat 3 [ fd 54\nsum 2 4 ], DOTIMES [ :var 3 ] [ fd :var\nsum :var 4 ], 
 		
 		//FOR [ :var 3 5 ] [ fd :var\nsum :var 4 ], IF 0 [ fd 54\nsum 2 4 ]
 		// IFELSE 0 [ fd 54\nsum 2 4 ] [ fd 700\nsum 70 70 ], 
@@ -150,5 +150,9 @@ public class Parser {
 	
 	public String getLanguage() {
 		return language;
+	}
+	
+	public List<String> getUserDefinedVars() { // this process needs to be updated! 
+		return UserVariables.getUserDefinedVars();
 	}
 }

@@ -76,15 +76,15 @@ public class Turtle implements TurtleTree{
 	 * @param y the y coordinate
 	 * @return the angle between north (0 degrees) and the vector (x,y)
 	 */
-	public double angle(double x, double y) {
+	public double[] angle(double x, double y) {
 		double xDis = xDisplacement(x);
 		double yDis = yDisplacement(y);
 		double angle = Math.atan(xDis/yDis)*RADTODEG;
 		if (yDis <= ZERO) { //first and fourth quadrants
-			return (((DEGREESINCIRCLE + NEGATE*angle) % DEGREESINCIRCLE) + DEGREESINCIRCLE) % DEGREESINCIRCLE;
+			return new double[] {(((DEGREESINCIRCLE + NEGATE*angle) % DEGREESINCIRCLE) + DEGREESINCIRCLE) % DEGREESINCIRCLE};
 		}
 		else { //second and third quadrants
-			return (((DEGREESINCIRCLE*HALF + NEGATE*angle) % DEGREESINCIRCLE) + DEGREESINCIRCLE) % DEGREESINCIRCLE;
+			return new double[] {(((DEGREESINCIRCLE*HALF + NEGATE*angle) % DEGREESINCIRCLE) + DEGREESINCIRCLE) % DEGREESINCIRCLE};
 		}
 	}
 
@@ -95,16 +95,16 @@ public class Turtle implements TurtleTree{
 	 * @param orientation the string that corresponds to which turtle parameter is wanted
 	 * @return the value of the wanted turtle parameter
 	 */
-	public double getAbsoluteOrientation(String orientation) {
+	public double[] getAbsoluteOrientation(String orientation) {
 		try {
 			Field t = Turtle.class.getDeclaredField(orientation);
-			return t.getDouble(this);
+			return new double[] {t.getDouble(this)};
 		}
 		catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return ZERO;
+		return null;
 	}
 
 	/**
@@ -137,13 +137,16 @@ public class Turtle implements TurtleTree{
 
 	public void rotate(double degrees) {
 		double newtheta = theta + degrees;
-		setHeading(newtheta);
+		setHeading(new double[] {newtheta});
 	}
-
-	public double setHeading(double degrees) {
-		double difference = Math.abs(degrees - theta);
-		//https://stackoverflow.com/questions/5385024/mod-in-java-produces-negative-numbers
-		theta = degrees;
+	
+	public double setHeading(double[] expr1) {
+		System.out.println("turn to: " + expr1[0]);
+		System.out.println("current angle: " + theta);
+		double difference = Math.abs(expr1[0] - theta);
+		theta = (((expr1[0]) % DEGREESINCIRCLE) + DEGREESINCIRCLE) % DEGREESINCIRCLE;;
+		System.out.println("new angle: " + theta);
+		System.out.println("difference: " + difference);
 		return difference;
 	}
 
@@ -259,5 +262,23 @@ public class Turtle implements TurtleTree{
 	public void clearActiveTurtles() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public void reactivateTurtle(double num) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deactivateTurtle(double id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public List<Turtle> getActiveTurtles() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

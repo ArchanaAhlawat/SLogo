@@ -23,6 +23,7 @@ public class YCoordinate extends TurtleQueries {
 	
 	@Override
 	protected double doUpdate() {
-		return currentTurtle.getAbsoluteOrientation(YCOR);
+		int length = currentTurtle.getAbsoluteOrientation(YCOR).length;
+		return currentTurtle.getAbsoluteOrientation(YCOR)[length - 1];
 	}
 }
