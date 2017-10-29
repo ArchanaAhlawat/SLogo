@@ -46,6 +46,7 @@ public class Controller implements ControllerAPI {
 	@Override
 	public double getXCor() {
 		// TODO Auto-generated method stub
+		System.out.println("controller XCor: " + getUpdates().getXCor());
 		return getUpdates().getXCor();
 	}
 

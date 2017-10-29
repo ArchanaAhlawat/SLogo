@@ -11,12 +11,22 @@ public class Stacks {
 	CommandsList commandsList;
 	CommandsList secondCommandsOrVarsList;
 	
+	String language;
+	
 	public Stacks() {
 		
 	}
 	
 	public boolean canBeAdded(String element) { // tests whether non-command (right now: variable or double)
 		return (isNumeric(element) || isVariable(element));
+	}
+	
+	public void setLanguage(String lang) {
+		language = lang;
+	}
+	
+	public String getLanguage() {
+		return language;
 	}
 	
 	public void push(String element) {
@@ -64,6 +74,10 @@ public class Stacks {
 	
 	public void addToCommands(String command) {
 		commandsStack.push(command);
+	}
+	
+	public String getCommand() {
+		return commandsStack.pop();
 	}
 	
 	public void instantiateCommandsList(String commands) {

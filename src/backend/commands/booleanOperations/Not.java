@@ -2,6 +2,7 @@ package backend.commands.booleanOperations;
 
 import backend.Stacks;
 import backend.Turtle;
+import backend.TurtleTree;
 
 /**
  * has the execute for when a not command is called
@@ -13,12 +14,12 @@ import backend.Turtle;
  */
 public class Not extends BooleanOperations {
 
-	public Not(Stacks myStack, Turtle myTurtle) {
+	public Not(Stacks myStack, TurtleTree myTurtle) {
 		super(myStack, myTurtle);
 	}
 
 	@Override
-	public void execute(Stacks instructionStacks, Turtle currentTurtle) {
+	public void execute(Stacks instructionStacks, TurtleTree currentTurtle) {
 		double expr = instructionStacks.popDouble();
 		if (expr == ZERO) {
 			instructionStacks.addDouble(ONE);

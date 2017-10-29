@@ -2,6 +2,7 @@ package backend.commands.turtleCommands;
 
 import backend.Stacks;
 import backend.Turtle;
+import backend.TurtleTree;
 
 /**
  * has the execute for when a home command is called
@@ -14,7 +15,7 @@ import backend.Turtle;
  */
 public class Home extends TurtleCommands {
 	
-	public Home(Stacks myStack, Turtle myTurtle) {
+	public Home(Stacks myStack, TurtleTree myTurtle) {
 		super(myStack, myTurtle);
 	}
 	

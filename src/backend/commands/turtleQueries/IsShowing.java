@@ -2,6 +2,7 @@ package backend.commands.turtleQueries;
 
 import backend.Stacks;
 import backend.Turtle;
+import backend.TurtleTree;
 
 /**
  * has the execute for when a isshowing command is called
@@ -16,7 +17,7 @@ public class IsShowing extends TurtleQueries {
 	
 	private static final String ISSHOWING = "turtleVis";
 	
-	public IsShowing(Stacks myStack, Turtle myTurtle) {
+	public IsShowing(Stacks myStack, TurtleTree myTurtle) {
 		super(myStack, myTurtle);
 	}
 

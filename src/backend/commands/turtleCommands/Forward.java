@@ -2,6 +2,7 @@ package backend.commands.turtleCommands;
 
 import backend.Stacks;
 import backend.Turtle;
+import backend.TurtleTree;
 
 /**
  * has the execute for when a forward command is called
@@ -15,7 +16,7 @@ import backend.Turtle;
  */
 public class Forward extends TurtleCommandsOneParam {
 	
-	public Forward(Stacks myStack, Turtle myTurtle) {
+	public Forward(Stacks myStack, TurtleTree myTurtle) {
 		super(myStack, myTurtle);
 	}
 

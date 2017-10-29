@@ -12,30 +12,28 @@ public class Driver {
 	
 	private String input;
 	private Parser p;
-	private Turtle myTurtle;
+	private TurtleTree myTurtleManager;
 	
 	
 	public Driver() {
-		myTurtle = new Turtle();
+		myTurtleManager = new TurtleManager();
 		try {
-			p = new Parser(myTurtle, LANGUAGE_DEFAULT);
+			p = new Parser(LANGUAGE_DEFAULT);
 		} catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-		//turtles = new ArrayList<>();
-		//turtles.add(new Turtle());
 		
-	
 	public double setCommand(String instruction) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, InstantiationException, ClassNotFoundException {
-		p.parseInstruction(instruction);
+		//TurtleTree t = new TurtleManager();
+		p.parseInstruction(myTurtleManager, instruction);
 		return p.getReturnVal();
 	}
 	
-	public void setLanguage(String language) {
+	public void setLanguage(String language) { // what? 
 			try {
-				p = new Parser(myTurtle,language);
+				p = new Parser(language);
 			} catch (NoSuchFieldException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -58,11 +56,12 @@ public class Driver {
 //		returnValues.add(myTurtle.getAbsoluteOrientation("theta"));
 //		returnValues.add(myTurtle.getAbsoluteOrientation("turtleVis"));
 //		return returnValues;
-		return new Updates(myTurtle);
+		System.out.println("Xcor in BEDriver: " + new Updates(myTurtleManager).getXCor());
+		return new Updates(myTurtleManager);
 	}
 	
 	public List<Double> getLines() {
-		return myTurtle.getLines();
+		return myTurtleManager.getLines();
 	}
 	
 	public void setInput(String input) {
