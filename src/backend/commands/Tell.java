@@ -8,7 +8,11 @@ import backend.Stacks;
 import backend.TurtleTree;
 import backend.api.Command;
 
-public class Tell implements Command {
+public class Tell extends GeneralCommands {
+
+	public Tell(Stacks myStack, TurtleTree myTurtle) {
+		super(myStack, myTurtle);
+	}
 
 	@Override
 	public void execute(Stacks instructionStacks, TurtleTree currentTurtle) {
