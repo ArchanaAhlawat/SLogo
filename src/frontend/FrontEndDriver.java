@@ -78,7 +78,7 @@ public class FrontEndDriver extends Application implements FEControllerAPI {
 		root = new Group();
 		Scene startScene = new Scene(root, WIDTH, HEIGHT);
 		//startScene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-		DisplayTurtle firstTurtle = new DisplayTurtle(1);
+		DisplayTurtle firstTurtle = new DisplayTurtle();
 		displayTurtleManager = new DisplayTurtleManager(firstTurtle);
 		turtleArea = new Display(firstTurtle, GRID_X1, GRID_Y1, GRID_WIDTH, GRID_HEIGHT);
 		myController = new Controller();
@@ -181,17 +181,6 @@ public class FrontEndDriver extends Application implements FEControllerAPI {
 
 	private void executeCommandOnly(String currentCommand) {
 		commandValue = myController.setCommand(currentCommand);
-		double xCor = myController.getXCor();
-
-		double yCor = myController.getYCor();
-
-		double theta = myController.getTheta();
-
-		double turtleVis = myController.getTurtleVis();
-		
-		System.out.print("xCor: " + xCor);
-		System.out.print("yCor: " + yCor);
-
 		displayTurtleManager.updateTurtles(xCor, yCor, theta, turtleVis);
 
 	}

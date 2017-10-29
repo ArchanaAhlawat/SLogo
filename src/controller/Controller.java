@@ -8,7 +8,6 @@ import backend.Driver;
 import backend.Updates;
 import frontend.DisplayTurtle;
 import frontend.DisplayTurtleManager;
-import frontend.Turtle;
 
 public class Controller implements ControllerAPI {
 	

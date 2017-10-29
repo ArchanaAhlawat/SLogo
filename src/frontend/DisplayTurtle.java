@@ -1,7 +1,6 @@
 package frontend;
 
 import java.io.File;
-import java.util.HashMap;
 import java.util.List;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -9,21 +8,20 @@ import javafx.scene.image.ImageView;
 
 public class DisplayTurtle extends ImageView {
 	private static final String DEFAULT_TURTLE_DIRECTORY = "src/resources/turtle.png";
-	private static final double ORIGIN_X = FrontEndDriver.ORIGIN_X;
-	private static final double ORIGIN_Y = FrontEndDriver.ORIGIN_Y;
 	private static final double TURTLESIZE = FrontEndDriver.TURTLESIZE;
+	private static final double ORIGIN_X = DisplayTurtleManager.ORIGIN_X;
+	private static final double ORIGIN_Y = DisplayTurtleManager.ORIGIN_Y;
 	
 	private int turtID;
 	private TurtlePath turtlePath;
 	
-	public DisplayTurtle(int ID) {
+	public DisplayTurtle() {
 		super();
 		this.setImage(setDefaultImage());
 		this.setX(ORIGIN_X);
 		this.setY(ORIGIN_Y);
 		this.setFitWidth(TURTLESIZE);
 		this.setFitHeight(TURTLESIZE);
-		turtID = ID;
 		turtlePath = new TurtlePath(ORIGIN_X,ORIGIN_Y);
 	}
 	

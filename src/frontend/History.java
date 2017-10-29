@@ -51,14 +51,6 @@ public class History extends Scroll {
 		String currentCommand=current.getText().trim();
 		double commandValue=myController.setCommand(currentCommand);
 		
-		double xCor=myController.getXCor();
-	
-		double yCor=myController.getYCor();
-	
-		double theta=myController.getTheta();
-	
-		double turtleVis=myController.getTurtleVis();
-		
 		displayTurtleManager.updateTurtles(xCor,yCor,theta,turtleVis);
 		addHistory(currentCommand);
 		displayTurtleManager.drawLines(myController.getLinestoDraw());
