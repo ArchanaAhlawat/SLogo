@@ -16,8 +16,9 @@ public class Updates {
 	private double xcor, ycor, theta, penDown, turtleVis;
 	private List<Double> lineCor;
 	
-	public Updates(Turtle myTurtle) {
+	public Updates(TurtleTree myTurtle) {
 		xcor = myTurtle.getAbsoluteOrientation(XCOR);
+		System.out.println("updated Turtle xCor from Updates: " + xcor);
 		ycor = myTurtle.getAbsoluteOrientation(YCOR);
 		theta = myTurtle.getAbsoluteOrientation(THETA);
 		penDown = myTurtle.getAbsoluteOrientation(PENDOWN);

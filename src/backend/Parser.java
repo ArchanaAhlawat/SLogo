@@ -24,13 +24,13 @@ public class Parser {
 	private static final Map<String, String[]> packageMap;
 	static {
 		Map<String, String[]> myMap = new HashMap<>();
-		myMap.put("backend.commands.booleanOperations.", new String[] {"And", "Equal", "GreaterThan", "LessThan", "Not", "NotEqual", "Or"});
-		myMap.put("backend.commands.dispayCommands.", new String[] {"SetBackground", "SetPenColor", "SetPenSize", "SetShape", "SetPalette", "GetPenColor", "GetShape", "Stamp", "ClearStamps"});
-		myMap.put("backend.commands.mathOperations.", new String[] {"ArcTangent", "Cosine", "Difference", "Minus", "NaturalLog", "Pi", "Power", "Product", "Quotient", "Random", "Remainder", "Sine", "Sum", "Tangent"});
-		myMap.put("backend.commands.miscellaneousCommands.", new String[] {"MakeVariable", "Repeat", "DoTimes", "For", "If", "IfElse", "MakeUserInstruction"});
-		myMap.put("backend.commands.multipleTurtleCommands.", new String[] {"ID", "Turtles", "Tell", "Ask", "AskWith"});
-		myMap.put("backend.commands.turtleCommands.", new String[] {"Forward", "Backward", "Left", "Right", "SetHeading", "SetTowards", "SetPosition", "PenDown", "PenUp", "ShowTurtle", "HideTurtle", "Home", "ClearScreen"});
-		myMap.put("backend.commands.turtleQueries.", new String[] {"XCoordinate", "YCoordinate", "Heading", "IsPenDown", "IsShowing"});
+		myMap.put("backend.commands.booleanOperations.", new String[] {"and", "equal", "greaterthan", "lessthan", "not", "notequal", "or"});
+		myMap.put("backend.commands.dispayCommands.", new String[] {"setbackground", "setpencolor", "setpensize", "setshape", "setpalette", "getpencolor", "getshape", "stamp", "clearstamps"});
+		myMap.put("backend.commands.mathOperations.", new String[] {"arctangent", "cosine", "difference", "minus", "naturallog", "pi", "power", "product", "quotient", "random", "remainder", "sine", "sum", "tangent"});
+		myMap.put("backend.commands.miscellaneousCommands.", new String[] {"makevariable", "repeat", "dotimes", "for", "if", "ifelse", "makeuserinstruction"});
+		myMap.put("backend.commands.multipleTurtleCommands.", new String[] {"id", "turtles", "tell", "ask", "askwith"});
+		myMap.put("backend.commands.turtleCommands.", new String[] {"forward", "backward", "left", "right", "setheading", "settowards", "setposition", "pendown", "penup", "showturtle", "hideturtle", "home", "clearscreen"});
+		myMap.put("backend.commands.turtleQueries.", new String[] {"xcoordinate", "ycoordinate", "heading", "ispendown", "isshowing"});
 		packageMap = Collections.unmodifiableMap(myMap);
 	}
 
@@ -100,6 +100,7 @@ public class Parser {
 		if (langMap.containsKey(instruction)) {
 			location = langMap.get(instruction);
 		}
+		System.out.println(getPackageName(instruction) + "--> is this it");
 		Class<?> commandClass = Class.forName(getPackageName(instruction) + location);
 		Constructor<?> cons = commandClass.getConstructor(Stacks.class, TurtleTree.class);
 		Object commandInstance = cons.newInstance(instructionStacks, currentTurtle);
@@ -115,7 +116,7 @@ public class Parser {
 	private String getPackageName(String instruction) {
 		Set<String> myKeys = packageMap.keySet();
 		for (String key : myKeys) {
-			if (Arrays.asList(packageMap.get(key)).contains(instruction)) {
+			if (Arrays.asList(packageMap.get(key)).contains(instruction.trim())) {
 				return key;
 			}
 		}
@@ -131,7 +132,7 @@ public class Parser {
 		TurtleTree turtles = new TurtleManager();
 		//turtles.addActiveTurtle();
 		//turtles.addActiveTurtle();
-		p.parseInstruction(turtles, "setheading 7"); // repeat 3 [ fd 54\nsum 2 4 ], DOTIMES [ :var 3 ] [ fd :var\nsum :var 4 ], 
+		p.parseInstruction(turtles, "Forward 7"); // repeat 3 [ fd 54\nsum 2 4 ], DOTIMES [ :var 3 ] [ fd :var\nsum :var 4 ], 
 		
 		//FOR [ :var 3 5 ] [ fd :var\nsum :var 4 ], IF 0 [ fd 54\nsum 2 4 ]
 		// IFELSE 0 [ fd 54\nsum 2 4 ] [ fd 700\nsum 70 70 ], 

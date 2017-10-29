@@ -52,6 +52,7 @@ public class TurtleManager implements TurtleTree {
 
 	@Override
 	public void move(double pixels) {
+		System.out.println("pixels in turtle manager move: " + pixels);
 		for (Turtle t : activeTurtles) {
 			t.move(pixels);
 		}
