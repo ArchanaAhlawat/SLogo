@@ -107,7 +107,7 @@ private static final int BOTTOM_LAYOUT_X = 50;
 				UserV_HEIGHT, displayTurtleManager, returnValue, myController,turtleArea);
 		userDefinedCommands = new History(myResources.getString("UserC"), HISTORY_X, UserC_Y, HISTORY_WIDTH,
 				UserC_HEIGHT, displayTurtleManager, returnValue, myController,turtleArea);
-		root.getChildren().addAll(layout, layout2, commandHistory, returnValue, userDefinedVariables,
+		root.getChildren().addAll(layout, layout2,bottomlayout, commandHistory, returnValue, userDefinedVariables,
 				userDefinedCommands, turtleArea);
 
 		window.setTitle("SLogo");
@@ -196,13 +196,6 @@ private static final int BOTTOM_LAYOUT_X = 50;
 		
 		
 
-		//double xCor = myController.getXCor();
-
-		//double yCor = myController.getYCor();
-
-		//double theta = myController.getTheta();
-
-		//double turtleVis = myController.getTurtleVis();
 
 		
 
