@@ -2,6 +2,7 @@ package controller;
 
 import java.util.List;
 
+import frontend.DisplayTurtle;
 import frontend.Turtle;
 
 public interface ControllerAPI {
@@ -21,5 +22,7 @@ public interface ControllerAPI {
 	public void setParserLanguage(String language);
 	
 	public List<Double> getLinestoDraw();
+	
+	public void setActiveTurtles(List<Turtle> activeTurtles);
 	
 }

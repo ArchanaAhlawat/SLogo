@@ -1,20 +1,21 @@
 package frontend;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
+import backend.Turtle;
 import javafx.scene.image.Image;
 
 public class DisplayTurtleManager {
 	
-	private List<DisplayTurtle> activeTurtles;
-	private List<DisplayTurtle> turtles;
+	private HashMap<Integer,DisplayTurtle> activeTurtles;
 
 	public DisplayTurtleManager(DisplayTurtle firstTurtle) {
-		firstTurtle.setOnMouseClicked(e -> firstTurtle.changeTurtleActivity(activeTurtles));
-		activeTurtles = new LinkedList<DisplayTurtle>(Arrays.asList(firstTurtle));
-		turtles = new LinkedList<DisplayTurtle>(Arrays.asList(firstTurtle));
+		firstTurtle.setOnMouseClicked(e -> firstTurtle.activate());
+		activeTurtles = new HashMap<Integer,DisplayTurtle>();
+		activeTurtles.put(1, firstTurtle);
 	}
 	
 	protected void createNewTurtle() {
@@ -25,12 +26,9 @@ public class DisplayTurtleManager {
 		turtles.add(newTurtle);
 	}
 	
-	protected void updateTurtles(double xCor,double yCor,double theta,double turtleVis) {
-		if(!activeTurtles.isEmpty()) {
-			for(DisplayTurtle displayTurtle : activeTurtles) {
-				System.out.println("Hi");
-				displayTurtle.updateTurtle(xCor, yCor, theta, turtleVis);
-			}
+	protected void updateTurtles(List<Turtle> turtles) {
+		for(Turtle turtle : turtles) {
+			int turtleID = turtle.getActiveTurtleID();
 		}
 	}
 	

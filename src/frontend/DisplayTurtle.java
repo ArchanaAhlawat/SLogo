@@ -1,6 +1,7 @@
 package frontend;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.List;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -32,8 +33,8 @@ public class DisplayTurtle extends ImageView {
 	}
 	
 	protected void updateTurtle(double xCor,double yCor,double theta,double turtleVis) {
-		this.setX(xCor + ORIGIN_X);
-		this.setY(yCor + ORIGIN_Y);
+		this.setX(xCor);
+		this.setY(yCor);
 		this.setRotate(theta);
 		this.setVisible(booleanConverter(turtleVis));
 	}
@@ -46,15 +47,12 @@ public class DisplayTurtle extends ImageView {
 		turtlePath.updatePath(linesToDraw);
 	}
 	
-	protected void changeTurtleActivity(List<DisplayTurtle> activeTurtles) {
-		if(activeTurtles.contains(this))  {
-			activeTurtles.remove(this);
+	protected void deactivate() {
 			setStyle("-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8),15,0,0,0)");
-		}
-		else {
-			activeTurtles.add(this);
-			setStyle("-fx-background-color:transparent");
-		}
+	}
+	
+	protected void activate() {
+		setStyle("-fx-background-color:transparent");
 	}
 	
 	protected int getID() {

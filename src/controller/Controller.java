@@ -1,18 +1,24 @@
 package controller;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.LinkedList;
 import java.util.List;
 
 import backend.Driver;
 import backend.Updates;
+import frontend.DisplayTurtle;
+import frontend.DisplayTurtleManager;
+import frontend.Turtle;
 
 public class Controller implements ControllerAPI {
 	
-	private Driver BEdriver = new Driver();
+	private Driver BEdriver;
+	private DisplayTurtleManager displayTurtleManager;
 	
 
-	public Controller() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+	public Controller(DisplayTurtleManager FEdisplayTurtleManager) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
 		BEdriver = new Driver();
+		displayTurtleManager = FEdisplayTurtleManager;
 	}
 
 	@Override
@@ -85,5 +91,12 @@ public class Controller implements ControllerAPI {
 	public List<Double> getLinestoDraw() {
 		// TODO Auto-generated method stub
 		return BEdriver.getLines();
+	}
+
+	@Override
+	public void setActiveTurtles(List<Turtle> activeTurtles) {
+		for(Turtle turtle : activeTurtles) {
+			int thisID = turtle.getID();
+		}
 	}
 }
