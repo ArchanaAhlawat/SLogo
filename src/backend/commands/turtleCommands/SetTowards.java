@@ -2,6 +2,7 @@ package backend.commands.turtleCommands;
 
 import backend.Stacks;
 import backend.Turtle;
+import backend.TurtleTree;
 
 /**
  * has the execute for when a settowards command is called
@@ -15,15 +16,15 @@ import backend.Turtle;
  */
 public class SetTowards extends TurtleCommandsTwoParams {
 	
-	public SetTowards(Stacks myStack, Turtle myTurtle) {
+	public SetTowards(Stacks myStack, TurtleTree myTurtle) {
 		super(myStack, myTurtle);
 	}
 
 	@Override
 	protected double doUpdate() {
-		double currentAngle = currentTurtle.getAbsoluteOrientation("theta");
-		double newAngle = currentTurtle.angle(expr1, NEGATE*expr2);
+		double[] currentAngle = currentTurtle.getAbsoluteOrientation("theta");
+		double[] newAngle = currentTurtle.angle(expr1, NEGATE*expr2);
 		currentTurtle.setHeading(newAngle);
-		return newAngle - currentAngle;
+		return newAngle[newAngle.length-1] - currentAngle[currentAngle.length-1];
 	}
 }

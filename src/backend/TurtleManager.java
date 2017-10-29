@@ -36,15 +36,21 @@ public class TurtleManager implements TurtleTree {
 	}
 
 	@Override
-	public double angle(double x, double y) {
-		// TODO Auto-generated method stub
-		return 0;
+	public double[] angle(double x, double y) {
+		double[] toReturn = new double[activeTurtles.size()];
+		for (int i = 0; i < activeTurtles.size(); i++) {
+			toReturn[i] = activeTurtles.get(i).angle(x, y)[0];
+		}
+		return toReturn;
 	}
 
 	@Override
-	public double getAbsoluteOrientation(String orientation) {
-		// TODO Auto-generated method stub
-		return 0;
+	public double[] getAbsoluteOrientation(String orientation) {
+		double[] toReturn = new double[activeTurtles.size()];
+		for (int i = 0; i < activeTurtles.size(); i++) {
+			toReturn[i] = activeTurtles.get(i).getAbsoluteOrientation(orientation)[0];
+		}
+		return toReturn;
 	}
 
 	@Override
@@ -69,42 +75,57 @@ public class TurtleManager implements TurtleTree {
 	}
 
 	@Override
-	public double setHeading(double degrees) {
-		double toReturn = 0;
-		for (Turtle t : activeTurtles) {
-			toReturn = t.setHeading(degrees);
+	public double[] setHeading(double[] degrees) {
+		double[] toReturn = new double[degrees.length];
+		for (int i = 0; i < degrees.length; i++) {
+			toReturn[i] = activeTurtles.get(i).setHeading(degrees)[0];
 		}
 		return toReturn;
 	}
 
 	@Override
 	public double setXY(double x, double y) {
-		// TODO Auto-generated method stub
-		return 0;
+		double toReturn = 0;
+		for (Turtle t : activeTurtles) {
+			toReturn = t.setXY(x, y);
+		}
+		return toReturn;
 	}
 
 	@Override
 	public double penChange(double change) {
-		// TODO Auto-generated method stub
-		return 0;
+		double toReturn = 0;
+		for (Turtle t : activeTurtles) {
+			toReturn = t.penChange(change);
+		}
+		return toReturn;
 	}
 
 	@Override
 	public double visChange(double change) {
-		// TODO Auto-generated method stub
-		return 0;
+		double toReturn = 0;
+		for (Turtle t : activeTurtles) {
+			toReturn = t.visChange(change);
+		}
+		return toReturn;
 	}
 
 	@Override
 	public double home() {
-		// TODO Auto-generated method stub
-		return 0;
+		double toReturn = 0;
+		for (Turtle t : activeTurtles) {
+			toReturn = t.home();
+		}
+		return toReturn;
 	}
 
 	@Override
 	public double clearScreen() {
-		// TODO Auto-generated method stub
-		return 0;
+		double toReturn = 0;
+		for (Turtle t : activeTurtles) {
+			toReturn = t.clearScreen();
+		}
+		return toReturn;
 	}
 
 	@Override

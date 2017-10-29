@@ -23,6 +23,7 @@ public class IsPenDown extends TurtleQueries {
 	
 	@Override
 	protected double doUpdate() {
-		return currentTurtle.getAbsoluteOrientation(ISPENDOWN);
+		int length = currentTurtle.getAbsoluteOrientation(ISPENDOWN).length;
+		return currentTurtle.getAbsoluteOrientation(ISPENDOWN)[length - 1];
 	}
 }

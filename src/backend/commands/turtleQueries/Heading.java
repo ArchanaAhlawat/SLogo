@@ -23,6 +23,7 @@ public class Heading extends TurtleQueries {
 
 	@Override
 	protected double doUpdate() {
-		return currentTurtle.getAbsoluteOrientation(HEADING);
+		int length = currentTurtle.getAbsoluteOrientation(HEADING).length;
+		return currentTurtle.getAbsoluteOrientation(HEADING)[length - 1];
 	}
 }
