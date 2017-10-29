@@ -2,6 +2,7 @@ package backend.commands.mathOperations;
 
 import backend.Stacks;
 import backend.Turtle;
+import backend.TurtleTree;
 
 /**
  * has the execute for when a quotient command is called
@@ -13,7 +14,7 @@ import backend.Turtle;
  */
 public class Quotient extends MathOperations {
 
-	public Quotient(Stacks myStack, Turtle myTurtle) {
+	public Quotient(Stacks myStack, TurtleTree myTurtle) {
 		super(myStack, myTurtle);
 	}
 

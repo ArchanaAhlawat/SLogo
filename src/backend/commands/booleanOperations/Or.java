@@ -2,6 +2,7 @@ package backend.commands.booleanOperations;
 
 import backend.Stacks;
 import backend.Turtle;
+import backend.TurtleTree;
 
 /**
  * has the execute for when a or command is called
@@ -13,7 +14,7 @@ import backend.Turtle;
  */
 public class Or extends BooleanOperations {
 
-	public Or(Stacks myStack, Turtle myTurtle) {
+	public Or(Stacks myStack, TurtleTree myTurtle) {
 		super(myStack, myTurtle);
 	}
 

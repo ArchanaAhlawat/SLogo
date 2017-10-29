@@ -4,6 +4,7 @@ import java.util.Stack;
 
 import backend.Stacks;
 import backend.Turtle;
+import backend.TurtleTree;
 import backend.api.Command;
 
 /**
@@ -16,7 +17,7 @@ import backend.api.Command;
  */
 public class And extends BooleanOperations {
 
-	public And(Stacks myStack, Turtle myTurtle) {
+	public And(Stacks myStack, TurtleTree myTurtle) {
 		super(myStack, myTurtle);
 	}
 

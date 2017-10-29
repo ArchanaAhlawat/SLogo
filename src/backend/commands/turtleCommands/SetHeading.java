@@ -2,6 +2,7 @@ package backend.commands.turtleCommands;
 
 import backend.Stacks;
 import backend.Turtle;
+import backend.TurtleTree;
 
 /**
  * has the execute for when a setheading command is called
@@ -14,7 +15,7 @@ import backend.Turtle;
  */
 public class SetHeading extends TurtleCommandsOneParam {
 
-	public SetHeading(Stacks myStack, Turtle myTurtle) {
+	public SetHeading(Stacks myStack, TurtleTree myTurtle) {
 		super(myStack, myTurtle);
 	}
 	
@@ -23,3 +24,4 @@ public class SetHeading extends TurtleCommandsOneParam {
 		return currentTurtle.setHeading(expr1);
 	}
 }
+

@@ -50,6 +50,6 @@ public class LangMaps {
 	}
 	
 	public static void main (String[] args) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
-		LangMaps maps = new LangMaps("chinese");
+		LangMaps maps = new LangMaps("english");
 	}
 }

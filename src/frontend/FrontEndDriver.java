@@ -167,7 +167,7 @@ public class FrontEndDriver extends Application implements FEControllerAPI {
 		b.setOnAction(e -> {
 			String currentCommand = command.getText();
 			executeCommand(currentCommand);
-			displayTurtleManager.drawLines(myController.getLinestoDraw());
+			displayTurtleManager.drawLines(myController.getLinestoDraw()); // TODO WILL NOT WORK
 			command.clear();
 		});
 		return b;
@@ -189,6 +189,9 @@ public class FrontEndDriver extends Application implements FEControllerAPI {
 		double theta = myController.getTheta();
 
 		double turtleVis = myController.getTurtleVis();
+		
+		System.out.print("xCor: " + xCor);
+		System.out.print("yCor: " + yCor);
 
 		displayTurtleManager.updateTurtles(xCor, yCor, theta, turtleVis);
 
