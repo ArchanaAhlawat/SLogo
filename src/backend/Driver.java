@@ -81,5 +81,8 @@ public class Driver {
 	public void setInput(String input) {
 		this.input = input;
 	}
-
+	
+	public List<String> getUserDefinedVars() {
+		return p.getUserDefinedVars();
+	}
 }
