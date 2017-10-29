@@ -1,7 +1,9 @@
 package backend;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class TurtleManager implements TurtleTree {
 	protected List<Turtle> allTurtles = new ArrayList<Turtle>();
@@ -9,6 +11,7 @@ public class TurtleManager implements TurtleTree {
 	protected double turtleCount = 0;
 	protected int turtleID;
 	private List<Double> activeIDs = new ArrayList<Double>();
+	private Map<Double, Turtle> IDTurtleMap = new HashMap<Double, Turtle>();
 	
 	public TurtleManager() {
 		this.addActiveTurtle();
@@ -122,7 +125,12 @@ public class TurtleManager implements TurtleTree {
 		activeIDs.add(num);
 	}
 	
-	public void addActiveTurtle(Turtle t) {
+	public void reactivateTurtle(double num) { 
+		Turtle t = IDTurtleMap.get(num);
+		addActiveTurtle(t);
+	}
+	
+	public void addActiveTurtle(Turtle t) { // for internal use i think
 		activeTurtles.add(t);
 		activeIDs.add(t.turtleID);
 	}
@@ -193,6 +201,17 @@ public class TurtleManager implements TurtleTree {
 	
 	public void clearActiveTurtles() {
 		activeTurtles.clear();
+	}
+
+	@Override
+	public void deactivateTurtle(double id) {
+		Turtle toRemove = IDTurtleMap.get(id);
+		activeTurtles.remove(toRemove); // ALL TURTLES LIST SHOULD ALWAYS HAVE ALL TURTLES? 
+	}
+
+	@Override
+	public List<Turtle> getActiveTurtles() { // uh this is bad bc mutable :o RIP
+		return activeTurtles;
 	}
 
 }

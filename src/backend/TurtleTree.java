@@ -30,6 +30,8 @@ public interface TurtleTree {
 	
 	public double angle(double x, double y);
 	
+	public void reactivateTurtle(double num);
+	
 	public double getAbsoluteOrientation(String orientation);
 	
 	public List<Double> getLines();
@@ -73,4 +75,8 @@ public interface TurtleTree {
 	public void activateTurtle(double ID);
 	
 	public void clearActiveTurtles();
+
+	public void deactivateTurtle(double id);
+
+	public List<Turtle> getActiveTurtles();
 }
