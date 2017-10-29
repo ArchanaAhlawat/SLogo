@@ -141,8 +141,12 @@ public class Turtle implements TurtleTree{
 	}
 	
 	public double setHeading(double[] expr1) {
+		System.out.println("turn to: " + expr1[0]);
+		System.out.println("current angle: " + theta);
 		double difference = Math.abs(expr1[0] - theta);
 		theta = (((expr1[0]) % DEGREESINCIRCLE) + DEGREESINCIRCLE) % DEGREESINCIRCLE;;
+		System.out.println("new angle: " + theta);
+		System.out.println("difference: " + difference);
 		return difference;
 	}
 
