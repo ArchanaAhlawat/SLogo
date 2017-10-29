@@ -137,7 +137,7 @@ public class Turtle implements TurtleTree{
 
 	public void rotate(double degrees) {
 		double newtheta = theta + degrees;
-		setHeading(newtheta);
+		setHeading(new double[] {newtheta});
 	}
 
 	public double[] setHeading(double[] degrees) {
