@@ -50,15 +50,15 @@ private static final int BOTTOM_LAYOUT_X = 50;
 	private static final int VBOX_SPACING = 7;
 	private static final int WIDTH = 1000;
 	private static final int HEIGHT = 1000;
-	private static final int BUTTON_WIDTH = 150;
-	private static final int BUTTON_HEIGHT = 40;
+	protected static final int BUTTON_WIDTH = 150;
+	protected static final int BUTTON_HEIGHT = 40;
 	private static final String DEFAULT_RESOURCE_PACKAGE = "resources.languages/buttons_labels";
 	private static final Color DEFAULT_TURTLEAREA_COLOR = Color.HONEYDEW;
 	public static final double TURTLESIZE = 50;
 	public static final double ORIGIN_X = (GRID_X2 - GRID_X1 - TURTLESIZE) / 2;
 	public static final double ORIGIN_Y = (GRID_Y2 - GRID_Y1 - TURTLESIZE) / 2;
 
-	private Display turtleArea;
+	protected Display turtleArea;
 	private TurtlePath turtlePath;
 	private Stage window;
 	private Group root;
@@ -73,6 +73,8 @@ private static final int BOTTOM_LAYOUT_X = 50;
 	private double commandValue;
 	private Controller myController;
 	private int count=0;
+	private BackgroundPicker b2;
+
 
 
 
@@ -200,10 +202,10 @@ private static final int BOTTOM_LAYOUT_X = 50;
 		layout.setTranslateX(BOTTOM_LAYOUT_X);
 		layout.setTranslateY(BOTTOM_BUTTONS_Y);
 		SaveButton b1=new SaveButton(myResources.getString("Save"),SAVE_BUTTON_WIDTH,SAVE_BUTTON_HEIGHT);
-		ResumeButton b2=new ResumeButton(myResources.getString("Resume"),SAVE_BUTTON_WIDTH,SAVE_BUTTON_HEIGHT);
-		b1.setOnAction(e -> b1.save(myController));
-		b2.setOnAction(e -> b2.resume(this));
-		layout.getChildren().addAll(b1,b2);
+		ResumeButton resumeB=new ResumeButton(myResources.getString("Resume"),SAVE_BUTTON_WIDTH,SAVE_BUTTON_HEIGHT);
+		b1.setOnAction(e -> b1.save(languageChooser,b2));
+		resumeB.setOnAction(e -> resumeB.resume(b1));
+		layout.getChildren().addAll(b1,resumeB);
 		
 		
 
@@ -213,11 +215,11 @@ private static final int BOTTOM_LAYOUT_X = 50;
 
 	}
 
-	private void addAllButtons(HBox layout) {
+	protected void addAllButtons(HBox layout) {
 		layout.setTranslateY(BUTTONS_Y);
 		TurtleImageButton b1 = new TurtleImageButton(myResources.getString("SetImage"), BUTTON_WIDTH, BUTTON_HEIGHT);
 		b1.setOnAction(e -> displayTurtleManager.setImages(b1.chooseTurtleImage(displayTurtleManager.getAnActiveTurtle())));
-		BackgroundPicker b2 = new BackgroundPicker(DEFAULT_TURTLEAREA_COLOR, BUTTON_WIDTH, BUTTON_HEIGHT, turtleArea);
+		 b2 = createBackgroundPicker();
 		PenPicker b3 = new PenPicker(Color.BLACK, BUTTON_WIDTH, BUTTON_HEIGHT, turtlePath);
 		b3.setOnAction(e -> displayTurtleManager.updateTurtlePathColors(b3.getValue()));
 		languageChooser = new LanguageChooser(myResources.getString("Languages"), BUTTON_WIDTH, BUTTON_HEIGHT);
@@ -229,6 +231,11 @@ private static final int BOTTOM_LAYOUT_X = 50;
 		b6.setOnAction(e -> b6.createNewWorkSpace());
 		layout.getChildren().addAll(b1,b2,b3,languageChooser,b6,b5);
 
+	}
+	
+	protected BackgroundPicker createBackgroundPicker() {
+	   
+		return new BackgroundPicker(DEFAULT_TURTLEAREA_COLOR, BUTTON_WIDTH, BUTTON_HEIGHT, turtleArea);
 	}
 	
 	public static void main(String[] args) {

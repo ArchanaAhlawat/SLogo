@@ -16,7 +16,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
 
-import controller.Controller;
+import javafx.scene.paint.Color;
+
 
 
 
@@ -33,16 +34,16 @@ public class SaveUI {
 	  
 	  
 	  
-	  private void setNode(String name,double result) {
+	  private void setNode(String name,String string) {
 		  Node curr = doc.getElementsByTagName(name).item(0);
 		
-		  curr.setTextContent(Double.toString(result));
+		  curr.setTextContent(string);
 		  
 	  }
 		
 		
 		
-		public void save(Controller myController) {
+		public void save(LanguageChooser languageChooser,BackgroundPicker backgroundPicker) {
 		
 			try {
 				
@@ -52,10 +53,11 @@ public class SaveUI {
 				
 				doc=getFile(filepath);
 				
-				setNode("turtleX",myController.getXCor());
-				setNode("turtleY",myController.getYCor());
-				setNode("turtleTheta",myController.getTheta());
-				setNode("turtleVis",myController.getTurtleVis());
+				//setNode("language",languageChooser.getCurrentLanguage(number));
+			
+				setNode("BackgroundColor",backgroundPicker.getColor().toString());
+				System.out.println(backgroundPicker.getColor().toString());
+				
 
 		
 				
@@ -80,28 +82,31 @@ public class SaveUI {
 			}
 		
 		
-		public double getNode(String tagName) {
+		public String getNode(String tagName) {
 			String curr = doc.getElementsByTagName(tagName).item(0).getTextContent();
-			return Double.parseDouble(curr);
+			return curr;
 			
 		}
 			
-		public DisplayTurtle getBack(){
+		public Color getBackColor(){
 			
 			  try {
 				   
-				    Document doc = getFile("SavedData.xml");
+				    Document doc = getFile("lib/SavedData.xml");
 					doc.getDocumentElement().normalize();
-					double turtleX = getNode("turtleX");
-					double turtleY = getNode("turtleY");
-					double turtleTheta = getNode("turtleTheta");
-					double turtleVis = getNode("turtleVis");
+					String bgColor = getNode("BackgroundColor");
+					
+					Color c = Color.web(bgColor);
+					
+					return c;
+					
 			
 					
 				    } catch (Exception e) {
 					e.printStackTrace();
 				    }
-//					return finalParams;
+			       return null;
+					
 		     
 			
 		
