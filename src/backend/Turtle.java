@@ -18,16 +18,27 @@ import javafx.scene.paint.Color;
  * @author kelly
  * 
  */
-public class Turtle implements TurtleTree{
+public class Turtle implements TurtleTree {
 	
 	private List<Double> allIDs = new ArrayList<Double>();
 	private double xcor, ycor, theta;
 	private double penDown, turtleVis;
 	private List<Double> lineCor;
+	private List<Double> circleStamps;
+	private List<Double> squareStamps;
+	private List<Double> triangleStamps;
 	private int[] penColor;
 	private double penSize;
 	private double turtleCount = 1;
 	protected double turtleID = 1;
+	
+//	public static final int[] BLACK = new int[] {0,0,0};
+//	public static final int[] RED = new int[] {255,0,0};
+//	public static final int[] GREEN = new int[] {0,255,0};
+//	public static final int[] BLUE = new int[] {0,0,255};
+//	public static final int[] WHITE = new int[] {255,255,255};
+//	public static final int[][] COLORS = new int[][] {new int[] {0}, BLACK, RED, GREEN, BLUE, WHITE};
+	
 
 	
 	public Turtle() {
@@ -92,14 +103,44 @@ public class Turtle implements TurtleTree{
 	}
 
 	/**
-	 * @return
+	 * length of this list will be a multiple of 4
+	 * with the values x1, y1, x2, y2 for each line (1 is start point, 2 is end point)
+	 * @return the coordinates of all of the lines
 	 */
 	public List<Double> getLines() {
 		return lineCor;
 	}
 	
 	/**
-	 * @return
+	 * length of this list will be a multiple of 2
+	 * with the values x, y for each center of the stamp
+	 * @return the coordinates of all of the circle stamps
+	 */
+	public List<Double> getCircleStamps() {
+		return circleStamps;
+	}
+	
+	/**
+	 * length of this list will be a multiple of 2
+	 * with the values x, y for each center of the stamp
+	 * @return the coordinates of all of the square stamps
+	 */
+	public List<Double> getSquareStamps() {
+		return squareStamps;
+	}
+	
+	/**
+	 * length of this list will be a multiple of 2
+	 * with the values x, y for each center of the stamp
+	 * @return the coordinates of all of the triangle stamps
+	 */
+	public List<Double> getTriangleStamps() {
+		return triangleStamps;
+	}
+	
+	/**
+	 * default indices are 1 - black, 2 - red, 3 - green, 4 - blue, 5 - white
+	 * @return the index of the defined list of colors that the current pen color is set to
 	 */
 	public double getPenColor() {
 		return Arrays.asList(COLORS).indexOf(penColor);

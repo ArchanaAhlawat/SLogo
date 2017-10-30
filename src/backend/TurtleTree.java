@@ -12,28 +12,11 @@ public interface TurtleTree {
 	public static final double ONE = 1.0;
 	public static final double DEGTORAD = Math.PI/180.0;
 	public static final double RADTODEG = 180/Math.PI;
-	
-	public static final int[] BLACK = new int[] {0,0,0};
-	public static final int[] RED = new int[] {255,0,0};
-	public static final int[] GREEN = new int[] {0,255,0};
-	public static final int[] BLUE = new int[] {0,0,255};
-	public static final int[] WHITE = new int[] {255,255,255};
-	public static final int[][] COLORS = new int[][] {new int[] {0}, BLACK, RED, GREEN, BLUE, WHITE};
-	
+		
 	public static final String CIRCLE = "circle";
-	public static final String HEXAGON = "hexagon";
 	public static final String SQUARE = "square";
 	public static final String TRIANGLE = "triangle";
-	public static final String[] SHAPES = new String[] {new String(), CIRCLE, HEXAGON, SQUARE, TRIANGLE};
-	
-	public double xcor = 0;
-	public double ycor = 0;
-	public double theta = 0;
-	public double penDown = 0;
-	public double turtleVis = 0;
-	public List<Double> lineCor = null;
-	public List<Color> penColor = null;
-	public List<Double> penSize = null;
+	public static final String[] SHAPES = new String[] {new String(), CIRCLE, SQUARE, TRIANGLE};
 
 	public double xDisplacement(double x);
 
