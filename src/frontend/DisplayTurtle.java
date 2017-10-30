@@ -44,7 +44,7 @@ public class DisplayTurtle extends ImageView {
 	}
 	
 	protected void updateTurtlePathColor(Color color) {
-		turtlePath.setFill(color);
+		turtlePath.setStroke(color);
 	}
 	
 	protected void activateShadow() {
