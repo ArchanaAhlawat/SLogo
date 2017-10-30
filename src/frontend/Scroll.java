@@ -24,10 +24,10 @@ public abstract class Scroll extends ScrollPane {
 	
 	private ArrayList<Text> allHistory=new ArrayList<Text>();
 	private String scrollLabel;
-	private Group scrollPaneRoot;
+	protected Group scrollPaneRoot;
 	
-	private VBox layout;
-	private static final int VBOX_SPACING = 0;
+	protected VBox layout;
+	private static final int VBOX_SPACING = 1;
 	
 	public Scroll(String label,int x,int y,int width,int height) {
 		super(new Text(label));
@@ -42,6 +42,7 @@ public abstract class Scroll extends ScrollPane {
 	            BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
 		this.setContent(scrollPaneRoot);
 		layout = new VBox(VBOX_SPACING);
+		
 		scrollPaneRoot.getChildren().add(layout);
 		formatHistoryEntry(0);
 	}
