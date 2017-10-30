@@ -3,6 +3,7 @@ package backend;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javafx.scene.paint.Color;
@@ -111,8 +112,8 @@ public class Turtle implements TurtleTree{
 	/**
 	 * @return
 	 */
-	public int[] getPenColor() {
-		return penColor;
+	public double getPenColor() {
+		return Arrays.asList(COLORS).indexOf(penColor);
 	}
 
 	//all the active methods for the turtle (done using turtle commands)
@@ -158,7 +159,7 @@ public class Turtle implements TurtleTree{
 		return distance;
 	}
 
-	public double setLineColor(int index) {
+	public double setPenColor(int index) {
 		penColor = COLORS[index];
 		return index;
 	}

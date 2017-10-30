@@ -20,6 +20,12 @@ public interface TurtleTree {
 	public static final int[] WHITE = new int[] {255,255,255};
 	public static final int[][] COLORS = new int[][] {new int[] {0}, BLACK, RED, GREEN, BLUE, WHITE};
 	
+	public static final String CIRCLE = "circle";
+	public static final String HEXAGON = "hexagon";
+	public static final String SQUARE = "square";
+	public static final String TRIANGLE = "triangle";
+	public static final String[] SHAPES = new String[] {new String(), CIRCLE, HEXAGON, SQUARE, TRIANGLE};
+	
 	public double xcor = 0;
 	public double ycor = 0;
 	public double theta = 0;
@@ -51,6 +57,8 @@ public interface TurtleTree {
 	
 	public double setXY(double x, double y);
 	
+	public double setPenColor(int index);
+	
 	public double penChange(double change);
 	
 	public double visChange(double change);
@@ -67,7 +75,7 @@ public interface TurtleTree {
 	
 	public double getSize();
 	
-	public int[] getPenColor();
+	public double getPenColor();
 	
 	public double getActiveTurtleID();
 	

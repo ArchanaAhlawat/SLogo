@@ -15,7 +15,7 @@ public class Updates {
 	private static final String TURTLEVIS = "turtleVis";	
 	private double xcor, ycor, theta, penDown, turtleVis;
 	private List<Double> lineCor;
-	private int[] penColor;
+	private double penColor;
 	
 	public Updates(TurtleTree myTurtle) { // ONE TURTLE ONLY
 		xcor = myTurtle.getAbsoluteOrientation(XCOR)[0];
@@ -70,7 +70,7 @@ public class Updates {
 		return lineCor;
 	}
 	
-	public int[] getPenColor() {
+	public double getPenColor() {
 		return penColor;
 	}
 }

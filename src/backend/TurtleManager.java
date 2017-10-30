@@ -93,6 +93,14 @@ public class TurtleManager implements TurtleTree {
 		return toReturn;
 	}
 
+	public double setPenColor(int index) {
+		double toReturn = 0;
+		for (Turtle t : activeTurtles) {
+			toReturn = t.setPenColor(index);
+		}
+		return toReturn;
+	}
+	
 	@Override
 	public double penChange(double change) {
 		double toReturn = 0;
@@ -187,9 +195,9 @@ public class TurtleManager implements TurtleTree {
 	}
 	
 	@Override
-	public int[] getPenColor() {
+	public double getPenColor() {
 		// TODO Auto-generated method stub
-		return null;
+		return 0.0;
 	}
 
 	@Override
