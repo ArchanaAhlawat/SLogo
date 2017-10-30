@@ -61,5 +61,9 @@ public class DisplayTurtle extends ImageView {
 	private boolean booleanConverter(double dub) {
 		return (dub == 1) ? true:false;
 	}
+	
+	
+	
+
 
 }

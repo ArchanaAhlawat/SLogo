@@ -3,6 +3,7 @@ package backend;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javafx.scene.paint.Color;
@@ -18,19 +19,13 @@ import javafx.scene.paint.Color;
  * 
  */
 public class Turtle implements TurtleTree{
-	private static final int DEGREESINCIRCLE = 360;
-	private static final int NEGATE = -1;
-	private static final double ZERO = 0.0;
-	private static final double HALF = 0.5;
-	private static final double ONE = 1.0;
-	private static final double DEGTORAD = Math.PI/180.0;
-	private static final double RADTODEG = 180/Math.PI;
+	
 	private List<Double> allIDs = new ArrayList<Double>();
 	private double xcor, ycor, theta;
 	private double penDown, turtleVis;
 	private List<Double> lineCor;
-	private Color lineColor;
-	private double lineThickness;
+	private int[] penColor;
+	private double penSize;
 	private double turtleCount = 1;
 	protected double turtleID = 1;
 
@@ -40,20 +35,9 @@ public class Turtle implements TurtleTree{
 		penDown = ZERO;
 		turtleVis = ONE;
 		lineCor = new ArrayList<Double>();
-		lineColor = Color.BLACK;
-		lineThickness= ONE;
+		penColor = BLACK;
+		penSize = ONE;
 	}
-
-//	public Turtle(double x, double y, double t, double pD, double tV) {
-//		xcor = x;
-//		ycor = y;
-//		theta = t;
-//		penDown = pD;
-//		turtleVis = tV;
-//		lineCor = new ArrayList<Double>();
-//		lineColor = Color.BLACK;
-//		lineThickness= ONE;
-//	}
 
 	@Override
 	public double xDisplacement(double x) {
@@ -117,8 +101,8 @@ public class Turtle implements TurtleTree{
 	/**
 	 * @return
 	 */
-	public Color getLineColor() {
-		return lineColor;
+	public double getPenColor() {
+		return Arrays.asList(COLORS).indexOf(penColor);
 	}
 
 	//all the active methods for the turtle (done using turtle commands)
@@ -139,11 +123,14 @@ public class Turtle implements TurtleTree{
 		double newtheta = theta + degrees;
 		setHeading(new double[] {newtheta});
 	}
-
-	public double[] setHeading(double[] degrees) {
-		double[] difference = new double[] {Math.abs(degrees[0] - theta)};
-		//https://stackoverflow.com/questions/5385024/mod-in-java-produces-negative-numbers
-		theta = degrees[0];
+	
+	public double setHeading(double[] expr1) {
+		System.out.println("turn to: " + expr1[0]);
+		System.out.println("current angle: " + theta);
+		double difference = Math.abs(expr1[0] - theta);
+		theta = (((expr1[0]) % DEGREESINCIRCLE) + DEGREESINCIRCLE) % DEGREESINCIRCLE;;
+		System.out.println("new angle: " + theta);
+		System.out.println("difference: " + difference);
 		return difference;
 	}
 
@@ -156,16 +143,22 @@ public class Turtle implements TurtleTree{
 		}
 		System.out.println(lineCor);
 		double distance = distance(x, y);
-//		System.out.println("distance: " + distance);
-//		System.out.println("xcor: " + xcor);
-//		System.out.println("ycor: " + ycor);
-//		System.out.println("newxcor: " + x);
-//		System.out.println("newycor: " + y);
 		xcor = x;
 		ycor = y;
 		return distance;
 	}
 
+	public double setPenColor(int index) {
+		penColor = COLORS[index];
+		return index;
+	}
+	
+	@Override
+	public double setPenSize(double size) {
+		penSize = size;
+		return size;
+	}
+	
 	public double penChange(double change) {
 		penDown = change;
 		return change;

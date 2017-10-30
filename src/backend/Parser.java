@@ -16,20 +16,20 @@ public class Parser {
 	//public UserCommands userCommands = new UserCommands(); // for now static 
 	TurtleTree currentTurtle;
 	private double val = 1;
-	private String commandsList;
 	private Map<String, String> langMap;
 	private String language;
 
 	private static final Map<String, String[]> packageMap;
-	static {
+	static { //https://stackoverflow.com/questions/507602/how-can-i-initialise-a-static-map
 		Map<String, String[]> myMap = new HashMap<>();
-		myMap.put("backend.commands.booleanOperations.", new String[] {"and", "equal", "greaterthan", "lessthan", "not", "notequal", "or"});
-		myMap.put("backend.commands.dispayCommands.", new String[] {"setbackground", "setpencolor", "setpensize", "setshape", "setpalette", "getpencolor", "getshape", "stamp", "clearstamps"});
-		myMap.put("backend.commands.mathOperations.", new String[] {"arctangent", "cosine", "difference", "minus", "naturallog", "pi", "power", "product", "quotient", "random", "remainder", "sine", "sum", "tangent"});
-		myMap.put("backend.commands.miscellaneousCommands.", new String[] {"makevariable", "repeat", "dotimes", "for", "if", "ifelse", "makeuserinstruction"});
-		myMap.put("backend.commands.multipleTurtleCommands.", new String[] {"id", "turtles", "tell", "ask", "askwith"});
-		myMap.put("backend.commands.turtleCommands.", new String[] {"forward", "backward", "left", "right", "setheading", "settowards", "towards", "setposition", "setxy", "pendown", "penup", "showturtle", "hideturtle", "home", "clearscreen"});
-		myMap.put("backend.commands.turtleQueries.", new String[] {"xcoordinate", "xcor", "ycor", "ycoordinate", "heading", "ispendown", "isshowing"});
+		myMap.put("backend.commands.booleanOperations.", new String[] {"And", "Equal", "GreaterThan", "LessThan", "Not", "NotEqual", "Or"});
+		myMap.put("backend.commands.dispayCommands.", new String[] {"SetBackground", "SetPenColor", "SetPenSize", "SetShape", "SetPalette", "GetPenColor", "GetShape", "Stamp", "ClearStamps"});
+		myMap.put("backend.commands.mathOperations.", new String[] {"ArcTangent", "Cosine", "Difference", "Minus", "NaturalLog", "Pi", "Power", "Product", "Quotient", "Random", "Remainder", "Sine", "Sum", "Tangent"});
+		myMap.put("backend.commands.miscellaneousCommands.", new String[] {"MakeVariable", "Repeat", "DoTimes", "For", "If", "IfElse", "MakeUserInstruction"});
+		myMap.put("backend.commands.multipleTurtleCommands.", new String[] {"ID", "Turtles", "Tell", "Ask", "AskWith"});
+		myMap.put("backend.commands.turtleCommands.", new String[] {"Forward", "Backward", "Left", "Right", "SetHeading", "SetTowards", "SetPosition", "PenDown", "PenUp", "ShowTurtle", "HideTurtle", "Home", "ClearScreen"});
+		myMap.put("backend.commands.turtleQueries.", new String[] {"XCoordinate", "YCoordinate", "Heading", "IsPenDown", "IsShowing"});
+		myMap.put("backend.commands.", new String[] {"ID", "ProcessUserInstruction", "Tell"});
 		packageMap = Collections.unmodifiableMap(myMap);
 	}
 
@@ -42,6 +42,7 @@ public class Parser {
 
 	// TODO: throw exceptions properly w try/catch
 	public void parseInstruction(TurtleTree current, String inst) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, InstantiationException, ClassNotFoundException {
+		String commandsList = ""; // THIS CHANGE SUNDAY 6:30 PM.
 		currentTurtle = current;
 		System.out.println("NEW PASSED INST: " + inst);
 		Stacks instructionStacks = new Stacks();
@@ -53,7 +54,8 @@ public class Parser {
 				instructionStacks.push(this.getVarVal(instructionArray[i]));
 			}
 			else if (instructionArray[i].matches("\\]")) { // identified beginning of list (back of list)
-				if (commandsList != null) { // we already have one set of commands
+				System.out.println("found beginning of list");
+				if (commandsList != "") { // we already have one set of commands
 					i--;
 					List<String> tempCommands = new ArrayList<String>();
 					while (! instructionArray[i].matches("\\[")) {
@@ -66,6 +68,7 @@ public class Parser {
 					instructionStacks.instantiateSecondCommandsList(commandsList);
 				} // lots of repeated code to refactor 
 				else { 
+					System.out.println("FIRST list of commands");
 					i--;
 					List<String> tempCommands = new ArrayList<String>();
 					while (! instructionArray[i].matches("\\[")) {
@@ -99,8 +102,7 @@ public class Parser {
 		if (langMap.containsKey(instruction)) {
 			location = langMap.get(instruction);
 		}
-		System.out.println(getPackageName(instruction) + "--> is this it");
-		Class<?> commandClass = Class.forName(getPackageName(instruction) + location);
+		Class<?> commandClass = Class.forName(getPackageName(location) + location);
 		Constructor<?> cons = commandClass.getConstructor(Stacks.class, TurtleTree.class);
 		Object commandInstance = cons.newInstance(instructionStacks, currentTurtle);
 		Method commandMethod = commandClass.getMethod("execute", Stacks.class, TurtleTree.class);
@@ -131,8 +133,9 @@ public class Parser {
 		TurtleTree turtles = new TurtleManager();
 		//turtles.addActiveTurtle();
 		//turtles.addActiveTurtle();
-		p.parseInstruction(turtles, "heading"); // repeat 3 [ fd 54\nsum 2 4 ], DOTIMES [ :var 3 ] [ fd :var\nsum :var 4 ], 
-		
+		p.parseInstruction(turtles, "Tell [ 100 4 ]"); 
+		// repeat 3 [ fd 54\nsum 2 4 ], DOTIMES [ :var 3 ] [ fd :var\nsum :var 4 ],
+		p.parseInstruction(turtles, "Tell [ 100 ]");
 		//FOR [ :var 3 5 ] [ fd :var\nsum :var 4 ], IF 0 [ fd 54\nsum 2 4 ]
 		// IFELSE 0 [ fd 54\nsum 2 4 ] [ fd 700\nsum 70 70 ], 
 		//wow TO wow [ :hi 3\n:omg 8 ] [ fd 3\nsum 70 70 ]

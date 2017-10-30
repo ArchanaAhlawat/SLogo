@@ -11,4 +11,13 @@ public abstract class DisplayCommands extends GeneralCommands {
 		super(myStack, myTurtle);
 	}
 
+	@Override
+	protected void setParams() {
+		expr1 = instructionStacks.peekDouble();
+	}
+	
+	@Override
+	protected void addReturn(double returnVal) {
+		//do nothing
+	}
 }
