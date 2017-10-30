@@ -68,7 +68,7 @@ private static final int BOTTOM_LAYOUT_X = 50;
 	private TextArea command;
 	private History commandHistory;
 	private ReturnValue returnValue;
-	private History userDefinedVariables;
+	private UserDefinedVariables userDefinedVariables;
 	private History userDefinedCommands;
 	private DisplayTurtleManager displayTurtleManager;
 	private LanguageChooser languageChooser;
@@ -106,7 +106,7 @@ private static final int BOTTOM_LAYOUT_X = 50;
 				RETURN_HEIGHT);
 		commandHistory = new History(myResources.getString("History"), HISTORY_X, HISTORY_Y, HISTORY_WIDTH,
 				HISTORY_HEIGHT, displayTurtleManager, returnValue, myController,turtleArea);
-		userDefinedVariables = new History(myResources.getString("UserV"), HISTORY_X, UserV_Y, HISTORY_WIDTH,
+		userDefinedVariables = new UserDefinedVariables(myResources.getString("UserV"), HISTORY_X, UserV_Y, HISTORY_WIDTH,
 				UserV_HEIGHT, displayTurtleManager, returnValue, myController,turtleArea);
 		userDefinedCommands = new History(myResources.getString("UserC"), HISTORY_X, UserC_Y, HISTORY_WIDTH,
 				UserC_HEIGHT, displayTurtleManager, returnValue, myController,turtleArea);
