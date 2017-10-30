@@ -93,6 +93,20 @@ public class TurtleManager implements TurtleTree {
 		return toReturn;
 	}
 
+	public double setPenColor(int index) {
+		double toReturn = 0;
+		for (Turtle t : activeTurtles) {
+			toReturn = t.setPenColor(index);
+		}
+		return toReturn;
+	}
+	
+	@Override
+	public double setPenSize(double size) {
+		// TODO Auto-generated method stub
+		return size;
+	}
+	
 	@Override
 	public double penChange(double change) {
 		double toReturn = 0;
@@ -185,6 +199,12 @@ public class TurtleManager implements TurtleTree {
 	public double getSize() {
 		return turtleCount;
 	}
+	
+	@Override
+	public double getPenColor() {
+		// TODO Auto-generated method stub
+		return 0.0;
+	}
 
 	@Override
 	public double getActiveTurtleID() {
@@ -235,5 +255,4 @@ public class TurtleManager implements TurtleTree {
 	public List<Turtle> getActiveTurtles() { // uh this is bad bc mutable :o RIP
 		return activeTurtles;
 	}
-
 }
