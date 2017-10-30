@@ -56,7 +56,7 @@ public class SaveUI {
 				//setNode("language",languageChooser.getCurrentLanguage(number));
 			
 				setNode("BackgroundColor",backgroundPicker.getColor().toString());
-				System.out.println(backgroundPicker.getColor().toString());
+				//setNode("TurtleImage",);
 				
 
 		

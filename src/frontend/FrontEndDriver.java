@@ -232,6 +232,9 @@ private static final int BOTTOM_LAYOUT_X = 50;
 
 	}
 	
+	
+	
+	
 	protected BackgroundPicker createBackgroundPicker() {
 	   
 		return new BackgroundPicker(DEFAULT_TURTLEAREA_COLOR, BUTTON_WIDTH, BUTTON_HEIGHT, turtleArea);
