@@ -18,18 +18,12 @@ import javafx.scene.paint.Color;
  * 
  */
 public class Turtle implements TurtleTree{
-	private static final int DEGREESINCIRCLE = 360;
-	private static final int NEGATE = -1;
-	private static final double ZERO = 0.0;
-	private static final double HALF = 0.5;
-	private static final double ONE = 1.0;
-	private static final double DEGTORAD = Math.PI/180.0;
-	private static final double RADTODEG = 180/Math.PI;
+	
 	private List<Double> allIDs = new ArrayList<Double>();
 	private double xcor, ycor, theta;
 	private double penDown, turtleVis;
 	private List<Double> lineCor;
-	private Color lineColor;
+	private int[] penColor;
 	private double lineThickness;
 	private double turtleCount = 1;
 	protected double turtleID = 1;
@@ -40,7 +34,7 @@ public class Turtle implements TurtleTree{
 		penDown = ZERO;
 		turtleVis = ONE;
 		lineCor = new ArrayList<Double>();
-		lineColor = Color.BLACK;
+		penColor = BLACK;
 		lineThickness= ONE;
 	}
 
@@ -117,8 +111,8 @@ public class Turtle implements TurtleTree{
 	/**
 	 * @return
 	 */
-	public Color getLineColor() {
-		return lineColor;
+	public int[] getPenColor() {
+		return penColor;
 	}
 
 	//all the active methods for the turtle (done using turtle commands)
@@ -159,16 +153,16 @@ public class Turtle implements TurtleTree{
 		}
 		System.out.println(lineCor);
 		double distance = distance(x, y);
-//		System.out.println("distance: " + distance);
-//		System.out.println("xcor: " + xcor);
-//		System.out.println("ycor: " + ycor);
-//		System.out.println("newxcor: " + x);
-//		System.out.println("newycor: " + y);
 		xcor = x;
 		ycor = y;
 		return distance;
 	}
 
+	public double setLineColor(int index) {
+		penColor = COLORS[index];
+		return index;
+	}
+	
 	public double penChange(double change) {
 		penDown = change;
 		return change;
