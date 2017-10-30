@@ -10,7 +10,7 @@ public class TurtleManager implements TurtleTree {
 	protected List<Turtle> activeTurtles = new ArrayList<Turtle>();
 	protected double turtleCount = 0;
 	protected int turtleID;
-	private List<Double> activeIDs = new ArrayList<Double>();
+	private List<Double> allIDs = new ArrayList<Double>();
 	private Map<Double, Turtle> IDTurtleMap = new HashMap<Double, Turtle>();
 	
 	public TurtleManager() {
@@ -61,7 +61,6 @@ public class TurtleManager implements TurtleTree {
 
 	@Override
 	public void move(double pixels) {
-		System.out.println("pixels in turtle manager move: " + pixels);
 		for (Turtle t : activeTurtles) {
 			t.move(pixels);
 		}
@@ -135,43 +134,46 @@ public class TurtleManager implements TurtleTree {
 		Turtle t = new Turtle();
 		t.setTurtleID(turtleCount);
 		activeTurtles.add(t);
-		activeIDs.add(turtleCount);
+		allTurtles.add(t);
+		allIDs.add(turtleCount);
 	}
 	
 	@Override
-	public void addActiveTurtle(double num) {
+	public void addActiveTurtle(double num) { // used in Tell
 		turtleCount++;
 		Turtle t = new Turtle();
 		t.setTurtleID(num);
 		activeTurtles.add(t);
-		activeIDs.add(num);
+		allTurtles.add(t);
+		allIDs.add(num);
 	}
 	
-	public void reactivateTurtle(double num) { 
+	public void reactivateTurtle(double num) {  // TODO 
 		Turtle t = IDTurtleMap.get(num);
 		addActiveTurtle(t);
 	}
 	
-	public void addActiveTurtle(Turtle t) { // for internal use i think
+	public void addActiveTurtle(Turtle t) { // for internal use i think TODO
 		activeTurtles.add(t);
-		activeIDs.add(t.turtleID);
+		allTurtles.add(t);
+		allIDs.add(t.turtleID);
 	}
 	
 	@Override
 	public void addTurtle() {
-		turtleCount++;
-		Turtle t = new Turtle();
-		t.setTurtleID(turtleCount);
-		allTurtles.add(t);
+//		turtleCount++;
+//		Turtle t = new Turtle();
+//		t.setTurtleID(turtleCount);
+//		allTurtles.add(t);
 		//allIDs.add(turtleCount);
 	}
 	
 	@Override
 	public void addTurtle(double num) {
-		turtleCount++;
-		Turtle t = new Turtle();
-		t.setTurtleID(num);
-		activeTurtles.add(t);
+//		turtleCount++;
+//		Turtle t = new Turtle();
+//		t.setTurtleID(num);
+//		activeTurtles.add(t);
 		//allIDs.add(num);
 	}
 
@@ -188,7 +190,7 @@ public class TurtleManager implements TurtleTree {
 
 	@Override
 	public double getActiveTurtleID() {
-		return activeTurtles.get((int)turtleCount - 1).getActiveTurtleID();
+		return activeTurtles.get(activeTurtles.size() - 1).getActiveTurtleID();
 	}
 
 	@Override
@@ -202,16 +204,17 @@ public class TurtleManager implements TurtleTree {
 			Turtle newTurtle = new Turtle();
 			newTurtle.setTurtleID(i+1);
 			activeTurtles.add(newTurtle);
+			allTurtles.add(newTurtle);
 		}
 	}
 
 	@Override
 	public boolean containsID(double num) {
-		return (activeIDs.contains(num));
+		return (allIDs.contains(num));
 	}
 
 	@Override
-	public void activateTurtle(double ID) {
+	public void activateTurtle(double ID) { // USED IN TELL.
 		Turtle t = null;
 		for (int i = 0; i < allTurtles.size(); i++) {
 			if (allTurtles.get(i).turtleID == ID) {
