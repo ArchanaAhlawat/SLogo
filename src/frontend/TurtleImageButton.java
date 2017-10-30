@@ -15,6 +15,7 @@ import javafx.stage.FileChooser;
 
 public class TurtleImageButton extends Button{
 	private FileChooser fileChooser;
+	private File current;
 
 	public TurtleImageButton(String label, double width, double height) {
 		super(label);
@@ -40,7 +41,9 @@ public class TurtleImageButton extends Button{
 		else {
             try {
             	BufferedImage bufferedImage = ImageIO.read(file);
+            	System.out.println(file.toString());
             	Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+            	current=file;
             	return image;
             }
             catch(IOException e) {
@@ -50,5 +53,9 @@ public class TurtleImageButton extends Button{
                 return currentImage;
             }
 		}
+	}
+	
+	public File getImageFile() {
+		return current;
 	}
 }

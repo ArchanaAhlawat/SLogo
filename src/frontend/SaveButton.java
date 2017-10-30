@@ -20,8 +20,8 @@ public class SaveButton extends Button {
 		return saveUI;
 	}
 	
-	protected void save(LanguageChooser languageChooser,BackgroundPicker backgroundPicker) {
-		saveUI.save(languageChooser,backgroundPicker);
+	protected void save(LanguageChooser languageChooser,BackgroundPicker backgroundPicker,TurtleImageButton turtleImageButton) {
+		saveUI.save(languageChooser,backgroundPicker,turtleImageButton);
 		
 		
 	

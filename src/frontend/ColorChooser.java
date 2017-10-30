@@ -14,7 +14,7 @@ public abstract class ColorChooser extends ColorPicker {
 		super(color);
 		this.setPrefWidth(width);
 		this.setPrefHeight(height);
-
+         current=color;
 
 		this.setOnAction(e -> EventHandler(this,this.getValue(),changedNode));
 	}
@@ -24,6 +24,7 @@ public abstract class ColorChooser extends ColorPicker {
 	}
 	
 	public Color getColor() {
+	    System.out.println("quick test"+current);
 		return current;
 	}
 	

@@ -73,7 +73,8 @@ private static final int BOTTOM_LAYOUT_X = 50;
 	private double commandValue;
 	private Controller myController;
 	private int count=0;
-	private BackgroundPicker b2;
+	private BackgroundPicker backgroundPicker;
+	private TurtleImageButton turtleImageButton;
 
 
 
@@ -203,7 +204,7 @@ private static final int BOTTOM_LAYOUT_X = 50;
 		layout.setTranslateY(BOTTOM_BUTTONS_Y);
 		SaveButton b1=new SaveButton(myResources.getString("Save"),SAVE_BUTTON_WIDTH,SAVE_BUTTON_HEIGHT);
 		ResumeButton resumeB=new ResumeButton(myResources.getString("Resume"),SAVE_BUTTON_WIDTH,SAVE_BUTTON_HEIGHT);
-		b1.setOnAction(e -> b1.save(languageChooser,b2));
+		b1.setOnAction(e -> b1.save(languageChooser,backgroundPicker,turtleImageButton));
 		resumeB.setOnAction(e -> resumeB.resume(b1));
 		layout.getChildren().addAll(b1,resumeB);
 		
@@ -217,9 +218,9 @@ private static final int BOTTOM_LAYOUT_X = 50;
 
 	protected void addAllButtons(HBox layout) {
 		layout.setTranslateY(BUTTONS_Y);
-		TurtleImageButton b1 = new TurtleImageButton(myResources.getString("SetImage"), BUTTON_WIDTH, BUTTON_HEIGHT);
-		b1.setOnAction(e -> displayTurtleManager.setImages(b1.chooseTurtleImage(displayTurtleManager.getAnActiveTurtle())));
-		 b2 = createBackgroundPicker();
+		turtleImageButton = new TurtleImageButton(myResources.getString("SetImage"), BUTTON_WIDTH, BUTTON_HEIGHT);
+		turtleImageButton.setOnAction(e -> displayTurtleManager.setImages(turtleImageButton.chooseTurtleImage(displayTurtleManager.getAnActiveTurtle())));
+		 backgroundPicker = createBackgroundPicker();
 		PenPicker b3 = new PenPicker(Color.BLACK, BUTTON_WIDTH, BUTTON_HEIGHT, turtlePath);
 		b3.setOnAction(e -> displayTurtleManager.updateTurtlePathColors(b3.getValue()));
 		languageChooser = new LanguageChooser(myResources.getString("Languages"), BUTTON_WIDTH, BUTTON_HEIGHT);
@@ -229,7 +230,7 @@ private static final int BOTTOM_LAYOUT_X = 50;
 		b5.setOnAction(e -> b5.GoToHelpPage(myResources.getString("HelpPage"), this));
 		NewWorkSpaceButton b6=new NewWorkSpaceButton(myResources.getString("new"),BUTTON_WIDTH,BUTTON_HEIGHT); 
 		b6.setOnAction(e -> b6.createNewWorkSpace());
-		layout.getChildren().addAll(b1,b2,b3,languageChooser,b6,b5);
+		layout.getChildren().addAll(turtleImageButton,backgroundPicker,b3,languageChooser,b6,b5);
 
 	}
 	
