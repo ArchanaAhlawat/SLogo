@@ -11,7 +11,6 @@ import javafx.scene.shape.PathElement;
 
 public class TurtlePath extends Path{
 	private int prevPathSize;
-	private boolean isPenDown;
 	
 	private static final double TURTLE_SIZE = FrontEndDriver.TURTLESIZE;
 	private static final double ORIGIN_X_PATH = FrontEndDriver.ORIGIN_X + TURTLE_SIZE/2;
@@ -20,7 +19,6 @@ public class TurtlePath extends Path{
 	public TurtlePath(double origin_x,double origin_y) {
 		super(new MoveTo(origin_x,origin_y));
 		prevPathSize = 0;
-		isPenDown = false;
 	}
 	
 	protected void updatePath(List<Double> points) {

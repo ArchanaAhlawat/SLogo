@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.List;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
 
 
 public class DisplayTurtle extends ImageView {
@@ -42,8 +43,12 @@ public class DisplayTurtle extends ImageView {
 		return turtlePath;
 	}
 	
+	protected void updateTurtlePathColor(Color color) {
+		turtlePath.setStroke(color);
+	}
+	
 	protected void activateShadow() {
-			setStyle("-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8),15,0,0,0)");
+		setStyle("-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8),15,0,0,0)");
 	}
 	
 	protected void activateTransparent() {
