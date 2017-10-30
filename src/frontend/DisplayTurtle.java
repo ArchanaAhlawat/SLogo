@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.List;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
 
 
 public class DisplayTurtle extends ImageView {
@@ -40,6 +41,10 @@ public class DisplayTurtle extends ImageView {
 	
 	protected TurtlePath getPath() {
 		return turtlePath;
+	}
+	
+	protected void updateTurtlePathColor(Color color) {
+		turtlePath.setFill(color);
 	}
 	
 	protected void activateShadow() {

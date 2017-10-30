@@ -16,10 +16,10 @@ public abstract class ColorChooser extends ColorPicker {
 		super(color);
 		this.setPrefWidth(width);
 		this.setPrefHeight(height);
-		this.setOnAction(e -> EventHandler(this.getValue(),changedNode));
+		this.setOnAction(e -> changeTurtleAreaColor(this.getValue(),changedNode));
 	}
 	
-	protected void EventHandler(Color fill,Node node) {
+	protected void changeTurtleAreaColor(Color fill,Node node) {
 		
 	}
 	
