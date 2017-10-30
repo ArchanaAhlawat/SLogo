@@ -133,9 +133,9 @@ public class Parser {
 		TurtleTree turtles = new TurtleManager();
 		//turtles.addActiveTurtle();
 		//turtles.addActiveTurtle();
-		p.parseInstruction(turtles, "wow TO wow [ :hi 3\n:omg 8 ] [ fd 3\nsum 70 70 ]"); 
+		p.parseInstruction(turtles, "Tell [ 100 4 ]"); 
 		// repeat 3 [ fd 54\nsum 2 4 ], DOTIMES [ :var 3 ] [ fd :var\nsum :var 4 ],
-		p.parseInstruction(turtles, "wow TO wow [ :hi 3\n:omg 8 ] [ fd 3\nsum 70 70 ]");
+		p.parseInstruction(turtles, "Tell [ 100 ]");
 		//FOR [ :var 3 5 ] [ fd :var\nsum :var 4 ], IF 0 [ fd 54\nsum 2 4 ]
 		// IFELSE 0 [ fd 54\nsum 2 4 ] [ fd 700\nsum 70 70 ], 
 		//wow TO wow [ :hi 3\n:omg 8 ] [ fd 3\nsum 70 70 ]
