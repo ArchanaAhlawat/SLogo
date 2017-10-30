@@ -5,9 +5,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author archana
+ *
+ */
 public class TurtleManager implements TurtleTree {
 	protected List<Turtle> allTurtles = new ArrayList<Turtle>();
 	protected List<Turtle> activeTurtles = new ArrayList<Turtle>();
+	protected ColorManager myColors = new ColorManager();
 	protected double turtleCount = 0;
 	protected int turtleID;
 	private List<Double> allIDs = new ArrayList<Double>();
@@ -60,6 +65,39 @@ public class TurtleManager implements TurtleTree {
 	}
 
 	@Override
+	public List<Double> getCircleStamps() {
+		List<Double> toReturn = new ArrayList<>();
+		for (Turtle t : activeTurtles) {
+			toReturn = t.getCircleStamps();
+		}
+		return toReturn;
+	}
+
+	@Override
+	public List<Double> getSquareStamps() {
+		List<Double> toReturn = new ArrayList<>();
+		for (Turtle t : activeTurtles) {
+			toReturn = t.getSquareStamps();
+		}
+		return toReturn;
+	}
+
+	@Override
+	public List<Double> getTriangleStamps() {
+		List<Double> toReturn = new ArrayList<>();
+		for (Turtle t : activeTurtles) {
+			toReturn = t.getTriangleStamps();
+		}
+		return toReturn;
+	}
+	
+	@Override
+	public double getPenColor() {
+		// TODO Auto-generated method stub
+		return 0.0;
+	}
+	
+	@Override
 	public void move(double pixels) {
 		for (Turtle t : activeTurtles) {
 			t.move(pixels);
@@ -92,6 +130,11 @@ public class TurtleManager implements TurtleTree {
 		return toReturn;
 	}
 
+	public double stamp() {
+		//do nothing
+		return 0.0;
+	}
+	
 	public double setPenColor(int index) {
 		double toReturn = 0;
 		for (Turtle t : activeTurtles) {
@@ -113,6 +156,15 @@ public class TurtleManager implements TurtleTree {
 			toReturn = t.penChange(change);
 		}
 		return toReturn;
+	}
+	
+	@Override
+	public void setColorIndex(int index, int[] newColor) {
+		// TODO Auto-generated method stub
+	}
+	
+	public ColorManager getColorManager() {
+		return myColors;
 	}
 
 	@Override
@@ -140,6 +192,13 @@ public class TurtleManager implements TurtleTree {
 			toReturn = t.clearScreen();
 		}
 		return toReturn;
+	}
+	
+	@Override
+	public void clearStamps() {
+		for (Turtle t : activeTurtles) {
+			t.clearStamps();
+		}
 	}
 
 	@Override
@@ -201,12 +260,6 @@ public class TurtleManager implements TurtleTree {
 	public double getSize() {
 		return turtleCount;
 	}
-	
-	@Override
-	public double getPenColor() {
-		// TODO Auto-generated method stub
-		return 0.0;
-	}
 
 	@Override
 	public double getActiveTurtleID() {
@@ -244,6 +297,7 @@ public class TurtleManager implements TurtleTree {
 		addActiveTurtle(t);
 	}
 	
+	@Override
 	public void clearActiveTurtles() {
 		activeTurtles.clear();
 	}
