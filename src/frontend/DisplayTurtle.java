@@ -2,29 +2,27 @@ package frontend;
 
 import java.io.File;
 import java.util.List;
-
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
+
 
 public class DisplayTurtle extends ImageView {
 	private static final String DEFAULT_TURTLE_DIRECTORY = "src/resources/turtle.png";
-	private static final double ORIGIN_X = FrontEndDriver.ORIGIN_X;
-	private static final double ORIGIN_Y = FrontEndDriver.ORIGIN_Y;
 	private static final double TURTLESIZE = FrontEndDriver.TURTLESIZE;
-	private static final double TURTLESIZE_GROWTH = TURTLESIZE/2;
+	private static final double ORIGIN_X = DisplayTurtleManager.ORIGIN_X;
+	private static final double ORIGIN_Y = DisplayTurtleManager.ORIGIN_Y;
 	
 	private int turtID;
-	private boolean isActive;
 	private TurtlePath turtlePath;
 	
-	public DisplayTurtle(int ID) {
+	public DisplayTurtle() {
 		super();
 		this.setImage(setDefaultImage());
 		this.setX(ORIGIN_X);
 		this.setY(ORIGIN_Y);
 		this.setFitWidth(TURTLESIZE);
 		this.setFitHeight(TURTLESIZE);
-		turtID = ID;
 		turtlePath = new TurtlePath(ORIGIN_X,ORIGIN_Y);
 	}
 	
@@ -33,32 +31,44 @@ public class DisplayTurtle extends ImageView {
         return new Image(file.toURI().toString());
 	}
 	
-	protected void updateTurtle(double xCor,double yCor,double theta,double turtleVis) {
-		this.setX(xCor + ORIGIN_X);
-		this.setY(yCor + ORIGIN_Y);
-		this.setRotate(theta);
-		this.setVisible(booleanConverter(turtleVis));
+	protected void updateTurtle(double xCor,double yCor,double theta,double turtleVis,List<Double> linesToDraw) {
+		setX(xCor);
+		setY(yCor);
+		setRotate(theta);
+		setVisible(booleanConverter(turtleVis));
+		drawPath(linesToDraw);
 	}
 	
-	protected void changeTurtleActivity(List<DisplayTurtle> activeTurtles) {
-		if(activeTurtles.contains(this))  {
-			activeTurtles.remove(this);
-		}
-		else {
-			activeTurtles.add(this);
-		}
+	protected TurtlePath getPath() {
+		return turtlePath;
+	}
+	
+	protected void updateTurtlePathColor(Color color) {
+		turtlePath.setStroke(color);
+	}
+	
+	protected void activateShadow() {
+		setStyle("-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8),15,0,0,0)");
+	}
+	
+	protected void activateTransparent() {
+		setStyle("-fx-background-color:transparent");
 	}
 	
 	protected int getID() {
 		return turtID;
 	}
 	
-	public double getHeading() {
-		return this.getRotate();
+	private void drawPath(List<Double> linesToDraw) {
+		turtlePath.updatePath(linesToDraw);
 	}
 	
 	private boolean booleanConverter(double dub) {
 		return (dub == 1) ? true:false;
 	}
+	
+	
+	
+
 
 }

@@ -18,6 +18,7 @@ public class Display extends Pane{
 	
 	public Display(DisplayTurtle displayTurtle,double X,double Y,double width,double height) {
 		super(displayTurtle);
+		this.getChildren().add(displayTurtle.getPath());
 		this.setTranslateX(X);
 		this.setTranslateY(Y);
 		this.setPrefWidth(width);
@@ -25,10 +26,6 @@ public class Display extends Pane{
 		this.setBorder(new Border(new BorderStroke(Color.BLACK, 
 	            BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
 		this.changeColor(DEFAULT_TURTLEAREA_COLOR);
-	}
-	
-	protected void addNode(Node node) {
-		this.getChildren().add(node);
 	}
 	
 	protected void changeColor(Color fill) {

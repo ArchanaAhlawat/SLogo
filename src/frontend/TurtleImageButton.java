@@ -31,7 +31,7 @@ public class TurtleImageButton extends Button{
         fileChooser.getExtensionFilters().addAll(extFilterJPG, extFilterPNG);
 	}
 
-	protected Image chooseTurtle(DisplayTurtle currentDisplayTurtle) {
+	protected Image chooseTurtleImage(DisplayTurtle currentDisplayTurtle) {
 		Image currentImage = currentDisplayTurtle.getImage();
 		File file = fileChooser.showOpenDialog(null);
 		if(file == null) {

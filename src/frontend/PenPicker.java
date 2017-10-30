@@ -14,7 +14,7 @@ public class PenPicker extends ColorChooser{
 		// TODO Auto-generated constructor stub
 	}
 	
-	protected void EventHandler(Color fill,Node turtlePath) {
+	protected void changeTurtleAreaColor(Color fill,Node turtlePath) {
 		if(turtlePath instanceof Path) ((Path) turtlePath).setFill(fill);
 	}
 

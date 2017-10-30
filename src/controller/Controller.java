@@ -1,16 +1,30 @@
 package controller;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.LinkedList;
 import java.util.List;
 
 import backend.Driver;
 import backend.Updates;
-import frontend.Turtle;
+import frontend.DisplayTurtle;
+import frontend.DisplayTurtleManager;
+import backend.Turtle;
 
 public class Controller implements ControllerAPI {
 	
-	private Driver BEdriver = new Driver();
+	private Driver BEdriver;
+	private DisplayTurtleManager displayTurtleManager;
 	
+
+	public Controller(DisplayTurtleManager FEdisplayTurtleManager) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+		BEdriver = new Driver();
+		displayTurtleManager = FEdisplayTurtleManager;
+	}
+	
+	@Override
+	public void createTurtleTree() {
+		BEdriver.setTurtleTree(); // create new turtle tree
+	}
 
 	@Override
 	public double setCommand(String command) {
@@ -31,25 +45,21 @@ public class Controller implements ControllerAPI {
 		return 0.0;
 		
 	}
+
+	public void reactivate(double id) {
+		BEdriver.reactivate(id);
+	}
 	
-
-	@Override
-	public Turtle getTurtle(List<Object> newTurtle) {
-		// TODO Auto-generated method stub
-		return null;
+	public void deactivate(double id) {
+		BEdriver.deactivate(id);
 	}
-
-	@Override
-	public double getReturnValue() {
-		// TODO Auto-generated method stub
-		//return BackEndDriver.getRetVal();
-		return 0;
+	
+	public List<Turtle> getTurtles() {
+		return BEdriver.getTurtles();
 	}
-
 
 	@Override
 	public double getXCor() {
-		// TODO Auto-generated method stub
 		return getUpdates().getXCor();
 	}
 
@@ -69,8 +79,6 @@ public class Controller implements ControllerAPI {
 	
 	public Updates getUpdates() {
 		return BEdriver.getTurtleUpdates();
-		
-		
 	}
 
 
@@ -79,4 +87,23 @@ public class Controller implements ControllerAPI {
 		// TODO Auto-generated method stub
 		return getUpdates().getTurtleVis();
 	}
+	
+	
+
+
+	@Override
+	public void setParserLanguage(String language) {
+		BEdriver.setLanguage(language);
+	}
+
+	@Override
+	public List<Double> getLinestoDraw() {
+		return BEdriver.getLines();
+	}
+
+	@Override
+	public List<String> getUserDefinedVars() {
+		return BEdriver.getUserDefinedVars();
+	}
+	
 }

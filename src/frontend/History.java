@@ -2,8 +2,6 @@ package frontend;
 
 
 import controller.Controller;
-import javafx.event.EventHandler;
-import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 
@@ -11,25 +9,27 @@ public class History extends Scroll {
 
 	
 	private static final String EMPTY_STRING = "";
-	private DisplayTurtle displayTurtle;
+	private DisplayTurtleManager displayTurtleManager;
 	private ReturnValue returnValue;
 	private Controller myController;
+	private Display turtleArea;
 	
 	
-	public History(String label, int x, int y, int width, int height,DisplayTurtle displayTurtle,ReturnValue returnValue,Controller myController) {
+	public History(String label, int x, int y, int width, int height,DisplayTurtleManager displayTurtleManager,ReturnValue returnValue,Controller myController,Display turtlePane) {
 		super(label, x, y, width, height);
 		// TODO Auto-generated constructor stub
 	
-		this.displayTurtle=displayTurtle; 
+		this.displayTurtleManager=displayTurtleManager; 
 		this.returnValue=returnValue;
 		this.myController=myController;
+		turtleArea = turtlePane;
 		
 
 	
 		
 	}
 	
-	protected void addHistory(String command) {
+	void addHistory(String command) {
 		if(!command.equals(EMPTY_STRING)) {
 			String formattedCommand = formatCommand(command);
 		    
@@ -39,29 +39,27 @@ public class History extends Scroll {
 		}
 	}
 	
-	protected void clickable() {
+	private void clickable() {
 	
+
 		Text curr = super.curr;
 		
-		curr.setOnMouseClicked(e -> handleMouseClick(e,displayTurtle,returnValue,curr,myController));
+		curr.setOnMouseClicked(e -> handleMouseClick(e,displayTurtleManager,returnValue,curr,myController,turtleArea));
+
 
      }
 	
-	protected void handleMouseClick(MouseEvent e,DisplayTurtle display,ReturnValue returnValue,Text current,Controller myController) {
+
+	protected void handleMouseClick(MouseEvent e,DisplayTurtleManager displayTurtleManager,ReturnValue returnValue,Text current,Controller myController,Display turtleArea) {
+
 		
 		
 		String currentCommand=current.getText().trim();
 		double commandValue=myController.setCommand(currentCommand);
+
 		
-		double xCor=myController.getXCor();
-	
-		double yCor=myController.getYCor();
-	
-		double theta=myController.getTheta();
-	
-		double turtleVis=myController.getTurtleVis();
-		
-		display.updateTurtle(xCor,yCor,theta,turtleVis);
+		displayTurtleManager.updateTurtles(myController.getTurtles(),turtleArea);
+
 		addHistory(currentCommand);
 		returnValue.addReturnValue(commandValue);
        
