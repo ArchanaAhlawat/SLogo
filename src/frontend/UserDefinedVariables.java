@@ -14,7 +14,7 @@ import javafx.stage.Stage;
 
 public class UserDefinedVariables extends History {
 	  private Stage window;
-	  private String newV;
+	
 
 	
 	
@@ -32,34 +32,39 @@ public class UserDefinedVariables extends History {
 	
     @Override
 	protected void handleMouseClick(MouseEvent e,DisplayTurtleManager displayTurtleManager,ReturnValue returnValue,Text current,Controller myController,Display turtleArea) {
-    	    popUp();
+    	   
     	    
     	    
     	    String currentCommand=current.getText().trim();
     	    String variable=currentCommand.split(":")[0];
+    	    popUp(variable);
     	    
     	    System.out.println(currentCommand);
-    	    myController.setCommand("make :"+variable+newV);
+    	    
        
 
 	}
     
     
-    private void popUp() {
+    private void popUp(String variable) {
       	final Stage dialog = new Stage();
         dialog.initModality(Modality.APPLICATION_MODAL);
         dialog.initOwner(window);
         VBox dialogVbox = new VBox(20);
         TextField newValue=new TextField();
         Button submit=new Button("Submit");
-        submit.setOnAction(e -> {
-			newV = newValue.getText();
-			
-		});
+        submit.setOnAction(e -> handlePopUp(variable,newValue,myController));
         dialogVbox.getChildren().addAll(newValue,submit);
         Scene dialogScene = new Scene(dialogVbox, 300, 200);
         dialog.setScene(dialogScene);
         dialog.show();
+    	
+    }
+    
+    private void handlePopUp(String variable,TextField newValue, Controller myController) {
+    	   String newV=newValue.getText().trim();
+    	   myController.setCommand("make :"+variable+" "+newV);
+    	   
     	
     }
 	
