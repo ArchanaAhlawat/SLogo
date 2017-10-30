@@ -32,21 +32,15 @@ public class Turtle implements TurtleTree {
 	private double turtleCount = 1;
 	protected double turtleID = 1;
 	
-//	public static final int[] BLACK = new int[] {0,0,0};
-//	public static final int[] RED = new int[] {255,0,0};
-//	public static final int[] GREEN = new int[] {0,255,0};
-//	public static final int[] BLUE = new int[] {0,0,255};
-//	public static final int[] WHITE = new int[] {255,255,255};
-//	public static final int[][] COLORS = new int[][] {new int[] {0}, BLACK, RED, GREEN, BLUE, WHITE};
-	
-
+	private ColorManager myColors;
 	
 	public Turtle() {
+		myColors = new ColorManager();
 		xcor = ycor = theta = ZERO;
 		penDown = ZERO;
 		turtleVis = ONE;
 		lineCor = new ArrayList<Double>();
-		penColor = BLACK;
+		penColor = new int[] {0,0,0};//BLACK;
 		penSize = ONE;
 	}
 
@@ -65,12 +59,7 @@ public class Turtle implements TurtleTree {
 		return Math.pow(Math.pow(xDisplacement(x), 2) + Math.pow(yDisplacement(y), 2), HALF);
 	}
 
-	/**
-	 * calculates the angle from north (up direction, 0 degrees) of the vector (x,y)
-	 * @param x the x coordinate
-	 * @param y the y coordinate
-	 * @return the angle between north (0 degrees) and the vector (x,y)
-	 */
+	@Override
 	public double[] angle(double x, double y) {
 		double xDis = xDisplacement(x);
 		double yDis = yDisplacement(y);
@@ -83,13 +72,7 @@ public class Turtle implements TurtleTree {
 		}
 	}
 
-	//TODO: getters and setters need to be wrapped/use properties and bindings
-	//all the information passers for the turtle queries
-	/**
-	 * used for the turtle query commands to observe specific parameters of turtle
-	 * @param orientation the string that corresponds to which turtle parameter is wanted
-	 * @return the value of the wanted turtle parameter
-	 */
+	@Override
 	public double[] getAbsoluteOrientation(String orientation) {
 		try {
 			Field t = Turtle.class.getDeclaredField(orientation);
@@ -102,54 +85,27 @@ public class Turtle implements TurtleTree {
 		return null;
 	}
 
-	/**
-	 * length of this list will be a multiple of 4
-	 * with the values x1, y1, x2, y2 for each line (1 is start point, 2 is end point)
-	 * @return the coordinates of all of the lines
-	 */
+	@Override
 	public List<Double> getLines() {
 		return lineCor;
 	}
 	
-	/**
-	 * length of this list will be a multiple of 2
-	 * with the values x, y for each center of the stamp
-	 * @return the coordinates of all of the circle stamps
-	 */
+	@Override
 	public List<Double> getCircleStamps() {
 		return circleStamps;
 	}
 	
-	/**
-	 * length of this list will be a multiple of 2
-	 * with the values x, y for each center of the stamp
-	 * @return the coordinates of all of the square stamps
-	 */
+	@Override
 	public List<Double> getSquareStamps() {
 		return squareStamps;
 	}
 	
-	/**
-	 * length of this list will be a multiple of 2
-	 * with the values x, y for each center of the stamp
-	 * @return the coordinates of all of the triangle stamps
-	 */
+	@Override
 	public List<Double> getTriangleStamps() {
 		return triangleStamps;
 	}
-	
-	/**
-	 * default indices are 1 - black, 2 - red, 3 - green, 4 - blue, 5 - white
-	 * @return the index of the defined list of colors that the current pen color is set to
-	 */
-	public double getPenColor() {
-		return Arrays.asList(COLORS).indexOf(penColor);
-	}
 
-	//all the active methods for the turtle (done using turtle commands)
-	/**
-	 * @param pixels
-	 */
+	@Override
 	public void move(double pixels) {
 		System.out.println("x is: " + xcor);
 		System.out.println("y is: " + ycor);
@@ -160,11 +116,13 @@ public class Turtle implements TurtleTree {
 		setXY(newx, newy);
 	}
 
+	@Override
 	public void rotate(double degrees) {
 		double newtheta = theta + degrees;
 		setHeading(new double[] {newtheta});
 	}
 	
+	@Override
 	public double setHeading(double[] expr1) {
 		System.out.println("turn to: " + expr1[0]);
 		System.out.println("current angle: " + theta);
@@ -175,6 +133,7 @@ public class Turtle implements TurtleTree {
 		return difference;
 	}
 
+	@Override
 	public double setXY(double x, double y) {
 		if (penDown == ONE) {
 			lineCor.add(xcor);
@@ -189,9 +148,15 @@ public class Turtle implements TurtleTree {
 		return distance;
 	}
 
+	@Override
 	public double setPenColor(int index) {
-		penColor = COLORS[index];
+		penColor = myColors.getColor(index);
 		return index;
+	}
+	
+	@Override
+	public double getPenColor() {
+		return myColors.getIndex(penColor);
 	}
 	
 	@Override
@@ -200,16 +165,24 @@ public class Turtle implements TurtleTree {
 		return size;
 	}
 	
+	@Override
 	public double penChange(double change) {
 		penDown = change;
 		return change;
 	}
 
+	@Override
+	public void setColorIndex(int index, int[] newColor) {
+		myColors.setIndex(index, newColor);		
+	}
+
+	@Override
 	public double visChange(double change) {
 		turtleVis = change;
 		return change;
 	}
 
+	@Override
 	public double home() {
 		//double returnVal = setXY(ZERO, ZERO);
 		//System.out.println(returnVal);
@@ -217,9 +190,13 @@ public class Turtle implements TurtleTree {
 		return setXY(ZERO, ZERO);
 	}
 
+	@Override
 	public double clearScreen() {
 		penDown = ZERO;
 		lineCor.clear();
+		circleStamps.clear();
+		squareStamps.clear();
+		triangleStamps.clear();
 		//double returnVal = home();
 		//System.out.println(returnVal);
 		//return returnVal;
