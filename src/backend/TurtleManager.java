@@ -12,6 +12,7 @@ import java.util.Map;
 public class TurtleManager implements TurtleTree {
 	protected List<Turtle> allTurtles = new ArrayList<Turtle>();
 	protected List<Turtle> activeTurtles = new ArrayList<Turtle>();
+	protected ColorManager myColors = new ColorManager();
 	protected double turtleCount = 0;
 	protected int turtleID;
 	private List<Double> allIDs = new ArrayList<Double>();
@@ -129,6 +130,11 @@ public class TurtleManager implements TurtleTree {
 		return toReturn;
 	}
 
+	public double stamp() {
+		//do nothing
+		return 0.0;
+	}
+	
 	public double setPenColor(int index) {
 		double toReturn = 0;
 		for (Turtle t : activeTurtles) {
@@ -155,7 +161,10 @@ public class TurtleManager implements TurtleTree {
 	@Override
 	public void setColorIndex(int index, int[] newColor) {
 		// TODO Auto-generated method stub
-		
+	}
+	
+	public ColorManager getColorManager() {
+		return myColors;
 	}
 
 	@Override
@@ -183,6 +192,13 @@ public class TurtleManager implements TurtleTree {
 			toReturn = t.clearScreen();
 		}
 		return toReturn;
+	}
+	
+	@Override
+	public void clearStamps() {
+		for (Turtle t : activeTurtles) {
+			t.clearStamps();
+		}
 	}
 
 	@Override

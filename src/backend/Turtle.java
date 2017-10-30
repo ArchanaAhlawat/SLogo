@@ -1,12 +1,8 @@
 package backend;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-
-import javafx.scene.paint.Color;
 
 /**
  * Turtle that keeps track of all of their locations and parameters needed
@@ -27,6 +23,7 @@ public class Turtle implements TurtleTree {
 	private List<Double> circleStamps;
 	private List<Double> squareStamps;
 	private List<Double> triangleStamps;
+	private int stamp;
 	private int[] penColor;
 	private double penSize;
 	private double turtleCount = 1;
@@ -42,6 +39,7 @@ public class Turtle implements TurtleTree {
 		lineCor = new ArrayList<Double>();
 		penColor = new int[] {0,0,0};//BLACK;
 		penSize = ONE;
+		stamp = 1;
 	}
 
 	@Override
@@ -148,6 +146,22 @@ public class Turtle implements TurtleTree {
 		return distance;
 	}
 
+	public double stamp() { //better with reflection
+		if (stamp == 1) {
+			circleStamps.add(xcor);
+			circleStamps.add(ycor);
+		}
+		else if (stamp == 2) {
+			squareStamps.add(xcor);
+			squareStamps.add(ycor);
+		}
+		else {
+			triangleStamps.add(xcor);
+			triangleStamps.add(xcor);
+		}
+		return stamp;
+	}
+	
 	@Override
 	public double setPenColor(int index) {
 		penColor = myColors.getColor(index);
@@ -175,6 +189,11 @@ public class Turtle implements TurtleTree {
 	public void setColorIndex(int index, int[] newColor) {
 		myColors.setIndex(index, newColor);		
 	}
+	
+	@Override
+	public ColorManager getColorManager() {
+		return myColors;
+	}
 
 	@Override
 	public double visChange(double change) {
@@ -184,23 +203,21 @@ public class Turtle implements TurtleTree {
 
 	@Override
 	public double home() {
-		//double returnVal = setXY(ZERO, ZERO);
-		//System.out.println(returnVal);
-		//return returnVal;
 		return setXY(ZERO, ZERO);
 	}
 
 	@Override
 	public double clearScreen() {
-		penDown = ZERO;
+		double returnVal = home();
 		lineCor.clear();
+		clearStamps();
+		return returnVal;
+	}
+	
+	public void clearStamps() {
 		circleStamps.clear();
 		squareStamps.clear();
 		triangleStamps.clear();
-		//double returnVal = home();
-		//System.out.println(returnVal);
-		//return returnVal;
-		return home();
 	}
 
 	@Override

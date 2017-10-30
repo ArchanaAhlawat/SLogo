@@ -12,16 +12,25 @@ public class ColorManager {
 	private int[] WHITE = new int[] {255,255,255};
 	private int[][] COLORS = new int[][] {new int[] {0}, BLACK, RED, GREEN, BLUE, WHITE};
 	
+	private int backgroundColor;
+	
 	public int[] getColor(int index) {
 		return COLORS[index];
 	}
 
-	public double getIndex(int[] currentColor) {
+	public int getIndex(int[] currentColor) {
 		return Arrays.asList(COLORS).indexOf(currentColor);
 	}
 	
 	public void setIndex(int index, int[] newColor) {
 		COLORS[index] = newColor;
 	}
-
+	
+	public int getBackground() {
+		return backgroundColor;
+	}
+	
+	public void setBackground(int index) {
+		backgroundColor = index;
+	}
 }

@@ -87,6 +87,8 @@ public interface TurtleTree {
 	
 	public double setXY(double x, double y);
 	
+	public double stamp();
+	
 	public double setPenColor(int index);
 	
 	/**
@@ -101,11 +103,15 @@ public interface TurtleTree {
 	
 	public void setColorIndex(int index, int[] newColor);
 	
+	public ColorManager getColorManager();
+	
 	public double visChange(double change);
 	
 	public double home();
 	
 	public double clearScreen();
+	
+	public void clearStamps();
 	
 	public void addTurtle();
 	
