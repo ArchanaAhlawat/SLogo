@@ -32,8 +32,8 @@ public interface TurtleTree {
 	public double penDown = 0;
 	public double turtleVis = 0;
 	public List<Double> lineCor = null;
-	public List<Color> lineColor = null;
-	public List<Double> lineThickness = null;
+	public List<Color> penColor = null;
+	public List<Double> penSize = null;
 
 	public double xDisplacement(double x);
 
@@ -58,6 +58,8 @@ public interface TurtleTree {
 	public double setXY(double x, double y);
 	
 	public double setPenColor(int index);
+	
+	public double setPenSize(double size);
 	
 	public double penChange(double change);
 	

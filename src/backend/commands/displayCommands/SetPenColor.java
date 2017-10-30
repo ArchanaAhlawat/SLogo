@@ -10,8 +10,7 @@ public class SetPenColor extends DisplayCommands {
 	}
 
 	@Override
-	public void execute(Stacks instructionStacks, TurtleTree currentTurtle) {
-		double expr1 = instructionStacks.peekDouble();
-		instructionStacks.addDouble(currentTurtle.setPenColor((int) expr1));
+	protected double doUpdate() {
+		return currentTurtle.setPenColor((int) expr1);
 	}
 }

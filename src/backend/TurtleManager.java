@@ -102,6 +102,12 @@ public class TurtleManager implements TurtleTree {
 	}
 	
 	@Override
+	public double setPenSize(double size) {
+		// TODO Auto-generated method stub
+		return size;
+	}
+	
+	@Override
 	public double penChange(double change) {
 		double toReturn = 0;
 		for (Turtle t : activeTurtles) {

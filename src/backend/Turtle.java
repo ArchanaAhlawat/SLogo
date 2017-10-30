@@ -25,7 +25,7 @@ public class Turtle implements TurtleTree{
 	private double penDown, turtleVis;
 	private List<Double> lineCor;
 	private int[] penColor;
-	private double lineThickness;
+	private double penSize;
 	private double turtleCount = 1;
 	protected double turtleID = 1;
 
@@ -36,19 +36,8 @@ public class Turtle implements TurtleTree{
 		turtleVis = ONE;
 		lineCor = new ArrayList<Double>();
 		penColor = BLACK;
-		lineThickness= ONE;
+		penSize = ONE;
 	}
-
-//	public Turtle(double x, double y, double t, double pD, double tV) {
-//		xcor = x;
-//		ycor = y;
-//		theta = t;
-//		penDown = pD;
-//		turtleVis = tV;
-//		lineCor = new ArrayList<Double>();
-//		lineColor = Color.BLACK;
-//		lineThickness= ONE;
-//	}
 
 	@Override
 	public double xDisplacement(double x) {
@@ -162,6 +151,12 @@ public class Turtle implements TurtleTree{
 	public double setPenColor(int index) {
 		penColor = COLORS[index];
 		return index;
+	}
+	
+	@Override
+	public double setPenSize(double size) {
+		penSize = size;
+		return size;
 	}
 	
 	public double penChange(double change) {
