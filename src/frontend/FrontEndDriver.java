@@ -1,6 +1,8 @@
 package frontend;
 
 import controller.Controller;
+
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.application.Application;
 import javafx.event.EventHandler;
@@ -72,6 +74,7 @@ private static final int BOTTOM_LAYOUT_X = 50;
 	private LanguageChooser languageChooser;
 	private double commandValue;
 	private Controller myController;
+	private int count=0;
 
 
 
@@ -174,6 +177,16 @@ private static final int BOTTOM_LAYOUT_X = 50;
 		executeCommandOnly(currentCommand);
 		commandHistory.addHistory(currentCommand);
 		returnValue.addReturnValue(commandValue);
+		List<String> variablesList=myController.getUserDefinedVars();
+		if (variablesList.size()!=count) {
+			for (int i=count;i<variablesList.size();i++) {
+				String curr=variablesList.get(i);
+				userDefinedVariables.addHistory(curr);
+			}
+			count=variablesList.size();
+		}
+		
+		
 
 	}
 
