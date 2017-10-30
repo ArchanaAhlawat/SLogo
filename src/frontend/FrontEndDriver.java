@@ -235,7 +235,5 @@ private static final int BOTTOM_LAYOUT_X = 50;
 	}
 
 
-
-
 }
 

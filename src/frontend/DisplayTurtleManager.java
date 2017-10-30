@@ -64,7 +64,7 @@ public class DisplayTurtleManager {
 		}
 		else {
 			activeDisplayTurtles.remove(turtleID);
-			displayTurtle.activateTransparent();
+			displayTurtle.activateShadow();
 		}
 	}
 	
