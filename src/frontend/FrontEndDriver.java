@@ -5,12 +5,10 @@ import controller.Controller;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.application.Application;
-import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -107,7 +105,7 @@ private static final int BOTTOM_LAYOUT_X = 50;
 		commandHistory = new History(myResources.getString("History"), HISTORY_X, HISTORY_Y, HISTORY_WIDTH,
 				HISTORY_HEIGHT, displayTurtleManager, returnValue, myController,turtleArea);
 		userDefinedVariables = new UserDefinedVariables(myResources.getString("UserV"), HISTORY_X, UserV_Y, HISTORY_WIDTH,
-				UserV_HEIGHT, displayTurtleManager, returnValue, myController,turtleArea);
+				UserV_HEIGHT, displayTurtleManager, returnValue, myController,turtleArea,window);
 		userDefinedCommands = new History(myResources.getString("UserC"), HISTORY_X, UserC_Y, HISTORY_WIDTH,
 				UserC_HEIGHT, displayTurtleManager, returnValue, myController,turtleArea);
 		root.getChildren().addAll(layout, layout2,bottomlayout, commandHistory, returnValue, userDefinedVariables,
