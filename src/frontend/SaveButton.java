@@ -1,6 +1,6 @@
 package frontend;
 
-import controller.Controller;
+
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 
@@ -16,8 +16,12 @@ public class SaveButton extends Button {
 	
 	}
 	
-	protected void save(Controller myController) {
-		saveUI.save(myController);
+	public SaveUI getSaveUI() {
+		return saveUI;
+	}
+	
+	protected void save(LanguageChooser languageChooser,BackgroundPicker backgroundPicker) {
+		saveUI.save(languageChooser,backgroundPicker);
 		
 		
 	
