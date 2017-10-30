@@ -4,8 +4,8 @@ package frontend;
 import javafx.scene.text.Text;
 
 public class ReturnValue extends Scroll {
-	private static final int LABEL_START = 5;
-	private Text curr;
+	private static final int VALUE_START_X = 0;
+	private static final int VALUE_START_Y = 40;
 
 
 	public ReturnValue(String label, int x, int y, int width, int height) {
@@ -13,9 +13,10 @@ public class ReturnValue extends Scroll {
 		// TODO Auto-generated constructor stub
 		curr=new Text("");
 		curr.wrappingWidthProperty().bind(this.widthProperty());
-		curr.setTranslateX(LABEL_START);
-		curr.setTranslateY(20);
-		addToRoot(curr);
+		curr.setTranslateX(VALUE_START_X);
+		curr.setTranslateY(VALUE_START_Y);
+	    scrollPaneRoot.getChildren().add(curr);
+
 	}
 	
 	protected void addReturnValue(double value) {

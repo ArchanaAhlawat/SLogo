@@ -1,6 +1,8 @@
 package frontend;
 
 import controller.Controller;
+
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.application.Application;
 import javafx.event.EventHandler;
@@ -72,6 +74,7 @@ private static final int BOTTOM_LAYOUT_X = 50;
 	private LanguageChooser languageChooser;
 	private double commandValue;
 	private Controller myController;
+	private int count=0;
 
 
 
@@ -107,7 +110,7 @@ private static final int BOTTOM_LAYOUT_X = 50;
 				UserV_HEIGHT, displayTurtleManager, returnValue, myController,turtleArea);
 		userDefinedCommands = new History(myResources.getString("UserC"), HISTORY_X, UserC_Y, HISTORY_WIDTH,
 				UserC_HEIGHT, displayTurtleManager, returnValue, myController,turtleArea);
-		root.getChildren().addAll(layout, layout2, commandHistory, returnValue, userDefinedVariables,
+		root.getChildren().addAll(layout, layout2,bottomlayout, commandHistory, returnValue, userDefinedVariables,
 				userDefinedCommands, turtleArea);
 
 		window.setTitle("SLogo");
@@ -174,6 +177,16 @@ private static final int BOTTOM_LAYOUT_X = 50;
 		executeCommandOnly(currentCommand);
 		commandHistory.addHistory(currentCommand);
 		returnValue.addReturnValue(commandValue);
+		List<String> variablesList=myController.getUserDefinedVars();
+		if (variablesList.size()!=count) {
+			for (int i=count;i<variablesList.size();i++) {
+				String curr=variablesList.get(i);
+				userDefinedVariables.addHistory(curr);
+			}
+			count=variablesList.size();
+		}
+		
+		
 
 	}
 
@@ -196,13 +209,6 @@ private static final int BOTTOM_LAYOUT_X = 50;
 		
 		
 
-		//double xCor = myController.getXCor();
-
-		//double yCor = myController.getYCor();
-
-		//double theta = myController.getTheta();
-
-		//double turtleVis = myController.getTurtleVis();
 
 		
 
