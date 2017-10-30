@@ -34,7 +34,7 @@ public class Turtle implements TurtleTree {
 	public Turtle() {
 		myColors = new ColorManager();
 		xcor = ycor = theta = ZERO;
-		penDown = ZERO;
+		penDown = ONE;
 		turtleVis = ONE;
 		lineCor = new ArrayList<Double>();
 		penColor = new int[] {0,0,0};//BLACK;
