@@ -1,10 +1,12 @@
 package frontend;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import backend.Turtle;
 import backend.Updates;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
 
 public class DisplayTurtleManager {
 	
@@ -64,8 +66,14 @@ public class DisplayTurtleManager {
 		}
 		else {
 			activeDisplayTurtles.remove(turtleID);
-			displayTurtle.activateTransparent();
+			displayTurtle.activateShadow();
 		}
 	}
 	
+	protected void updateTurtlePathColors(Color color) {
+		for(DisplayTurtle activeDisplayTurtle : activeDisplayTurtles.values()) {
+			activeDisplayTurtle.updateTurtlePathColor(color);
+		}
+	}
+
 }

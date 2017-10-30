@@ -221,6 +221,7 @@ private static final int BOTTOM_LAYOUT_X = 50;
 		b1.setOnAction(e -> displayTurtleManager.setImages(b1.chooseTurtleImage(displayTurtleManager.getAnActiveTurtle())));
 		 b2 = createBackgroundPicker();
 		PenPicker b3 = new PenPicker(Color.BLACK, BUTTON_WIDTH, BUTTON_HEIGHT, turtlePath);
+		b3.setOnAction(e -> displayTurtleManager.updateTurtlePathColors(b3.getValue()));
 		languageChooser = new LanguageChooser(myResources.getString("Languages"), BUTTON_WIDTH, BUTTON_HEIGHT);
 		languageChooser.getIndex().addListener(
 				(observable, oldIndex, newIndex) -> myController.setParserLanguage(languageChooser.getCurrentLanguage(newIndex)));
@@ -243,8 +244,6 @@ private static final int BOTTOM_LAYOUT_X = 50;
 	public static void main(String[] args) {
 		launch(args);
 	}
-
-
 
 
 }
