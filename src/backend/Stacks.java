@@ -10,15 +10,38 @@ public class Stacks {
 	private Stack<String> commandsStack = new Stack<String>();
 	private CommandsList commandsList;
 	private CommandsList secondCommandsOrVarsList;
+	private UserVariables userVars;
+	private UserCommands userCommands;
+	private String language;
 	
-	String language;
+	public Stacks(String language, UserCommands userC, UserVariables userV) {
+		this.language = language;
+		this.userCommands = userC;
+		this.userVars = userV;
+	}
 	
 	public boolean canBeAdded(String element) { // tests whether non-command (right now: variable or double)
 		return (isNumeric(element) || isVariable(element));
 	}
 	
+	public String getTBDefined() {
+		return userCommands.getTBDefined();
+	}
+	
+	public String getUserCommands(String key) {
+		return userCommands.getCommand(key);
+	}
+	
+	public void putUserVar(String var, double val) {
+		userVars.put(var, val);
+	}
+	
 	public void setLanguage(String lang) {
 		language = lang;
+	}
+	
+	public void putUserCommands(String var, String command) {
+		userCommands.put(var, command);
 	}
 	
 	public String getLanguage() {

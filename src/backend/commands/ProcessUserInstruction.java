@@ -18,7 +18,7 @@ public class ProcessUserInstruction extends GeneralCommands {
 	@Override
 	public void execute(Stacks instructionStacks, TurtleTree currentTurtle) {
 		String key = instructionStacks.getCommand();
-		String command = UserCommands.getCommand(key);
+		String command = instructionStacks.getUserCommands(key);
 		System.out.println(command);
 		String[] vars = command.substring(1).split("\\]");
 		System.out.println(vars[0]);
