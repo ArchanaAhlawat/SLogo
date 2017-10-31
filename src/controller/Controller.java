@@ -28,22 +28,9 @@ public class Controller implements ControllerAPI {
 	}
 
 	@Override
-	public double setCommand(String command) {
-		
-		try {
-			double commandValue=BEdriver.setCommand(command);
-			return commandValue;
-		} catch (IllegalAccessException
-				| IllegalArgumentException
-				| InvocationTargetException
-				| NoSuchMethodException
-				| SecurityException
-				| InstantiationException
-				| ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return 0.0;
+	public double setCommand(String command) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, InstantiationException, ClassNotFoundException {
+		double commandValue=BEdriver.setCommand(command);
+		return commandValue;
 		
 	}
 
