@@ -7,7 +7,6 @@ import javafx.scene.paint.Color;
 
 /**
  * @author archana
- * @author kelly
  *
  */
 public interface TurtleTree {
@@ -35,14 +34,31 @@ public interface TurtleTree {
 	public static final String[] SHAPES = new String[] {CIRCLE, SQUARE, TRIANGLE};
 
 	
+	/**
+	 * calculates x displacement for a turtle
+	 * @param x
+	 * @return the difference between the current x cor and the parameter x
+	 */
 	public double xDisplacement(double x);
 
+	/**
+	 * calculates y displacement for a turtle
+	 * @param y
+	 * @return the difference between the current y cor and the parameter y
+	 */
 	public double yDisplacement(double y);
 
+	/**
+	 * calculates the distance between (x,y) and a turtle's location
+	 * @param x
+	 * @param y
+	 * @return the distance
+	 */
 	public double distance(double x, double y);
 	
 	/**
 	 * calculates the angle from north (up direction, 0 degrees) of the vector (x,y)
+	 * value is between 0 and 360
 	 * @param x the x coordinate
 	 * @param y the y coordinate
 	 * @return the angle between north (0 degrees) and the vector (x,y)
@@ -88,18 +104,45 @@ public interface TurtleTree {
 	 * moves the turtle pixels in the direction it is facing
 	 * positive pixels is forward
 	 * negative pixels is backward
-	 * @param pixels
+	 * @param pixels to change x,y location of turtle by
 	 */
 	public void move(double pixels);
 	
+	/**
+	 * rotates the turtle the number of degrees
+	 * positive degrees is right
+	 * negative degrees is left
+	 * @param degrees to change theta (heading) by
+	 */
 	public void rotate(double degrees);
 	
+	/**
+	 * sets the turtle's heading to the input
+	 * @param expr1
+	 * @return the number of degrees turned
+	 */
 	public double setHeading(double[] expr1);
 	
+	/**
+	 * sets the turtle's x,y to the input
+	 * @param x
+	 * @param y
+	 * @return the distance moved by the turtle
+	 */
 	public double setXY(double x, double y);
 	
+	/**
+	 * supposed to leave a stamp/mark on the grid?
+	 * not quite sure how this was supposed to be implemented (was not on website)
+	 * @return type of stamp
+	 */
 	public double stamp();
 	
+	/**
+	 * changes the pen's color to the color at the index provided
+	 * @param index we want the new pen color to be
+	 * @return index of the new pen color
+	 */
 	public double setPenColor(int index);
 	
 	/**
@@ -108,20 +151,49 @@ public interface TurtleTree {
 	 */
 	public double getPenColor();
 	
+	/**
+	 * sets the pen's size (in pixels) to the size entered
+	 * @param size
+	 * @return size
+	 */
 	public double setPenSize(double size);
 	
+	/**
+	 * used for penup/down commands to change the pen's state
+	 * @param change
+	 * @return the change that happened (0.0 for penUp, 1.0 for penDown)
+	 */
 	public double penChange(double change);
 	
+	/**
+	 * edits the default color at index in ColorManager
+	 * @param index
+	 * @param newColor
+	 */
 	public void setColorIndex(int index, int[] newColor);
 	
+	/**
+	 * used to access the color manager associated with a turtle
+	 * @return ColorManager for the turtle
+	 */
 	public ColorManager getColorManager();
 	
+	/**
+	 * edits the visibility of a turtle
+	 * @param change
+	 * @return the change that happeneds
+	 */
 	public double visChange(double change);
 	
-	public double home();
-	
+	/**
+	 * moves the turtle home, and clears all of the lines and stamps
+	 * @return the distance the turtle traveled to home
+	 */
 	public double clearScreen();
 	
+	/**
+	 * just clears all of the stamps
+	 */
 	public void clearStamps();
 	
 	public void addTurtle();

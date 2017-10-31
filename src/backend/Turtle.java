@@ -58,12 +58,6 @@ public class Turtle implements TurtleTree {
 		return Math.pow(Math.pow(xDisplacement(x), 2) + Math.pow(yDisplacement(y), 2), HALF);
 	}
 
-	/**
-	 * calculates the angle from north (up direction, 0 degrees) of the vector (x,y)
-	 * @param x the x coordinate
-	 * @param y the y coordinate
-	 * @return the angle between north (0 degrees) and the vector (x,y)
-	 */
 	public double[] angle(double x, double y) {
 		double xDis = xDisplacement(x);
 		double yDis = yDisplacement(y);
@@ -76,11 +70,6 @@ public class Turtle implements TurtleTree {
 		}
 	}
 
-	/**
-	 * used for the turtle query commands to observe specific parameters of turtle
-	 * @param orientation the string that corresponds to which turtle parameter is wanted
-	 * @return the value of the wanted turtle parameter
-	 */
 	public double[] getAbsoluteOrientation(String orientation) {
 		Field t;
 		try {
@@ -221,13 +210,8 @@ public class Turtle implements TurtleTree {
 	}
 
 	@Override
-	public double home() {
-		return setXY(ZERO, ZERO);
-	}
-
-	@Override
 	public double clearScreen() {
-		double returnVal = home();
+		double returnVal = setXY(ZERO, ZERO);
 		lineCor.clear();
 		clearStamps();
 		return returnVal;
@@ -247,7 +231,6 @@ public class Turtle implements TurtleTree {
 	@Override
 	public void removeTurtle(double num) {
 		// do nothing
-		
 	}
 
 	@Override
@@ -271,25 +254,22 @@ public class Turtle implements TurtleTree {
 	}
 	
 	public void addActiveTurtle() {
-		// do nothing. 
+		// do nothing
 	}
 
 	@Override
 	public void createTurtles(int num) {
-		// TODO Auto-generated method stub
-		
+		// do nothing
 	}
 
 	@Override
 	public void addTurtle(double num) {
-		// TODO Auto-generated method stub
-		
+		// do nothing
 	}
 
 	@Override
 	public void addActiveTurtle(double num) {
-		// TODO Auto-generated method stub
-		
+		// do nothing
 	}
 	
 	@Override
@@ -299,30 +279,27 @@ public class Turtle implements TurtleTree {
 
 	@Override
 	public void activateTurtle(double ID) {
-		// TODO Auto-generated method stub
+		// do nothing
 	}
 
 	@Override
 	public void clearActiveTurtles() {
-		// TODO Auto-generated method stub
-		
+		// do nothing
 	}
 
 	@Override
 	public void reactivateTurtle(double num) {
-		// TODO Auto-generated method stub
-		
+		// do nothing
 	}
 
 	@Override
 	public void deactivateTurtle(double id) {
-		// TODO Auto-generated method stub
-		
+		// do nothing
 	}
 
 	@Override
 	public List<Turtle> getActiveTurtles() {
-		// TODO Auto-generated method stub
+		// do nothing
 		return null;
 	}
 }

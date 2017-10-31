@@ -5,6 +5,12 @@ import backend.Turtle;
 import backend.TurtleTree;
 import backend.commands.GeneralCommands;
 
+/**
+ * DisplayCommands class
+ * Most operations return the input, so we peek instead of pop and do not add the result to the stack
+ * @author kelly
+ * 
+ */
 public abstract class DisplayCommands extends GeneralCommands {
 
 	public DisplayCommands(Stacks myStack, TurtleTree myTurtle) {
