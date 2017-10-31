@@ -14,7 +14,8 @@ public class Updates {
 	private static final String PENDOWN = "penDown";
 	private static final String TURTLEVIS = "turtleVis";	
 	private double xcor, ycor, theta, penDown, turtleVis;
-	private List<Double> lineCor;
+	private List<Double> lineCor, circleStamps, squareStamps, triangleStamps;
+	private int penColor;
 	
 	public Updates(TurtleTree myTurtle) { // ONE TURTLE ONLY
 		xcor = myTurtle.getAbsoluteOrientation(XCOR)[0];
@@ -24,6 +25,8 @@ public class Updates {
 		penDown = myTurtle.getAbsoluteOrientation(PENDOWN)[0];
 		turtleVis = myTurtle.getAbsoluteOrientation(TURTLEVIS)[0];
 		lineCor = myTurtle.getLines();
+		circleStamps = myTurtle.getCircleStamps();
+		penColor = (int) myTurtle.getPenColor();
 	}
 	
 	/**
@@ -66,5 +69,35 @@ public class Updates {
 	 */
 	public List<Double> getLineCor() {
 		return lineCor;
+	}
+	
+	/**
+	 * @return the coordinates of all of the circle stamps
+	 */
+	public List<Double> getCircleStamps() {
+		return circleStamps;
+	}
+	
+	/**
+	 * @return the coordinates of all of the square stamps
+	 */
+	public List<Double> getSquareStamps() {
+		return squareStamps;
+	}
+	
+	/**
+	 * @return the coordinates of all of the triangle stamps
+	 */
+	public List<Double> getTriangleStamps() {
+		return triangleStamps;
+	}
+	
+	/**
+	 * default indices are 1 - black, 2 - red, 3 - green, 4 - blue, 5 - white
+	 * @return the index of the defined list of colors that the current pen color is set to
+	 */
+	
+	public int getPenColor() {
+		return penColor;
 	}
 }
