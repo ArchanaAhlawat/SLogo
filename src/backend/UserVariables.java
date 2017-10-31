@@ -1,12 +1,12 @@
 package backend;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 public class UserVariables {
-	private static Map<String, Double> userVars = new HashMap<String, Double>();
+	private static Map<String, Double> userVars = new LinkedHashMap<String, Double>();
 	
 	public void put(String key, double val) {
 		userVars.put(key, val);

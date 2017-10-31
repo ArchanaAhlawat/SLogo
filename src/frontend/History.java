@@ -11,7 +11,7 @@ public class History extends Scroll {
 	private static final String EMPTY_STRING = "";
 	private DisplayTurtleManager displayTurtleManager;
 	private ReturnValue returnValue;
-	private Controller myController;
+	protected Controller myController;
 	private Display turtleArea;
 	
 	
