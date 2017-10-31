@@ -19,12 +19,26 @@ public class DisplayTurtle extends ImageView {
 	public DisplayTurtle() {
 		super();
 		this.setImage(setDefaultImage());
+		initializeTurtle();
+	}
+
+
+	public void initializeTurtle() {
 		this.setX(ORIGIN_X);
 		this.setY(ORIGIN_Y);
 		this.setFitWidth(TURTLESIZE);
 		this.setFitHeight(TURTLESIZE);
 		turtlePath = new TurtlePath(ORIGIN_X,ORIGIN_Y);
 	}
+	
+	
+	public DisplayTurtle(File file) {
+		super();
+		this.setImage(new Image(file.toURI().toString()));
+		initializeTurtle();
+	}
+	
+
 	
 	private Image setDefaultImage() {
 		File file = new File(DEFAULT_TURTLE_DIRECTORY);

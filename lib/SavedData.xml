@@ -4,7 +4,9 @@
 
 
     <parameters>
-        <BackgroundColor>0xb36680ff</BackgroundColor>
+        <BackgroundColor>0xf0fff0ff</BackgroundColor>
+        <TurtleImage>src/resources/turtle.png</TurtleImage>
+        <Language>Portuguese</Language>
        
     </parameters>
 

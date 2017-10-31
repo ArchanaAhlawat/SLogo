@@ -62,7 +62,7 @@ private static final int BOTTOM_LAYOUT_X = 50;
 	private TurtlePath turtlePath;
 	private Stage window;
 	private Group root;
-	private ResourceBundle myResources;
+	protected ResourceBundle myResources;
 	private TextArea command;
 	private History commandHistory;
 	private ReturnValue returnValue;
@@ -94,7 +94,7 @@ private static final int BOTTOM_LAYOUT_X = 50;
 		root = new Group();
 		Scene startScene = new Scene(root, WIDTH, HEIGHT);
 		//startScene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-		DisplayTurtle firstTurtle = new DisplayTurtle();
+		DisplayTurtle firstTurtle = createFirstTurtle();
 		turtleArea = new Display(firstTurtle, GRID_X1, GRID_Y1, GRID_WIDTH, GRID_HEIGHT);
 		displayTurtleManager = new DisplayTurtleManager(firstTurtle);
 		addAllButtons(layout);
@@ -124,6 +124,10 @@ private static final int BOTTOM_LAYOUT_X = 50;
 		
 
 		
+	}
+	
+	protected DisplayTurtle createFirstTurtle() {
+		return new DisplayTurtle();
 	}
 	
 
@@ -223,7 +227,7 @@ private static final int BOTTOM_LAYOUT_X = 50;
 		 backgroundPicker = createBackgroundPicker();
 		PenPicker b3 = new PenPicker(Color.BLACK, BUTTON_WIDTH, BUTTON_HEIGHT, turtlePath);
 		b3.setOnAction(e -> displayTurtleManager.updateTurtlePathColors(b3.getValue()));
-		languageChooser = new LanguageChooser(myResources.getString("Languages"), BUTTON_WIDTH, BUTTON_HEIGHT);
+		languageChooser = createLanguageChooser();
 		languageChooser.getIndex().addListener(
 				(observable, oldIndex, newIndex) -> myController.setParserLanguage(languageChooser.getCurrentLanguage(newIndex)));
 		HelpButton b5 = new HelpButton(myResources.getString("Help"), BUTTON_WIDTH, BUTTON_HEIGHT);
@@ -232,6 +236,10 @@ private static final int BOTTOM_LAYOUT_X = 50;
 		b6.setOnAction(e -> b6.createNewWorkSpace());
 		layout.getChildren().addAll(turtleImageButton,backgroundPicker,b3,languageChooser,b6,b5);
 
+	}
+
+	public LanguageChooser createLanguageChooser() {
+		return new LanguageChooser(myResources.getString("Languages"), BUTTON_WIDTH, BUTTON_HEIGHT);
 	}
 	
 	

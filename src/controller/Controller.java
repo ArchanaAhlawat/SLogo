@@ -19,6 +19,7 @@ public class Controller implements ControllerAPI {
 	public Controller(DisplayTurtleManager FEdisplayTurtleManager) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
 		BEdriver = new Driver();
 		displayTurtleManager = FEdisplayTurtleManager;
+	
 	}
 	
 	@Override

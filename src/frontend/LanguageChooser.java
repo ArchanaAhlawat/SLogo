@@ -9,7 +9,7 @@ import javafx.scene.control.ChoiceBox;
 
 public class LanguageChooser extends ChoiceBox<String> {
 	
-	public static final String LANGUAGE_DEFAULT = "English";
+	public String LANGUAGE_DEFAULT = "English";
 	
 	private static final String COMMA = ",";
 	
@@ -17,10 +17,23 @@ public class LanguageChooser extends ChoiceBox<String> {
 	
 	public LanguageChooser(String languages,double width,double height) {
 		super();
-		setItems(ListToObservable(languages));
+		commonInitializer(languages,width, height);
 		setValue(LANGUAGE_DEFAULT);
+	}
+
+	public void commonInitializer(String languages,double width,double height) {
+		setItems(ListToObservable(languages));
 		setPrefWidth(width);
 		setPrefHeight(height);
+	}
+	
+	public LanguageChooser(String languages,double width,double height,String language) {
+	    super();
+		commonInitializer(languages,width, height);
+		LANGUAGE_DEFAULT=language;
+		System.out.println(LANGUAGE_DEFAULT);
+		setValue(language);
+		
 	}
 	
 	protected ReadOnlyIntegerProperty getIndex() {

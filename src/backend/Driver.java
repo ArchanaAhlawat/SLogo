@@ -4,11 +4,10 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
-import frontend.LanguageChooser;
 
 public class Driver {
 	
-	private static final String LANGUAGE_DEFAULT = LanguageChooser.LANGUAGE_DEFAULT;
+	private String LANGUAGE_DEFAULT="English";
 	
 	private String input;
 	private Parser p;
@@ -81,6 +80,8 @@ public class Driver {
 	public void setInput(String input) {
 		this.input = input;
 	}
+	
+
 	
 	public List<String> getUserDefinedVars() {
 		return p.getUserDefinedVars();

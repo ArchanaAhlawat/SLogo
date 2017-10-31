@@ -15,7 +15,7 @@ import javafx.stage.FileChooser;
 
 public class TurtleImageButton extends Button{
 	private FileChooser fileChooser;
-	private File current;
+	private File current=new File("src/resources/turtle.png");
 
 	public TurtleImageButton(String label, double width, double height) {
 		super(label);

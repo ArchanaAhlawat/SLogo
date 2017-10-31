@@ -57,6 +57,8 @@ public class SaveUI {
 			
 				setNode("BackgroundColor",backgroundPicker.getColor().toString());
 				setNode("TurtleImage",turtleImageButton.getImageFile().toString());
+				setNode("Language",languageChooser.getValue().toString());
+				
 				
 
 		
@@ -88,17 +90,15 @@ public class SaveUI {
 			
 		}
 			
-		public Color getBackColor(){
+		public String getBack(String node){
 			
 			  try {
 				   
 				    Document doc = getFile("lib/SavedData.xml");
 					doc.getDocumentElement().normalize();
-					String bgColor = getNode("BackgroundColor");
+					String message = getNode(node);
 					
-					Color c = Color.web(bgColor);
-					
-					return c;
+					return message;
 					
 			
 					
@@ -106,13 +106,13 @@ public class SaveUI {
 					e.printStackTrace();
 				    }
 			       return null;
-					
-		     
-			
+
+		}
 		
+			
 		}
 			
 			
 		
 
-}
+
