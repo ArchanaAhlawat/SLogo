@@ -37,6 +37,9 @@ public class Turtle implements TurtleTree {
 		penDown = ONE;
 		turtleVis = ONE;
 		lineCor = new ArrayList<Double>();
+		circleStamps = new ArrayList<Double>();
+		squareStamps = new ArrayList<Double>();
+		triangleStamps = new ArrayList<Double>();
 		penColor = new int[] {0,0,0};//BLACK;
 		penSize = ONE;
 		stamp = 1;
