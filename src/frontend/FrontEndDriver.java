@@ -7,7 +7,6 @@ import java.util.ResourceBundle;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.HBox;
@@ -51,19 +50,19 @@ private static final int BOTTOM_LAYOUT_X = 50;
 	private static final int VBOX_SPACING = 7;
 	private static final int WIDTH = 1000;
 	private static final int HEIGHT = 1000;
-	private static final int BUTTON_WIDTH = 150;
-	private static final int BUTTON_HEIGHT = 40;
+	protected static final int BUTTON_WIDTH = 150;
+	protected static final int BUTTON_HEIGHT = 40;
 	private static final String DEFAULT_RESOURCE_PACKAGE = "resources.languages/buttons_labels";
 	private static final Color DEFAULT_TURTLEAREA_COLOR = Color.HONEYDEW;
 	public static final double TURTLESIZE = 50;
 	public static final double ORIGIN_X = (GRID_X2 - GRID_X1 - TURTLESIZE) / 2;
 	public static final double ORIGIN_Y = (GRID_Y2 - GRID_Y1 - TURTLESIZE) / 2;
 
-	private Display turtleArea;
-	private TurtlePath turtlePath;
+	protected Display turtleArea;
+	protected TurtlePath turtlePath;
 	private Stage window;
 	private Group root;
-	private ResourceBundle myResources;
+	protected ResourceBundle myResources;
 	private TextArea command;
 	private History commandHistory;
 	private ReturnValue returnValue;
@@ -74,6 +73,9 @@ private static final int BOTTOM_LAYOUT_X = 50;
 	private double commandValue;
 	private Controller myController;
 	private int count = 0;
+	private BackgroundPicker backgroundPicker;
+	private TurtleImageButton turtleImageButton;
+	private PenPicker penPicker;
 
 
 
@@ -91,7 +93,7 @@ private static final int BOTTOM_LAYOUT_X = 50;
 		addLabelsForButtons(layout2);
 		root = new Group();
 		Scene startScene = new Scene(root, WIDTH, HEIGHT);
-		DisplayTurtle firstTurtle = new DisplayTurtle();
+		DisplayTurtle firstTurtle = createFirstTurtle();
 		turtleArea = new Display(firstTurtle, GRID_X1, GRID_Y1, GRID_WIDTH, GRID_HEIGHT);
 		displayTurtleManager = new DisplayTurtleManager(firstTurtle);
 		addActiveListener(firstTurtle);
@@ -122,6 +124,10 @@ private static final int BOTTOM_LAYOUT_X = 50;
 		
 
 		
+	}
+	
+	protected DisplayTurtle createFirstTurtle() {
+		return new DisplayTurtle();
 	}
 	
 
@@ -205,36 +211,42 @@ private static final int BOTTOM_LAYOUT_X = 50;
 		layout.setTranslateY(BOTTOM_BUTTONS_Y);
 		SaveButton saveButton = new SaveButton(myResources.getString("Save"),BOTTOMROW_BUTTON_WIDTH,BOTTOM_BUTTON_HEIGHT);
 		ResumeButton resumeButton = new ResumeButton(myResources.getString("Resume"),BOTTOMROW_BUTTON_WIDTH,BOTTOM_BUTTON_HEIGHT);
-		Button setPenUpButton = new Button(myResources.getString("PenUp/Down"));
-		setPenUpButton.setPrefSize(BOTTOMROW_BUTTON_WIDTH, BOTTOM_BUTTON_HEIGHT);
-		saveButton.setOnAction(e -> saveButton.save(myController));
-		resumeButton.setOnAction(e -> resumeButton.resume(this));
+		saveButton.setOnAction(e -> saveButton.save(languageChooser,backgroundPicker,turtleImageButton,penPicker));
+		resumeButton.setOnAction(e -> resumeButton.resume(saveButton));
 		layout.getChildren().addAll(saveButton,resumeButton);
-		
-		
-
-
-		
-
-
 	}
 
 	private void addTopButtons(HBox topLayout) {
 		topLayout.setTranslateY(BUTTONS_Y);
 		TurtleImageButton turtleImageButton = new TurtleImageButton(myResources.getString("SetImage"), BUTTON_WIDTH, BUTTON_HEIGHT);
 		turtleImageButton.setOnAction(e -> displayTurtleManager.setImages(turtleImageButton.chooseTurtleImage(displayTurtleManager.getAnActiveTurtle())));
-		BackgroundPicker backgroundPicker = new BackgroundPicker(DEFAULT_TURTLEAREA_COLOR, BUTTON_WIDTH, BUTTON_HEIGHT, turtleArea);
-		PenPicker penPicker = new PenPicker(Color.BLACK, BUTTON_WIDTH, BUTTON_HEIGHT, turtlePath);
+		backgroundPicker = createBackgroundPicker();
+		penPicker = createPenPicker();
 		penPicker.setOnAction(e -> displayTurtleManager.updateTurtlePathColors(penPicker.getValue()));
-		languageChooser = new LanguageChooser(myResources.getString("Languages"), BUTTON_WIDTH, BUTTON_HEIGHT);
+		languageChooser = createLanguageChooser();
 		languageChooser.getIndex().addListener(
 				(observable, oldIndex, newIndex) -> myController.setParserLanguage(languageChooser.getCurrentLanguage(newIndex)));
 		HelpButton helpButton = new HelpButton(myResources.getString("Help"), BUTTON_WIDTH, BUTTON_HEIGHT);
 		helpButton.setOnAction(e -> helpButton.GoToHelpPage(myResources.getString("HelpPage"), this));
-		NewWorkSpaceButton newWorkSpaceButton = new NewWorkSpaceButton(myResources.getString("new"),BUTTON_WIDTH,BUTTON_HEIGHT); 
+		NewWorkSpaceButton newWorkSpaceButton = new NewWorkSpaceButton(myResources.getString("NewButton"),BUTTON_WIDTH,BUTTON_HEIGHT); 
 		newWorkSpaceButton.setOnAction(e -> newWorkSpaceButton.createNewWorkSpace());
 		topLayout.getChildren().addAll(turtleImageButton,backgroundPicker,penPicker,languageChooser,newWorkSpaceButton,helpButton);
+	}
 
+	public PenPicker createPenPicker() {
+		return new PenPicker(Color.BLACK, BUTTON_WIDTH, BUTTON_HEIGHT, turtlePath);
+	}
+
+	public LanguageChooser createLanguageChooser() {
+		return new LanguageChooser(myResources.getString("Languages"), BUTTON_WIDTH, BUTTON_HEIGHT);
+	}
+	
+	
+	
+	
+	protected BackgroundPicker createBackgroundPicker() {
+	   
+		return new BackgroundPicker(DEFAULT_TURTLEAREA_COLOR, BUTTON_WIDTH, BUTTON_HEIGHT, turtleArea);
 	}
 	
 	private void addActiveListener(DisplayTurtle displayTurtle) {
