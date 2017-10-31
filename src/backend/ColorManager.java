@@ -2,6 +2,13 @@ package backend;
 
 import java.util.Arrays;
 
+/**
+ * Class that keeps track of the default colors
+ * Allows for access to all of the colors, and changing the defaults
+ * Is used in Turtle and TurtleManager
+ * @author kelly
+ *
+ */
 public class ColorManager {
 	
 	//these are the defaults

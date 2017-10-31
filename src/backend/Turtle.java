@@ -221,13 +221,8 @@ public class Turtle implements TurtleTree {
 	}
 
 	@Override
-	public double home() {
-		return setXY(ZERO, ZERO);
-	}
-
-	@Override
 	public double clearScreen() {
-		double returnVal = home();
+		double returnVal = setXY(ZERO, ZERO);
 		lineCor.clear();
 		clearStamps();
 		return returnVal;
@@ -247,7 +242,6 @@ public class Turtle implements TurtleTree {
 	@Override
 	public void removeTurtle(double num) {
 		// do nothing
-		
 	}
 
 	@Override
@@ -271,25 +265,22 @@ public class Turtle implements TurtleTree {
 	}
 	
 	public void addActiveTurtle() {
-		// do nothing. 
+		// do nothing
 	}
 
 	@Override
 	public void createTurtles(int num) {
-		// TODO Auto-generated method stub
-		
+		// do nothing
 	}
 
 	@Override
 	public void addTurtle(double num) {
-		// TODO Auto-generated method stub
-		
+		// do nothing
 	}
 
 	@Override
 	public void addActiveTurtle(double num) {
-		// TODO Auto-generated method stub
-		
+		// do nothing
 	}
 	
 	@Override
@@ -299,30 +290,27 @@ public class Turtle implements TurtleTree {
 
 	@Override
 	public void activateTurtle(double ID) {
-		// TODO Auto-generated method stub
+		// do nothing
 	}
 
 	@Override
 	public void clearActiveTurtles() {
-		// TODO Auto-generated method stub
-		
+		// do nothing
 	}
 
 	@Override
 	public void reactivateTurtle(double num) {
-		// TODO Auto-generated method stub
-		
+		// do nothing
 	}
 
 	@Override
 	public void deactivateTurtle(double id) {
-		// TODO Auto-generated method stub
-		
+		// do nothing
 	}
 
 	@Override
 	public List<Turtle> getActiveTurtles() {
-		// TODO Auto-generated method stub
+		// do nothing
 		return null;
 	}
 }

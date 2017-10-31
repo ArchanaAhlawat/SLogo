@@ -179,15 +179,6 @@ public class TurtleManager implements TurtleTree {
 	}
 
 	@Override
-	public double home() {
-		double toReturn = 0;
-		for (Turtle t : activeTurtles) {
-			toReturn = t.home();
-		}
-		return toReturn;
-	}
-
-	@Override
 	public double clearScreen() {
 		double toReturn = 0;
 		for (Turtle t : activeTurtles) {

@@ -118,8 +118,6 @@ public interface TurtleTree {
 	
 	public double visChange(double change);
 	
-	public double home();
-	
 	public double clearScreen();
 	
 	public void clearStamps();
