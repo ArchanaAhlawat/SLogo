@@ -1,6 +1,8 @@
 package frontend;
 
 
+import java.lang.reflect.InvocationTargetException;
+
 import controller.Controller;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
@@ -55,7 +57,19 @@ public class History extends Scroll {
 		
 		
 		String currentCommand=current.getText().trim();
-		double commandValue=myController.setCommand(currentCommand);
+		double commandValue = 0;
+		try {
+			commandValue = myController.setCommand(currentCommand);
+		} catch (IllegalAccessException
+				| IllegalArgumentException
+				| InvocationTargetException
+				| NoSuchMethodException
+				| SecurityException
+				| InstantiationException
+				| ClassNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 
 		
 		displayTurtleManager.updateTurtles(myController.getTurtles(),turtleArea);
