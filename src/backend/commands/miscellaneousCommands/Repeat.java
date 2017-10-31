@@ -16,24 +16,17 @@ public class Repeat extends GeneralCommands {
 	}
 
 	@Override
-	public void execute(Stacks instructionStacks, TurtleTree currentTurtle) {
+	public void execute(Stacks instructionStacks, TurtleTree currentTurtle) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, InvocationTargetException, NoSuchMethodException, InstantiationException, ClassNotFoundException {
 		double repeatNum = instructionStacks.peekDouble();
 		Parser tempParser;
-		try {
-			tempParser = new Parser(instructionStacks.getLanguage());
-			for (int i = 0; i < repeatNum; i++) {
-				for (String instruction : instructionStacks.getCommandsList()) {
-					tempParser.parseInstruction(currentTurtle, instruction);
-				}
+		tempParser = new Parser(instructionStacks.getLanguage());
+		for (int i = 0; i < repeatNum; i++) {
+			for (String instruction : instructionStacks.getCommandsList()) {
+				tempParser.parseInstruction(currentTurtle, instruction);
 			}
-			double toReturn = tempParser.getReturnVal();
-			instructionStacks.addDouble(toReturn);
-		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException
-				| SecurityException | InstantiationException | ClassNotFoundException | NoSuchFieldException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
+		double toReturn = tempParser.getReturnVal();
+		instructionStacks.addDouble(toReturn);
 	}
-
 }
 

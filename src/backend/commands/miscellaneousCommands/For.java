@@ -17,31 +17,22 @@ public class For extends GeneralCommands {
 	}
 
 	@Override
-	public void execute(Stacks instructionStacks, TurtleTree currentTurtle) {
+	public void execute(Stacks instructionStacks, TurtleTree currentTurtle) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, InvocationTargetException, NoSuchMethodException, InstantiationException, ClassNotFoundException {
 		List<String> var = instructionStacks.getSecondCommandsList();
 		Parser tempParser;
-		try {
-			tempParser = new Parser(instructionStacks.getLanguage());
-			String varName = var.get(0).split(" ")[0];
-			tempParser.parseInstruction(currentTurtle, "Set " + varName + " " + var.get(0).split(" ")[1]); // want to get variable name 
-			Double start = Double.parseDouble(tempParser.getVarVal(varName));
-			Double limit = Double.parseDouble(var.get(0).split(" ")[2]);
-			for (double i = start; i < (limit+1); i++) {
-				tempParser.updateUserVars(varName, i);
-				System.out.println("updated var: " + tempParser.getVarVal(":var"));
-				for (String instruction : instructionStacks.getCommandsList()) {
-					tempParser.parseInstruction(currentTurtle, instruction);
-				}
+		tempParser = new Parser(instructionStacks.getLanguage());
+		String varName = var.get(0).split(" ")[0];
+		tempParser.parseInstruction(currentTurtle, "Set " + varName + " " + var.get(0).split(" ")[1]); // want to get variable name 
+		Double start = Double.parseDouble(tempParser.getVarVal(varName));
+		Double limit = Double.parseDouble(var.get(0).split(" ")[2]);
+		for (double i = start; i < (limit+1); i++) {
+			tempParser.updateUserVars(varName, i);
+			System.out.println("updated var: " + tempParser.getVarVal(":var"));
+			for (String instruction : instructionStacks.getCommandsList()) {
+				tempParser.parseInstruction(currentTurtle, instruction);
 			}
-			double toReturn = tempParser.getReturnVal();
-			instructionStacks.addDouble(toReturn);
-		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException
-				| SecurityException | InstantiationException | ClassNotFoundException | NoSuchFieldException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
-		
+		double toReturn = tempParser.getReturnVal();
+		instructionStacks.addDouble(toReturn);
 	}
-
-	
 }
