@@ -6,8 +6,9 @@ import backend.TurtleTree;
 import backend.commands.GeneralCommands;
 
 /**
+ * TurtcleCommands class
  * Default for the commands with zero parameters needed
- * 
+ * does not pop/peek any parameters, does the update and then returns the value and adds it to teh stack
  * @author kelly
  *
  */
