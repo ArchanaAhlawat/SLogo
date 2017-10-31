@@ -6,9 +6,8 @@ import backend.TurtleTree;
 import backend.commands.GeneralCommands;
 
 /**
- * GeneralOperations class
- * Most operations still take two parameters that need to be popped off the stack to do the update and the result returned to the stack
- * Has static final values that are used throughout the hierarchy
+ * MiscellaneousCommands class
+ * operations are all different and override execute
  * @author kelly
  * 
  */
