@@ -13,10 +13,19 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+/**
+ * FrontEndDriver class 
+ * Purpose: To set up the main class for SLogo, which includes the front end design and visualization. Someone may want to use it if they wanted to 
+ * make another simulation (which we implemented).
+ * Assumptions: A controller is present to pass information into the back end, which will pass information into the controller and then into the front 
+ * end. It is dependent on no parsing/command errors into order to display everything correctly. 
+ * Example of how to use it: create a new front end driver and stage, then call the start method in the front end driver to start the SLogo.
+ * Other details: it also contains a lot of event handlers and methods for passing and receiving information from the controller
+ * @author Owen Smith, Yiqin Zhou
+ *
+ */
 
 public class FrontEndDriver extends Application {
-
-
 
 
 private static final int BOTTOM_LAYOUT_X = 50;
@@ -79,7 +88,10 @@ private static final int BOTTOM_LAYOUT_X = 50;
 
 
 
-
+	/**
+	 * start method: starts the program and sets up the scene
+	 * Assumptions: a stage is set up beforehand and there is no exception thrown, even though start throws an exception
+	 */
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		myController = new Controller(displayTurtleManager);
@@ -120,9 +132,6 @@ private static final int BOTTOM_LAYOUT_X = 50;
 		
 	    KeyboardHandler keyboardHandler=new KeyboardHandler(root,this);
 	    keyboardHandler.execute();
-		
-		
-
 		
 	}
 	
@@ -205,6 +214,11 @@ private static final int BOTTOM_LAYOUT_X = 50;
 
 	}
 	
+	/**
+	 * addBottomButons: adds the buttons at the bottom of the scene, which are the save and resume button for the application
+	 * @param layout-- the HBox that contains the buttons which are added to it
+	 * Assumptions: the constants and HBox are provided and defined in the FrontEndDriver
+	 */
 	
 	private void addBottomButtons(HBox layout) {
 		layout.setTranslateX(BOTTOM_LAYOUT_X);
@@ -216,6 +230,12 @@ private static final int BOTTOM_LAYOUT_X = 50;
 		layout.getChildren().addAll(saveButton,resumeButton);
 	}
 
+	/**
+	 * addTopButtons: adds the buttons at the top of the scene, which are defined by their names
+	 * Assumptions: takes in the new top HBox
+	 * @param topLayout--the top HBox
+	 */
+	
 	private void addTopButtons(HBox topLayout) {
 		topLayout.setTranslateY(BUTTONS_Y);
 		TurtleImageButton turtleImageButton = new TurtleImageButton(myResources.getString("SetImage"), BUTTON_WIDTH, BUTTON_HEIGHT);
@@ -233,11 +253,11 @@ private static final int BOTTOM_LAYOUT_X = 50;
 		topLayout.getChildren().addAll(turtleImageButton,backgroundPicker,penPicker,languageChooser,newWorkSpaceButton,helpButton);
 	}
 
-	public PenPicker createPenPicker() {
+	protected PenPicker createPenPicker() {
 		return new PenPicker(Color.BLACK, BUTTON_WIDTH, BUTTON_HEIGHT, turtlePath);
 	}
 
-	public LanguageChooser createLanguageChooser() {
+	protected LanguageChooser createLanguageChooser() {
 		return new LanguageChooser(myResources.getString("Languages"), BUTTON_WIDTH, BUTTON_HEIGHT);
 	}
 	
@@ -248,6 +268,13 @@ private static final int BOTTOM_LAYOUT_X = 50;
 	   
 		return new BackgroundPicker(DEFAULT_TURTLEAREA_COLOR, BUTTON_WIDTH, BUTTON_HEIGHT, turtleArea);
 	}
+	
+	/**
+	 * addActiveListener--adds a listener to the BooleanProperty active for all turtles to know when to tell the controller to reactivate/deactivate a
+	 * turtle in the back end
+	 * assumption: a display turtle passed is just being added to the scene, and all updates have been made to it
+	 * @param displayTurtle
+	 */
 	
 	private void addActiveListener(DisplayTurtle displayTurtle) {
 		displayTurtle.getActiveProperty().addListener(
