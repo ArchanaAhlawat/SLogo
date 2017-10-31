@@ -23,21 +23,20 @@ public class AskWith extends GeneralCommands {
 		List<String> commands = instructionStacks.getCommandsList(); // commands
 		String condition = instructionStacks.getSecondCommandsList().get(0); // turtle IDs
 		Parser tempParser = new Parser(instructionStacks.getLanguage());
-		StringBuilder sbTell = new StringBuilder("Tell [ ");
+		StringBuilder sbTell = new StringBuilder();
 		for (Turtle t : currentTurtle.allTurtles) {
 			tempParser.parseInstruction(t, condition);
 			if (tempParser.getReturnVal() == 1.0) {
 				sbTell.append(t.getActiveTurtleID() + " ");
 			}
 		}
-		sbTell.append("]");
 		String setTell = sbTell.toString();
 		Set<String> idSet = new HashSet<String>();
 		for (String id : setTell.split(" ")) {
 			idSet.add(id);
 		}
-		System.out.println(Arrays.toString(idSet.toArray()).replaceAll(",", "").replaceAll("\\]", "").replaceAll("\\[", ""));
-		String ids = Arrays.toString(idSet.toArray()).replaceAll(",", "").replaceAll("\\]", "").replaceAll("\\[", "");
+		System.out.println("omg " + Arrays.toString(idSet.toArray()).replaceAll(",", "").replaceAll("\\]", "").replaceAll("\\[", ""));
+		String ids = "Tell [ " + Arrays.toString(idSet.toArray()).replaceAll(",", "").replaceAll("\\]", "").replaceAll("\\[", "") + " ]";
 		double toReturn = 0;
 		if (ids.length() != 8) { // check this CHECK THIS TODO 
 			tempParser.parseInstruction(currentTurtle, ids);

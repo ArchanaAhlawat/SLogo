@@ -13,7 +13,7 @@ import java.util.Set;
 
 public class Parser {
 	private UserVariables userVariables = new UserVariables();
-	//public UserCommands userCommands = new UserCommands(); // for now static 
+	public UserCommands userCommands = new UserCommands();
 	TurtleTree currentTurtle;
 	private double val = 1;
 	private Map<String, String> langMap;
@@ -53,10 +53,10 @@ public class Parser {
 	}
 		// TODO: throw exceptions properly w try/catch
 	private void parseInstructionPrivate(TurtleTree current, String inst) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, InstantiationException, ClassNotFoundException {
-		String commandsList = ""; // THIS CHANGE SUNDAY 6:30 PM.
+		String commandsList = "";
 		currentTurtle = current;
 		System.out.println("NEW PASSED INST: " + inst);
-		Stacks instructionStacks = new Stacks();
+		Stacks instructionStacks = new Stacks(language, userCommands, userVariables);
 		instructionStacks.setLanguage(language);
 		if (inst.toLowerCase().contains("tell")) {
 			this.setTell(inst);
@@ -64,7 +64,7 @@ public class Parser {
 		inst = inst.replace("\n", ", ");
 		String[] instructionArray = inst.trim().split("\\s+");
 		for (int i = instructionArray.length - 1; i > -1; i--) {
-			if (UserVariables.contains(instructionArray[i])) {
+			if (userVariables.contains(instructionArray[i])) {
 				instructionStacks.push(this.getVarVal(instructionArray[i]));
 			}
 			else if (instructionArray[i].matches("\\]")) { // identified beginning of list (back of list)
@@ -97,10 +97,10 @@ public class Parser {
 			else if (instructionStacks.canBeAdded(instructionArray[i])) {
 				instructionStacks.push(instructionArray[i]);
 			}
-			else if (! langMap.containsKey(instructionArray[i].toLowerCase().trim()) && ! UserCommands.contains(instructionArray[i].toLowerCase().trim())) {
-				UserCommands.setToDefine(instructionArray[i].toLowerCase());
+			else if (! langMap.containsKey(instructionArray[i].toLowerCase().trim()) && ! userCommands.contains(instructionArray[i].toLowerCase().trim())) {
+				userCommands.setToDefine(instructionArray[i].toLowerCase());
 			}
-			else if (UserCommands.contains(instructionArray[i].toLowerCase().trim())) {
+			else if (userCommands.contains(instructionArray[i].toLowerCase().trim())) {
 				instructionStacks.addToCommands(instructionArray[i].toLowerCase().trim());
 				reflectAndExecute(instructionStacks, "ProcessUserInstruction"); // bad design? 
 			}
@@ -149,8 +149,9 @@ public class Parser {
 		//turtles.addActiveTurtle();
 		p.parseInstruction(turtles, "tell [ 2 ]");
 		p.parseInstruction(turtles, "left 270");
+		p.parseInstruction(turtles, "forward 50");
 		//p.parseInstruction(turtles, "ask [ 1 2 ] [ fd 60 ]");
-		p.parseInstruction(turtles, "AskWith [ greater? xcor 50 ] [ fd 40 ]");
+		p.parseInstruction(turtles, "AskWith [ greater? xcor 40 ] [ fd 40 ]");
 		//p.parseInstruction(turtles, "Ask [ 1 ] [ fd 40 ]"); 
 		//p.parseInstruction(turtles, "fd 40");
 		// repeat 3 [ fd 54\nsum 2 4 ], DOTIMES [ :var 3 ] [ fd :var\nsum :var 4 ],
@@ -161,11 +162,11 @@ public class Parser {
 	}
 	
 	public String getVarVal(String var) {
-		return Double.toString(UserVariables.getVarVal(var));
+		return Double.toString(userVariables.getVarVal(var));
 	}
 
 	public void updateUserVars(String key, Double val) {
-		UserVariables.put(key, val);
+		userVariables.put(key, val);
 	}
 	
 	public String getLanguage() {
@@ -176,6 +177,10 @@ public class Parser {
 		val = returnVal;
 	}
 	public List<String> getUserDefinedVars() { // this process needs to be updated! 
-		return UserVariables.getUserDefinedVars();
+		return userVariables.getUserDefinedVars();
+	}
+	
+	public List<String> getUserDefinedCommands() { // this process needs to be updated! 
+		return userCommands.getUserDefinedCommands();
 	}
 }

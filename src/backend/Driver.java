@@ -85,4 +85,8 @@ public class Driver {
 	public List<String> getUserDefinedVars() {
 		return p.getUserDefinedVars();
 	}
+	
+	public List<String> getUserDefinedCommands() {
+		return p.getUserDefinedCommands();
+	}
 }

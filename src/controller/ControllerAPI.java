@@ -24,4 +24,6 @@ public interface ControllerAPI {
 	void createTurtleTree();
 	
 	public List<String> getUserDefinedVars();
+
+	List<String> getUserDefinedCommands();
 }
