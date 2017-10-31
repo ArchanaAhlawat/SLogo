@@ -189,7 +189,7 @@ private static final int BOTTOM_LAYOUT_X = 50;
 		returnValue.addReturnValue(commandValue);
 		List<String> userCommandsList=myController.getUserDefinedCommands();
 		List<String> variablesList=myController.getUserDefinedVars();
-		System.out.println("test"+userCommandsList.get(0));
+
 		manageUserDefined(variablesList,count,userDefinedVariables);
 		count=variablesList.size();
 		manageUserDefined(userCommandsList,count2,userDefinedCommands);
