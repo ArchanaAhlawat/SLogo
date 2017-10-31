@@ -16,42 +16,22 @@ public class IfElse extends GeneralCommands {
 	}
 
 	@Override
-	public void execute(Stacks instructionStacks, TurtleTree currentTurtle) {
+	public void execute(Stacks instructionStacks, TurtleTree currentTurtle) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, InvocationTargetException, NoSuchMethodException, InstantiationException, ClassNotFoundException {
 		Parser tempParser;
-		try {
-			tempParser = new Parser(instructionStacks.getLanguage());
-			if (instructionStacks.popDouble() != 0) {
-				for (String instruction : instructionStacks.getSecondCommandsList()) {
-					try {
-						tempParser.parseInstruction(currentTurtle, instruction);
-					} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException
-							| NoSuchMethodException | SecurityException | InstantiationException
-							| ClassNotFoundException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-				double toReturn = tempParser.getReturnVal();
-				instructionStacks.addDouble(toReturn);
+		tempParser = new Parser(instructionStacks.getLanguage());
+		if (instructionStacks.popDouble() != 0) {
+			for (String instruction : instructionStacks.getSecondCommandsList()) {
+					tempParser.parseInstruction(currentTurtle, instruction);
 			}
-			else {
-				for (String instruction : instructionStacks.getCommandsList()) {
-					try {
-						tempParser.parseInstruction(currentTurtle, instruction);
-					} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException
-							| NoSuchMethodException | SecurityException | InstantiationException
-							| ClassNotFoundException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-				double toReturn = tempParser.getReturnVal();
-				instructionStacks.addDouble(toReturn);
+			double toReturn = tempParser.getReturnVal();
+			instructionStacks.addDouble(toReturn);
+		}
+		else {
+			for (String instruction : instructionStacks.getCommandsList()) {
+					tempParser.parseInstruction(currentTurtle, instruction);
 			}
-		} catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			double toReturn = tempParser.getReturnVal();
+			instructionStacks.addDouble(toReturn);
 		}
 	}
-
 }

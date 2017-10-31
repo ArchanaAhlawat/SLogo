@@ -16,27 +16,15 @@ public class If extends GeneralCommands {
 	}
 
 	@Override
-	public void execute(Stacks instructionStacks, TurtleTree currentTurtle) {
+	public void execute(Stacks instructionStacks, TurtleTree currentTurtle) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, InvocationTargetException, NoSuchMethodException, InstantiationException, ClassNotFoundException {
 		if (instructionStacks.popDouble() != 0) {
 			Parser tempParser;
-			try {
-				tempParser = new Parser(instructionStacks.getLanguage());
-				for (String instruction : instructionStacks.getCommandsList()) {
-					try {
-						tempParser.parseInstruction(currentTurtle, instruction);
-					} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException
-							| NoSuchMethodException | SecurityException | InstantiationException
-							| ClassNotFoundException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-				double toReturn = tempParser.getReturnVal();
-				instructionStacks.addDouble(toReturn);
-			} catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+			tempParser = new Parser(instructionStacks.getLanguage());
+			for (String instruction : instructionStacks.getCommandsList()) {
+					tempParser.parseInstruction(currentTurtle, instruction);
 			}
+			double toReturn = tempParser.getReturnVal();
+			instructionStacks.addDouble(toReturn);
 		}
 		else {
 			instructionStacks.addDouble(0.0);
