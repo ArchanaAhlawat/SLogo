@@ -112,6 +112,6 @@ public class Updates {
 	public String getError() {
 		String errorMessage = new String(error);
 		myTurtle.resetError();
-		return error;
+		return errorMessage;
 	}
 }
