@@ -94,6 +94,7 @@ private static final int BOTTOM_LAYOUT_X = 50;
 		DisplayTurtle firstTurtle = new DisplayTurtle();
 		turtleArea = new Display(firstTurtle, GRID_X1, GRID_Y1, GRID_WIDTH, GRID_HEIGHT);
 		displayTurtleManager = new DisplayTurtleManager(firstTurtle);
+		addActiveListener(firstTurtle);
 		addAllButtons(layout);
 
    
@@ -192,6 +193,9 @@ private static final int BOTTOM_LAYOUT_X = 50;
 		commandValue = myController.setCommand(currentCommand);
 
         displayTurtleManager.updateTurtles(myController.getTurtles(),turtleArea);
+        for(DisplayTurtle newlyAddedDisplayTurtle : displayTurtleManager.getNewlyAddedDisplayTurtles()) {
+        	addActiveListener(newlyAddedDisplayTurtle);
+        }
 
 	}
 	
@@ -229,6 +233,15 @@ private static final int BOTTOM_LAYOUT_X = 50;
 		b6.setOnAction(e -> b6.createNewWorkSpace());
 		layout.getChildren().addAll(b1,b2,b3,languageChooser,b6,b5);
 
+	}
+	
+	private void addActiveListener(DisplayTurtle displayTurtle) {
+		displayTurtle.getActiveProperty().addListener(
+				(observable, isOldActive, isNewActive) -> {
+					if(isNewActive) myController.reactivate(displayTurtle.getID());
+					else myController.deactivate(displayTurtle.getID());
+				}
+		);
 	}
 	
 	public static void main(String[] args) {

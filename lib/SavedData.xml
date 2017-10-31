@@ -5,7 +5,7 @@
 
     <parameters>
         <turtleX>0.0</turtleX>
-        <turtleY>0.0</turtleY>
+        <turtleY>-50.0</turtleY>
         <turtleTheta>0.0</turtleTheta>
         <turtleVis>1.0</turtleVis>
     </parameters>
