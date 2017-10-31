@@ -69,6 +69,5 @@ public abstract class Scroll extends ScrollPane {
 		Text curr=allHistory.get(number);
 		curr.wrappingWidthProperty().bind(this.widthProperty());
 		addToRoot(curr);
-		
 	}
 }

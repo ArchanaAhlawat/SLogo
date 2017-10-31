@@ -314,4 +314,16 @@ public class TurtleManager implements TurtleTree {
 	public List<Turtle> getActiveTurtles() { // uh this is bad bc mutable :o RIP
 		return activeTurtles;
 	}
+
+	@Override
+	public String getError() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void resetError() {
+		// TODO Auto-generated method stub
+		
+	}
 }
