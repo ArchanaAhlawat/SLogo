@@ -20,7 +20,11 @@ protected void handleMouseClick(MouseEvent e,DisplayTurtleManager displayTurtleM
 
 		
 		
-		String currentCommand=current.getText().trim();
+		String commandWord=current.getText().trim();
+		
+		String currentCommand1=commandWord.split(" ")[0];
+		String currentCommand=currentCommand1.substring(0, currentCommand1.length() - 1);
+		System.out.println(currentCommand);
 		double commandValue = 0;
 		try {
 			commandValue = myController.setCommand(currentCommand);
