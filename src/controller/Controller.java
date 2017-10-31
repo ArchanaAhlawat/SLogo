@@ -1,12 +1,10 @@
 package controller;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.LinkedList;
 import java.util.List;
 
 import backend.Driver;
 import backend.Updates;
-import frontend.DisplayTurtle;
 import frontend.DisplayTurtleManager;
 import backend.Turtle;
 
