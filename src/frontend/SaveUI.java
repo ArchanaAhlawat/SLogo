@@ -43,7 +43,7 @@ public class SaveUI {
 		
 		
 		
-		public void save(LanguageChooser languageChooser,BackgroundPicker backgroundPicker, TurtleImageButton turtleImageButton) {
+		public void save(LanguageChooser languageChooser,BackgroundPicker backgroundPicker, TurtleImageButton turtleImageButton,PenPicker penPicker) {
 		
 			try {
 				
@@ -58,6 +58,7 @@ public class SaveUI {
 				setNode("BackgroundColor",backgroundPicker.getColor().toString());
 				setNode("TurtleImage",turtleImageButton.getImageFile().toString());
 				setNode("Language",languageChooser.getValue().toString());
+				setNode("PenColor",penPicker.getValue().toString());
 				
 				
 

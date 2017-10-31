@@ -11,6 +11,7 @@ public class SaveDriver extends FrontEndDriver {
 	private Color c;
 	private File file;
 	private String language;
+	private Color penColor;
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -24,10 +25,17 @@ public class SaveDriver extends FrontEndDriver {
 		return new BackgroundPicker(c, BUTTON_WIDTH, BUTTON_HEIGHT, turtleArea);
 	}
 	
-	public void set(Color color,File f,String language) {
+	public void set(Color color,File f,String language,Color penColor) {
 		this.c=color;
 		this.file=f;
 		this.language=language;
+		this.penColor=penColor;
+	}
+	
+	@Override
+	public PenPicker createPenPicker() {
+		System.out.println(penColor);
+		return new PenPicker(penColor, BUTTON_WIDTH, BUTTON_HEIGHT, turtlePath);
 	}
 	
 

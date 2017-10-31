@@ -27,11 +27,12 @@ public class ResumeButton extends Button {
 		Color c=Color.web(saveUI.getBack("BackgroundColor"));
 		File f=new File(saveUI.getBack("TurtleImage"));
 		String language=saveUI.getBack("Language");
+		Color penColor=Color.web(saveUI.getBack("PenColor"));
 		
 		SaveDriver FEDriver=new SaveDriver();
 			Stage t = new Stage();
 			try {
-				FEDriver.set(c,f,language);
+				FEDriver.set(c,f,language,penColor);
 		
 				
 				FEDriver.start(t);

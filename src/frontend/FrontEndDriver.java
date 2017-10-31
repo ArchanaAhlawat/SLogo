@@ -59,7 +59,7 @@ private static final int BOTTOM_LAYOUT_X = 50;
 	public static final double ORIGIN_Y = (GRID_Y2 - GRID_Y1 - TURTLESIZE) / 2;
 
 	protected Display turtleArea;
-	private TurtlePath turtlePath;
+	protected TurtlePath turtlePath;
 	private Stage window;
 	private Group root;
 	protected ResourceBundle myResources;
@@ -75,6 +75,7 @@ private static final int BOTTOM_LAYOUT_X = 50;
 	private int count=0;
 	private BackgroundPicker backgroundPicker;
 	private TurtleImageButton turtleImageButton;
+	private PenPicker penPicker;
 
 
 
@@ -208,7 +209,7 @@ private static final int BOTTOM_LAYOUT_X = 50;
 		layout.setTranslateY(BOTTOM_BUTTONS_Y);
 		SaveButton b1=new SaveButton(myResources.getString("Save"),SAVE_BUTTON_WIDTH,SAVE_BUTTON_HEIGHT);
 		ResumeButton resumeB=new ResumeButton(myResources.getString("Resume"),SAVE_BUTTON_WIDTH,SAVE_BUTTON_HEIGHT);
-		b1.setOnAction(e -> b1.save(languageChooser,backgroundPicker,turtleImageButton));
+		b1.setOnAction(e -> b1.save(languageChooser,backgroundPicker,turtleImageButton,penPicker));
 		resumeB.setOnAction(e -> resumeB.resume(b1));
 		layout.getChildren().addAll(b1,resumeB);
 		
@@ -225,8 +226,10 @@ private static final int BOTTOM_LAYOUT_X = 50;
 		turtleImageButton = new TurtleImageButton(myResources.getString("SetImage"), BUTTON_WIDTH, BUTTON_HEIGHT);
 		turtleImageButton.setOnAction(e -> displayTurtleManager.setImages(turtleImageButton.chooseTurtleImage(displayTurtleManager.getAnActiveTurtle())));
 		 backgroundPicker = createBackgroundPicker();
-		PenPicker b3 = new PenPicker(Color.BLACK, BUTTON_WIDTH, BUTTON_HEIGHT, turtlePath);
-		b3.setOnAction(e -> displayTurtleManager.updateTurtlePathColors(b3.getValue()));
+		penPicker = createPenPicker();
+		System.out.println("test in main"+penPicker.getValue());
+		penPicker.setOnAction(e -> displayTurtleManager.updateTurtlePathColors(penPicker.getValue()));
+		
 		languageChooser = createLanguageChooser();
 		languageChooser.getIndex().addListener(
 				(observable, oldIndex, newIndex) -> myController.setParserLanguage(languageChooser.getCurrentLanguage(newIndex)));
@@ -234,8 +237,12 @@ private static final int BOTTOM_LAYOUT_X = 50;
 		b5.setOnAction(e -> b5.GoToHelpPage(myResources.getString("HelpPage"), this));
 		NewWorkSpaceButton b6=new NewWorkSpaceButton(myResources.getString("new"),BUTTON_WIDTH,BUTTON_HEIGHT); 
 		b6.setOnAction(e -> b6.createNewWorkSpace());
-		layout.getChildren().addAll(turtleImageButton,backgroundPicker,b3,languageChooser,b6,b5);
+		layout.getChildren().addAll(turtleImageButton,backgroundPicker,penPicker,languageChooser,b6,b5);
 
+	}
+
+	public PenPicker createPenPicker() {
+		return new PenPicker(Color.BLACK, BUTTON_WIDTH, BUTTON_HEIGHT, turtlePath);
 	}
 
 	public LanguageChooser createLanguageChooser() {

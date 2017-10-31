@@ -6,7 +6,8 @@
     <parameters>
         <BackgroundColor>0xf0fff0ff</BackgroundColor>
         <TurtleImage>src/resources/turtle.png</TurtleImage>
-        <Language>Portuguese</Language>
+        <Language>English</Language>
+        <PenColor>0x804d80ff</PenColor>
        
     </parameters>
 
