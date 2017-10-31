@@ -1,5 +1,6 @@
 package backend;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javafx.scene.paint.Color;
@@ -13,6 +14,7 @@ public interface TurtleTree {
 	public static final double DEGTORAD = Math.PI/180.0;
 	public static final double RADTODEG = 180/Math.PI;
 	
+	public List<Turtle> allTurtles = new ArrayList<Turtle>();
 	public double xcor = 0;
 	public double ycor = 0;
 	public double theta = 0;

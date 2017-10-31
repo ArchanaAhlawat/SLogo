@@ -4,18 +4,14 @@ import java.util.Stack;
 
 //instantiate new Stacks object everytime an instruction is passed through
 public class Stacks {
-	Stack<Double> numberStack = new Stack<Double>(); // can these be static if only ever one copy? 
-	Stack<String> variableStack = new Stack<String>();
-	Stack<Double[]> listStack = new Stack<Double[]>();
-	Stack<String> commandsStack = new Stack<String>();
-	CommandsList commandsList;
-	CommandsList secondCommandsOrVarsList;
+	private Stack<Double> numberStack = new Stack<Double>(); // can these be static if only ever one copy? 
+	private Stack<String> variableStack = new Stack<String>();
+	private Stack<Double[]> listStack = new Stack<Double[]>();
+	private Stack<String> commandsStack = new Stack<String>();
+	private CommandsList commandsList;
+	private CommandsList secondCommandsOrVarsList;
 	
 	String language;
-	
-	public Stacks() {
-		
-	}
 	
 	public boolean canBeAdded(String element) { // tests whether non-command (right now: variable or double)
 		return (isNumeric(element) || isVariable(element));

@@ -2,15 +2,17 @@ package backend;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class TurtleManager implements TurtleTree {
-	protected List<Turtle> allTurtles = new ArrayList<Turtle>();
+	//protected List<Turtle> allTurtles = new ArrayList<Turtle>();
 	protected List<Turtle> activeTurtles = new ArrayList<Turtle>();
 	protected double turtleCount = 0;
 	protected int turtleID;
-	private List<Double> allIDs = new ArrayList<Double>();
+	private Set<Double> allIDs = new HashSet<Double>();
 	private Map<Double, Turtle> IDTurtleMap = new HashMap<Double, Turtle>();
 	
 	public TurtleManager() {
