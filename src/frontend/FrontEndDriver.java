@@ -2,16 +2,23 @@ package frontend;
 
 import controller.Controller;
 
+
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.application.Application;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 
@@ -216,8 +223,17 @@ private static final int BOTTOM_LAYOUT_X = 50;
 			commandValue = myController.setCommand(currentCommand);
 		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException
 				| SecurityException | InstantiationException | ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		
+			
+			 Stage dialogStage = new Stage();
+			    dialogStage.initModality(Modality.WINDOW_MODAL);
+
+			    VBox vbox = new VBox(new Text("Your command is formatted wrongly."), new Button("Ok."));
+			    vbox.setAlignment(Pos.CENTER);
+			    vbox.setPadding(new Insets(15));
+
+			    dialogStage.setScene(new Scene(vbox));
+			    dialogStage.show();
 		}
 
         displayTurtleManager.updateTurtles(myController.getTurtles(),turtleArea);
