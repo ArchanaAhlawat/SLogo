@@ -33,7 +33,7 @@ private static final int BOTTOM_LAYOUT_X = 50;
 	private static final int BOTTOM_BUTTONS_Y = 620;
 	private static final int BOTTOMROW_BUTTON_WIDTH = 80;
 	private static final int BOTTOM_BUTTON_HEIGHT = 40;
-	
+	private static final int FIRSTTURTLE_ID = 1;
 	private static final int HBOX_SPACING = 20;
 	private static final int SUBMIT_BUTTON_WIDTH = 80;
 	private static final int SUBMIT_BUTTON_HEIGHT = 40;
@@ -105,7 +105,7 @@ private static final int BOTTOM_LAYOUT_X = 50;
 		addLabelsForButtons(layout2);
 		root = new Group();
 		Scene startScene = new Scene(root, WIDTH, HEIGHT);
-		DisplayTurtle firstTurtle = createFirstTurtle();
+		DisplayTurtle firstTurtle = createFirstTurtle(FIRSTTURTLE_ID);
 		turtleArea = new Display(firstTurtle, GRID_X1, GRID_Y1, GRID_WIDTH, GRID_HEIGHT);
 		displayTurtleManager = new DisplayTurtleManager(firstTurtle);
 		addActiveListener(firstTurtle);
@@ -135,8 +135,8 @@ private static final int BOTTOM_LAYOUT_X = 50;
 		
 	}
 	
-	protected DisplayTurtle createFirstTurtle() {
-		return new DisplayTurtle();
+	protected DisplayTurtle createFirstTurtle(int firstID) {
+		return new DisplayTurtle(firstID);
 	}
 	
 
@@ -273,7 +273,7 @@ private static final int BOTTOM_LAYOUT_X = 50;
 	 * addActiveListener--adds a listener to the BooleanProperty active for all turtles to know when to tell the controller to reactivate/deactivate a
 	 * turtle in the back end
 	 * assumption: a display turtle passed is just being added to the scene, and all updates have been made to it
-	 * @param displayTurtle
+	 * @param displayTurtle--the turtle to which an activeListener will be added
 	 */
 	
 	private void addActiveListener(DisplayTurtle displayTurtle) {
@@ -284,6 +284,12 @@ private static final int BOTTOM_LAYOUT_X = 50;
 				}
 		);
 	}
+	
+	/**
+	 * main: launches the application
+	 * assumption: the rest of the requirements for a class that extends application are met
+	 * @param args--required to launch the application
+	 */
 	
 	public static void main(String[] args) {
 		launch(args);

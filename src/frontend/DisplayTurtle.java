@@ -9,7 +9,17 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 
-
+/**
+ * DisplayTurtle class
+ * Purpose: an extension of ImageView that can display the updated information of the turtle passed in from the back end 
+ * Assumptions: the path for the default image for the display turtle is valid. It shall be added to the turtleArea pane
+ * Example of how to use it: create a new turtle with the given ID that should be one or greater and not already used. It will appear on the screen
+ * and will update given instructions from DisplayTurtleManager
+ * Other details: there is a hashmap of display turtles and ID's in DisplayTurtleManager, but it is here too to be able to get a turtleID given a 
+ * turtle, which is useful for reactivating or deactivating a turtle
+ * @author Owen Smith
+ *
+ */
 public class DisplayTurtle extends ImageView {
 	private static final String DEFAULT_TURTLE_DIRECTORY = "src/resources/turtle.png";
 	private static final double TURTLESIZE = FrontEndDriver.TURTLESIZE;
@@ -20,14 +30,15 @@ public class DisplayTurtle extends ImageView {
 	private TurtlePath turtlePath;
 	private BooleanProperty isActive;
 	
-	public DisplayTurtle() {
+	public DisplayTurtle(int id) {
 		super();
+		turtID = id;
 		this.setImage(setDefaultImage());
 		initializeTurtle();
 	}
 
 
-	public void initializeTurtle() {
+	private void initializeTurtle() {
 		this.setX(ORIGIN_X);
 		this.setY(ORIGIN_Y);
 		this.setFitWidth(TURTLESIZE);
