@@ -7,10 +7,6 @@ import java.util.List;
  * @author kelly
  *
  */
-/**
- * @author kelly
- *
- */
 public class Updates {
 	private static final String XCOR = "xcor";
 	private static final String YCOR = "ycor";

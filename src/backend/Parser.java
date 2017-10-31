@@ -11,6 +11,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * parses the instructions from the frontend
+ * uses reflection to execute the instructions for the turtles
+ * @author archana
+ *
+ */
 public class Parser {
 	private UserVariables userVariables = new UserVariables();
 	public UserCommands userCommands = new UserCommands();
@@ -20,6 +26,10 @@ public class Parser {
 	private String language;
 	private String lastTell = "";
 
+	/**
+	 * static map, would be better as a xml to read in
+	 * @author kelly
+	 */
 	private static final Map<String, String[]> packageMap;
 	static { //https://stackoverflow.com/questions/507602/how-can-i-initialise-a-static-map
 		Map<String, String[]> myMap = new HashMap<>();
@@ -120,6 +130,17 @@ public class Parser {
 		}
 	}
 
+	/**
+	 * @author archana
+	 * @author kelly
+	 * @param instructionStacks
+	 * @param instruction
+	 * @throws ClassNotFoundException
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 * @throws NoSuchMethodException
+	 * @throws InvocationTargetException
+	 */
 	private void reflectAndExecute(Stacks instructionStacks, String instruction) throws ClassNotFoundException, InstantiationException, IllegalAccessException, NoSuchMethodException,InvocationTargetException {
 		String location = instruction;
 		if (langMap.containsKey(instruction)) {

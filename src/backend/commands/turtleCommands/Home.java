@@ -21,6 +21,6 @@ public class Home extends TurtleCommands {
 	
 	@Override
 	protected double doUpdate() {
-		return currentTurtle.home();
+		return currentTurtle.setXY(ZERO, ZERO);
 	}
 }

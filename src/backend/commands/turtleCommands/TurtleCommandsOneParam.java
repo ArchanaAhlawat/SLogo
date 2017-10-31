@@ -5,6 +5,13 @@ import backend.Turtle;
 import backend.TurtleTree;
 import backend.commands.GeneralCommands;
 
+/**
+ * TurtcleCommands class
+ * Default for the commands with one parameters needed
+ * peeks the parameter, does the update and then does not need to adds it to teh stack
+ * @author kelly
+ *
+ */
 public abstract class TurtleCommandsOneParam extends GeneralCommands {
 
 	public TurtleCommandsOneParam(Stacks myStack, TurtleTree myTurtle) {
