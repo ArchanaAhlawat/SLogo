@@ -2,6 +2,7 @@ package frontend;
 
 import controller.Controller;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.application.Application;
@@ -211,7 +212,13 @@ private static final int BOTTOM_LAYOUT_X = 50;
 	}
 
 	protected void executeCommandOnly(String currentCommand) {
-		commandValue = myController.setCommand(currentCommand);
+		try {
+			commandValue = myController.setCommand(currentCommand);
+		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException
+				| SecurityException | InstantiationException | ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
         displayTurtleManager.updateTurtles(myController.getTurtles(),turtleArea);
         for(DisplayTurtle newlyAddedDisplayTurtle : displayTurtleManager.getNewlyAddedDisplayTurtles()) {

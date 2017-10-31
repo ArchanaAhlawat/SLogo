@@ -1,5 +1,6 @@
 package controller;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 import backend.Turtle;
@@ -7,7 +8,7 @@ import frontend.DisplayTurtle;
 
 public interface ControllerAPI {
 	
-	public double setCommand(String command);
+	public double setCommand(String command) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, InstantiationException, ClassNotFoundException;
 	
 	public double getXCor();
 	
