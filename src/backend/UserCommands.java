@@ -1,29 +1,39 @@
 package backend;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class UserCommands {
-	private static Map<String, String> userCommands = new HashMap<String, String>();
-	private static String commandName;
+	private Map<String, String> userCommands = new HashMap<String, String>();
+	private String commandName;
 	
-	public static void put(String key, String command) {
+	public void put(String key, String command) {
 		userCommands.put(key, command);
 	}
 	
-	public static String getCommand(String key) {
+	public String getCommand(String key) {
 		return userCommands.get(key);
 	}
 	
-	public static boolean contains(String key) {
+	public boolean contains(String key) {
 		return (userCommands.containsKey(key));
 	}
 	
-	public static void setToDefine(String name) {
+	public void setToDefine(String name) {
 		commandName = name;
 	}
 	
-	public static String getTBDefined() {
+	public String getTBDefined() {
 		return commandName;
+	}
+	
+	public List<String> getUserDefinedCommands() {
+		List<String> toReturn = new ArrayList<String>();
+		for (String varName : userCommands.keySet()) {
+			toReturn.add(varName.substring(1) + ": " + userCommands.get(varName));
+		}
+		return toReturn;
 	}
 }

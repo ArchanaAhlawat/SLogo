@@ -104,4 +104,8 @@ public class Controller implements ControllerAPI {
 		return BEdriver.getUserDefinedVars();
 	}
 	
+	@Override
+	public List<String> getUserDefinedCommands() {
+		return BEdriver.getUserDefinedCommands();
+	}
 }
