@@ -18,6 +18,7 @@ public class Parser {
 	private double val = 1;
 	private Map<String, String> langMap;
 	private String language;
+	private String lastTell = "";
 
 	private static final Map<String, String[]> packageMap;
 	static { //https://stackoverflow.com/questions/507602/how-can-i-initialise-a-static-map
@@ -40,13 +41,26 @@ public class Parser {
 		this.language = language;
 	}
 
-	// TODO: throw exceptions properly w try/catch
 	public void parseInstruction(TurtleTree current, String inst) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, InstantiationException, ClassNotFoundException {
+		this.parseInstructionPrivate(current, inst);
+		double actualReturnVal = this.getReturnVal();
+		this.parseInstructionPrivate(current, lastTell);
+		this.setReturnVal(actualReturnVal);
+	}	
+	
+	private void setTell(String tell) {
+		lastTell = tell;
+	}
+		// TODO: throw exceptions properly w try/catch
+	private void parseInstructionPrivate(TurtleTree current, String inst) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, InstantiationException, ClassNotFoundException {
 		String commandsList = ""; // THIS CHANGE SUNDAY 6:30 PM.
 		currentTurtle = current;
 		System.out.println("NEW PASSED INST: " + inst);
 		Stacks instructionStacks = new Stacks();
 		instructionStacks.setLanguage(language);
+		if (inst.toLowerCase().contains("tell")) {
+			this.setTell(inst);
+		}
 		inst = inst.replace("\n", ", ");
 		String[] instructionArray = inst.trim().split("\\s+");
 		for (int i = instructionArray.length - 1; i > -1; i--) {
@@ -133,9 +147,13 @@ public class Parser {
 		TurtleTree turtles = new TurtleManager();
 		//turtles.addActiveTurtle();
 		//turtles.addActiveTurtle();
-		p.parseInstruction(turtles, "Tell [ 100 4 ]"); 
+		p.parseInstruction(turtles, "tell [ 2 ]");
+		p.parseInstruction(turtles, "left 270");
+		//p.parseInstruction(turtles, "ask [ 1 2 ] [ fd 60 ]");
+		p.parseInstruction(turtles, "AskWith [ greater? xcor 50 ] [ fd 40 ]");
+		//p.parseInstruction(turtles, "Ask [ 1 ] [ fd 40 ]"); 
+		//p.parseInstruction(turtles, "fd 40");
 		// repeat 3 [ fd 54\nsum 2 4 ], DOTIMES [ :var 3 ] [ fd :var\nsum :var 4 ],
-		p.parseInstruction(turtles, "Tell [ 100 ]");
 		//FOR [ :var 3 5 ] [ fd :var\nsum :var 4 ], IF 0 [ fd 54\nsum 2 4 ]
 		// IFELSE 0 [ fd 54\nsum 2 4 ] [ fd 700\nsum 70 70 ], 
 		//wow TO wow [ :hi 3\n:omg 8 ] [ fd 3\nsum 70 70 ]
@@ -154,6 +172,9 @@ public class Parser {
 		return language;
 	}
 	
+	public void setReturnVal(double returnVal) {
+		val = returnVal;
+	}
 	public List<String> getUserDefinedVars() { // this process needs to be updated! 
 		return UserVariables.getUserDefinedVars();
 	}

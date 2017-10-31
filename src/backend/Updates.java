@@ -7,6 +7,10 @@ import java.util.List;
  * @author kelly
  *
  */
+/**
+ * @author kelly
+ *
+ */
 public class Updates {
 	private static final String XCOR = "xcor";
 	private static final String YCOR = "ycor";
@@ -14,10 +18,13 @@ public class Updates {
 	private static final String PENDOWN = "penDown";
 	private static final String TURTLEVIS = "turtleVis";	
 	private double xcor, ycor, theta, penDown, turtleVis;
-	private List<Double> lineCor;
-	private double penColor;
+	private List<Double> lineCor, circleStamps, squareStamps, triangleStamps;
+	private int penColor;
+	private String error;
+	private TurtleTree myTurtle;
 	
-	public Updates(TurtleTree myTurtle) { // ONE TURTLE ONLY
+	public Updates(TurtleTree currentTurtle) { // ONE TURTLE ONLY
+		myTurtle = currentTurtle;
 		xcor = myTurtle.getAbsoluteOrientation(XCOR)[0];
 		System.out.println("updated Turtle xCor from Updates: " + xcor);
 		ycor = myTurtle.getAbsoluteOrientation(YCOR)[0];
@@ -25,7 +32,9 @@ public class Updates {
 		penDown = myTurtle.getAbsoluteOrientation(PENDOWN)[0];
 		turtleVis = myTurtle.getAbsoluteOrientation(TURTLEVIS)[0];
 		lineCor = myTurtle.getLines();
-		penColor = myTurtle.getPenColor();
+		circleStamps = myTurtle.getCircleStamps();
+		penColor = (int) myTurtle.getPenColor();
+		error = myTurtle.getError();
 	}
 	
 	/**
@@ -70,7 +79,43 @@ public class Updates {
 		return lineCor;
 	}
 	
-	public double getPenColor() {
+	/**
+	 * @return the coordinates of all of the circle stamps
+	 */
+	public List<Double> getCircleStamps() {
+		return circleStamps;
+	}
+	
+	/**
+	 * @return the coordinates of all of the square stamps
+	 */
+	public List<Double> getSquareStamps() {
+		return squareStamps;
+	}
+	
+	/**
+	 * @return the coordinates of all of the triangle stamps
+	 */
+	public List<Double> getTriangleStamps() {
+		return triangleStamps;
+	}
+	
+	/**
+	 * default indices are 1 - black, 2 - red, 3 - green, 4 - blue, 5 - white
+	 * @return the index of the defined list of colors that the current pen color is set to
+	 */
+	
+	public int getPenColor() {
 		return penColor;
+	}
+	
+	/**
+	 * should never happen though...
+	 * @return error message for if a illegal parameter is passed
+	 */
+	public String getError() {
+		String errorMessage = new String(error);
+		myTurtle.resetError();
+		return error;
 	}
 }

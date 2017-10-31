@@ -88,8 +88,6 @@ public class Controller implements ControllerAPI {
 		// TODO Auto-generated method stub
 		return getUpdates().getTurtleVis();
 	}
-	
-	
 
 
 	@Override

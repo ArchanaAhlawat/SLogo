@@ -1,12 +1,9 @@
 package frontend;
 
-
-import java.util.LinkedList;
-import java.util.List;
-
 import javafx.scene.Node;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.paint.Color;
+
 
 
 public class BackgroundPicker extends ColorChooser{
@@ -25,6 +22,7 @@ public class BackgroundPicker extends ColorChooser{
 			thisBP.current=fill;
 			
 		}
+
 	}
 	
 	

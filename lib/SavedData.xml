@@ -4,11 +4,18 @@
 
 
     <parameters>
+<<<<<<< HEAD
         <BackgroundColor>0xf0fff0ff</BackgroundColor>
         <TurtleImage>src/resources/turtle.png</TurtleImage>
         <Language>English</Language>
         <PenColor>0x804d80ff</PenColor>
        
+=======
+        <turtleX>0.0</turtleX>
+        <turtleY>-50.0</turtleY>
+        <turtleTheta>0.0</turtleTheta>
+        <turtleVis>1.0</turtleVis>
+>>>>>>> master
     </parameters>
 
 

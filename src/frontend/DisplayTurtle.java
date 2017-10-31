@@ -2,6 +2,9 @@ package frontend;
 
 import java.io.File;
 import java.util.List;
+
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
@@ -15,6 +18,7 @@ public class DisplayTurtle extends ImageView {
 	
 	private int turtID;
 	private TurtlePath turtlePath;
+	private BooleanProperty isActive;
 	
 	public DisplayTurtle() {
 		super();
@@ -29,6 +33,7 @@ public class DisplayTurtle extends ImageView {
 		this.setFitWidth(TURTLESIZE);
 		this.setFitHeight(TURTLESIZE);
 		turtlePath = new TurtlePath(ORIGIN_X,ORIGIN_Y);
+		isActive = new SimpleBooleanProperty();
 	}
 	
 	
@@ -71,6 +76,18 @@ public class DisplayTurtle extends ImageView {
 	
 	protected int getID() {
 		return turtID;
+	}
+	
+	protected BooleanProperty getActiveProperty() {
+	  return isActive;
+	}
+	
+	protected boolean isActive() {
+		return isActive.get();
+	}
+	
+	protected void setActive(boolean active) {
+		isActive.set(active);
 	}
 	
 	private void drawPath(List<Double> linesToDraw) {
