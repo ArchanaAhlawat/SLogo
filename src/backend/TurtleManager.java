@@ -214,9 +214,16 @@ public class TurtleManager implements TurtleTree {
 		allIDs.add(num);
 	}
 	
-	public void reactivateTurtle(double num) {  // TODO 
-		Turtle t = IDTurtleMap.get(num);
-		addActiveTurtle(t);
+	public void reactivateTurtle(double id) {  // TODO 
+		Turtle toReactivate = IDTurtleMap.get(id);
+		activeTurtles.add(toReactivate);
+		//addActiveTurtle(toReactivate);
+	}
+
+	@Override
+	public void deactivateTurtle(double id) {
+		Turtle toRemove = IDTurtleMap.get(id);
+		activeTurtles.remove(toRemove); // ALL TURTLES LIST SHOULD ALWAYS HAVE ALL TURTLES? 
 	}
 	
 	public void addActiveTurtle(Turtle t) { // for internal use i think TODO
@@ -293,12 +300,6 @@ public class TurtleManager implements TurtleTree {
 	@Override
 	public void clearActiveTurtles() {
 		activeTurtles.clear();
-	}
-
-	@Override
-	public void deactivateTurtle(double id) {
-		Turtle toRemove = IDTurtleMap.get(id);
-		activeTurtles.remove(toRemove); // ALL TURTLES LIST SHOULD ALWAYS HAVE ALL TURTLES? 
 	}
 
 	@Override

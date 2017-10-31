@@ -75,14 +75,19 @@ public class Parser {
 		String[] instructionArray = inst.trim().split("\\s+");
 		for (int i = instructionArray.length - 1; i > -1; i--) {
 			if (userVariables.contains(instructionArray[i])) {
+				if (instructionArray[i-1].toLowerCase().equals("set") || instructionArray[i-1].toLowerCase().equals("make")) break;
 				instructionStacks.push(this.getVarVal(instructionArray[i]));
 			}
 			else if (instructionArray[i].matches("\\]")) { // identified beginning of list (back of list)
 				System.out.println("found beginning of list");
 				if (commandsList != "") { // we already have one set of commands
 					i--;
+					int countList = 1;
 					List<String> tempCommands = new ArrayList<String>();
-					while (! instructionArray[i].matches("\\[")) {
+					while (countList != 0) {
+						if (instructionArray[i].matches("\\]")) countList++;
+						if (instructionArray[i].matches("\\[")) countList--;
+						if (countList == 0) break;
 						tempCommands.add(instructionArray[i]);
 						i--;
 					}
@@ -92,15 +97,19 @@ public class Parser {
 					instructionStacks.instantiateSecondCommandsList(commandsList);
 				} // lots of repeated code to refactor 
 				else { 
-					System.out.println("FIRST list of commands");
 					i--;
 					List<String> tempCommands = new ArrayList<String>();
-					while (! instructionArray[i].matches("\\[")) {
+					int countList = 1;
+					while (countList != 0) { // prev: instructionArray[i].matches("\\[")
+						if (instructionArray[i].matches("\\]")) countList++;
+						if (instructionArray[i].matches("\\[")) countList--;
+						if (countList == 0) break;
 						tempCommands.add(instructionArray[i]);
 						i--;
 					}
 					Collections.reverse(tempCommands); // in correct order
 					commandsList = String.join(" ", tempCommands);
+					System.out.println("first list (of commands or vars): " + commandsList);
 					instructionStacks.instantiateCommandsList(commandsList);
 				}
 			}
@@ -168,13 +177,9 @@ public class Parser {
 		TurtleTree turtles = new TurtleManager();
 		//turtles.addActiveTurtle();
 		//turtles.addActiveTurtle();
-		p.parseInstruction(turtles, "tell [ 2 ]");
-		p.parseInstruction(turtles, "left 270");
-		p.parseInstruction(turtles, "forward 50");
-		//p.parseInstruction(turtles, "ask [ 1 2 ] [ fd 60 ]");
-		p.parseInstruction(turtles, "AskWith [ greater? xcor 40 ] [ fd 40 ]");
-		//p.parseInstruction(turtles, "Ask [ 1 ] [ fd 40 ]"); 
-		//p.parseInstruction(turtles, "fd 40");
+		//p.parseInstruction(turtles, "TO pizza [ :hi 3\n:omg 8 ] [ fd 3\nsum 70 70 ]");
+		p.parseInstruction(turtles, "set :var 4");
+		p.parseInstruction(turtles, "IFELSE 0 [ fd 54\nsum 2 4 ] [ fd 700\nsum 70 70 ]");
 		// repeat 3 [ fd 54\nsum 2 4 ], DOTIMES [ :var 3 ] [ fd :var\nsum :var 4 ],
 		//FOR [ :var 3 5 ] [ fd :var\nsum :var 4 ], IF 0 [ fd 54\nsum 2 4 ]
 		// IFELSE 0 [ fd 54\nsum 2 4 ] [ fd 700\nsum 70 70 ], 
