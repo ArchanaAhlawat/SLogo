@@ -26,6 +26,7 @@ public class Turtle implements TurtleTree {
 	private int stamp;
 	private int[] penColor;
 	private double penSize;
+	private String error;
 	private double turtleCount = 1;
 	protected double turtleID = 1;
 	
@@ -37,27 +38,32 @@ public class Turtle implements TurtleTree {
 		penDown = ONE;
 		turtleVis = ONE;
 		lineCor = new ArrayList<Double>();
+		circleStamps = new ArrayList<Double>();
+		squareStamps = new ArrayList<Double>();
+		triangleStamps = new ArrayList<Double>();
 		penColor = new int[] {0,0,0};//BLACK;
 		penSize = ONE;
 		stamp = 1;
 	}
 
-	@Override
 	public double xDisplacement(double x) {
 		return x-xcor;
 	}
 	
-	@Override
 	public double yDisplacement(double y) {
 		return y-ycor;
 	}
 
-	@Override
 	public double distance(double x, double y) {
 		return Math.pow(Math.pow(xDisplacement(x), 2) + Math.pow(yDisplacement(y), 2), HALF);
 	}
 
-	@Override
+	/**
+	 * calculates the angle from north (up direction, 0 degrees) of the vector (x,y)
+	 * @param x the x coordinate
+	 * @param y the y coordinate
+	 * @return the angle between north (0 degrees) and the vector (x,y)
+	 */
 	public double[] angle(double x, double y) {
 		double xDis = xDisplacement(x);
 		double yDis = yDisplacement(y);
@@ -70,19 +76,32 @@ public class Turtle implements TurtleTree {
 		}
 	}
 
-	@Override
+	/**
+	 * used for the turtle query commands to observe specific parameters of turtle
+	 * @param orientation the string that corresponds to which turtle parameter is wanted
+	 * @return the value of the wanted turtle parameter
+	 */
 	public double[] getAbsoluteOrientation(String orientation) {
+		Field t;
 		try {
-			Field t = Turtle.class.getDeclaredField(orientation);
+			t = Turtle.class.getDeclaredField(orientation);
+			error = null;
 			return new double[] {t.getDouble(this)};
-		}
-		catch (Exception e) {
+		} catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			error = "invalid parameter for getting value";
+			return null;
 		}
-		return null;
+	}
+	
+	public String getError() {
+		return error;
 	}
 
+	public void resetError() {
+		error = null;
+	}
+	
 	@Override
 	public List<Double> getLines() {
 		return lineCor;

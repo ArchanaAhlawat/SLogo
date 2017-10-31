@@ -7,6 +7,10 @@ import java.util.List;
  * @author kelly
  *
  */
+/**
+ * @author kelly
+ *
+ */
 public class Updates {
 	private static final String XCOR = "xcor";
 	private static final String YCOR = "ycor";
@@ -16,8 +20,11 @@ public class Updates {
 	private double xcor, ycor, theta, penDown, turtleVis;
 	private List<Double> lineCor, circleStamps, squareStamps, triangleStamps;
 	private int penColor;
+	private String error;
+	private TurtleTree myTurtle;
 	
-	public Updates(TurtleTree myTurtle) { // ONE TURTLE ONLY
+	public Updates(TurtleTree currentTurtle) { // ONE TURTLE ONLY
+		myTurtle = currentTurtle;
 		xcor = myTurtle.getAbsoluteOrientation(XCOR)[0];
 		System.out.println("updated Turtle xCor from Updates: " + xcor);
 		ycor = myTurtle.getAbsoluteOrientation(YCOR)[0];
@@ -27,6 +34,7 @@ public class Updates {
 		lineCor = myTurtle.getLines();
 		circleStamps = myTurtle.getCircleStamps();
 		penColor = (int) myTurtle.getPenColor();
+		error = myTurtle.getError();
 	}
 	
 	/**
@@ -99,5 +107,15 @@ public class Updates {
 	
 	public int getPenColor() {
 		return penColor;
+	}
+	
+	/**
+	 * should never happen though...
+	 * @return error message for if a illegal parameter is passed
+	 */
+	public String getError() {
+		String errorMessage = new String(error);
+		myTurtle.resetError();
+		return error;
 	}
 }
