@@ -38,6 +38,10 @@ public class DisplayTurtle extends ImageView {
 	}
 
 
+	/**
+	 * initializeTurtle: a helper method that assists in the constructor of the turtle that sets its size, path, and activity
+	 * assumptions: the turtle has already been constructed
+	 */
 	private void initializeTurtle() {
 		this.setX(ORIGIN_X);
 		this.setY(ORIGIN_Y);
@@ -55,7 +59,11 @@ public class DisplayTurtle extends ImageView {
 	}
 	
 
-	
+	/**
+	 * setDefaultImage: sets the default image of the turtle to that specified by DEFAULT_TURTLE_DIRECTORY
+	 * Assumptions: the default turtle directory is valid and has not been altered by the user
+	 * @return
+	 */
 	private Image setDefaultImage() {
 		File file = new File(DEFAULT_TURTLE_DIRECTORY);
         return new Image(file.toURI().toString());

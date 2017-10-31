@@ -1,6 +1,8 @@
 package frontend;
 
 
+import java.lang.reflect.InvocationTargetException;
+
 import controller.Controller;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -63,7 +65,20 @@ public class UserDefinedVariables extends History {
     
     private void handlePopUp(String variable,TextField newValue, Controller myController) {
     	   String newV=newValue.getText().trim();
-    	   myController.setCommand("make :"+variable+" "+newV);
+    	   try {
+			myController.setCommand("make :"+variable+" "+newV);
+		} catch (IllegalAccessException
+				| IllegalArgumentException
+				| InvocationTargetException
+				| NoSuchMethodException
+				| SecurityException
+				| InstantiationException
+				| ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	   curr.setText(variable+": "+newV);
+    	   
     	   
     	
     }

@@ -1,12 +1,12 @@
 package backend;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 public class UserCommands {
-	private Map<String, String> userCommands = new HashMap<String, String>();
+	private Map<String, String> userCommands = new LinkedHashMap<String, String>();
 	private String commandName;
 	
 	public void put(String key, String command) {
@@ -32,7 +32,7 @@ public class UserCommands {
 	public List<String> getUserDefinedCommands() {
 		List<String> toReturn = new ArrayList<String>();
 		for (String varName : userCommands.keySet()) {
-			toReturn.add(varName.substring(1) + ": " + userCommands.get(varName));
+			toReturn.add(varName + ": " + userCommands.get(varName));
 		}
 		return toReturn;
 	}
