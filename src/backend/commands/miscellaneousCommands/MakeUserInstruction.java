@@ -24,7 +24,7 @@ public class MakeUserInstruction extends GeneralCommands {
 		List<String> vars = instructionStacks.getSecondCommandsList();
 		List<String> commands = instructionStacks.getCommandsList();
 		String newCommand = Arrays.toString(vars.toArray()) + " " + Arrays.toString(commands.toArray());
-		UserCommands.put(UserCommands.getTBDefined(), newCommand);
+		instructionStacks.putUserCommands(instructionStacks.getTBDefined(), newCommand);
 		instructionStacks.addDouble(1);
 		// TODO return val is 0 if user defined command can't be defined.
 	}
