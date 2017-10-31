@@ -94,6 +94,7 @@ private static final int BOTTOM_LAYOUT_X = 50;
 		DisplayTurtle firstTurtle = new DisplayTurtle();
 		turtleArea = new Display(firstTurtle, GRID_X1, GRID_Y1, GRID_WIDTH, GRID_HEIGHT);
 		displayTurtleManager = new DisplayTurtleManager(firstTurtle);
+		addActiveListener(firstTurtle);
 		addAllButtons(layout);
 
    
@@ -192,6 +193,9 @@ private static final int BOTTOM_LAYOUT_X = 50;
 		commandValue = myController.setCommand(currentCommand);
 
         displayTurtleManager.updateTurtles(myController.getTurtles(),turtleArea);
+        for(DisplayTurtle newlyAddedDisplayTurtle : displayTurtleManager.getNewlyAddedDisplayTurtles()) {
+        	addActiveListener(newlyAddedDisplayTurtle);
+        }
 
 	}
 	
@@ -219,6 +223,7 @@ private static final int BOTTOM_LAYOUT_X = 50;
 		b1.setOnAction(e -> displayTurtleManager.setImages(b1.chooseTurtleImage(displayTurtleManager.getAnActiveTurtle())));
 		BackgroundPicker b2 = new BackgroundPicker(DEFAULT_TURTLEAREA_COLOR, BUTTON_WIDTH, BUTTON_HEIGHT, turtleArea);
 		PenPicker b3 = new PenPicker(Color.BLACK, BUTTON_WIDTH, BUTTON_HEIGHT, turtlePath);
+		b3.setOnAction(e -> displayTurtleManager.updateTurtlePathColors(b3.getValue()));
 		languageChooser = new LanguageChooser(myResources.getString("Languages"), BUTTON_WIDTH, BUTTON_HEIGHT);
 		languageChooser.getIndex().addListener(
 				(observable, oldIndex, newIndex) -> myController.setParserLanguage(languageChooser.getCurrentLanguage(newIndex)));
@@ -230,11 +235,18 @@ private static final int BOTTOM_LAYOUT_X = 50;
 
 	}
 	
+	private void addActiveListener(DisplayTurtle displayTurtle) {
+		displayTurtle.getActiveProperty().addListener(
+				(observable, isOldActive, isNewActive) -> {
+					if(isNewActive) myController.reactivate(displayTurtle.getID());
+					else myController.deactivate(displayTurtle.getID());
+				}
+		);
+	}
+	
 	public static void main(String[] args) {
 		launch(args);
 	}
-
-
 
 
 }
