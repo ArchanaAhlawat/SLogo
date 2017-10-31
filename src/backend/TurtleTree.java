@@ -142,4 +142,8 @@ public interface TurtleTree {
 	public void deactivateTurtle(double id);
 
 	public List<Turtle> getActiveTurtles();
+
+	public String getError();
+
+	public void resetError();
 }
