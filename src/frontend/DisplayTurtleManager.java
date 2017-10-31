@@ -43,7 +43,7 @@ public class DisplayTurtleManager {
 				oldDisplayTurtle.updateTurtle(updatedXCor, updatedYCor, updatedTheta, updatedTurtleVis,updatedTurtleLines);
 			}
 			else if(!allDisplayTurtles.containsKey(turtleID)){
-				DisplayTurtle newDisplayTurtle = new DisplayTurtle();
+				DisplayTurtle newDisplayTurtle = new DisplayTurtle(turtleID);
 				newDisplayTurtle.updateTurtle(updatedXCor, updatedYCor, updatedTheta, updatedTurtleVis,updatedTurtleLines);
 				newDisplayTurtle.setOnMouseClicked(e -> activate(newDisplayTurtle.getID()));
 				activeDisplayTurtles.put((int)turtle.getActiveTurtleID(),newDisplayTurtle);
