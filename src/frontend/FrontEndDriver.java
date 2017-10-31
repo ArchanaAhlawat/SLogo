@@ -73,7 +73,10 @@ private static final int BOTTOM_LAYOUT_X = 50;
 	private LanguageChooser languageChooser;
 	private double commandValue;
 	private Controller myController;
+	//keep track of user defined variables
 	private int count=0;
+	//keep track of user defined commands
+	private int count2=0;
 	private BackgroundPicker backgroundPicker;
 	private TurtleImageButton turtleImageButton;
 	private PenPicker penPicker;
@@ -112,7 +115,7 @@ private static final int BOTTOM_LAYOUT_X = 50;
 				HISTORY_HEIGHT, displayTurtleManager, returnValue, myController,turtleArea);
 		userDefinedVariables = new UserDefinedVariables(myResources.getString("UserV"), HISTORY_X, UserV_Y, HISTORY_WIDTH,
 				UserV_HEIGHT, displayTurtleManager, returnValue, myController,turtleArea,window);
-		userDefinedCommands = new History(myResources.getString("UserC"), HISTORY_X, UserC_Y, HISTORY_WIDTH,
+		userDefinedCommands = new UserDefinedCommands(myResources.getString("UserC"), HISTORY_X, UserC_Y, HISTORY_WIDTH,
 				UserC_HEIGHT, displayTurtleManager, returnValue, myController,turtleArea);
 		root.getChildren().addAll(layout, layout2,bottomlayout, commandHistory, returnValue, userDefinedVariables,
 				userDefinedCommands, turtleArea);
@@ -185,17 +188,27 @@ private static final int BOTTOM_LAYOUT_X = 50;
 		executeCommandOnly(currentCommand);
 		commandHistory.addHistory(currentCommand);
 		returnValue.addReturnValue(commandValue);
+		List<String> userCommandsList=myController.getUserDefinedCommands();
 		List<String> variablesList=myController.getUserDefinedVars();
-		if (variablesList.size()!=count) {
-			for (int i=count;i<variablesList.size();i++) {
-				String curr=variablesList.get(i);
-				userDefinedVariables.addHistory(curr);
-			}
-			count=variablesList.size();
-		}
-		
+
+		manageUserDefined(variablesList,count,userDefinedVariables);
+		count=variablesList.size();
+		manageUserDefined(userCommandsList,count2,userDefinedCommands);
+		count2=userCommandsList.size();
 		
 
+	}
+	
+	
+	private void manageUserDefined(List<String> list, int c, History history) {
+		if (list.size()!=c) {
+			for (int i=c;i<list.size();i++) {
+				String curr=list.get(i);
+				history.addHistory(curr);
+			}
+			
+		}
+		
 	}
 
 	protected void executeCommandOnly(String currentCommand) {

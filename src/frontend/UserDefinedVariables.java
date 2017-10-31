@@ -64,6 +64,8 @@ public class UserDefinedVariables extends History {
     private void handlePopUp(String variable,TextField newValue, Controller myController) {
     	   String newV=newValue.getText().trim();
     	   myController.setCommand("make :"+variable+" "+newV);
+    	   curr.setText(variable+": "+newV);
+    	   
     	   
     	
     }

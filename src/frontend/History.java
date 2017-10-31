@@ -8,7 +8,7 @@ import javafx.scene.text.Text;
 public class History extends Scroll {
 
 	
-	private static final String EMPTY_STRING = "";
+	protected static final String EMPTY_STRING = "";
 	private DisplayTurtleManager displayTurtleManager;
 	private ReturnValue returnValue;
 	protected Controller myController;
@@ -29,7 +29,7 @@ public class History extends Scroll {
 		
 	}
 	
-	void addHistory(String command) {
+	protected void addHistory(String command) {
 		if(!command.equals(EMPTY_STRING)) {
 			String formattedCommand = formatCommand(command);
 		    
@@ -39,7 +39,7 @@ public class History extends Scroll {
 		}
 	}
 	
-	private void clickable() {
+	protected void clickable() {
 	
 
 		Text curr = super.curr;
