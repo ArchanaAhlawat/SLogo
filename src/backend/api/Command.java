@@ -7,6 +7,12 @@ import backend.TurtleTree;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Stack;
 
+/**
+ * Every command has an execute!
+ * This interface is the very top of our hierarchy
+ * @author kelly
+ *
+ */
 public interface Command {
 
 	/**
@@ -14,7 +20,7 @@ public interface Command {
 	 * @author archana
 	 * 
 	 * executes by running the method associated with the string instruction/method name passed
-	 * @param methodName string of the instruction/method name
+	 * @param instructionStacks Stacks holding the parameters needed to execute instructions
 	 * @param currentTurtle Turtle that will be updated with the change (may not be required)
 	 * @return the double specified to be returned in the SLOGO specification, needed to be inserted into the stack of parameters
 	 * @throws IllegalAccessException 
