@@ -47,7 +47,7 @@ Is the total code generally consistent in its layout, naming conventions and des
 Generally, our code is pretty consistent.  However, there are some issues.  First of all, we don't always use _my_ before the names of specific objects.  Also, there are some classes in the front end that have excessive spaces that identifies its writer because it's so different from all the other pieces of code.  Otherwise, our javadoc comments are fairly descriptive at the same level.
 
 
-### Your Design
+### My Design
 #### High Level Overview
 The Parser sets the language of commands based on user selection, parses through instructions (obtained via back end Driver), using an instance of the Stacks class to store data such as user defined variables, lists, and just normal double numbers.  The Parser also contains the current TurtleTree object, that holds all possible turtles (or only 1).  Then, when a command is identified, Reflection is used to create an object of the concrete command class that is needed, and then the execute method of that concrete command class is run.  This execute method uses the Stacks object and the TurtleTree concrete object to perform the particular command.  The TurtleTree concrete object is always a TurtleManager, even if contains only one turtle.  Stored information in Stacks is used by pushing the appropriate item off a stack.  Each command class updates the double stack in the Stacks class and then the Parser obtains the new double that is the return value.
 
