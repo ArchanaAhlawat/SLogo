@@ -1,3 +1,7 @@
+**SLogo**
+=======
+Simple Logo (SLogo) implementation adapted from Logo, a simple educational programming language, using turtles for animations. This program provides a user-friendly IDE that allows users to input commands to move a turtle, create new turtles, write loops, create functions, perform basic calculations, and other similar functions. The results of these commands are shown directly on the UI. Goals of this project are interpretability, ease-of-use, and flexibility. Functions can be created using any combination of basic building-block commands. Furthermore, new commands can be created on the back-end easily. Further information on the code design is below.
+
 **Design Review**
 =======
 
